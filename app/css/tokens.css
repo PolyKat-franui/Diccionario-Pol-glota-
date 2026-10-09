@@ -1,7 +1,7 @@
 /* ==========================================================
    Franui — tokens de diseño. Cambia colores y fuentes SOLO aquí.
    Paleta de prueba de Francisca: #EAD1D7 #F0B6C6 #F6D2DB #F4F4F6 #AEB6C2
-   (tonos claros → fondos y acentos; tinta y rosa profundo → texto y botones)
+   (tonos tenues → fondos, acentos y botones; tinta y malva oscuro → texto)
    ========================================================== */
 :root {
   /* Tipografía */
@@ -23,19 +23,20 @@
   --tap: 44px;              /* tamaño mínimo táctil */
   --ease: cubic-bezier(.2, .8, .2, 1);
 
-  /* Paleta "Rosa perla" (modo claro) */
+  /* Paleta "Rosa perla" (modo claro) — tonos tenues; texto siempre oscuro */
   --bg: #F4F4F6;
   --surface: #FFFFFF;
-  --surface-2: #F6D2DB;
-  --accent: #F0B6C6;
-  --accent-soft: #EAD1D7;
+  --surface-2: #F3E4E8;
+  --accent: #E8CDD5;
+  --accent-soft: #F2E6EA;
   --line: #AEB6C2;
   --ink: #2A1F2D;
   --ink-soft: #5E5263;
-  --primary: #8E2F55;
-  --on-primary: #FFFFFF;
+  --primary: #EAD1D7;      /* relleno de botones principales (suave) */
+  --on-primary: #2A1F2D;   /* texto sobre --primary */
+  --enfasis: #6E4F5C;      /* malva oscuro: enlaces, bordes activos, corazón */
   --gold: #A07A3C;
-  --shadow: 0 1px 2px rgba(42, 31, 45, .06), 0 12px 40px rgba(142, 47, 85, .10);
+  --shadow: 0 1px 2px rgba(42, 31, 45, .05), 0 12px 40px rgba(110, 79, 92, .08);
 
   /* Dificultad (siempre con texto, nunca solo color) */
   --d-nueva: #5F6673;
@@ -47,34 +48,34 @@
 
 /* Paletas alternativas (Ajustes → Paleta) */
 :root[data-paleta="champagne"] {
-  --surface-2: #F3E6D3; --accent: #E5CBA4; --accent-soft: #EFE2CF;
-  --primary: #7A5A1E; --gold: #8A6A2E;
+  --surface-2: #F3EBDD; --accent: #E6D6BC; --accent-soft: #F1E9DC;
+  --primary: #EBDDC6; --enfasis: #6B5634; --gold: #8A6A2E;
 }
 :root[data-paleta="lavanda"] {
-  --surface-2: #E4DDF3; --accent: #C9B8EC; --accent-soft: #DCD3EE;
-  --primary: #5B3E96; --gold: #7B6A3C;
+  --surface-2: #ECE8F5; --accent: #D6CEEA; --accent-soft: #E9E5F3;
+  --primary: #DCD5EC; --enfasis: #57497A; --gold: #7B6A3C;
 }
 
 /* Modo oscuro */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #141016; --surface: #1F1922; --surface-2: #3A2531; --accent: #F0B6C6;
-    --accent-soft: #4A3340; --line: #5A505F; --ink: #F5EEF2; --ink-soft: #CDBEC6;
-    --primary: #F0B6C6; --on-primary: #2A1F2D; --gold: #D9B77A;
+    --bg: #141016; --surface: #1F1922; --surface-2: #33262D; --accent: #CFAFBA;
+    --accent-soft: #3E2F37; --line: #5A505F; --ink: #F5EEF2; --ink-soft: #CDBEC6;
+    --primary: #D9BFC8; --on-primary: #2A1F2D; --enfasis: #E6CBD4; --gold: #D9B77A;
     --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 12px 40px rgba(0, 0, 0, .45);
     --d-nueva: #B8BEC9; --d-dificil: #FF8C82; --d-media: #F2B45A; --d-facil: #7BD3A0; --d-dominada: #C9A7F5;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #141016; --surface: #1F1922; --surface-2: #3A2531; --accent: #F0B6C6;
-  --accent-soft: #4A3340; --line: #5A505F; --ink: #F5EEF2; --ink-soft: #CDBEC6;
-  --primary: #F0B6C6; --on-primary: #2A1F2D; --gold: #D9B77A;
+  --bg: #141016; --surface: #1F1922; --surface-2: #33262D; --accent: #CFAFBA;
+  --accent-soft: #3E2F37; --line: #5A505F; --ink: #F5EEF2; --ink-soft: #CDBEC6;
+  --primary: #D9BFC8; --on-primary: #2A1F2D; --enfasis: #E6CBD4; --gold: #D9B77A;
   --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 12px 40px rgba(0, 0, 0, .45);
   --d-nueva: #B8BEC9; --d-dificil: #FF8C82; --d-media: #F2B45A; --d-facil: #7BD3A0; --d-dominada: #C9A7F5;
 }
-:root[data-theme="dark"][data-paleta="champagne"] { --primary: #E5CBA4; --surface-2: #3A3022; --accent: #E5CBA4; }
-:root[data-theme="dark"][data-paleta="lavanda"] { --primary: #C9B8EC; --surface-2: #2E2840; --accent: #C9B8EC; }
+:root[data-theme="dark"][data-paleta="champagne"] { --primary: #E3D2B6; --enfasis: #E8D9C0; --surface-2: #362E22; --accent: #D9C6A6; }
+:root[data-theme="dark"][data-paleta="lavanda"] { --primary: #CFC6E6; --enfasis: #D8D0EE; --surface-2: #2B2638; --accent: #BDB2DD; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"])[data-paleta="champagne"] { --primary: #E5CBA4; --surface-2: #3A3022; --accent: #E5CBA4; }
-  :root:not([data-theme="light"])[data-paleta="lavanda"] { --primary: #C9B8EC; --surface-2: #2E2840; --accent: #C9B8EC; }
+  :root:not([data-theme="light"])[data-paleta="champagne"] { --primary: #E3D2B6; --enfasis: #E8D9C0; --surface-2: #362E22; --accent: #D9C6A6; }
+  :root:not([data-theme="light"])[data-paleta="lavanda"] { --primary: #CFC6E6; --enfasis: #D8D0EE; --surface-2: #2B2638; --accent: #BDB2DD; }
 }

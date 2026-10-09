@@ -67,7 +67,7 @@ idioma nativo (tamaño normal), tipo gramatical, ícono de dificultad, corazón,
 botón de audio, IPA como ayuda opcional (pequeña).
 - [PROPUESTA] La traducción aparece **difuminada** y se revela al tocar (recuerdo activo).
 - Riel derecho (estilo reels): corazón, audio y Kitty.
-- [PROPUESTA] El **corazón = favoritos**. El "lo aprendí fácil" es un botón aparte
+- [DECIDIDO 2026-10-09] El **corazón = favoritos**. El "lo aprendí fácil" es un botón aparte
   (✓ "Lo sé"). Deslizar sin marcar = "repasar" → vuelve a salir.
   Motivo: la especificación usaba el corazón para dos cosas a la vez.
 
@@ -93,10 +93,12 @@ Logo: pixel art, gato blanco completo, bigotes blancos, patitas rosadas, collar 
 ## 9. Estética [PROPUESTA]
 Sensación limpia, simple, lujo, estudio corto. Referencias: Apple, Dior, Chanel, Bvlgari.
 Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo ahí).
-- Paleta de prueba de Francisca: `#EAD1D7 #F0B6C6 #F6D2DB #F4F4F6 #AEB6C2`.
-  Esos tonos son claros: se usan para fondos, superficies y acentos. Para texto y
-  botones se agregan tonos oscuros (tinta `#2A1F2D`, rosa profundo `#8E2F55`) para
-  cumplir contraste 4,5:1.
+- [DECIDIDO 2026-10-09] **Texto siempre en tonos oscuros** (tinta `#2A1F2D`) para que se
+  lea bien. **Nada de rosados fuertes**: solo rosados tenues y suaves.
+  - Botón principal: relleno rosa tenue `#EAD1D7` con texto oscuro.
+  - Fondos y acentos: `#F4F4F6`, `#F3E4E8`, `#E8CDD5`, `#F2E6EA`, líneas `#AEB6C2`.
+  - Énfasis (enlaces, bordes activos, corazón): malva oscuro apagado `#6E4F5C`.
+  - Descartado: rosa profundo `#8E2F55` y `#F0B6C6` como color fuerte (demasiado intensos).
 - Tipografía: títulos y palabra de la tarjeta en **Cormorant Garamond** (serif de
   lujo); cuerpo, IPA y botones en **Noto Sans** (acentos y símbolos IPA).
 - Dificultad: nueva `#5F6673`, difícil `#B3261E`, media `#8A5300`, fácil `#2E7D4F`,
@@ -105,7 +107,9 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
 - Tres formatos: celular, tablet, computador. Modo claro y oscuro.
 
 ## 10. Pantallas de la app
-Inicio/cuenta (Entrar, Crear cuenta con usuario + contraseña ≥ 6, Google, Invitado) ·
+Inicio/cuenta (Entrar, Crear cuenta con usuario + contraseña ≥ 6, Google, Invitado) —
+[DECIDIDO 2026-10-09] se pide **antes de estudiar**, solo la primera vez; la sesión queda
+guardada y no se vuelve a pedir ·
 ¿Qué avance conservo? (cuenta vs navegador, con tokens/ejercicios/racha) ·
 Barra superior (secciones, racha, tokens, perfil, idioma nativo, configuración) ·
 Idiomas → Temas (+ dificultad) → Feed de tarjetas · Favoritos · Ranking (racha;
@@ -127,5 +131,4 @@ apartado de la creadora, novedades. Transiciones inspiradas en Apple/Dior/Chanel
 
 ## 13. Preguntas abiertas
 Confirmar paleta y fuentes · Proveedor de IA de Kitty y costo · Dónde vive la cuenta
-(propuesta: Supabase) · Corazón = favoritos (confirmar) · ¿Cuenta antes o después de la
-primera sesión? · Nombre final.
+(propuesta: Supabase) · Nombre final.

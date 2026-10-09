@@ -21,12 +21,14 @@ const oscuro = { ...claro, ...bloque(':root[data-theme="dark"] {') };
 const paletas = {
   champagne: { ...claro, ...bloque(':root[data-paleta="champagne"]') },
   lavanda: { ...claro, ...bloque(':root[data-paleta="lavanda"]') },
+  'champagne oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="champagne"]') },
+  'lavanda oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="lavanda"]') },
 };
 
 for (const [nombre, p] of Object.entries({ claro, oscuro, ...paletas })) {
   test(`contraste ≥ 4,5:1 — ${nombre}`, () => {
     const pares = [['ink', 'bg'], ['ink', 'surface'], ['ink', 'surface-2'], ['ink-soft', 'bg'], ['ink-soft', 'surface'],
-      ['on-primary', 'primary'], ['primary', 'surface'],
+      ['on-primary', 'primary'], ['enfasis', 'surface'], ['enfasis', 'bg'], ['ink', 'accent-soft'],
       ...['d-nueva', 'd-dificil', 'd-media', 'd-facil', 'd-dominada'].map((d) => [d, 'surface'])];
     for (const [a, b] of pares) {
       const c = contraste(p[a], p[b]);

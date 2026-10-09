@@ -180,9 +180,8 @@ lujo + sans legible, movimientos suaves con curva de aceleración, respeto de
 
 ## 13. Ruta de la app (recomendaciones)
 
-1. **Pedir la cuenta después de la primera sesión, no antes.** Hoy la pantalla de inicio va
-   primero (como pide la especificación), pero las apps con menos pasos al inicio
-   retienen más. Propuesta: "Continuar sin cuenta" → primera sesión → "Guarda tu racha: crea tu cuenta".
+1. **Cuenta antes de estudiar** (decidido 2026-10-09): se pide solo la primera vez y la
+   sesión queda guardada. Mantener ese paso lo más corto posible: "Continuar sin cuenta" visible.
 2. **Botón "Continuar"** en la portada: un toque y vuelves a tu último tema.
 3. **Meta diaria Kaizen:** elegir 1, 3 o 5 minutos al día; la patita se llena al cumplirla.
 4. **Mini prueba de nivel** (5 tarjetas) para saltar lo que ya sabes.

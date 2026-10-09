@@ -129,7 +129,10 @@ try {
 
   await page.reload();
   await page.waitForFunction((n) => document.querySelector('#chip-tokens span:last-child')?.textContent === String(n), finTokens);
-  paso('Recargar la página: el progreso no se pierde');
+  assert.ok(!page.url().includes('#/inicio'), 'la cuenta solo se pide la primera vez');
+  await page.goto(URL_APP);
+  await page.waitForURL(/#\/aprender/);
+  paso('Recargar la página: el progreso no se pierde y no se vuelve a pedir la cuenta');
 
   await page.goto(`${URL_APP}#/favoritos`);
   await page.locator('.fila-fav').first().waitFor();

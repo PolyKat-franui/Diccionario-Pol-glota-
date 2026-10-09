@@ -38,10 +38,10 @@ const KITTY_COLORS = {
   O: '#4A3B4F', // contorno
   W: '#FFFFFF', // pelaje
   S: '#E4DCE6', // sombra suave
-  P: '#F0B6C6', // patitas y orejas
+  P: '#EFC8D3', // patitas y orejas (rosa tenue)
   E: '#2A1F2D', // ojos
   H: '#FFFFFF', // brillo del ojo
-  N: '#E37C9C', // nariz
+  N: '#D99AAE', // nariz
   M: '#4A3B4F', // boca
   K: '#FFFFFF', // bigotes
   L: '#FBF3EA', // perla
@@ -64,7 +64,7 @@ const PAW = [
   '...WWW.WWW...',
   '.............',
 ];
-const PAW_COLORS = { W: '#FFFFFF', P: '#F0B6C6', O: '#B4466E' };
+const PAW_COLORS = { W: '#FFFFFF', P: '#EBC3CF', O: '#A97D8D' };
 
 function addOutline(grid, fill = 'O') {
   const g = grid.map((r) => r.split(''));
@@ -100,7 +100,7 @@ function toSvg(grid, colors, { title, background } = {}) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" shape-rendering="crispEdges" role="img" aria-label="${title}"><title>${title}</title>${bg}<g transform="translate(${ox} ${oy})">${rects.join('')}</g></svg>\n`;
 }
 
-writeFileSync(join(OUT, 'kitty.svg'), toSvg(KITTY, KITTY_COLORS, { title: 'Kitty', background: '#F6D2DB' }));
+writeFileSync(join(OUT, 'kitty.svg'), toSvg(KITTY, KITTY_COLORS, { title: 'Kitty', background: '#F3E2E7' }));
 writeFileSync(join(OUT, 'kitty-sola.svg'), toSvg(KITTY, KITTY_COLORS, { title: 'Kitty' }));
 writeFileSync(join(OUT, 'patita.svg'), toSvg(addOutline(PAW), PAW_COLORS, { title: 'Racha' }));
 console.log('✓ app/assets/kitty.svg, kitty-sola.svg, patita.svg');
