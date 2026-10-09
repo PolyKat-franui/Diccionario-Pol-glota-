@@ -9,7 +9,7 @@ Creadora: **Francisca Ignacia Sanhueza Flores** (Universidad de Chile).
 ## Probarla
 
 ```bash
-npm start          # abre http://localhost:5173
+npm start          # web: http://localhost:5173/   ·   app: http://localhost:5173/app/
 ```
 
 No necesita instalar nada más (solo Node 20 o superior). La app es HTML, CSS y JavaScript sin dependencias.
@@ -18,7 +18,7 @@ No necesita instalar nada más (solo Node 20 o superior). La app es HTML, CSS y 
 
 ```bash
 npm test                                   # lógica, banco, textos, contraste
-NODE_PATH=$(npm root -g) npm run test:e2e  # recorrido completo en Chromium (necesita Playwright)
+NODE_PATH=$(npm root -g) npm run test:e2e  # recorrido completo de la app y la web en Chromium (necesita Playwright)
 ```
 
 ## Qué hay
@@ -35,7 +35,8 @@ NODE_PATH=$(npm root -g) npm run test:e2e  # recorrido completo en Chromium (nec
 ## Estructura
 
 ```
-app/                 la app (se publica tal cual)
+web/                 página web promocional (se publica en /)
+app/                 la app (se publica en /app/)
   css/tokens.css     colores, fuentes y tamaños (cambiar la estética aquí)
   js/                lógica (srs, sesion, store) e interfaz (main)
   data/              idiomas, novedades y banco en JSON (generado)
@@ -49,4 +50,5 @@ docs/RECOMENDACIONES.md   recomendaciones de la IA (guardado, traducción, legal
 
 ## Publicar
 
-Cualquier hosting estático sirve (GitHub Pages, Netlify, Cloudflare Pages): publica la carpeta `app/`.
+`npm run dist` arma la carpeta `dist/` (web en `/`, app en `/app/`). Cualquier hosting estático
+sirve: GitHub Pages, Netlify o Cloudflare Pages.

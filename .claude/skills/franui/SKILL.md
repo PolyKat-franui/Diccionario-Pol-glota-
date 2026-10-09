@@ -119,9 +119,29 @@ palabras nuevas = después) · Novedades (compartidas con la web) · Configuraci
 (brillo, paleta, tamaño de letra, tema claro/oscuro/sistema, perfil, Kitty, favoritos,
 sugerencias, tutorial, cosméticos, apoyar, legal).
 
-## 11. Página web
-Promociona la app con la misma estética: uso, trayectoria, alcance, objetivo,
-apartado de la creadora, novedades. Transiciones inspiradas en Apple/Dior/Chanel.
+## 11. Página web [HECHA v0.2 — 2026-10-09]
+`web/` (se publica en `/`; la app va en `/app/`). Usa los mismos tokens, logo, `idiomas.json`
+y `novedades.json` que la app. Secciones: portada (título + "Hola" que cambia de idioma +
+teléfono con tarjetas reales), cifras tipo tablero de aeropuerto, manifiesto que se enciende
+al hacer scroll, método, cómo funciona, idiomas, Kitty, creadora, novedades + "lo que viene",
+llamado final y pie legal ("en preparación"). Kitty responde preguntas frecuentes.
+- Pendiente de Francisca: foto (`web/img/francisca.jpg`) y 2–3 líneas propias para "La creadora".
+- Sin cifras inventadas ni testimonios falsos (ver docs/RECOMENDACIONES.md §8).
+
+## 11b. Kitty 2.0 [PRÓXIMO BLOQUE — pedido 2026-10-09, "para después"]
+Referencias que mandó Francisca (no se guardan en el repo: tienen derechos de autor):
+gatitos kawaii de cabeza redonda tipo "mochi" con orejas puntiagudas, gato pixel art blanco
+sentado de frente (simple, contorno oscuro, mejillas rosadas), gato blanco acostado,
+patitas pixel art simples y moneda pixel art dorada con brillo.
+- **Rediseñar a Kitty** en pixel art mezclando esas ideas: gata blanca, contorno oscuro
+  (Old Burgundy), mejillas y patitas Dusty Pink, collar de perlas, más redonda y tierna.
+- **Expresiones** (íconos de cara, mismo tamaño): feliz, muy feliz (ojos ^^), guiño,
+  sorprendida (!?), confundida (??), mareada (ojos espiral), enamorada (corazón), llorando,
+  enojada (nubecita), con sueño (Zzz), avergonzada (sonrojo), orgullosa (lentes de sol),
+  pensando, celebrando (destellos). Usos: respuestas de Kitty, fin de sesión, rachas, errores.
+- **Patita** mucho más simple: 1 almohadilla grande + 3 dedos, blanca con rosa y contorno grueso.
+- **Moneda de Kitty tokens** en pixel art: dorada (Sand/Camel + brillo) con la patita
+  dentro; opcional animación de giro al ganar tokens.
 
 ## 12. Reglas de trabajo [DECIDIDO]
 - Hablar en español, texto corto y fácil de leer en el celular.
