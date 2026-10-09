@@ -1,0 +1,314 @@
+id	texto	ipa	estado	fuente
+en0026	la cuenta		borrador	ia
+en0076	el aeropuerto		borrador	ia
+en0115	Ana, te presento a Ben.		borrador	ia
+en0118	¿Y tú?		borrador	ia
+en0131	la respuesta / responder		borrador	ia
+en0152	la app		borrador	ia
+en0157	la manzana		borrador	ia
+en0172	¿Estás ocupado el sábado?		borrador	ia
+en0173	¿Estás libre mañana?		borrador	ia
+en0176	el código de área		borrador	ia
+en0223	el archivo adjunto		borrador	ia
+en0315	la batería		borrador	ia
+en0322	la playa		borrador	ia
+en0360	Ben, ella es Ana.		borrador	ia
+en0406	el bloqueo		borrador	ia
+en0473	el pan		borrador	ia
+en0477	el desayuno		borrador	ia
+en0501	el navegador		borrador	ia
+en0523	el bus		borrador	ia
+en0531	ocupado		borrador	ia
+en0555	Chao.		borrador	ia
+en0570	llamar / la llamada		borrador	ia
+en0572	devolver la llamada		borrador	ia
+en0575	Llámame Ana.		borrador	ia
+en0588	¿Puedo llevar a un amigo?		borrador	ia
+en0589	¿Puedo llevar algo?		borrador	ia
+en0594	¿Me das tu correo electrónico?		borrador	ia
+en0597	¿Puedo dejar un mensaje?		borrador	ia
+en0601	¿Puedo hablar con Ben, por favor?		borrador	ia
+en0606	¿Podemos cambiar la hora?		borrador	ia
+en0607	¿Podemos vernos otro día?		borrador	ia
+en0632	el auto		borrador	ia
+en0681	el celular		borrador	ia
+en0711	la carga / cargar		borrador	ia
+en0712	el cargador		borrador	ia
+en0717	chatear / el chat		borrador	ia
+en0735	el queso		borrador	ia
+en0747	el pollo		borrador	ia
+en0829	el café		borrador	ia
+en0856	el comentario / comentar		borrador	ia
+en0894	el contacto / contactar		borrador	ia
+en0895	los contactos		borrador	ia
+en0943	¿Podría pedir una cita para el lunes?		borrador	ia
+en0947	¿Podría pedirle que me devuelva la llamada?		borrador	ia
+en0956	¿Podría hablar más despacio, por favor?		borrador	ia
+en0957	¿Podría hablar más fuerte, por favor?		borrador	ia
+en0958	¿Podría deletrearlo, por favor?		borrador	ia
+en1100	borrar		borrador	ia
+en1102	delicioso		borrador	ia
+en1134	marcar		borrador	ia
+en1156	la cena		borrador	ia
+en1212	¿Tienes tiempo libre el martes?		borrador	ia
+en1222	¿Hablas inglés?		borrador	ia
+en1225	¿Quieres venir a mi fiesta?		borrador	ia
+en1226	¿Quieres ir a comer algo?		borrador	ia
+en1227	¿Quieres ir a tomar un café?		borrador	ia
+en1232	¿Te parece bien?		borrador	ia
+en1242	no te preocupes		borrador	ia
+en1255	la descarga / descargar		borrador	ia
+en1316	los audífonos		borrador	ia
+en1341	el huevo		borrador	ia
+en1374	el correo electrónico / enviar un correo		borrador	ia
+en1380	el emoji		borrador	ia
+en1392	ocupado (línea)		borrador	ia
+en1455	Disculpe.		borrador	ia
+en1632	seguir		borrador	ia
+en1660	adelante		borrador	ia
+en1687	el amigo		borrador	ia
+en1809	buenas tardes		borrador	ia
+en1810	Buenas tardes.		borrador	ia
+en1811	Buenas noches.		borrador	ia
+en1814	buenos días		borrador	ia
+en1815	Buenos días.		borrador	ia
+en1816	Buenas noches.		borrador	ia
+en1818	adiós		borrador	ia
+en1819	Adiós.		borrador	ia
+en1856	el saludo		borrador	ia
+en1867	el chat grupal		borrador	ia
+en1921	colgar		borrador	ia
+en1939	Que tengas un buen fin de semana.		borrador	ia
+en1940	Que tengas un buen día.		borrador	ia
+en1947	¿Conoces a Ben?		borrador	ia
+en1950	Él no está disponible en este momento.		borrador	ia
+en1957	los auriculares		borrador	ia
+en1972	hola		borrador	ia
+en1974	Hola, habla Ana.		borrador	ia
+en1975	Hola, ¿quién habla?		borrador	ia
+en1976	Hola.		borrador	ia
+en1979	Sírvete.		borrador	ia
+en1996	oye		borrador	ia
+en1997	hola		borrador	ia
+en1998	¡Hola!		borrador	ia
+en2000	Hola.		borrador	ia
+en2028	Espere un momento, por favor.		borrador	ia
+en2043	¡hurra!		borrador	ia
+en2060	el hotel		borrador	ia
+en2066	¿Cómo te va?		borrador	ia
+en2067	¿Cómo estás?		borrador	ia
+en2071	¿Cómo se escribe tu nombre?		borrador	ia
+en2097	¿Cuántos años tienes?		borrador	ia
+en2100	¿Qué tal?		borrador	ia
+en2120	No te escucho.		borrador	ia
+en2121	No puedo ir.		borrador	ia
+en2122	Vengo de Chile.		borrador	ia
+en2126	no entiendo		borrador	ia
+en2147	Tengo una cita a las tres.		borrador	ia
+en2151	No tengo señal.		borrador	ia
+en2152	Tengo que cancelar.		borrador	ia
+en2153	Tengo dos hermanos.		borrador	ia
+en2157	Me gusta la música.		borrador	ia
+en2158	Vivo en Santiago.		borrador	ia
+en2165	Perdí tu llamada.		borrador	ia
+en2173	Toco el violín.		borrador	ia
+en2175	Hablo español y un poco de inglés.		borrador	ia
+en2177	Estudio ingeniería.		borrador	ia
+en2183	Nací en Chile.		borrador	ia
+en2188	Trabajo en un banco.		borrador	ia
+en2204	Me gustaría invitarte a cenar.		borrador	ia
+en2207	Quisiera pedir una cita.		borrador	ia
+en2215	¡Me encantaría!		borrador	ia
+en2216	Me encantaría, pero no puedo.		borrador	ia
+en2218	Estaré ahí a las ocho.		borrador	ia
+en2219	Te llamo más tarde.		borrador	ia
+en2222	Te aviso.		borrador	ia
+en2223	Le comunico.		borrador	ia
+en2224	Nos vemos ahí.		borrador	ia
+en2229	Te escribo.		borrador	ia
+en2230	Soy estudiante.		borrador	ia
+en2232	Soy hijo único.		borrador	ia
+en2233	Soy Ana.		borrador	ia
+en2234	Estoy ocupado este fin de semana.		borrador	ia
+en2235	Llamo por el trabajo.		borrador	ia
+en2236	Soy chileno.		borrador	ia
+en2239	Estoy bien, gracias.		borrador	ia
+en2240	Estoy libre el viernes.		borrador	ia
+en2241	Soy de Chile.		borrador	ia
+en2242	Estoy bien, gracias.		borrador	ia
+en2243	Voy a hacer una fiesta el sábado.		borrador	ia
+en2248	Estoy aprendiendo inglés.		borrador	ia
+en2258	Voy en camino.		borrador	ia
+en2263	Estudio en la universidad.		borrador	ia
+en2265	Tengo veinte años.		borrador	ia
+en2317	la bandeja de entrada		borrador	ia
+en2363	internet		borrador	ia
+en2413	Fue un gusto conocerte.		borrador	ia
+en2416	Es un placer conocerte.		borrador	ia
+en2492	el jugo		borrador	ia
+en2519	la llave		borrador	ia
+en2559	el teléfono fijo		borrador	ia
+en2598	izquierda		borrador	ia
+en2613	Déjame revisar mi agenda.		borrador	ia
+en2614	Permítame presentarme.		borrador	ia
+en2615	Te presento a mi amigo.		borrador	ia
+en2617	Avísame cuando llegues.		borrador	ia
+en2619	Salgamos esta noche.		borrador	ia
+en2620	Vamos juntos.		borrador	ia
+en2623	Nos vemos a las seis.		borrador	ia
+en2624	Nos vemos frente al cine.		borrador	ia
+en2647	gustar / como		borrador	ia
+en2654	la línea		borrador	ia
+en2655	vincular / el enlace		borrador	ia
+en2685	iniciar sesión		borrador	ia
+en2686	cerrar sesión		borrador	ia
+en2693	¡Tanto tiempo!		borrador	ia
+en2743	Estás en tu casa.		borrador	ia
+en2786	Quizás otro día.		borrador	ia
+en2813	el mensaje		borrador	ia
+en2823	el micrófono		borrador	ia
+en2833	la leche		borrador	ia
+en2848	la llamada perdida		borrador	ia
+en2854	el teléfono móvil		borrador	ia
+en2860	el lunes		borrador	ia
+en2908	el museo		borrador	ia
+en2916	silenciar		borrador	ia
+en2920	Me estoy quedando sin batería.		borrador	ia
+en2921	Mi inglés no es muy bueno.		borrador	ia
+en2924	Me llamo Ana.		borrador	ia
+en2925	Mi número es 555 0134.		borrador	ia
+en2976	Fue un gusto hablar contigo.		borrador	ia
+en2977	Igualmente, mucho gusto.		borrador	ia
+en2978	Mucho gusto.		borrador	ia
+en2979	Qué gusto verte.		borrador	ia
+en2994	no		borrador	ia
+en2996	no hay problema		borrador	ia
+en2997	No hay problema.		borrador	ia
+en3018	Nada mal.		borrador	ia
+en3027	la notificación		borrador	ia
+en3032	ahora		borrador	ia
+en3041	de acuerdo		borrador	ia
+en3060	desconectado		borrador	ia
+en3062	oh		borrador	ia
+en3063	¡ay, no!		borrador	ia
+en3065	de acuerdo		borrador	ia
+en3066	está bien		borrador	ia
+en3086	uno		borrador	ia
+en3089	en línea		borrador	ia
+en3205	la contraseña		borrador	ia
+en3269	el teléfono / llamar		borrador	ia
+en3270	la llamada telefónica		borrador	ia
+en3271	el número de teléfono		borrador	ia
+en3281	contestar (el teléfono)		borrador	ia
+en3320	por favor		borrador	ia
+en3321	Por favor, ven.		borrador	ia
+en3324	Encantado de conocerte.		borrador	ia
+en3379	publicar / la publicación		borrador	ia
+en3408	Bastante bien.		borrador	ia
+en3432	el perfil		borrador	ia
+en3538	recibir		borrador	ia
+en3567	los saludos		borrador	ia
+en3593	la respuesta / responder		borrador	ia
+en3624	el arroz		borrador	ia
+en3630	derecha		borrador	ia
+en3632	el timbre / sonar		borrador	ia
+en3635	el tono de llamada		borrador	ia
+en3660	la habitación		borrador	ia
+en3757	la pantalla		borrador	ia
+en3766	la búsqueda / buscar		borrador	ia
+en3782	nos vemos		borrador	ia
+en3785	Hasta luego.		borrador	ia
+en3786	Hasta pronto.		borrador	ia
+en3787	Hasta mañana.		borrador	ia
+en3795	enviar		borrador	ia
+en3833	compartir		borrador	ia
+en3892	registrarse		borrador	ia
+en3893	la señal / señalar		borrador	ia
+en3961	el smartphone		borrador	ia
+en3982	más o menos		borrador	ia
+en3988	las redes sociales		borrador	ia
+en4019	Perdón, ¿puedes repetirlo?		borrador	ia
+en4020	Lo siento, no puedo ir.		borrador	ia
+en4021	Perdón, no te entendí.		borrador	ia
+en4022	Perdón, se me olvidó.		borrador	ia
+en4024	Perdón, número equivocado.		borrador	ia
+en4025	Perdón.		borrador	ia
+en4027	Me parece bien.		borrador	ia
+en4052	hablar		borrador	ia
+en4054	Sí, soy yo.		borrador	ia
+en4150	la calle		borrador	ia
+en4170	el asunto		borrador	ia
+en4183	el azúcar		borrador	ia
+en4237	apagar		borrador	ia
+en4259	Cuídate.		borrador	ia
+en4273	Hablamos pronto.		borrador	ia
+en4288	el té		borrador	ia
+en4298	el teléfono		borrador	ia
+en4303	diez		borrador	ia
+en4319	el mensaje de texto / escribir un mensaje		borrador	ia
+en4320	responder el mensaje		borrador	ia
+en4321	el mensaje de texto		borrador	ia
+en4326	agradecer		borrador	ia
+en4327	gracias		borrador	ia
+en4328	Gracias por invitarme.		borrador	ia
+en4329	Gracias.		borrador	ia
+en4330	gracias		borrador	ia
+en4331	Muchas gracias.		borrador	ia
+en4332	Gracias por una noche increíble.		borrador	ia
+en4333	Gracias por llamar.		borrador	ia
+en4334	Gracias por venir.		borrador	ia
+en4339	Me viene bien.		borrador	ia
+en4344	Muy amable de tu parte.		borrador	ia
+en4354	Se escucha mal.		borrador	ia
+en4401	Él es mi amigo, Ben.		borrador	ia
+en4409	tres		borrador	ia
+en4421	el boleto		borrador	ia
+en4445	hoy		borrador	ia
+en4453	mañana		borrador	ia
+en4495	el tren		borrador	ia
+en4545	apagar		borrador	ia
+en4547	encender		borrador	ia
+en4564	dos		borrador	ia
+en4622	la carga (de archivos)		borrador	ia
+en4636	el nombre de usuario		borrador	ia
+en4664	la videollamada		borrador	ia
+en4682	el mensaje de voz		borrador	ia
+en4683	el buzón de voz		borrador	ia
+en4685	el volumen		borrador	ia
+en4726	el agua		borrador	ia
+en4753	el sitio web		borrador	ia
+en4756	la semana		borrador	ia
+en4764	la bienvenida / dar la bienvenida		borrador	ia
+en4765	Bienvenido a mi casa.		borrador	ia
+en4779	¿Y tú?		borrador	ia
+en4781	¿Qué haces esta noche?		borrador	ia
+en4783	¿Cuáles son tus pasatiempos?		borrador	ia
+en4784	¿Qué planes tienes para el fin de semana?		borrador	ia
+en4786	¿A qué te dedicas?		borrador	ia
+en4787	¿Qué haces?		borrador	ia
+en4788	¿Qué te gusta hacer?		borrador	ia
+en4791	¿Qué significa eso?		borrador	ia
+en4794	¿Cómo te llamo?		borrador	ia
+en4805	¿A qué hora te viene bien?		borrador	ia
+en4806	¿qué hora es?		borrador	ia
+en4810	¿A qué hora nos vemos?		borrador	ia
+en4822	¿Cómo te llamas?		borrador	ia
+en4823	¿Cuál es tu número de teléfono?		borrador	ia
+en4838	¿De dónde eres?		borrador	ia
+en4848	¿Dónde vives?		borrador	ia
+en4862	¿Dónde nos vemos?		borrador	ia
+en4885	¿Por qué no vamos al cine?		borrador	ia
+en4888	el wifi		borrador	ia
+en4903	el vino		borrador	ia
+en4947	¿Quieres algo de tomar?		borrador	ia
+en4948	¿Quieres venir con nosotros?		borrador	ia
+en4949	¿Quieres almorzar conmigo?		borrador	ia
+en4952	¡guau!		borrador	ia
+en4968	sí		borrador	ia
+en4971	sí		borrador	ia
+en4972	ayer		borrador	ia
+en4980	¿sabes?		borrador	ia
+en4984	Se corta la llamada.		borrador	ia
+en4985	Estás invitado.		borrador	ia
+en4986	de nada		borrador	ia
+en4987	De nada.		borrador	ia
