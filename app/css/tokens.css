@@ -1,0 +1,80 @@
+/* ==========================================================
+   Franui — tokens de diseño. Cambia colores y fuentes SOLO aquí.
+   Paleta de prueba de Francisca: #EAD1D7 #F0B6C6 #F6D2DB #F4F4F6 #AEB6C2
+   (tonos claros → fondos y acentos; tinta y rosa profundo → texto y botones)
+   ========================================================== */
+:root {
+  /* Tipografía */
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body: 'Noto Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --escala: 1;              /* ajuste "tamaño de letra" */
+  --fs-xs: calc(13px * var(--escala));
+  --fs-sm: calc(14px * var(--escala));
+  --fs-md: calc(16px * var(--escala));
+  --fs-lg: calc(20px * var(--escala));
+  --fs-xl: calc(28px * var(--escala));
+  --fs-word: calc(clamp(42px, 11vw, 68px) * var(--escala));
+
+  /* Espacios, radios, sombras */
+  --r-sm: 10px;
+  --r-md: 18px;
+  --r-lg: 28px;
+  --r-pill: 999px;
+  --tap: 44px;              /* tamaño mínimo táctil */
+  --ease: cubic-bezier(.2, .8, .2, 1);
+
+  /* Paleta "Rosa perla" (modo claro) */
+  --bg: #F4F4F6;
+  --surface: #FFFFFF;
+  --surface-2: #F6D2DB;
+  --accent: #F0B6C6;
+  --accent-soft: #EAD1D7;
+  --line: #AEB6C2;
+  --ink: #2A1F2D;
+  --ink-soft: #5E5263;
+  --primary: #8E2F55;
+  --on-primary: #FFFFFF;
+  --gold: #A07A3C;
+  --shadow: 0 1px 2px rgba(42, 31, 45, .06), 0 12px 40px rgba(142, 47, 85, .10);
+
+  /* Dificultad (siempre con texto, nunca solo color) */
+  --d-nueva: #5F6673;
+  --d-dificil: #B3261E;
+  --d-media: #8A5300;
+  --d-facil: #2E7D4F;
+  --d-dominada: #6B3FA0;
+}
+
+/* Paletas alternativas (Ajustes → Paleta) */
+:root[data-paleta="champagne"] {
+  --surface-2: #F3E6D3; --accent: #E5CBA4; --accent-soft: #EFE2CF;
+  --primary: #7A5A1E; --gold: #8A6A2E;
+}
+:root[data-paleta="lavanda"] {
+  --surface-2: #E4DDF3; --accent: #C9B8EC; --accent-soft: #DCD3EE;
+  --primary: #5B3E96; --gold: #7B6A3C;
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141016; --surface: #1F1922; --surface-2: #3A2531; --accent: #F0B6C6;
+    --accent-soft: #4A3340; --line: #5A505F; --ink: #F5EEF2; --ink-soft: #CDBEC6;
+    --primary: #F0B6C6; --on-primary: #2A1F2D; --gold: #D9B77A;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 12px 40px rgba(0, 0, 0, .45);
+    --d-nueva: #B8BEC9; --d-dificil: #FF8C82; --d-media: #F2B45A; --d-facil: #7BD3A0; --d-dominada: #C9A7F5;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141016; --surface: #1F1922; --surface-2: #3A2531; --accent: #F0B6C6;
+  --accent-soft: #4A3340; --line: #5A505F; --ink: #F5EEF2; --ink-soft: #CDBEC6;
+  --primary: #F0B6C6; --on-primary: #2A1F2D; --gold: #D9B77A;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 12px 40px rgba(0, 0, 0, .45);
+  --d-nueva: #B8BEC9; --d-dificil: #FF8C82; --d-media: #F2B45A; --d-facil: #7BD3A0; --d-dominada: #C9A7F5;
+}
+:root[data-theme="dark"][data-paleta="champagne"] { --primary: #E5CBA4; --surface-2: #3A3022; --accent: #E5CBA4; }
+:root[data-theme="dark"][data-paleta="lavanda"] { --primary: #C9B8EC; --surface-2: #2E2840; --accent: #C9B8EC; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-paleta="champagne"] { --primary: #E5CBA4; --surface-2: #3A3022; --accent: #E5CBA4; }
+  :root:not([data-theme="light"])[data-paleta="lavanda"] { --primary: #C9B8EC; --surface-2: #2E2840; --accent: #C9B8EC; }
+}

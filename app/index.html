@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Franui</title>
+  <meta name="description" content="Aprende el vocabulario y las frases cotidianas de varios idiomas a la vez, deslizando tarjetas.">
+  <meta name="theme-color" content="#F4F4F6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141016" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/kitty.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <a class="saltar" href="#vista">Ir al contenido</a>
+
+  <header class="barra" id="barra" hidden>
+    <a class="marca" href="#/aprender" aria-label="Franui">
+      <img src="assets/kitty-sola.svg" alt="" width="34" height="34"><span>Franui</span>
+    </a>
+    <nav class="nav-sup" id="nav-sup" aria-label="Secciones"></nav>
+    <div class="barra-der">
+      <a class="chip chip-racha" href="#/ranking" id="chip-racha"><img src="assets/patita.svg" alt="" width="22" height="22"><span></span></a>
+      <span class="chip chip-tokens" id="chip-tokens"><span class="moneda" aria-hidden="true">K</span><span></span></span>
+      <label class="sel-nativo">
+        <span class="sr-only" id="lbl-nativo"></span>
+        <select id="sel-nativo" aria-labelledby="lbl-nativo"></select>
+      </label>
+      <a class="avatar" href="#/ajustes" id="avatar"></a>
+      <a class="icon-btn" href="#/ajustes" id="btn-ajustes"></a>
+    </div>
+  </header>
+
+  <main id="vista" tabindex="-1"></main>
+
+  <nav class="tabbar" id="tabbar" aria-label="Secciones" hidden></nav>
+
+  <button class="kitty-fab" id="kitty-fab" type="button" hidden>
+    <img src="assets/kitty.svg" alt="" width="56" height="56">
+  </button>
+
+  <dialog class="kitty-panel" id="kitty-panel" aria-labelledby="kitty-titulo">
+    <header>
+      <img src="assets/kitty.svg" alt="" width="44" height="44">
+      <div><h2 id="kitty-titulo">Kitty</h2><p class="suave" id="kitty-modo"></p></div>
+      <button class="icon-btn" type="button" id="kitty-cerrar"></button>
+    </header>
+    <div class="kitty-msgs" id="kitty-msgs" aria-live="polite"></div>
+    <div class="kitty-rapidas" id="kitty-rapidas"></div>
+    <form class="kitty-form" id="kitty-form">
+      <input id="kitty-input" autocomplete="off" maxlength="120">
+      <button class="icon-btn primario" type="submit" id="kitty-enviar"></button>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="modal" aria-labelledby="modal-titulo">
+    <h2 id="modal-titulo"></h2>
+    <div id="modal-cuerpo"></div>
+    <form method="dialog"><button class="btn" id="modal-cerrar"></button></form>
+  </dialog>
+
+  <div class="brillo" id="capa-brillo" aria-hidden="true"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>Franui necesita JavaScript.</noscript>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
