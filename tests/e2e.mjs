@@ -12,7 +12,7 @@ const CAPTURAS = process.argv[2] || 'capturas-e2e';
 mkdirSync(CAPTURAS, { recursive: true });
 
 const PUERTO = 5199;
-const URL_APP = `http://localhost:${PUERTO}/`;
+const URL_APP = `http://localhost:${PUERTO}/app/`;
 const server = await servir(PUERTO);
 const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
 const errores = [];

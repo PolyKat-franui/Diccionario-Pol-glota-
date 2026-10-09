@@ -2,6 +2,16 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.2.0",
+      "fecha": "2026-10-09",
+      "titulo": "Nueva identidad y página web",
+      "cambios": [
+        "Paleta Creme, Sand, Dusty Pink y Burgundy; tipografía Bodoni Moda y Jost.",
+        "Paletas Crema, Taupe y Arena en Ajustes, en modo claro y oscuro.",
+        "Página web de Franui: método, cómo funciona, idiomas, Kitty, creadora y novedades."
+      ]
+    },
+    {
       "version": "0.1.0",
       "fecha": "2026-10-09",
       "titulo": "Primera versión de prueba",
@@ -11,7 +21,7 @@
         "Kitty tokens, racha diaria con la patita de Kitty y palabras favoritas.",
         "6 idiomas: inglés, español, portugués, francés, italiano y alemán.",
         "Banco de 5.000 palabras y frases en inglés; «Conversación y vida social» traducido (borrador).",
-        "Modo claro y oscuro, 3 paletas, tamaño de letra y brillo."
+        "Modo claro y oscuro, paletas de color, tamaño de letra y brillo."
       ]
     }
   ]
