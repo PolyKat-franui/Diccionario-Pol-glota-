@@ -1,6 +1,7 @@
 // Franui — interfaz. Rutas con # (funciona en cualquier hosting estático, p. ej. GitHub Pages).
 import { t, tn, setIdiomaUI, tMega, tTipo, nombreIdioma, IDIOMAS_UI, MEGA_TEMAS } from './i18n.js';
 import * as store from './store.js';
+import { PALETAS } from './store.js';
 import { dificultad } from './srs.js';
 import { armarSesion, practicaLibre, ordenar, grupoDificultad, bloques, bloqueActual, REINSERTAR_EN, MAX_REPETICIONES } from './sesion.js';
 import * as banco from './banco.js';
@@ -709,7 +710,7 @@ function vistaAjustes() {
         </div>
         <p class="etiqueta" id="lbl-paleta">${t('aj_paleta')}</p>
         <div class="paletas" role="radiogroup" aria-labelledby="lbl-paleta">
-          ${['rosa', 'champagne', 'lavanda'].map((p) => `<button type="button" role="radio" aria-checked="${p === a.paleta}" data-paleta="${p}"><i class="muestra muestra-${p}" aria-hidden="true"></i>${t('pal_' + p)}</button>`).join('')}
+          ${PALETAS.map((p) => `<button type="button" role="radio" aria-checked="${p === a.paleta}" data-paleta="${p}"><i class="muestra muestra-${p}" aria-hidden="true"></i>${t('pal_' + p)}</button>`).join('')}
         </div>
         <label class="campo"><span>${t('aj_letra')} · <output id="o-escala">${Math.round(a.escala * 100)}%</output></span>
           <input type="range" id="aj-escala" min="0.9" max="1.3" step="0.05" value="${a.escala}"></label>

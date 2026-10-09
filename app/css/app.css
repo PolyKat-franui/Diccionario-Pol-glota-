@@ -33,8 +33,8 @@ p { margin: 0; }
 .saltar:focus { top: 12px; }
 
 /* ---------- Tipografía ---------- */
-.display { font-family: var(--font-display); font-weight: 600; font-size: calc(clamp(34px, 6vw, 56px) * var(--escala)); line-height: 1.05; letter-spacing: -0.01em; }
-.sobretitulo, .etiqueta { font-size: var(--fs-xs); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
+.display { font-family: var(--font-display); font-weight: 400; font-size: calc(clamp(32px, 5.6vw, 54px) * var(--escala)); line-height: 1.08; letter-spacing: -0.015em; font-optical-sizing: auto; }
+.sobretitulo, .etiqueta { font-size: var(--fs-xs); letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
 .suave { color: var(--ink-soft); }
 .pequeno { font-size: var(--fs-sm); }
 .centro { text-align: center; }
@@ -73,8 +73,8 @@ p { margin: 0; }
 }
 .moneda {
   display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #F7E3B5, var(--gold)); color: #2A1F2D;
-  font-family: var(--font-display); font-weight: 600; font-size: 14px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.15);
+  background: radial-gradient(circle at 35% 30%, #F6EDE2, var(--sand)); color: #493036;
+  font-family: var(--font-display); font-weight: 400; font-size: 14px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.15);
 }
 
 .card { background: var(--surface); border-radius: var(--r-lg); padding: 24px; box-shadow: var(--shadow); display: grid; gap: 16px; }
@@ -117,7 +117,7 @@ input[type=range] { accent-color: var(--enfasis); width: 100%; min-height: var(-
   backdrop-filter: saturate(1.4) blur(18px); -webkit-backdrop-filter: saturate(1.4) blur(18px);
   border-bottom: 1px solid color-mix(in srgb, var(--line) 35%, transparent);
 }
-.marca { display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: var(--font-display); font-size: 26px; font-weight: 600; letter-spacing: .02em; min-height: var(--tap); }
+.marca { display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: var(--font-display); font-size: 24px; font-weight: 500; letter-spacing: .04em; min-height: var(--tap); }
 .nav-sup { display: none; gap: 4px; margin: 0 auto; }
 .nav-sup a { display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 14px; text-decoration: none; font-size: var(--fs-xs); letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); position: relative; }
 .nav-sup a svg { display: none; }
@@ -125,7 +125,7 @@ input[type=range] { accent-color: var(--enfasis); width: 100%; min-height: var(-
 .nav-sup a[aria-current], .nav-sup a:hover { color: var(--ink); }
 .barra-der { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .sel-nativo select { min-height: 36px; padding: 0 6px 0 10px; border-radius: var(--r-pill); width: auto; font-size: var(--fs-sm); font-weight: 600; }
-.avatar { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); color: var(--ink); text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 18px; flex: none; }
+.avatar { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); color: var(--ink); text-decoration: none; font-family: var(--font-display); font-weight: 400; font-size: 18px; flex: none; }
 .avatar svg { width: 20px; height: 20px; }
 
 /* ---------- Pestañas inferiores (celular y tablet) ---------- */
@@ -185,11 +185,11 @@ main { outline: none; }
 }
 .idioma:hover:not(.pronto) { transform: translateY(-3px); }
 .idioma-txt { display: grid; flex: 1; min-width: 0; }
-.idioma-txt strong { font-size: var(--fs-lg); font-family: var(--font-display); font-weight: 600; }
+.idioma-txt strong { font-size: var(--fs-lg); font-family: var(--font-display); font-weight: 400; }
 .idioma-txt small { color: var(--ink-soft); }
 .monograma {
   display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; flex: none;
-  background: var(--surface-2); color: var(--ink); font-family: var(--font-display); font-weight: 600; font-size: 20px; letter-spacing: .06em;
+  background: var(--surface-2); color: var(--ink); font-family: var(--font-display); font-weight: 400; font-size: 20px; letter-spacing: .06em;
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold) 45%, transparent);
 }
 .monograma.pequeno { width: 28px; height: 28px; font-size: 12px; }
@@ -260,8 +260,8 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 .tarjeta-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
 .tipo { color: var(--ink-soft); font-size: var(--fs-xs); letter-spacing: .14em; text-transform: uppercase; }
 .tarjeta-centro { display: grid; align-content: center; justify-items: center; gap: 14px; text-align: center; padding: 0 52px; min-height: 0; }
-.palabra { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-word); line-height: 1.05; overflow-wrap: anywhere; animation: aparecer .6s var(--ease) both; }
-.ipa { color: var(--ink-soft); font-size: var(--fs-sm); letter-spacing: .02em; }
+.palabra { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; font-size: var(--fs-word); line-height: 1.05; overflow-wrap: anywhere; animation: aparecer .6s var(--ease) both; }
+.ipa { color: var(--ink-soft); font-size: var(--fs-sm); letter-spacing: .02em; font-family: var(--font-ipa); }
 .revelar {
   position: relative; width: 100%; max-width: 360px; min-height: 64px; padding: 12px 16px; border-radius: 18px; cursor: pointer;
   border: 1px dashed var(--line); background: transparent; display: grid; place-items: center;
@@ -288,7 +288,7 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 .tarjeta-acciones .btn { min-height: 56px; }
 .hint-deslizar { text-align: center; font-size: var(--fs-xs); color: var(--ink-soft); display: flex; gap: 6px; justify-content: center; }
 .hint-deslizar span { animation: subir 1.6s ease-in-out infinite; }
-.flotante { position: absolute; left: 50%; top: 38%; font-family: var(--font-display); font-weight: 600; font-size: 34px; color: var(--gold); pointer-events: none; animation: flotarSube .9s var(--ease) forwards; }
+.flotante { position: absolute; left: 50%; top: 38%; font-family: var(--font-display); font-weight: 400; font-size: 34px; color: var(--gold); pointer-events: none; animation: flotarSube .9s var(--ease) forwards; }
 
 .nivel {
   display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 0 12px 0 8px; border-radius: var(--r-pill);
@@ -340,9 +340,9 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 }
 .paletas [aria-checked="true"] { border: 2px solid var(--enfasis); font-weight: 600; }
 .muestra { width: 28px; height: 28px; border-radius: 50%; }
-.muestra-rosa { background: conic-gradient(#EAD1D7 0 33%, #F3E4E8 0 66%, #6E4F5C 0); }
-.muestra-champagne { background: conic-gradient(#EBDDC6 0 33%, #F3EBDD 0 66%, #6B5634 0); }
-.muestra-lavanda { background: conic-gradient(#DCD5EC 0 33%, #ECE8F5 0 66%, #57497A 0); }
+.muestra-creme { background: conic-gradient(#EEE4DA 0 33%, #C8A49F 0 66%, #4D0E13 0); }
+.muestra-taupe { background: conic-gradient(#C0B7B0 0 33%, #7E615F 0 66%, #493036 0); }
+.muestra-arena { background: conic-gradient(#EEE4DA 0 33%, #D8C4AC 0 66%, #6F5E53 0); }
 .lista-enlaces { padding: 6px 0; gap: 0; }
 .lista-enlaces > * {
   display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 54px; padding: 0 24px;

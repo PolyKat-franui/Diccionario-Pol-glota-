@@ -35,17 +35,17 @@ const KITTY = [
 ];
 
 const KITTY_COLORS = {
-  O: '#4A3B4F', // contorno
+  O: '#493036', // contorno (Old Burgundy)
   W: '#FFFFFF', // pelaje
-  S: '#E4DCE6', // sombra suave
-  P: '#EFC8D3', // patitas y orejas (rosa tenue)
-  E: '#2A1F2D', // ojos
+  S: '#E6DCD6', // sombra suave
+  P: '#DDBDB8', // patitas y orejas (Dusty Pink suave)
+  E: '#2B1418', // ojos
   H: '#FFFFFF', // brillo del ojo
-  N: '#D99AAE', // nariz
-  M: '#4A3B4F', // boca
+  N: '#B9827C', // nariz
+  M: '#493036', // boca
   K: '#FFFFFF', // bigotes
   L: '#FBF3EA', // perla
-  G: '#B9A9B2', // perla en sombra
+  G: '#B5A79F', // perla en sombra
 };
 
 // Patita de racha (rosa y blanco). El contorno se calcula solo.
@@ -64,7 +64,7 @@ const PAW = [
   '...WWW.WWW...',
   '.............',
 ];
-const PAW_COLORS = { W: '#FFFFFF', P: '#EBC3CF', O: '#A97D8D' };
+const PAW_COLORS = { W: '#FFFFFF', P: '#D9B3AD', O: '#7E615F' };
 
 function addOutline(grid, fill = 'O') {
   const g = grid.map((r) => r.split(''));
@@ -100,7 +100,7 @@ function toSvg(grid, colors, { title, background } = {}) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" shape-rendering="crispEdges" role="img" aria-label="${title}"><title>${title}</title>${bg}<g transform="translate(${ox} ${oy})">${rects.join('')}</g></svg>\n`;
 }
 
-writeFileSync(join(OUT, 'kitty.svg'), toSvg(KITTY, KITTY_COLORS, { title: 'Kitty', background: '#F3E2E7' }));
+writeFileSync(join(OUT, 'kitty.svg'), toSvg(KITTY, KITTY_COLORS, { title: 'Kitty', background: '#EEE4DA' }));
 writeFileSync(join(OUT, 'kitty-sola.svg'), toSvg(KITTY, KITTY_COLORS, { title: 'Kitty' }));
 writeFileSync(join(OUT, 'patita.svg'), toSvg(addOutline(PAW), PAW_COLORS, { title: 'Racha' }));
 console.log('✓ app/assets/kitty.svg, kitty-sola.svg, patita.svg');

@@ -6,11 +6,13 @@ export const CLAVE = 'franui:v1';
 export const TOKENS_POR_TARJETA = 1;
 export const TOKENS_POR_SESION = 5;
 
+export const PALETAS = ['creme', 'taupe', 'arena'];
+
 export function estadoInicial() {
   return {
     version: 1,
     perfil: { nombre: '', cuenta: null, elegido: false }, // cuenta: null = sin cuenta (invitado)
-    ajustes: { nativo: null, tema: 'sistema', paleta: 'rosa', escala: 1, brillo: 1, ipa: true },
+    ajustes: { nativo: null, tema: 'sistema', paleta: 'creme', escala: 1, brillo: 1, ipa: true },
     aprendiendo: null,
     tokens: 0,
     ejercicios: 0,
@@ -27,11 +29,13 @@ export function estadoInicial() {
 export function normalizar(data) {
   const base = estadoInicial();
   if (!data || typeof data !== 'object') return base;
+  const ajustes = { ...base.ajustes, ...data.ajustes };
+  if (!PALETAS.includes(ajustes.paleta)) ajustes.paleta = base.ajustes.paleta; // paletas antiguas → la actual
   return {
     ...base,
     ...data,
     perfil: { ...base.perfil, ...data.perfil },
-    ajustes: { ...base.ajustes, ...data.ajustes },
+    ajustes,
     racha: { ...base.racha, ...data.racha },
   };
 }

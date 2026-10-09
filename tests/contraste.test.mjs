@@ -19,16 +19,16 @@ export const contraste = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q)
 const claro = bloque(':root {');
 const oscuro = { ...claro, ...bloque(':root[data-theme="dark"] {') };
 const paletas = {
-  champagne: { ...claro, ...bloque(':root[data-paleta="champagne"]') },
-  lavanda: { ...claro, ...bloque(':root[data-paleta="lavanda"]') },
-  'champagne oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="champagne"]') },
-  'lavanda oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="lavanda"]') },
+  taupe: { ...claro, ...bloque(':root[data-paleta="taupe"]') },
+  arena: { ...claro, ...bloque(':root[data-paleta="arena"]') },
+  'taupe oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="taupe"]') },
+  'arena oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="arena"]') },
 };
 
 for (const [nombre, p] of Object.entries({ claro, oscuro, ...paletas })) {
   test(`contraste ≥ 4,5:1 — ${nombre}`, () => {
     const pares = [['ink', 'bg'], ['ink', 'surface'], ['ink', 'surface-2'], ['ink-soft', 'bg'], ['ink-soft', 'surface'],
-      ['on-primary', 'primary'], ['enfasis', 'surface'], ['enfasis', 'bg'], ['ink', 'accent-soft'],
+      ['on-primary', 'primary'], ['enfasis', 'surface'], ['enfasis', 'bg'], ['ink', 'accent-soft'], ['gold', 'surface'], ['ink-soft', 'surface-2'],
       ...['d-nueva', 'd-dificil', 'd-media', 'd-facil', 'd-dominada'].map((d) => [d, 'surface'])];
     for (const [a, b] of pares) {
       const c = contraste(p[a], p[b]);

@@ -90,20 +90,22 @@ guardada en un servidor propio (nunca en el navegador). Ver `docs/RECOMENDACIONE
 Logo: pixel art, gato blanco completo, bigotes blancos, patitas rosadas, collar de perlas
 (`app/assets/kitty.svg`, generado por `scripts/kitty.mjs`).
 
-## 9. Estética [PROPUESTA]
-Sensación limpia, simple, lujo, estudio corto. Referencias: Apple, Dior, Chanel, Bvlgari.
+## 9. Estética [DECIDIDO 2026-10-09]
+Sensación limpia, simple, lujo "old money", estudio corto. Referencias: Apple, Dior, Chanel, Bvlgari.
 Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo ahí).
-- [DECIDIDO 2026-10-09] **Texto siempre en tonos oscuros** (tinta `#2A1F2D`) para que se
-  lea bien. **Nada de rosados fuertes**: solo rosados tenues y suaves.
-  - Botón principal: relleno rosa tenue `#EAD1D7` con texto oscuro.
-  - Fondos y acentos: `#F4F4F6`, `#F3E4E8`, `#E8CDD5`, `#F2E6EA`, líneas `#AEB6C2`.
-  - Énfasis (enlaces, bordes activos, corazón): malva oscuro apagado `#6E4F5C`.
-  - Descartado: rosa profundo `#8E2F55` y `#F0B6C6` como color fuerte (demasiado intensos).
-- Tipografía: títulos y palabra de la tarjeta en **Cormorant Garamond** (serif de
-  lujo); cuerpo, IPA y botones en **Noto Sans** (acentos y símbolos IPA).
-- Dificultad: nueva `#5F6673`, difícil `#B3261E`, media `#8A5300`, fácil `#2E7D4F`,
-  dominada `#6B3FA0` (oscuro: versiones más claras).
-- Accesibilidad: contraste ≥ 4,5:1, botones ≥ 44 px, nunca solo color.
+- **Paleta de Francisca:** Creme `#EEE4DA` · Sand `#D8C4AC` · Dusty Pink `#C8A49F` ·
+  Burgundy `#4D0E13` · Deep Taupe `#7E615F` · Rose Ebony `#634649` · Old Burgundy `#493036` ·
+  Boy Red `#6F5E53` · Black Shadows `#C0B7B0`.
+  - Texto: Old Burgundy; texto secundario: Boy Red. **Texto siempre oscuro.**
+  - Botón principal: Burgundy con letras Creme. Fondos Creme; detalles Dusty Pink y Sand.
+  - Paletas en Ajustes: Crema (por defecto), Taupe, Arena. Modo oscuro con los mismos tonos.
+  - Descartados: rosados fuertes (#F0B6C6, #8E2F55) y la paleta rosa/lavanda anterior.
+- **Tipografía:** títulos y palabra de la tarjeta en **Bodoni Moda** (serif de alto contraste,
+  estilo moda); texto en **Jost** (sans geométrica fina); IPA en Noto Sans. Etiquetas en
+  mayúsculas con mucho espaciado.
+- Dificultad: nueva `#6F5E53`, difícil `#8E1B24`, media `#87561F`, fácil `#3F5B40`,
+  dominada `#4B3A6B` (oscuro: versiones más claras).
+- Accesibilidad: contraste ≥ 4,5:1 (prueba automática), botones ≥ 44 px, nunca solo color.
 - Tres formatos: celular, tablet, computador. Modo claro y oscuro.
 
 ## 10. Pantallas de la app
