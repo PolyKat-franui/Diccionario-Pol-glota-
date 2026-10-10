@@ -784,14 +784,18 @@ function vistaAjustes() {
   function abrirCosmeticos() {
     modal(t('aj_cosmeticos'), `<p>${t('aj_cos_texto')}</p><p class="chip"><img class="moneda" src="assets/moneda.svg" alt="" width="24" height="24">${S.tokens}</p>`);
   }
+  // Confirmación dentro de la app (sin confirm(): no funciona en todos los navegadores ni en vistas incrustadas)
   $('#aj-borrar').addEventListener('click', () => {
-    if (!confirm(t('aj_borrar_confirmar'))) return;
-    const ajustes = S.ajustes;
-    S = store.estadoInicial();
-    S.ajustes = ajustes;
-    S.perfil.elegido = true;
-    guardarYa();
-    router();
+    modal(t('aj_borrar'), `<p>${t('aj_borrar_confirmar')}</p><button class="btn peligro ancho" type="button" id="aj-borrar-si">${t('aj_borrar')}</button>`);
+    $('#aj-borrar-si').addEventListener('click', () => {
+      $('#modal').close();
+      const ajustes = S.ajustes;
+      S = store.estadoInicial();
+      S.ajustes = ajustes;
+      S.perfil.elegido = true;
+      guardarYa();
+      router();
+    });
   });
 }
 

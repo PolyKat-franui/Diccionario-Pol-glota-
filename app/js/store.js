@@ -40,19 +40,22 @@ export function normalizar(data) {
   };
 }
 
-export function cargar(storage = globalThis.localStorage) {
+// Leer localStorage puede lanzar un error (modo privado, vistas incrustadas): se lee dentro del try.
+const almacen = () => globalThis.localStorage;
+
+export function cargar(storage) {
   try {
-    const raw = storage?.getItem(CLAVE);
+    const raw = (storage ?? almacen())?.getItem(CLAVE);
     return normalizar(raw ? JSON.parse(raw) : null);
   } catch {
     return estadoInicial();
   }
 }
 
-export function guardar(estado, storage = globalThis.localStorage, ahora = Date.now()) {
+export function guardar(estado, storage, ahora = Date.now()) {
   estado.actualizado = ahora;
   try {
-    storage?.setItem(CLAVE, JSON.stringify(estado));
+    (storage ?? almacen())?.setItem(CLAVE, JSON.stringify(estado));
     return true;
   } catch {
     return false; // modo privado o almacenamiento lleno: la app sigue funcionando

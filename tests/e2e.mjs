@@ -218,6 +218,14 @@ try {
   await page.locator('.idioma[data-code=es]').click();
   await page.locator('.mega', { hasText: 'Conversation & social life' }).waitFor();
   paso('Idioma nativo inglés: interfaz en inglés y se aprende español');
+
+  // Borrar progreso: se confirma dentro de la app (no con confirm(), que algunos navegadores bloquean)
+  await page.goto(`${URL_APP}#/ajustes`);
+  assert.ok((await tokens(page)) > 0);
+  await page.locator('#aj-borrar').click();
+  await page.locator('#modal #aj-borrar-si').click();
+  await page.waitForFunction(() => document.querySelector('#chip-tokens span:last-child').innerText === '0');
+  paso('Borrar progreso con confirmación dentro de la app');
   await ctx.close();
 
   // ---------------- Tablet y computador ----------------
