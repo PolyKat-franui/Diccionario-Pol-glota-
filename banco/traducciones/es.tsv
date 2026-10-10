@@ -1,43 +1,69 @@
 id	texto	ipa	estado	fuente
 en0008	Una mesa para dos, por favor.		borrador	ia
+en0022	el alojamiento		borrador	ia
 en0026	la cuenta		borrador	ia
+en0040	la dirección		borrador	ia
+en0073	el aire acondicionado		borrador	ia
+en0074	el aire acondicionado		borrador	ia
 en0076	el aeropuerto		borrador	ia
+en0078	la alarma		borrador	ia
+en0079	el despertador		borrador	ia
 en0088	alérgico		borrador	ia
 en0089	la alergia		borrador	ia
 en0115	Ana, te presento a Ben.		borrador	ia
 en0118	¿Y tú?		borrador	ia
 en0131	la respuesta / responder		borrador	ia
+en0135	antiguo / la antigüedad		borrador	ia
+en0147	el apartamento		borrador	ia
 en0152	la app		borrador	ia
 en0155	el apetito		borrador	ia
 en0156	la entrada		borrador	ia
 en0157	la manzana		borrador	ia
 en0162	el albaricoque		borrador	ia
 en0164	el delantal		borrador	ia
+en0171	¿Las cuentas están incluidas?		borrador	ia
 en0172	¿Estás ocupado el sábado?		borrador	ia
 en0173	¿Estás libre mañana?		borrador	ia
 en0176	el código de área		borrador	ia
+en0183	el sillón		borrador	ia
 en0194	la alcachofa		borrador	ia
 en0204	el espárrago		borrador	ia
 en0223	el archivo adjunto		borrador	ia
+en0228	el ático		borrador	ia
 en0233	la berenjena		borrador	ia
 en0245	el aguacate		borrador	ia
+en0250	el hacha		borrador	ia
 en0259	el tocino		borrador	ia
 en0269	la baguette		borrador	ia
 en0270	hornear		borrador	ia
 en0271	el panadero		borrador	ia
 en0272	la panadería		borrador	ia
+en0274	el balcón		borrador	ia
 en0279	el plátano		borrador	ia
 en0288	el bar		borrador	ia
 en0289	la parrillada / asar a la parrilla		borrador	ia
+en0299	el sótano		borrador	ia
 en0301	la albahaca		borrador	ia
+en0302	el lavabo		borrador	ia
+en0303	la canasta		borrador	ia
+en0309	el baño / bañarse		borrador	ia
+en0311	la alfombra de baño		borrador	ia
+en0312	la bata de baño		borrador	ia
+en0313	el baño		borrador	ia
+en0314	la bañera		borrador	ia
 en0315	la batería		borrador	ia
 en0322	la playa		borrador	ia
 en0324	el frijol		borrador	ia
 en0326	los frijoles		borrador	ia
+en0335	la cama		borrador	ia
+en0337	el dormitorio		borrador	ia
+en0338	la mesita de noche		borrador	ia
 en0340	la carne de res		borrador	ia
 en0341	la cerveza		borrador	ia
 en0343	la remolacha		borrador	ia
+en0355	la campana		borrador	ia
 en0360	Ben, ella es Ana.		borrador	ia
+en0361	el banco		borrador	ia
 en0375	la cuenta		borrador	ia
 en0377	el basurero		borrador	ia
 en0385	la torta de cumpleaños		borrador	ia
@@ -45,15 +71,21 @@ en0386	la galleta		borrador	ia
 en0389	amargo		borrador	ia
 en0393	la mora		borrador	ia
 en0396	insípido		borrador	ia
+en0398	la manta		borrador	ia
 en0402	la licuadora		borrador	ia
+en0403	ciego		borrador	ia
+en0404	las persianas		borrador	ia
 en0406	el bloqueo		borrador	ia
 en0417	el arándano		borrador	ia
 en0424	hervir		borrador	ia
 en0425	hervido		borrador	ia
 en0426	el huevo cocido		borrador	ia
+en0430	el perno		borrador	ia
 en0432	el hueso		borrador	ia
 en0433	el libro / reservar		borrador	ia
+en0434	el librero		borrador	ia
 en0435	la reserva		borrador	ia
+en0437	el estante para libros		borrador	ia
 en0451	la botella		borrador	ia
 en0453	la botella de leche		borrador	ia
 en0454	el destapador		borrador	ia
@@ -65,14 +97,22 @@ en0477	el desayuno		borrador	ia
 en0492	el brócoli		borrador	ia
 en0501	el navegador		borrador	ia
 en0502	el brunch		borrador	ia
+en0503	el cepillo / cepillar		borrador	ia
+en0505	el baño de burbujas		borrador	ia
+en0506	el balde		borrador	ia
+en0510	construir		borrador	ia
+en0513	la bombilla		borrador	ia
 en0516	el bollo		borrador	ia
 en0517	el racimo		borrador	ia
+en0518	la litera		borrador	ia
 en0519	la hamburguesa		borrador	ia
 en0523	el bus		borrador	ia
 en0531	ocupado		borrador	ia
 en0535	la mantequilla		borrador	ia
 en0555	Chao.		borrador	ia
 en0557	el repollo		borrador	ia
+en0559	el gabinete		borrador	ia
+en0560	el cable		borrador	ia
 en0562	la cafetería		borrador	ia
 en0563	la cafetería		borrador	ia
 en0564	el café		borrador	ia
@@ -80,6 +120,7 @@ en0566	la torta		borrador	ia
 en0570	llamar / la llamada		borrador	ia
 en0572	devolver la llamada		borrador	ia
 en0575	Llámame Ana.		borrador	ia
+en0579	la cámara		borrador	ia
 en0584	poder / la lata		borrador	ia
 en0588	¿Puedo llevar a un amigo?		borrador	ia
 en0589	¿Puedo llevar algo?		borrador	ia
@@ -92,18 +133,26 @@ en0605	el abrelatas		borrador	ia
 en0606	¿Podemos cambiar la hora?		borrador	ia
 en0607	¿Podemos vernos otro día?		borrador	ia
 en0609	¿Podemos dividir la cuenta?		borrador	ia
+en0621	la vela		borrador	ia
 en0622	el dulce		borrador	ia
 en0625	el comedor		borrador	ia
 en0630	el capuchino		borrador	ia
 en0632	el auto		borrador	ia
 en0636	el caramelo		borrador	ia
+en0648	la alfombra		borrador	ia
 en0649	la zanahoria		borrador	ia
 en0654	el cartón		borrador	ia
 en0669	la coliflor		borrador	ia
+en0676	el techo		borrador	ia
 en0680	el apio		borrador	ia
 en0681	el celular		borrador	ia
+en0682	la bodega		borrador	ia
+en0685	el cemento		borrador	ia
+en0690	la calefacción central		borrador	ia
 en0694	el cereal		borrador	ia
+en0699	la silla		borrador	ia
 en0702	el champán		borrador	ia
+en0708	el canal		borrador	ia
 en0711	la carga / cargar		borrador	ia
 en0712	el cargador		borrador	ia
 en0717	chatear / el chat		borrador	ia
@@ -113,10 +162,12 @@ en0735	el queso		borrador	ia
 en0736	el sándwich de queso		borrador	ia
 en0738	el chef		borrador	ia
 en0742	la cereza		borrador	ia
+en0745	la cómoda		borrador	ia
 en0746	el chicle		borrador	ia
 en0747	el pollo		borrador	ia
 en0748	los garbanzos		borrador	ia
 en0755	el chile		borrador	ia
+en0756	la chimenea		borrador	ia
 en0760	la papa frita		borrador	ia
 en0761	las papas fritas		borrador	ia
 en0762	el chocolate		borrador	ia
@@ -125,16 +176,24 @@ en0768	la tabla de cortar		borrador	ia
 en0769	los palillos		borrador	ia
 en0773	la sidra		borrador	ia
 en0776	la canela		borrador	ia
+en0792	limpio / limpiar		borrador	ia
 en0795	levantar la mesa		borrador	ia
+en0806	el reloj		borrador	ia
 en0815	empalagoso		borrador	ia
+en0823	el perchero		borrador	ia
 en0826	el cóctel		borrador	ia
 en0827	el coco		borrador	ia
 en0828	el bacalao		borrador	ia
 en0829	el café		borrador	ia
+en0830	la cafetera		borrador	ia
+en0831	la mesa de centro		borrador	ia
 en0833	la cola		borrador	ia
 en0834	frío / el resfriado		borrador	ia
+en0847	el peine / peinar		borrador	ia
 en0856	el comentario / comentar		borrador	ia
+en0873	la computadora		borrador	ia
 en0877	la leche condensada		borrador	ia
+en0879	el acondicionador		borrador	ia
 en0894	el contacto / contactar		borrador	ia
 en0895	los contactos		borrador	ia
 en0905	el cocinero / cocinar		borrador	ia
@@ -145,22 +204,33 @@ en0909	la cocina		borrador	ia
 en0915	central / el corazón		borrador	ia
 en0916	el sacacorchos		borrador	ia
 en0917	el maíz		borrador	ia
+en0922	el pasillo		borrador	ia
+en0928	la cuna		borrador	ia
+en0929	la casa de campo		borrador	ia
 en0930	el requesón		borrador	ia
+en0932	el algodón		borrador	ia
+en0933	el sofá		borrador	ia
+en0936	¿Me prestas un poco de azúcar?		borrador	ia
 en0942	¿Me puede traer la ensalada sin cebolla?		borrador	ia
 en0943	¿Podría pedir una cita para el lunes?		borrador	ia
 en0944	¿Nos trae más pan, por favor?		borrador	ia
 en0945	¿Nos trae la cuenta, por favor?		borrador	ia
 en0946	¿Podemos ver la carta, por favor?		borrador	ia
 en0947	¿Podría pedirle que me devuelva la llamada?		borrador	ia
+en0951	¿Puedes arreglarlo, por favor?		borrador	ia
+en0954	¿Puedes abrir la puerta, por favor?		borrador	ia
 en0956	¿Podría hablar más despacio, por favor?		borrador	ia
 en0957	¿Podría hablar más fuerte, por favor?		borrador	ia
 en0958	¿Podría deletrearlo, por favor?		borrador	ia
+en0963	¿Puedes apagar la luz, por favor?		borrador	ia
+en0964	¿Puedes bajar la música, por favor?		borrador	ia
 en0968	la encimera		borrador	ia
 en0973	el calabacín		borrador	ia
 en0979	la vaca		borrador	ia
 en0981	el cangrejo		borrador	ia
 en0985	color crema / la crema		borrador	ia
 en0986	la torta de crema		borrador	ia
+en0995	la cuna		borrador	ia
 en1001	el cruasán		borrador	ia
 en1015	la miga		borrador	ia
 en1017	la corteza		borrador	ia
@@ -170,6 +240,8 @@ en1026	el armario		borrador	ia
 en1027	el cupcake		borrador	ia
 en1033	la grosella		borrador	ia
 en1038	el curry		borrador	ia
+en1039	la cortina		borrador	ia
+en1042	el cojín		borrador	ia
 en1043	las natillas		borrador	ia
 en1047	cortar / el corte		borrador	ia
 en1050	los cubiertos		borrador	ia
@@ -178,28 +250,52 @@ en1060	los lácteos		borrador	ia
 en1074	la fecha / el dátil		borrador	ia
 en1100	borrar		borrador	ia
 en1102	delicioso		borrador	ia
+en1110	el desodorante		borrador	ia
+en1125	el escritorio		borrador	ia
 en1126	el postre		borrador	ia
 en1134	marcar		borrador	ia
+en1138	la agenda		borrador	ia
 en1142	la dieta		borrador	ia
+en1150	digital		borrador	ia
+en1154	el comedor		borrador	ia
+en1155	la mesa del comedor		borrador	ia
 en1156	la cena		borrador	ia
+en1164	la suciedad		borrador	ia
+en1165	sucio		borrador	ia
 en1183	el plato		borrador	ia
 en1184	el lavavajillas		borrador	ia
 en1209	¿Tiene una mesa para cuatro?		borrador	ia
 en1212	¿Tienes tiempo libre el martes?		borrador	ia
+en1220	¿Vives solo?		borrador	ia
 en1222	¿Hablas inglés?		borrador	ia
 en1225	¿Quieres venir a mi fiesta?		borrador	ia
 en1226	¿Quieres ir a comer algo?		borrador	ia
 en1227	¿Quieres ir a tomar un café?		borrador	ia
 en1232	¿Te parece bien?		borrador	ia
+en1237	la muñeca		borrador	ia
 en1242	no te preocupes		borrador	ia
+en1245	la puerta		borrador	ia
+en1246	el timbre		borrador	ia
 en1252	la masa		borrador	ia
 en1253	la dona		borrador	ia
 en1255	la descarga / descargar		borrador	ia
+en1256	abajo		borrador	ia
 en1258	la docena de huevos		borrador	ia
+en1262	el desagüe		borrador	ia
 en1265	el cajón		borrador	ia
+en1266	los cajones		borrador	ia
+en1268	el sueño / soñar		borrador	ia
 en1272	el aderezo		borrador	ia
+en1274	el tocador		borrador	ia
+en1275	el taladro / taladrar		borrador	ia
 en1276	la bebida / beber		borrador	ia
+en1289	seco / secar		borrador	ia
+en1292	la secadora		borrador	ia
 en1293	el pato		borrador	ia
+en1299	el polvo		borrador	ia
+en1300	el contenedor de basura		borrador	ia
+en1305	el edredón		borrador	ia
+en1306	el DVD		borrador	ia
 en1316	los audífonos		borrador	ia
 en1329	comer		borrador	ia
 en1330	comer en el local		borrador	ia
@@ -208,29 +304,48 @@ en1341	el huevo		borrador	ia
 en1342	la caja de huevos		borrador	ia
 en1343	la clara de huevo		borrador	ia
 en1344	los huevos		borrador	ia
+en1359	eléctrico		borrador	ia
+en1361	eléctrico		borrador	ia
+en1370	el ascensor		borrador	ia
 en1374	el correo electrónico / enviar un correo		borrador	ia
 en1380	el emoji		borrador	ia
 en1392	ocupado (línea)		borrador	ia
 en1398	disfrutar		borrador	ia
 en1399	¡Buen provecho!		borrador	ia
+en1407	la entrada		borrador	ia
+en1408	el sobre		borrador	ia
 en1417	el café expreso		borrador	ia
 en1433	Todo estaba delicioso.		borrador	ia
 en1452	Disculpe, ¿podemos pedir?		borrador	ia
 en1455	Disculpe.		borrador	ia
+en1477	la extensión eléctrica		borrador	ia
+en1481	el extractor		borrador	ia
+en1506	el ventilador / el aficionado		borrador	ia
 en1511	la granja		borrador	ia
 en1518	la comida rápida		borrador	ia
 en1520	gordo		borrador	ia
 en1523	que engorda		borrador	ia
 en1528	el banquete		borrador	ia
+en1539	la cerca		borrador	ia
 en1553	el higo		borrador	ia
 en1561	el filete		borrador	ia
+en1583	la chimenea		borrador	ia
 en1591	el pescado / pescar		borrador	ia
+en1601	arreglar		borrador	ia
+en1604	la toallita		borrador	ia
+en1606	el apartamento / plano		borrador	ia
+en1607	el compañero de apartamento		borrador	ia
 en1608	el sabor		borrador	ia
+en1614	el suelo / el piso		borrador	ia
 en1616	la harina		borrador	ia
+en1618	la flor		borrador	ia
+en1622	tirar la cadena		borrador	ia
 en1632	seguir		borrador	ia
 en1635	la comida		borrador	ia
+en1636	el procesador de alimentos		borrador	ia
 en1653	el tenedor		borrador	ia
 en1660	adelante		borrador	ia
+en1670	el marco		borrador	ia
 en1676	el congelador		borrador	ia
 en1679	las papas fritas		borrador	ia
 en1681	fresco		borrador	ia
@@ -240,15 +355,23 @@ en1685	frito		borrador	ia
 en1686	el huevo frito		borrador	ia
 en1687	el amigo		borrador	ia
 en1690	las papas fritas		borrador	ia
+en1698	la puerta principal		borrador	ia
 en1699	congelado		borrador	ia
 en1700	la fruta		borrador	ia
 en1701	el jugo de fruta		borrador	ia
 en1703	freír		borrador	ia
 en1704	la sartén		borrador	ia
 en1706	lleno		borrador	ia
+en1716	amueblado		borrador	ia
+en1717	los muebles		borrador	ia
+en1729	el garaje		borrador	ia
+en1730	el jardín		borrador	ia
 en1731	el ajo		borrador	ia
+en1732	el gas		borrador	ia
+en1735	el portón		borrador	ia
 en1764	el jengibre		borrador	ia
 en1776	de vidrio / el vaso		borrador	ia
+en1782	el pegamento / pegar		borrador	ia
 en1783	sin gluten		borrador	ia
 en1800	el queso de cabra		borrador	ia
 en1809	buenas tardes		borrador	ia
@@ -267,10 +390,17 @@ en1851	las judías verdes		borrador	ia
 en1856	el saludo		borrador	ia
 en1860	la parrilla / asar a la parrilla		borrador	ia
 en1861	a la parrilla		borrador	ia
+en1865	el suelo		borrador	ia
 en1867	el chat grupal		borrador	ia
 en1884	el chicle / la encía		borrador	ia
+en1896	el secador de pelo		borrador	ia
+en1901	el recibidor		borrador	ia
+en1902	el pasillo		borrador	ia
 en1904	el jamón		borrador	ia
+en1905	el martillo		borrador	ia
+en1915	manejar		borrador	ia
 en1921	colgar		borrador	ia
+en1922	la percha		borrador	ia
 en1939	Que tengas un buen fin de semana.		borrador	ia
 en1940	Que tengas un buen día.		borrador	ia
 en1941	desayunar		borrador	ia
@@ -279,7 +409,11 @@ en1945	almorzar		borrador	ia
 en1947	¿Conoces a Ben?		borrador	ia
 en1950	Él no está disponible en este momento.		borrador	ia
 en1957	los auriculares		borrador	ia
+en1963	el calor		borrador	ia
+en1964	el calefactor		borrador	ia
+en1965	la calefacción		borrador	ia
 en1972	hola		borrador	ia
+en1973	Hola, soy tu nuevo vecino.		borrador	ia
 en1974	Hola, habla Ana.		borrador	ia
 en1975	Hola, ¿quién habla?		borrador	ia
 en1976	Hola.		borrador	ia
@@ -288,16 +422,27 @@ en1985	las hierbas		borrador	ia
 en1996	oye		borrador	ia
 en1997	hola		borrador	ia
 en1998	¡Hola!		borrador	ia
+en1999	el equipo de música		borrador	ia
 en2000	Hola.		borrador	ia
+en2004	la silla para bebé		borrador	ia
+en2024	la placa de cocina		borrador	ia
 en2028	Espere un momento, por favor.		borrador	ia
+en2030	el agujero		borrador	ia
+en2035	el hogar / en casa		borrador	ia
 en2040	la miel		borrador	ia
 en2043	¡hurra!		borrador	ia
+en2053	la manguera		borrador	ia
 en2057	caliente		borrador	ia
 en2059	el chocolate caliente		borrador	ia
 en2060	el hotel		borrador	ia
+en2062	la casa		borrador	ia
+en2063	el ama de casa		borrador	ia
+en2064	las tareas domésticas		borrador	ia
 en2066	¿Cómo te va?		borrador	ia
 en2067	¿Cómo estás?		borrador	ia
 en2071	¿Cómo se escribe tu nombre?		borrador	ia
+en2080	¿Cuántos dormitorios tiene?		borrador	ia
+en2091	¿Cuánto es el alquiler?		borrador	ia
 en2097	¿Cuántos años tienes?		borrador	ia
 en2100	¿Qué tal?		borrador	ia
 en2114	hambriento		borrador	ia
@@ -312,8 +457,10 @@ en2152	Tengo que cancelar.		borrador	ia
 en2153	Tengo dos hermanos.		borrador	ia
 en2157	Me gusta la música.		borrador	ia
 en2158	Vivo en Santiago.		borrador	ia
+en2159	Vivo con mi familia.		borrador	ia
 en2165	Perdí tu llamada.		borrador	ia
 en2173	Toco el violín.		borrador	ia
+en2174	Comparto apartamento con dos amigos.		borrador	ia
 en2175	Hablo español y un poco de inglés.		borrador	ia
 en2177	Estudio ingeniería.		borrador	ia
 en2183	Nací en Chile.		borrador	ia
@@ -344,10 +491,13 @@ en2241	Soy de Chile.		borrador	ia
 en2242	Estoy bien, gracias.		borrador	ia
 en2243	Voy a hacer una fiesta el sábado.		borrador	ia
 en2248	Estoy aprendiendo inglés.		borrador	ia
+en2249	Me quedé afuera sin llaves.		borrador	ia
+en2250	Busco un apartamento en alquiler.		borrador	ia
 en2258	Voy en camino.		borrador	ia
 en2263	Estudio en la universidad.		borrador	ia
 en2265	Tengo veinte años.		borrador	ia
 en2266	Soy vegetariano.		borrador	ia
+en2269	Perdí mis llaves.		borrador	ia
 en2271	el hielo		borrador	ia
 en2272	el helado		borrador	ia
 en2275	la paleta helada		borrador	ia
@@ -356,13 +506,20 @@ en2317	la bandeja de entrada		borrador	ia
 en2339	el ingrediente		borrador	ia
 en2340	los ingredientes		borrador	ia
 en2363	internet		borrador	ia
+en2382	la plancha / planchar		borrador	ia
+en2383	el planchado		borrador	ia
 en2389	¿El servicio está incluido?		borrador	ia
+en2390	¿El apartamento está amueblado?		borrador	ia
+en2395	¿Hay lavadora?		borrador	ia
 en2397	¿Este plato es picante?		borrador	ia
 en2413	Fue un gusto conocerte.		borrador	ia
 en2416	Es un placer conocerte.		borrador	ia
+en2448	Hay demasiado ruido.		borrador	ia
 en2460	la mermelada		borrador	ia
+en2464	el frasco		borrador	ia
 en2491	la jarra		borrador	ia
 en2492	el jugo		borrador	ia
+en2493	el exprimidor		borrador	ia
 en2494	jugoso		borrador	ia
 en2512	Quédese con el cambio.		borrador	ia
 en2517	el kétchup		borrador	ia
@@ -372,10 +529,17 @@ en2533	la cocina		borrador	ia
 en2536	el kiwi		borrador	ia
 en2538	el cuchillo		borrador	ia
 en2550	la lactosa		borrador	ia
+en2551	la escalera de mano		borrador	ia
 en2552	el cucharón		borrador	ia
 en2556	el cordero		borrador	ia
+en2557	la lámpara		borrador	ia
 en2559	el teléfono fijo		borrador	ia
+en2560	el propietario		borrador	ia
+en2563	la computadora portátil		borrador	ia
 en2572	el café con leche		borrador	ia
+en2575	la lavandería		borrador	ia
+en2576	el cesto de la ropa sucia		borrador	ia
+en2578	la cortadora de césped		borrador	ia
 en2581	poner la mesa		borrador	ia
 en2589	magro		borrador	ia
 en2597	el puerro		borrador	ia
@@ -392,29 +556,42 @@ en2619	Salgamos esta noche.		borrador	ia
 en2620	Vamos juntos.		borrador	ia
 en2623	Nos vemos a las seis.		borrador	ia
 en2624	Nos vemos frente al cine.		borrador	ia
+en2630	la carta / la letra		borrador	ia
 en2631	la lechuga		borrador	ia
+en2632	el nivel		borrador	ia
 en2636	la tapa		borrador	ia
+en2640	el ascensor / levantar		borrador	ia
+en2641	ligero / la luz / encender		borrador	ia
+en2643	la bombilla		borrador	ia
 en2647	gustar / como		borrador	ia
 en2650	la lima		borrador	ia
 en2654	la línea		borrador	ia
 en2655	vincular / el enlace		borrador	ia
 en2671	el hígado		borrador	ia
+en2672	la sala		borrador	ia
+en2673	la sala		borrador	ia
 en2679	la langosta		borrador	ia
+en2683	la cerradura / cerrar con llave		borrador	ia
 en2685	iniciar sesión		borrador	ia
 en2686	cerrar sesión		borrador	ia
 en2688	la piruleta		borrador	ia
 en2693	¡Tanto tiempo!		borrador	ia
+en2710	la loción		borrador	ia
 en2722	el almuerzo		borrador	ia
 en2727	el lichi		borrador	ia
+en2729	la máquina		borrador	ia
 en2739	el plato principal		borrador	ia
 en2743	Estás en tu casa.		borrador	ia
 en2752	el mandarín / la mandarina		borrador	ia
 en2753	el mango		borrador	ia
 en2759	la margarina		borrador	ia
 en2764	la mermelada de naranja		borrador	ia
+en2770	el tapete		borrador	ia
+en2780	el colchón		borrador	ia
 en2786	Quizás otro día.		borrador	ia
 en2787	la mayonesa		borrador	ia
 en2789	la comida		borrador	ia
+en2794	la cinta métrica		borrador	ia
 en2795	la carne		borrador	ia
 en2796	las albóndigas		borrador	ia
 en2800	mediano		borrador	ia
@@ -428,8 +605,10 @@ en2834	el batido		borrador	ia
 en2836	la carne molida		borrador	ia
 en2839	el agua mineral		borrador	ia
 en2842	la menta		borrador	ia
+en2845	el espejo		borrador	ia
 en2848	la llamada perdida		borrador	ia
 en2852	mezclar		borrador	ia
+en2853	la batidora		borrador	ia
 en2854	el teléfono móvil		borrador	ia
 en2860	el lunes		borrador	ia
 en2900	el muffin		borrador	ia
@@ -443,8 +622,11 @@ en2920	Me estoy quedando sin batería.		borrador	ia
 en2921	Mi inglés no es muy bueno.		borrador	ia
 en2924	Me llamo Ana.		borrador	ia
 en2925	Mi número es 555 0134.		borrador	ia
+en2929	el clavo / la uña		borrador	ia
+en2930	el cortaúñas		borrador	ia
 en2933	la servilleta		borrador	ia
 en2953	la nectarina		borrador	ia
+en2956	el vecino		borrador	ia
 en2976	Fue un gusto hablar contigo.		borrador	ia
 en2977	Igualmente, mucho gusto.		borrador	ia
 en2978	Mucho gusto.		borrador	ia
@@ -456,6 +638,7 @@ en3003	los fideos		borrador	ia
 en3018	Nada mal.		borrador	ia
 en3027	la notificación		borrador	ia
 en3032	ahora		borrador	ia
+en3038	la tuerca		borrador	ia
 en3041	de acuerdo		borrador	ia
 en3060	desconectado		borrador	ia
 en3062	oh		borrador	ia
@@ -476,6 +659,8 @@ en3110	el pedido / pedir		borrador	ia
 en3136	el horno		borrador	ia
 en3137	los guantes de cocina		borrador	ia
 en3148	la ostra		borrador	ia
+en3157	la pintura / pintar		borrador	ia
+en3158	la brocha		borrador	ia
 en3169	la cacerola		borrador	ia
 en3172	el panqueque		borrador	ia
 en3175	la papaya		borrador	ia
@@ -484,6 +669,7 @@ en3202	el maracuyá		borrador	ia
 en3205	la contraseña		borrador	ia
 en3207	la pasta		borrador	ia
 en3208	el pastel		borrador	ia
+en3209	el sendero		borrador	ia
 en3215	pagar / el sueldo		borrador	ia
 en3218	la arveja		borrador	ia
 en3221	el durazno		borrador	ia
@@ -493,23 +679,32 @@ en3226	las arvejas		borrador	ia
 en3228	la cáscara / pelar		borrador	ia
 en3229	el pelador		borrador	ia
 en3240	la pimienta / el pimiento		borrador	ia
+en3247	el perfume		borrador	ia
 en3263	el pesto		borrador	ia
 en3269	el teléfono / llamar		borrador	ia
 en3270	la llamada telefónica		borrador	ia
 en3271	el número de teléfono		borrador	ia
 en3281	contestar (el teléfono)		borrador	ia
 en3283	el pícnic		borrador	ia
+en3284	el cuadro / imaginar		borrador	ia
 en3285	la tarta		borrador	ia
 en3286	el pedazo		borrador	ia
 en3287	pan comido		borrador	ia
 en3288	el cerdo		borrador	ia
+en3293	la almohada		borrador	ia
 en3296	la pizca		borrador	ia
 en3297	la piña		borrador	ia
+en3299	la tubería		borrador	ia
 en3302	la pizza		borrador	ia
+en3309	la planta / plantar		borrador	ia
+en3310	el yeso		borrador	ia
 en3312	el plato		borrador	ia
 en3320	por favor		borrador	ia
 en3321	Por favor, ven.		borrador	ia
 en3324	Encantado de conocerte.		borrador	ia
+en3327	los alicates		borrador	ia
+en3328	el enchufe		borrador	ia
+en3329	enchufar		borrador	ia
 en3330	la ciruela		borrador	ia
 en3359	la granada		borrador	ia
 en3369	la carne de cerdo		borrador	ia
@@ -521,40 +716,60 @@ en3390	verter		borrador	ia
 en3392	la leche en polvo		borrador	ia
 en3397	el camarón		borrador	ia
 en3408	Bastante bien.		borrador	ia
+en3419	la impresora		borrador	ia
 en3432	el perfil		borrador	ia
+en3446	la propiedad		borrador	ia
 en3456	el pudín		borrador	ia
+en3461	la bomba		borrador	ia
 en3462	la calabaza		borrador	ia
+en3502	el radiador		borrador	ia
+en3503	la radio		borrador	ia
 en3504	el rábano		borrador	ia
+en3515	el rastrillo		borrador	ia
 en3517	raro / poco cocido		borrador	ia
 en3519	la frambuesa		borrador	ia
 en3522	crudo		borrador	ia
+en3523	la máquina de afeitar		borrador	ia
 en3538	recibir		borrador	ia
 en3543	la receta		borrador	ia
 en3546	recomendar		borrador	ia
 en3557	el vino tinto		borrador	ia
 en3561	los refrigerios		borrador	ia
+en3562	el refrigerador		borrador	ia
 en3567	los saludos		borrador	ia
+en3583	el control remoto		borrador	ia
+en3587	el alquiler / alquilar		borrador	ia
+en3589	reparar / la reparación		borrador	ia
 en3593	la respuesta / responder		borrador	ia
 en3602	la reserva		borrador	ia
 en3610	el restaurante		borrador	ia
 en3623	las costillas		borrador	ia
 en3624	el arroz		borrador	ia
+en3625	la olla arrocera		borrador	ia
 en3630	derecha		borrador	ia
 en3632	el timbre / sonar		borrador	ia
 en3635	el tono de llamada		borrador	ia
+en3636	enjuagar		borrador	ia
 en3637	maduro		borrador	ia
 en3643	asado / asar		borrador	ia
 en3651	el panecillo		borrador	ia
+en3659	el techo		borrador	ia
 en3660	la habitación		borrador	ia
+en3661	el compañero de cuarto		borrador	ia
 en3663	la raíz		borrador	ia
+en3664	la cuerda		borrador	ia
 en3666	podrido		borrador	ia
+en3672	el router		borrador	ia
 en3678	la basura		borrador	ia
+en3681	el tapete		borrador	ia
+en3695	seguro		borrador	ia
 en3701	la ensalada		borrador	ia
 en3707	el salmón		borrador	ia
 en3709	la sal		borrador	ia
 en3710	el salero		borrador	ia
 en3711	salado		borrador	ia
 en3712	salado		borrador	ia
+en3717	el papel de lija		borrador	ia
 en3718	el sándwich		borrador	ia
 en3720	la sardina		borrador	ia
 en3724	la salsa		borrador	ia
@@ -562,11 +777,17 @@ en3725	el cazo		borrador	ia
 en3726	el platillo		borrador	ia
 en3729	la salchicha		borrador	ia
 en3732	salado (no dulce)		borrador	ia
+en3733	la sierra		borrador	ia
+en3737	la balanza		borrador	ia
+en3750	las tijeras		borrador	ia
 en3755	los huevos revueltos		borrador	ia
 en3757	la pantalla		borrador	ia
+en3758	el tornillo		borrador	ia
+en3759	el destornillador		borrador	ia
 en3762	los mariscos		borrador	ia
 en3766	la búsqueda / buscar		borrador	ia
 en3769	el condimento		borrador	ia
+en3770	el asiento		borrador	ia
 en3771	el cinturón de seguridad		borrador	ia
 en3782	nos vemos		borrador	ia
 en3785	Hasta luego.		borrador	ia
@@ -577,25 +798,41 @@ en3795	enviar		borrador	ia
 en3806	servir		borrador	ia
 en3809	el cargo por servicio		borrador	ia
 en3812	poner la mesa		borrador	ia
+en3823	la máquina de coser		borrador	ia
+en3831	el champú		borrador	ia
 en3833	compartir		borrador	ia
+en3844	la sábana		borrador	ia
 en3845	el estante		borrador	ia
+en3856	el zapatero		borrador	ia
+en3876	la pala		borrador	ia
+en3878	la ducha		borrador	ia
+en3879	el gel de ducha		borrador	ia
 en3880	el camarón		borrador	ia
 en3887	el acompañamiento		borrador	ia
+en3888	el aparador		borrador	ia
 en3892	registrarse		borrador	ia
 en3893	la señal / señalar		borrador	ia
 en3912	el fregadero / hundirse		borrador	ia
 en3913	sorber		borrador	ia
+en3921	la sala de estar		borrador	ia
 en3939	la leche descremada		borrador	ia
+en3947	dormir / el sueño		borrador	ia
 en3951	la rebanada		borrador	ia
 en3961	el smartphone		borrador	ia
 en3962	el olor / oler		borrador	ia
+en3965	el detector de humo		borrador	ia
 en3966	ahumado		borrador	ia
 en3969	el batido de frutas		borrador	ia
 en3970	el tentempié		borrador	ia
 en3982	más o menos		borrador	ia
+en3983	el jabón		borrador	ia
 en3988	las redes sociales		borrador	ia
+en3991	el enchufe de pared		borrador	ia
 en3993	la gaseosa		borrador	ia
+en3994	el sofá		borrador	ia
 en3996	el refresco		borrador	ia
+en3998	la tierra		borrador	ia
+en4018	Perdón por el ruido.		borrador	ia
 en4019	Perdón, ¿puedes repetirlo?		borrador	ia
 en4020	Lo siento, no puedo ir.		borrador	ia
 en4021	Perdón, no te entendí.		borrador	ia
@@ -608,10 +845,13 @@ en4029	agrio		borrador	ia
 en4030	la crema agria		borrador	ia
 en4039	la salsa de soya		borrador	ia
 en4040	la leche de soya		borrador	ia
+en4043	la pala de jardín		borrador	ia
+en4046	la llave inglesa		borrador	ia
 en4048	con gas		borrador	ia
 en4049	el agua con gas		borrador	ia
 en4051	la espátula		borrador	ia
 en4052	hablar		borrador	ia
+en4053	el hablante / el altavoz		borrador	ia
 en4054	Sí, soy yo.		borrador	ia
 en4055	especial		borrador	ia
 en4064	la especia		borrador	ia
@@ -622,27 +862,40 @@ en4076	la cuchara		borrador	ia
 en4084	la cebolleta		borrador	ia
 en4087	el squash / la calabaza		borrador	ia
 en4089	el calamar		borrador	ia
+en4095	el escalón		borrador	ia
+en4096	la escalera		borrador	ia
+en4097	las escaleras		borrador	ia
+en4099	el sello		borrador	ia
 en4106	la entrada		borrador	ia
+en4110	quedarse		borrador	ia
 en4112	el bistec		borrador	ia
+en4115	el escalón		borrador	ia
+en4120	el palo		borrador	ia
 en4122	el bollo glaseado		borrador	ia
 en4125	¿Agua con o sin gas?		borrador	ia
 en4128	revolver		borrador	ia
 en4129	el caldo		borrador	ia
 en4134	la piedra / el hueso		borrador	ia
+en4135	el taburete		borrador	ia
 en4141	la estufa		borrador	ia
 en4147	la pajita		borrador	ia
 en4148	la fresa		borrador	ia
 en4150	la calle		borrador	ia
+en4157	el cordel / la cuerda		borrador	ia
 en4170	el asunto		borrador	ia
 en4183	el azúcar		borrador	ia
 en4202	la cena		borrador	ia
+en4217	rodear		borrador	ia
 en4224	el dulce / dulce		borrador	ia
 en4225	el camote		borrador	ia
 en4226	el maíz dulce		borrador	ia
 en4227	los dulces		borrador	ia
+en4234	el columpio / balancearse		borrador	ia
+en4236	el interruptor		borrador	ia
 en4237	apagar		borrador	ia
 en4244	el almíbar		borrador	ia
 en4247	la mesa		borrador	ia
+en4249	el mantel		borrador	ia
 en4250	la cuchara sopera		borrador	ia
 en4257	llevar		borrador	ia
 en4259	Cuídate.		borrador	ia
@@ -651,6 +904,7 @@ en4273	Hablamos pronto.		borrador	ia
 en4277	la mandarina		borrador	ia
 en4278	la llave del agua		borrador	ia
 en4279	el agua de la llave		borrador	ia
+en4280	la cinta adhesiva		borrador	ia
 en4281	la tarta		borrador	ia
 en4283	el sabor / probar		borrador	ia
 en4284	sabroso		borrador	ia
@@ -658,7 +912,10 @@ en4288	el té		borrador	ia
 en4289	el paño de cocina		borrador	ia
 en4294	la cucharita		borrador	ia
 en4298	el teléfono		borrador	ia
+en4299	la televisión		borrador	ia
 en4303	diez		borrador	ia
+en4304	el inquilino		borrador	ia
+en4313	la terraza		borrador	ia
 en4319	el mensaje de texto / escribir un mensaje		borrador	ia
 en4320	responder el mensaje		borrador	ia
 en4321	el mensaje de texto		borrador	ia
@@ -673,33 +930,65 @@ en4333	Gracias por llamar.		borrador	ia
 en4334	Gracias por venir.		borrador	ia
 en4339	Me viene bien.		borrador	ia
 en4344	Muy amable de tu parte.		borrador	ia
+en4351	La puerta está atascada.		borrador	ia
+en4352	La calefacción no funciona.		borrador	ia
+en4353	La luz no funciona.		borrador	ia
 en4354	Se escucha mal.		borrador	ia
+en4359	La llave gotea.		borrador	ia
+en4360	El inodoro está tapado.		borrador	ia
+en4370	La ventana está rota.		borrador	ia
+en4379	Se cortó la luz.		borrador	ia
+en4382	No hay agua caliente.		borrador	ia
 en4394	sediento		borrador	ia
 en4401	Él es mi amigo, Ben.		borrador	ia
 en4409	tres		borrador	ia
 en4421	el boleto		borrador	ia
+en4433	la lata		borrador	ia
 en4435	la propina		borrador	ia
+en4439	el pañuelo de papel		borrador	ia
 en4442	para llevar		borrador	ia
 en4443	la tostada		borrador	ia
 en4444	la tostadora		borrador	ia
 en4445	hoy		borrador	ia
+en4450	el inodoro		borrador	ia
+en4451	el papel higiénico		borrador	ia
 en4452	el tomate		borrador	ia
 en4453	mañana		borrador	ia
+en4460	la herramienta		borrador	ia
+en4461	la caja de herramientas		borrador	ia
+en4462	las herramientas		borrador	ia
+en4465	el cepillo de dientes		borrador	ia
+en4466	la pasta de dientes		borrador	ia
+en4469	la linterna		borrador	ia
+en4481	la toalla		borrador	ia
+en4482	la torre		borrador	ia
+en4485	el juguete		borrador	ia
 en4495	el tren		borrador	ia
+en4506	el basurero		borrador	ia
 en4510	la bandeja		borrador	ia
+en4513	el árbol		borrador	ia
 en4522	la trucha		borrador	ia
+en4533	el tubo		borrador	ia
 en4535	el atún		borrador	ia
 en4538	el pavo / Turquía		borrador	ia
 en4545	apagar		borrador	ia
 en4547	encender		borrador	ia
 en4551	el nabo		borrador	ia
+en4554	la tele		borrador	ia
+en4555	el mueble de la tele		borrador	ia
+en4556	las pinzas		borrador	ia
 en4564	dos		borrador	ia
+en4596	sin amueblar		borrador	ia
 en4622	la carga (de archivos)		borrador	ia
+en4626	arriba		borrador	ia
 en4636	el nombre de usuario		borrador	ia
+en4639	la aspiradora		borrador	ia
 en4645	la vainilla		borrador	ia
+en4648	el florero		borrador	ia
 en4649	vegano		borrador	ia
 en4650	la verdura		borrador	ia
 en4651	vegetariano		borrador	ia
+en4663	el video / grabar		borrador	ia
 en4664	la videollamada		borrador	ia
 en4671	el vinagre		borrador	ia
 en4680	el vodka		borrador	ia
@@ -709,8 +998,15 @@ en4685	el volumen		borrador	ia
 en4688	el waffle		borrador	ia
 en4695	el mesero		borrador	ia
 en4697	la mesera		borrador	ia
+en4704	la pared		borrador	ia
+en4708	el clóset		borrador	ia
+en4713	el lavado / lavar		borrador	ia
 en4714	lavar los platos		borrador	ia
+en4715	la ropa para lavar		borrador	ia
+en4716	la lavadora		borrador	ia
+en4717	los platos sucios		borrador	ia
 en4718	el detergente para platos		borrador	ia
+en4723	mirar / el reloj		borrador	ia
 en4726	el agua		borrador	ia
 en4731	la sandía		borrador	ia
 en4742	Estamos listos para pedir.		borrador	ia
@@ -736,8 +1032,14 @@ en4811	¿Qué lleva este plato?		borrador	ia
 en4816	¿Cuál es el plato del día?		borrador	ia
 en4822	¿Cómo te llamas?		borrador	ia
 en4823	¿Cuál es tu número de teléfono?		borrador	ia
+en4826	la carretilla		borrador	ia
+en4829	¿Cuándo me puedo mudar?		borrador	ia
+en4830	¿Cuándo puede venir a repararlo?		borrador	ia
+en4833	¿Cuándo pasa el camión de la basura?		borrador	ia
 en4838	¿De dónde eres?		borrador	ia
+en4846	¿Dónde dejo la basura?		borrador	ia
 en4848	¿Dónde vives?		borrador	ia
+en4854	¿Dónde está la llave?		borrador	ia
 en4862	¿Dónde nos vemos?		borrador	ia
 en4872	la crema batida		borrador	ia
 en4873	el batidor / batir		borrador	ia
@@ -746,14 +1048,18 @@ en4878	el vino blanco		borrador	ia
 en4882	la leche entera		borrador	ia
 en4885	¿Por qué no vamos al cine?		borrador	ia
 en4888	el wifi		borrador	ia
+en4898	la ventana		borrador	ia
 en4903	el vino		borrador	ia
 en4904	la carta de vinos		borrador	ia
+en4908	el cable		borrador	ia
 en4936	la encimera		borrador	ia
 en4946	¿Desea algo más?		borrador	ia
 en4947	¿Quieres algo de tomar?		borrador	ia
 en4948	¿Quieres venir con nosotros?		borrador	ia
 en4949	¿Quieres almorzar conmigo?		borrador	ia
 en4952	¡guau!		borrador	ia
+en4953	la llave inglesa		borrador	ia
+en4967	el patio		borrador	ia
 en4968	sí		borrador	ia
 en4971	sí		borrador	ia
 en4972	ayer		borrador	ia
