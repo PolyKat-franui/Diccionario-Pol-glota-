@@ -35,7 +35,8 @@ mover si un día cambias de proveedor.
 ## 3. Traducir y confirmar que la traducción es real
 
 Estados de cada traducción (columna `estado`): `borrador` → `revisada`.
-Hoy: 269 filas de "Conversación y vida social" traducidas por IA a 5 idiomas, todas `borrador`.
+Hoy (2026-10-10): las 5.000 filas traducidas por IA a 5 idiomas (es, pt, fr, it, de), todas `borrador`.
+Falta la revisión con una fuente confiable.
 
 Método recomendado, de más barato a más seguro:
 1. **Wiktionary** (vía kaikki.org, que lo entrega como datos ordenados): traducciones
@@ -77,7 +78,7 @@ Automatización recomendada (siguiente bloque):
 | 1 | App base: tarjetas deslizables, SRS, Kumon, tokens, racha, favoritos, Kitty diccionario, ajustes, 6 idiomas de interfaz, banco importado | **Hecho** |
 | 2 | Página web promocional (misma estética, sección de la creadora, novedades) + nueva paleta y tipografía | **Hecho** |
 | 2b | Kitty en 14 expresiones (cara feliz = logo), sakuras para la racha, moneda, estrella, cerezas, mensaje | **Hecho** |
-| 3 | Traducción completa del banco (Wiktionary + DeepL) + pantalla de revisión | |
+| 3 | Traducción completa del banco (borrador IA hecho) + revisión con fuente confiable + pantalla de revisión | **En curso** |
 | 4 | Cuentas en la nube (Supabase): Google, sincronizar avance, ranking real, buzón de sugerencias | |
 | 5 | Kitty con IA real (servidor propio que guarda la clave) | |
 | 6 | App instalable (PWA) y sin internet; publicar en un dominio | |
