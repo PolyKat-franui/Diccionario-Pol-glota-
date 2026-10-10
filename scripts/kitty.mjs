@@ -73,6 +73,10 @@ ${fila('Kitty', [img('kitty.svg', 'Kitty (logo)', 4), img('kitty-sola.svg', 'Kit
 ${fila('Íconos', Object.keys(ICONOS).map((id) => img(`${id}.svg`, TITULOS[id], 4)))}
 ${fila('Expresiones', lista.caras.map((c) => img(`caras/${c.id}.svg`, c.nombre)))}
 ${fila('Skins', lista.skins.map((s) => img(`skins/${s.id}.svg`, s.nombre, 4)))}
+<h2>Burbuja con texto</h2>
+<link rel="stylesheet" href="../app/css/app.css">
+<p><span class="burbuja-texto">¡Hola! Soy Kitty.</span></p>
+<p><span class="burbuja-texto">La burbuja se estira sola con textos más largos, sin deformarse.</span></p>
 </html>\n`;
 }
 

@@ -350,6 +350,12 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 .lista-enlaces > *:last-child { border-bottom: 0; }
 .lista-enlaces svg { width: 18px; height: 18px; color: var(--ink-soft); margin-left: auto; }
 .tutorial { padding-left: 20px; display: grid; gap: 10px; }
+/* Burbuja pixel art que se estira con el texto (assets/burbuja.svg, a 2x) */
+.burbuja-texto {
+  display: inline-block; border-style: solid; border-width: 16px 24px 24px 16px;
+  border-image: url(../assets/burbuja.svg) 8 12 12 8 fill / 16px 24px 24px 16px stretch;
+  padding: 0 6px; color: #493036; font-size: var(--fs-md); line-height: 1.4;
+}
 .skins { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-height: 50dvh; overflow-y: auto; }
 .skins .tag { white-space: normal; font-size: 11px; text-align: center; min-height: 22px; }
 .skins li { display: grid; justify-items: center; gap: 4px; padding: 10px 4px; border-radius: var(--r-md); background: var(--surface-2); text-align: center; font-size: var(--fs-sm); }
