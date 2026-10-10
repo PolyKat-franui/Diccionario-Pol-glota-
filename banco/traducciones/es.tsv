@@ -14,6 +14,7 @@ en0012	capaz		borrador	ia
 en0013	sobre / aproximadamente		borrador	ia
 en0014	sobre / superior / arriba		borrador	ia
 en0015	en el extranjero		borrador	ia
+en0016	ausente		borrador	ia
 en0017	distraído		borrador	ia
 en0018	absolutamente		borrador	ia
 en0019	el acento		borrador	ia
@@ -23,9 +24,12 @@ en0022	el alojamiento		borrador	ia
 en0023	acompañar		borrador	ia
 en0024	según		borrador	ia
 en0026	la cuenta		borrador	ia
+en0027	el contador		borrador	ia
 en0028	el dolor		borrador	ia
 en0030	a través de / al otro lado		borrador	ia
 en0033	activo		borrador	ia
+en0034	el actor		borrador	ia
+en0035	la actriz		borrador	ia
 en0036	en realidad		borrador	ia
 en0037	el anuncio		borrador	ia
 en0038	añadir		borrador	ia
@@ -56,6 +60,7 @@ en0064	otra vez		borrador	ia
 en0065	contra		borrador	ia
 en0066	la edad		borrador	ia
 en0067	de edad		borrador	ia
+en0068	la agencia		borrador	ia
 en0069	hace		borrador	ia
 en0070	estar de acuerdo		borrador	ia
 en0071	adelante		borrador	ia
@@ -80,6 +85,7 @@ en0091	casi		borrador	ia
 en0092	solo		borrador	ia
 en0093	a lo largo de / adelante		borrador	ia
 en0094	en voz alta		borrador	ia
+en0095	el alfabeto		borrador	ia
 en0096	ya		borrador	ia
 en0097	bien / bien / ¡está bien!		borrador	ia
 en0098	también		borrador	ia
@@ -141,6 +147,8 @@ en0154	la apariencia		borrador	ia
 en0155	el apetito		borrador	ia
 en0156	la entrada		borrador	ia
 en0157	la manzana		borrador	ia
+en0158	la solicitud		borrador	ia
+en0159	postular		borrador	ia
 en0160	la cita		borrador	ia
 en0161	aprobar		borrador	ia
 en0162	el albaricoque		borrador	ia
@@ -149,6 +157,7 @@ en0164	el delantal		borrador	ia
 en0165	el acuario		borrador	ia
 en0166	el árabe		borrador	ia
 en0167	el arco		borrador	ia
+en0169	el arquitecto		borrador	ia
 en0171	¿Las cuentas están incluidas?		borrador	ia
 en0172	¿Estás ocupado el sábado?		borrador	ia
 en0173	¿Estás libre mañana?		borrador	ia
@@ -159,8 +168,10 @@ en0177	Argentina		borrador	ia
 en0178	argentino / el argentino		borrador	ia
 en0179	discutir		borrador	ia
 en0180	la discusión		borrador	ia
+en0181	la aritmética		borrador	ia
 en0182	el brazo		borrador	ia
 en0183	el sillón		borrador	ia
+en0184	el ejército		borrador	ia
 en0185	alrededor de / por ahí		borrador	ia
 en0186	organizar		borrador	ia
 en0187	el arreglo		borrador	ia
@@ -169,7 +180,9 @@ en0189	las llegadas		borrador	ia
 en0190	llegar		borrador	ia
 en0191	arrogante		borrador	ia
 en0192	la flecha		borrador	ia
+en0193	el arte		borrador	ia
 en0194	la alcachofa		borrador	ia
+en0196	el artista		borrador	ia
 en0197	artístico		borrador	ia
 en0198	tan / como / como		borrador	ia
 en0199	tan… como		borrador	ia
@@ -180,6 +193,7 @@ en0203	dormido		borrador	ia
 en0204	el espárrago		borrador	ia
 en0205	la aspirina		borrador	ia
 en0206	el dependiente		borrador	ia
+en0207	el astronauta		borrador	ia
 en0208	en		borrador	ia
 en0209	al principio		borrador	ia
 en0210	por fin		borrador	ia
@@ -191,6 +205,8 @@ en0215	en el mar		borrador	ia
 en0216	en este momento		borrador	ia
 en0217	al mismo tiempo		borrador	ia
 en0218	¿A qué hora?		borrador	ia
+en0219	el atleta		borrador	ia
+en0221	el cajero automático		borrador	ia
 en0222	adjuntar		borrador	ia
 en0223	el archivo adjunto		borrador	ia
 en0224	el ataque / atacar		borrador	ia
@@ -208,6 +224,7 @@ en0237	Australia		borrador	ia
 en0238	australiano / el australiano		borrador	ia
 en0239	Austria		borrador	ia
 en0240	austriaco / el austriaco		borrador	ia
+en0241	el autor		borrador	ia
 en0242	el otoño		borrador	ia
 en0243	disponible		borrador	ia
 en0244	promedio / el promedio		borrador	ia
@@ -219,6 +236,7 @@ en0249	horrible		borrador	ia
 en0250	el hacha		borrador	ia
 en0251	el bebé		borrador	ia
 en0252	cuidar niños		borrador	ia
+en0253	la niñera		borrador	ia
 en0254	trasero / atrás / la espalda		borrador	ia
 en0255	la mochila		borrador	ia
 en0256	el mochilero		borrador	ia
@@ -236,11 +254,16 @@ en0269	la baguette		borrador	ia
 en0270	hornear		borrador	ia
 en0271	el panadero		borrador	ia
 en0272	la panadería		borrador	ia
+en0273	el saldo		borrador	ia
 en0274	el balcón		borrador	ia
 en0275	calvo		borrador	ia
 en0279	el plátano		borrador	ia
 en0281	la venda		borrador	ia
 en0283	el banco		borrador	ia
+en0284	la cuenta bancaria		borrador	ia
+en0285	el banquero		borrador	ia
+en0286	la banca		borrador	ia
+en0287	el billete		borrador	ia
 en0288	el bar		borrador	ia
 en0289	la parrillada / asar a la parrilla		borrador	ia
 en0290	el barbero		borrador	ia
@@ -264,6 +287,7 @@ en0312	la bata de baño		borrador	ia
 en0313	el baño		borrador	ia
 en0314	la bañera		borrador	ia
 en0315	la batería		borrador	ia
+en0316	la batalla		borrador	ia
 en0317	la bahía		borrador	ia
 en0318	ser, estar / ser, estar		borrador	ia
 en0319	llamarse		borrador	ia
@@ -325,8 +349,12 @@ en0374	bilingüe		borrador	ia
 en0375	la cuenta		borrador	ia
 en0376	mil millones		borrador	ia
 en0377	el basurero		borrador	ia
+en0378	la carpeta		borrador	ia
+en0379	la biografía		borrador	ia
+en0380	la biología		borrador	ia
 en0381	el pájaro		borrador	ia
 en0382	el nacimiento		borrador	ia
+en0383	el certificado de nacimiento		borrador	ia
 en0384	el cumpleaños		borrador	ia
 en0385	la torta de cumpleaños		borrador	ia
 en0386	la galleta		borrador	ia
@@ -337,6 +365,7 @@ en0390	negro / el negro		borrador	ia
 en0391	en blanco y negro		borrador	ia
 en0392	el pelo negro		borrador	ia
 en0393	la mora		borrador	ia
+en0394	la pizarra		borrador	ia
 en0395	culpar		borrador	ia
 en0396	insípido		borrador	ia
 en0397	en blanco		borrador	ia
@@ -370,6 +399,7 @@ en0427	audaz		borrador	ia
 en0428	Bolivia		borrador	ia
 en0429	boliviano / el boliviano		borrador	ia
 en0430	el perno		borrador	ia
+en0431	la bomba / bombardear		borrador	ia
 en0432	el hueso		borrador	ia
 en0433	el libro / reservar		borrador	ia
 en0434	el librero		borrador	ia
@@ -384,6 +414,8 @@ en0442	la frontera		borrador	ia
 en0443	aburrido		borrador	ia
 en0444	aburrido		borrador	ia
 en0445	nacido		borrador	ia
+en0446	pedir prestado		borrador	ia
+en0447	el jefe		borrador	ia
 en0448	mandón		borrador	ia
 en0449	ambos / los dos		borrador	ia
 en0450	molestar		borrador	ia
@@ -408,7 +440,9 @@ en0472	brasileño / el brasileño		borrador	ia
 en0473	el pan		borrador	ia
 en0474	el descanso / romper		borrador	ia
 en0475	averiarse		borrador	ia
+en0476	salir de vacaciones		borrador	ia
 en0477	el desayuno		borrador	ia
+en0478	el recreo		borrador	ia
 en0479	el aliento		borrador	ia
 en0480	respirar		borrador	ia
 en0481	la brisa		borrador	ia
@@ -441,6 +475,7 @@ en0507	la hebilla		borrador	ia
 en0508	el búfalo		borrador	ia
 en0509	el bicho		borrador	ia
 en0510	construir		borrador	ia
+en0511	el albañil		borrador	ia
 en0512	el edificio		borrador	ia
 en0513	la bombilla		borrador	ia
 en0514	el toro		borrador	ia
@@ -453,16 +488,22 @@ en0520	quemar		borrador	ia
 en0521	ardiente		borrador	ia
 en0522	enterrar		borrador	ia
 en0523	el bus		borrador	ia
+en0524	el conductor de bus		borrador	ia
 en0525	la estación de buses		borrador	ia
 en0526	la parada de bus		borrador	ia
 en0527	el arbusto		borrador	ia
+en0528	el negocio		borrador	ia
+en0529	el hombre de negocios		borrador	ia
+en0530	la mujer de negocios		borrador	ia
 en0531	ocupado		borrador	ia
 en0532	pero / excepto		borrador	ia
+en0533	el carnicero		borrador	ia
 en0534	la carnicería		borrador	ia
 en0535	la mantequilla		borrador	ia
 en0536	la mariposa		borrador	ia
 en0537	el botón		borrador	ia
 en0538	comprar		borrador	ia
+en0539	el comprador		borrador	ia
 en0540	el zumbido / zumbar		borrador	ia
 en0541	por		borrador	ia
 en0542	por accidente		borrador	ia
@@ -489,6 +530,7 @@ en0563	la cafetería		borrador	ia
 en0564	el café		borrador	ia
 en0565	la jaula		borrador	ia
 en0566	la torta		borrador	ia
+en0567	la calculadora		borrador	ia
 en0568	el calendario		borrador	ia
 en0569	la pantorrilla		borrador	ia
 en0570	llamar / la llamada		borrador	ia
@@ -501,9 +543,12 @@ en0576	¡Llamen a la policía!		borrador	ia
 en0577	tranquilo		borrador	ia
 en0578	el camello		borrador	ia
 en0579	la cámara		borrador	ia
+en0580	el camarógrafo		borrador	ia
 en0583	el camping		borrador	ia
 en0584	poder / la lata		borrador	ia
 en0585	¿Puedo agregarte en redes sociales?		borrador	ia
+en0586	¿Puedo hacer una pregunta?		borrador	ia
+en0587	¿Me prestas tus apuntes?		borrador	ia
 en0588	¿Puedo llevar a un amigo?		borrador	ia
 en0589	¿Puedo llevar algo?		borrador	ia
 en0590	¿Lo puedo cambiar por otra talla?		borrador	ia
@@ -511,18 +556,23 @@ en0591	¿Me pueden devolver el dinero?		borrador	ia
 en0592	¿Me puede traer un vaso de agua?		borrador	ia
 en0593	¿Me puede dar un casillero?		borrador	ia
 en0594	¿Me das tu correo electrónico?		borrador	ia
+en0595	¿Te ayudo con eso?		borrador	ia
 en0596	¿En qué le puedo ayudar?		borrador	ia
 en0597	¿Puedo dejar un mensaje?		borrador	ia
 en0598	¿Puedo pagar con tarjeta?		borrador	ia
+en0599	¿Puedo pagar en línea?		borrador	ia
 en0600	¿Puedo mostrarle una foto?		borrador	ia
 en0601	¿Puedo hablar con Ben, por favor?		borrador	ia
+en0602	¿Puedo tomarme un día libre?		borrador	ia
 en0603	¿Me lo puedo probar?		borrador	ia
 en0604	¿Puedo ir caminando?		borrador	ia
 en0605	el abrelatas		borrador	ia
 en0606	¿Podemos cambiar la hora?		borrador	ia
 en0607	¿Podemos vernos otro día?		borrador	ia
+en0608	¿Podemos cambiar la fecha de la reunión?		borrador	ia
 en0609	¿Podemos dividir la cuenta?		borrador	ia
 en0610	¿Puede arreglarlo?		borrador	ia
+en0611	¿Me ayudas con mi tarea?		borrador	ia
 en0612	¿Me puede ayudar, por favor?		borrador	ia
 en0613	¿Me lo puede mostrar en el mapa?		borrador	ia
 en0614	no puede		borrador	ia
@@ -531,6 +581,7 @@ en0616	canadiense / el canadiense		borrador	ia
 en0617	el canal		borrador	ia
 en0618	cancelar		borrador	ia
 en0619	cancelado		borrador	ia
+en0620	el candidato		borrador	ia
 en0621	la vela		borrador	ia
 en0622	el dulce		borrador	ia
 en0623	no puede		borrador	ia
@@ -541,6 +592,7 @@ en0627	la gorra		borrador	ia
 en0628	capital / la capital		borrador	ia
 en0629	la capital		borrador	ia
 en0630	el capuchino		borrador	ia
+en0631	el capitán		borrador	ia
 en0632	el auto		borrador	ia
 en0633	la alarma del auto		borrador	ia
 en0634	el estacionamiento		borrador	ia
@@ -552,9 +604,11 @@ en0639	la tarjeta		borrador	ia
 en0640	de cartón / el cartón		borrador	ia
 en0641	el cárdigan		borrador	ia
 en0642	el cuidado / importar		borrador	ia
+en0643	la carrera profesional		borrador	ia
 en0644	cuidadoso		borrador	ia
 en0645	con cuidado		borrador	ia
 en0646	descuidado		borrador	ia
+en0647	el carpintero		borrador	ia
 en0648	la alfombra		borrador	ia
 en0649	la zanahoria		borrador	ia
 en0650	llevar		borrador	ia
@@ -565,6 +619,7 @@ en0654	el cartón		borrador	ia
 en0656	la maleta		borrador	ia
 en0657	el efectivo		borrador	ia
 en0658	el cajero automático		borrador	ia
+en0659	el cajero		borrador	ia
 en0660	el cajero automático		borrador	ia
 en0661	el castillo		borrador	ia
 en0662	informal		borrador	ia
@@ -595,14 +650,17 @@ en0693	la cerámica		borrador	ia
 en0694	el cereal		borrador	ia
 en0695	seguro		borrador	ia
 en0696	ciertamente		borrador	ia
+en0697	el certificado		borrador	ia
 en0698	la cadena		borrador	ia
 en0699	la silla		borrador	ia
+en0700	la tiza		borrador	ia
 en0701	desafiante		borrador	ia
 en0702	el champán		borrador	ia
 en0705	la oportunidad		borrador	ia
 en0706	cambiar / el cambio		borrador	ia
 en0707	el vestuario		borrador	ia
 en0708	el canal		borrador	ia
+en0709	el capítulo		borrador	ia
 en0710	el carácter		borrador	ia
 en0711	la carga / cargar		borrador	ia
 en0712	el cargador		borrador	ia
@@ -630,6 +688,7 @@ en0736	el sándwich de queso		borrador	ia
 en0737	el guepardo		borrador	ia
 en0738	el chef		borrador	ia
 en0739	el farmacéutico		borrador	ia
+en0740	la química		borrador	ia
 en0741	el cheque		borrador	ia
 en0742	la cereza		borrador	ia
 en0744	el pecho		borrador	ia
@@ -637,6 +696,7 @@ en0745	la cómoda		borrador	ia
 en0746	el chicle		borrador	ia
 en0747	el pollo		borrador	ia
 en0748	los garbanzos		borrador	ia
+en0749	principal		borrador	ia
 en0750	el niño		borrador	ia
 en0751	la infancia		borrador	ia
 en0752	los niños		borrador	ia
@@ -665,18 +725,23 @@ en0776	la canela		borrador	ia
 en0777	el círculo		borrador	ia
 en0778	el circo		borrador	ia
 en0779	el ciudadano		borrador	ia
+en0780	la ciudadanía		borrador	ia
 en0781	la ciudad		borrador	ia
 en0782	el centro de la ciudad		borrador	ia
 en0783	aplaudir		borrador	ia
 en0785	la clase		borrador	ia
+en0786	Terminó la clase.		borrador	ia
 en0787	clásico		borrador	ia
 en0789	el compañero de clase		borrador	ia
+en0790	la sala de clases		borrador	ia
 en0791	la arcilla		borrador	ia
 en0792	limpio / limpiar		borrador	ia
+en0793	el limpiador		borrador	ia
 en0794	claro / despejar		borrador	ia
 en0795	levantar la mesa		borrador	ia
 en0796	claramente		borrador	ia
 en0797	inteligente		borrador	ia
+en0799	el cliente		borrador	ia
 en0800	el acantilado		borrador	ia
 en0801	el clima		borrador	ia
 en0802	el cambio climático		borrador	ia
@@ -689,6 +754,7 @@ en0810	la ropa		borrador	ia
 en0811	la tienda de ropa		borrador	ia
 en0812	la nube		borrador	ia
 en0813	nublado		borrador	ia
+en0814	el payaso		borrador	ia
 en0815	empalagoso		borrador	ia
 en0816	el club		borrador	ia
 en0817	torpe		borrador	ia
@@ -706,9 +772,11 @@ en0828	el bacalao		borrador	ia
 en0829	el café		borrador	ia
 en0830	la cafetera		borrador	ia
 en0831	la mesa de centro		borrador	ia
+en0832	la moneda		borrador	ia
 en0833	la cola		borrador	ia
 en0834	frío / el resfriado		borrador	ia
 en0835	el cuello / el collar		borrador	ia
+en0836	el colega		borrador	ia
 en0837	coleccionar / recoger		borrador	ia
 en0840	la universidad		borrador	ia
 en0841	Colombia		borrador	ia
@@ -727,11 +795,14 @@ en0856	el comentario / comentar		borrador	ia
 en0857	común		borrador	ia
 en0858	comunicar		borrador	ia
 en0859	la comunicación		borrador	ia
+en0860	la empresa		borrador	ia
 en0861	comparar		borrador	ia
+en0863	la competencia		borrador	ia
 en0865	quejarse		borrador	ia
 en0866	la queja		borrador	ia
 en0867	completar / completo		borrador	ia
 en0868	complicado		borrador	ia
+en0870	la redacción		borrador	ia
 en0871	el compost		borrador	ia
 en0872	el compuesto		borrador	ia
 en0873	la computadora		borrador	ia
@@ -742,6 +813,7 @@ en0878	la condición		borrador	ia
 en0879	el acondicionador		borrador	ia
 en0880	el cóndor		borrador	ia
 en0882	el cono		borrador	ia
+en0883	la conferencia		borrador	ia
 en0884	seguro de sí mismo		borrador	ia
 en0885	confirmar		borrador	ia
 en0886	confundido		borrador	ia
@@ -756,6 +828,7 @@ en0895	los contactos		borrador	ia
 en0896	contener		borrador	ia
 en0898	el continente		borrador	ia
 en0899	continuar		borrador	ia
+en0900	el contrato		borrador	ia
 en0901	el control / controlar		borrador	ia
 en0902	conveniente		borrador	ia
 en0903	la conversación		borrador	ia
@@ -775,6 +848,7 @@ en0916	el sacacorchos		borrador	ia
 en0917	el maíz		borrador	ia
 en0918	la esquina		borrador	ia
 en0919	el almacén de barrio		borrador	ia
+en0920	correcto		borrador	ia
 en0921	la corrección		borrador	ia
 en0922	el pasillo		borrador	ia
 en0923	el costo / costar		borrador	ia
@@ -792,8 +866,10 @@ en0934	la tos / toser		borrador	ia
 en0935	podría		borrador	ia
 en0936	¿Me prestas un poco de azúcar?		borrador	ia
 en0937	¿Me da una bolsa, por favor?		borrador	ia
+en0938	¿Me podría dar una copia de esto?		borrador	ia
 en0939	¿Me podría dar una habitación tranquila?		borrador	ia
 en0940	¿Me da el recibo, por favor?		borrador	ia
+en0941	¿Me podría dar billetes más chicos, por favor?		borrador	ia
 en0942	¿Me puede traer la ensalada sin cebolla?		borrador	ia
 en0943	¿Podría pedir una cita para el lunes?		borrador	ia
 en0944	¿Nos trae más pan, por favor?		borrador	ia
@@ -802,8 +878,12 @@ en0946	¿Podemos ver la carta, por favor?		borrador	ia
 en0947	¿Podría pedirle que me devuelva la llamada?		borrador	ia
 en0948	¿Me podría llamar un taxi, por favor?		borrador	ia
 en0949	¿Podría cortarlo un poco más corto?		borrador	ia
+en0950	¿Podría explicarlo otra vez, por favor?		borrador	ia
 en0951	¿Puedes arreglarlo, por favor?		borrador	ia
+en0952	¿Me podría ayudar a llenar este formulario?		borrador	ia
+en0953	¿Me podrías ayudar con esto?		borrador	ia
 en0954	¿Puedes abrir la puerta, por favor?		borrador	ia
+en0955	¿Me podrías enviar el archivo?		borrador	ia
 en0956	¿Podría hablar más despacio, por favor?		borrador	ia
 en0957	¿Podría hablar más fuerte, por favor?		borrador	ia
 en0958	¿Podría deletrearlo, por favor?		borrador	ia
@@ -822,11 +902,15 @@ en0970	el campo		borrador	ia
 en0971	la pareja		borrador	ia
 en0972	el valor		borrador	ia
 en0973	el calabacín		borrador	ia
+en0974	el mensajero		borrador	ia
+en0975	el curso		borrador	ia
 en0977	el primo		borrador	ia
 en0978	la tapa / cubrir		borrador	ia
 en0979	la vaca		borrador	ia
+en0980	el compañero de trabajo		borrador	ia
 en0981	el cangrejo		borrador	ia
 en0982	el choque / chocar		borrador	ia
+en0983	el lápiz de cera		borrador	ia
 en0984	loco		borrador	ia
 en0985	color crema / la crema		borrador	ia
 en0986	la torta de crema		borrador	ia
@@ -834,6 +918,7 @@ en0987	cremoso		borrador	ia
 en0988	crear		borrador	ia
 en0989	creativo		borrador	ia
 en0990	la criatura		borrador	ia
+en0991	el crédito		borrador	ia
 en0992	la tarjeta de crédito		borrador	ia
 en0993	la media luna		borrador	ia
 en0994	la tripulación		borrador	ia
@@ -864,6 +949,7 @@ en1020	cubano / el cubano		borrador	ia
 en1021	el cubo		borrador	ia
 en1022	el pepino		borrador	ia
 en1023	cultural		borrador	ia
+en1024	la cultura		borrador	ia
 en1025	la taza		borrador	ia
 en1026	el armario		borrador	ia
 en1027	el cupcake		borrador	ia
@@ -876,6 +962,7 @@ en1033	la grosella		borrador	ia
 en1034	la moneda		borrador	ia
 en1035	la casa de cambio		borrador	ia
 en1036	la corriente		borrador	ia
+en1037	el plan de estudios		borrador	ia
 en1038	el curry		borrador	ia
 en1039	la cortina		borrador	ia
 en1040	la curva		borrador	ia
@@ -884,11 +971,13 @@ en1042	el cojín		borrador	ia
 en1043	las natillas		borrador	ia
 en1044	el cliente		borrador	ia
 en1045	la aduana		borrador	ia
+en1046	el agente de aduanas		borrador	ia
 en1047	cortar / el corte		borrador	ia
 en1048	cortar en trozos		borrador	ia
 en1049	lindo		borrador	ia
 en1050	los cubiertos		borrador	ia
 en1051	la tabla de cortar		borrador	ia
+en1052	el currículum		borrador	ia
 en1053	andar en bicicleta / el ciclo		borrador	ia
 en1055	el ciclista		borrador	ia
 en1056	el cilindro		borrador	ia
@@ -899,6 +988,7 @@ en1060	los lácteos		borrador	ia
 en1061	el daño / dañar		borrador	ia
 en1062	dañado		borrador	ia
 en1063	húmedo		borrador	ia
+en1065	el bailarín		borrador	ia
 en1067	el peligro		borrador	ia
 en1068	peligroso		borrador	ia
 en1069	danés / el danés		borrador	ia
@@ -908,11 +998,14 @@ en1072	verde oscuro		borrador	ia
 en1074	la fecha / el dátil		borrador	ia
 en1075	la hija		borrador	ia
 en1076	el día		borrador	ia
+en1077	el día libre		borrador	ia
 en1078	muerto		borrador	ia
+en1079	la fecha límite		borrador	ia
 en1080	sordo		borrador	ia
 en1081	tratar		borrador	ia
 en1082	caro / ¡vaya!		borrador	ia
 en1083	la muerte		borrador	ia
+en1084	la tarjeta de débito		borrador	ia
 en1085	la década		borrador	ia
 en1086	diciembre		borrador	ia
 en1087	decidir		borrador	ia
@@ -924,6 +1017,7 @@ en1092	profundo / profundamente		borrador	ia
 en1093	el ciervo		borrador	ia
 en1094	defender		borrador	ia
 en1095	definitivamente		borrador	ia
+en1096	el título universitario		borrador	ia
 en1097	los grados		borrador	ia
 en1098	el retraso / retrasar		borrador	ia
 en1099	retrasado		borrador	ia
@@ -951,11 +1045,13 @@ en1120	la descripción		borrador	ia
 en1121	el desierto		borrador	ia
 en1122	merecer		borrador	ia
 en1123	el diseño / diseñar		borrador	ia
+en1124	el diseñador		borrador	ia
 en1125	el escritorio		borrador	ia
 en1126	el postre		borrador	ia
 en1127	el destino		borrador	ia
 en1128	destruir		borrador	ia
 en1129	el detalle		borrador	ia
+en1130	el detective		borrador	ia
 en1131	determinar		borrador	ia
 en1132	desarrollar		borrador	ia
 en1133	el diagrama		borrador	ia
@@ -963,6 +1059,7 @@ en1134	marcar		borrador	ia
 en1136	el dialecto		borrador	ia
 en1137	el rombo		borrador	ia
 en1138	la agenda		borrador	ia
+en1139	el diccionario		borrador	ia
 en1140	no (pasado)		borrador	ia
 en1141	morir		borrador	ia
 en1142	la dieta		borrador	ia
@@ -980,10 +1077,12 @@ en1154	el comedor		borrador	ia
 en1155	la mesa del comedor		borrador	ia
 en1156	la cena		borrador	ia
 en1157	el dinosaurio		borrador	ia
+en1158	el diploma		borrador	ia
 en1159	directo / dirigir		borrador	ia
 en1160	el vuelo directo		borrador	ia
 en1161	la dirección		borrador	ia
 en1162	directamente		borrador	ia
+en1163	el director		borrador	ia
 en1164	la suciedad		borrador	ia
 en1165	sucio		borrador	ia
 en1166	con discapacidad		borrador	ia
@@ -1008,22 +1107,26 @@ en1188	la distancia		borrador	ia
 en1189	el barrio		borrador	ia
 en1190	molestar		borrador	ia
 en1191	bucear		borrador	ia
+en1192	el buzo		borrador	ia
 en1193	dividir		borrador	ia
 en1195	la división		borrador	ia
 en1196	mareado		borrador	ia
 en1198	hacer / (auxiliar)		borrador	ia
 en1199	¿Necesito receta?		borrador	ia
+en1200	¿Necesito pedir hora?		borrador	ia
 en1201	¿Necesito paraguas?		borrador	ia
 en1202	¿Necesito reservar con anticipación?		borrador	ia
 en1203	¿Tengo que reservar la clase?		borrador	ia
 en1204	¿Tengo que traer toalla?		borrador	ia
 en1205	¿Tengo que cambiar de tren?		borrador	ia
+en1206	¿Tengo que llenar un formulario?		borrador	ia
 en1207	¿Aceptan tarjetas de crédito?		borrador	ia
 en1208	¿Tiene uno más barato?		borrador	ia
 en1209	¿Tiene una mesa para cuatro?		borrador	ia
 en1210	¿Tiene alguna alergia?		borrador	ia
 en1211	¿Tienes hermanos?		borrador	ia
 en1212	¿Tienes tiempo libre el martes?		borrador	ia
+en1213	¿Tienen alguna pregunta?		borrador	ia
 en1214	¿Tienen habitaciones disponibles?		borrador	ia
 en1215	¿Tienes hora?		borrador	ia
 en1216	¿Lo tiene en una talla más grande?		borrador	ia
@@ -1070,6 +1173,8 @@ en1258	la docena de huevos		borrador	ia
 en1259	el Dr.		borrador	ia
 en1261	la libélula		borrador	ia
 en1262	el desagüe		borrador	ia
+en1263	el teatro		borrador	ia
+en1264	dibujar		borrador	ia
 en1265	el cajón		borrador	ia
 en1266	los cajones		borrador	ia
 en1268	el sueño / soñar		borrador	ia
@@ -1085,6 +1190,7 @@ en1277	Toma mucha agua.		borrador	ia
 en1278	Toma un poco de agua.		borrador	ia
 en1279	conducir / el paseo en auto		borrador	ia
 en1280	el conductor		borrador	ia
+en1281	la licencia de conducir		borrador	ia
 en1282	la conducción		borrador	ia
 en1283	la licencia de conducir		borrador	ia
 en1284	dejar caer		borrador	ia
@@ -1114,6 +1220,7 @@ en1311	el águila		borrador	ia
 en1312	la oreja		borrador	ia
 en1313	el dolor de oído		borrador	ia
 en1314	temprano / temprano		borrador	ia
+en1315	ganar		borrador	ia
 en1316	los audífonos		borrador	ia
 en1317	el arete		borrador	ia
 en1318	los aretes		borrador	ia
@@ -1130,9 +1237,11 @@ en1328	relajado		borrador	ia
 en1329	comer		borrador	ia
 en1330	comer en el local		borrador	ia
 en1331	comer fuera		borrador	ia
+en1332	la economía		borrador	ia
 en1333	Ecuador		borrador	ia
 en1334	ecuatoriano / el ecuatoriano		borrador	ia
 en1335	el borde		borrador	ia
+en1336	la educación		borrador	ia
 en1337	la anguila		borrador	ia
 en1338	el efecto		borrador	ia
 en1339	eficiente		borrador	ia
@@ -1154,8 +1263,10 @@ en1354	elástico		borrador	ia
 en1355	el codo		borrador	ia
 en1356	mayor		borrador	ia
 en1357	anciano		borrador	ia
+en1358	las elecciones		borrador	ia
 en1359	eléctrico		borrador	ia
 en1361	eléctrico		borrador	ia
+en1362	el electricista		borrador	ia
 en1363	la electricidad		borrador	ia
 en1366	la tienda de electrónica		borrador	ia
 en1367	el elemento		borrador	ia
@@ -1172,14 +1283,21 @@ en1377	la embajada		borrador	ia
 en1378	la emergencia		borrador	ia
 en1379	la salida de emergencia		borrador	ia
 en1380	el emoji		borrador	ia
+en1381	emplear		borrador	ia
+en1382	el empleado		borrador	ia
+en1383	el empleador		borrador	ia
+en1384	el empleo		borrador	ia
 en1385	vacío		borrador	ia
 en1386	animar		borrador	ia
 en1387	el final / terminar		borrador	ia
 en1388	terminar		borrador	ia
 en1389	en peligro de extinción		borrador	ia
+en1390	el enemigo		borrador	ia
 en1391	la energía		borrador	ia
 en1392	ocupado (línea)		borrador	ia
 en1393	el motor		borrador	ia
+en1394	el ingeniero		borrador	ia
+en1395	la ingeniería		borrador	ia
 en1396	Inglaterra		borrador	ia
 en1397	inglés / el inglés		borrador	ia
 en1398	disfrutar		borrador	ia
@@ -1195,9 +1313,11 @@ en1409	el medio ambiente		borrador	ia
 en1410	ambiental		borrador	ia
 en1411	igual		borrador	ia
 en1412	la ecuación		borrador	ia
+en1414	la goma de borrar		borrador	ia
 en1415	escapar		borrador	ia
 en1416	especialmente		borrador	ia
 en1417	el café expreso		borrador	ia
+en1418	el ensayo		borrador	ia
 en1419	esencial		borrador	ia
 en1420	Etiopía		borrador	ia
 en1421	etíope / el etíope		borrador	ia
@@ -1216,7 +1336,11 @@ en1433	Todo estaba delicioso.		borrador	ia
 en1434	en todas partes		borrador	ia
 en1435	exacto		borrador	ia
 en1436	exactamente		borrador	ia
+en1437	el examen		borrador	ia
+en1438	el examen		borrador	ia
 en1439	examinar		borrador	ia
+en1440	el examinador		borrador	ia
+en1441	el ejemplo		borrador	ia
 en1442	excelente / ¡excelente!		borrador	ia
 en1443	excepto / salvo que		borrador	ia
 en1444	el exceso de equipaje		borrador	ia
@@ -1232,6 +1356,7 @@ en1453	Disculpe, me bajo aquí.		borrador	ia
 en1454	Disculpe, ¿dónde está el banco?		borrador	ia
 en1455	Disculpe.		borrador	ia
 en1456	el ejercicio / hacer ejercicio		borrador	ia
+en1457	el cuaderno		borrador	ia
 en1458	agotado		borrador	ia
 en1460	existir		borrador	ia
 en1461	la salida		borrador	ia
@@ -1242,6 +1367,8 @@ en1465	la experiencia		borrador	ia
 en1466	con experiencia		borrador	ia
 en1467	el experimento		borrador	ia
 en1468	el experto		borrador	ia
+en1469	vencer		borrador	ia
+en1470	vencido		borrador	ia
 en1471	explicar		borrador	ia
 en1472	la explicación		borrador	ia
 en1473	explorar		borrador	ia
@@ -1282,6 +1409,7 @@ en1509	lejano / lejos		borrador	ia
 en1510	la tarifa		borrador	ia
 en1511	la granja		borrador	ia
 en1512	el agricultor		borrador	ia
+en1513	la agricultura		borrador	ia
 en1514	las tierras de cultivo		borrador	ia
 en1515	la moda		borrador	ia
 en1516	de moda		borrador	ia
@@ -1298,6 +1426,7 @@ en1527	el miedo		borrador	ia
 en1528	el banquete		borrador	ia
 en1529	la pluma		borrador	ia
 en1530	febrero		borrador	ia
+en1531	la tarifa		borrador	ia
 en1532	alimentar		borrador	ia
 en1533	sentir		borrador	ia
 en1534	sentirse mejor		borrador	ia
@@ -1325,10 +1454,13 @@ en1558	llenar		borrador	ia
 en1559	rellenar		borrador	ia
 en1560	llenar		borrador	ia
 en1561	el filete		borrador	ia
+en1562	la película / filmar		borrador	ia
+en1564	la estrella de cine		borrador	ia
 en1565	mugriento		borrador	ia
 en1566	la aleta		borrador	ia
 en1567	finalmente		borrador	ia
 en1568	financiero		borrador	ia
+en1569	encontrar		borrador	ia
 en1570	averiguar		borrador	ia
 en1571	bien / ¡está bien! / la multa		borrador	ia
 en1572	el dedo		borrador	ia
@@ -1338,13 +1470,16 @@ en1575	finlandés / el finlandés		borrador	ia
 en1576	el fuego		borrador	ia
 en1577	los bomberos		borrador	ia
 en1578	el carro de bomberos		borrador	ia
+en1579	el bombero		borrador	ia
 en1580	el cuartel de bomberos		borrador	ia
 en1581	el bombero		borrador	ia
+en1582	el bombero		borrador	ia
 en1583	la chimenea		borrador	ia
 en1586	firme		borrador	ia
 en1587	primero / primero / primero		borrador	ia
 en1588	los primeros auxilios		borrador	ia
 en1589	el nombre de pila		borrador	ia
+en1590	el primer año		borrador	ia
 en1591	el pescado / pescar		borrador	ia
 en1592	la tienda de pescado frito con papas		borrador	ia
 en1593	el pescador		borrador	ia
@@ -1354,6 +1489,7 @@ en1597	en forma / quedar bien		borrador	ia
 en1599	el probador		borrador	ia
 en1600	cinco		borrador	ia
 en1601	arreglar		borrador	ia
+en1602	la bandera		borrador	ia
 en1603	el flamenco		borrador	ia
 en1604	la toallita		borrador	ia
 en1606	el apartamento / plano		borrador	ia
@@ -1378,12 +1514,15 @@ en1625	el potro		borrador	ia
 en1626	la niebla		borrador	ia
 en1627	con niebla		borrador	ia
 en1628	doblar		borrador	ia
+en1629	la carpeta		borrador	ia
 en1632	seguir		borrador	ia
 en1633	siguiente		borrador	ia
 en1634	encariñado		borrador	ia
 en1635	la comida		borrador	ia
 en1636	el procesador de alimentos		borrador	ia
 en1637	el pie		borrador	ia
+en1639	el futbolista		borrador	ia
+en1640	el futbolista		borrador	ia
 en1641	para		borrador	ia
 en1642	en venta		borrador	ia
 en1643	prohibido		borrador	ia
@@ -1451,6 +1590,8 @@ en1704	la sartén		borrador	ia
 en1705	el combustible		borrador	ia
 en1706	lleno		borrador	ia
 en1707	el punto		borrador	ia
+en1708	a tiempo completo		borrador	ia
+en1709	de tiempo completo		borrador	ia
 en1710	completamente		borrador	ia
 en1712	la feria de diversiones		borrador	ia
 en1713	divertido		borrador	ia
@@ -1480,6 +1621,7 @@ en1737	generalmente		borrador	ia
 en1738	generoso		borrador	ia
 en1739	suave		borrador	ia
 en1740	el caballero		borrador	ia
+en1741	la geografía		borrador	ia
 en1742	alemán / el alemán		borrador	ia
 en1743	Alemania		borrador	ia
 en1744	conseguir		borrador	ia
@@ -1517,6 +1659,7 @@ en1775	echar un vistazo		borrador	ia
 en1776	de vidrio / el vaso		borrador	ia
 en1777	los lentes		borrador	ia
 en1778	el calentamiento global		borrador	ia
+en1779	el globo terráqueo		borrador	ia
 en1780	el guante		borrador	ia
 en1781	los guantes		borrador	ia
 en1782	el pegamento / pegar		borrador	ia
@@ -1532,6 +1675,7 @@ en1793	Siga derecho.		borrador	ia
 en1794	Siga derecho dos cuadras.		borrador	ia
 en1795	irse a la cama		borrador	ia
 en1796	irse a dormir		borrador	ia
+en1798	el arquero		borrador	ia
 en1799	la cabra		borrador	ia
 en1800	el queso de cabra		borrador	ia
 en1801	Dios		borrador	ia
@@ -1544,6 +1688,7 @@ en1808	bueno		borrador	ia
 en1809	buenas tardes		borrador	ia
 en1810	Buenas tardes.		borrador	ia
 en1811	Buenas noches.		borrador	ia
+en1812	¡Buen trabajo!		borrador	ia
 en1813	¡Buena suerte!		borrador	ia
 en1814	buenos días		borrador	ia
 en1815	Buenos días.		borrador	ia
@@ -1554,6 +1699,7 @@ en1819	Adiós.		borrador	ia
 en1820	el ganso		borrador	ia
 en1821	precioso		borrador	ia
 en1822	el gorila		borrador	ia
+en1823	el gobierno		borrador	ia
 en1824	agarrar		borrador	ia
 en1825	la nota		borrador	ia
 en1826	la gramática		borrador	ia
@@ -1595,10 +1741,12 @@ en1862	arenoso		borrador	ia
 en1863	el almacén		borrador	ia
 en1864	el novio		borrador	ia
 en1865	el suelo		borrador	ia
+en1866	el grupo		borrador	ia
 en1867	el chat grupal		borrador	ia
 en1868	crecer		borrador	ia
 en1869	crecer		borrador	ia
 en1870	el adulto		borrador	ia
+en1871	el guardia		borrador	ia
 en1872	Guatemala		borrador	ia
 en1873	guatemalteco / el guatemalteco		borrador	ia
 en1874	la suposición / adivinar		borrador	ia
@@ -1610,6 +1758,7 @@ en1879	la guía de viaje		borrador	ia
 en1880	culpable		borrador	ia
 en1881	el cuy		borrador	ia
 en1884	el chicle / la encía		borrador	ia
+en1885	el arma		borrador	ia
 en1886	el tipo		borrador	ia
 en1887	el gimnasio		borrador	ia
 en1888	la gimnasia		borrador	ia
@@ -1640,6 +1789,7 @@ en1914	el pañuelo		borrador	ia
 en1915	manejar		borrador	ia
 en1916	el manubrio		borrador	ia
 en1917	guapo		borrador	ia
+en1918	la letra		borrador	ia
 en1919	colgar		borrador	ia
 en1921	colgar		borrador	ia
 en1922	la percha		borrador	ia
@@ -1703,6 +1853,9 @@ en1983	su / su / la / su		borrador	ia
 en1984	la hierba aromática		borrador	ia
 en1985	las hierbas		borrador	ia
 en1986	aquí		borrador	ia
+en1987	Aquí está mi currículum.		borrador	ia
+en1988	Aquí está mi carnet.		borrador	ia
+en1989	Aquí está mi pasaporte.		borrador	ia
 en1990	Aquí tiene su cambio.		borrador	ia
 en1993	suyo (de ella)		borrador	ia
 en1994	ella misma		borrador	ia
@@ -1717,6 +1870,7 @@ en2002	esconder		borrador	ia
 en2003	alto		borrador	ia
 en2004	la silla para bebé		borrador	ia
 en2005	los tacones altos		borrador	ia
+en2007	el destacador		borrador	ia
 en2008	las mechas		borrador	ia
 en2009	la colina		borrador	ia
 en2010	lo, le		borrador	ia
@@ -1728,6 +1882,7 @@ en2016	contratar / el alquiler		borrador	ia
 en2017	su / su / suyo / su		borrador	ia
 en2018	histórico		borrador	ia
 en2019	histórico		borrador	ia
+en2020	la historia		borrador	ia
 en2023	hacer dedo		borrador	ia
 en2024	la placa de cocina		borrador	ia
 en2027	sostener		borrador	ia
@@ -1739,6 +1894,7 @@ en2032	las vacaciones		borrador	ia
 en2033	Holanda		borrador	ia
 en2034	hueco		borrador	ia
 en2035	el hogar / en casa		borrador	ia
+en2037	la tarea		borrador	ia
 en2038	honesto		borrador	ia
 en2039	honestamente		borrador	ia
 en2040	la miel		borrador	ia
@@ -1767,12 +1923,14 @@ en2066	¿Cómo te va?		borrador	ia
 en2067	¿Cómo estás?		borrador	ia
 en2068	¿Cómo llego a la estación?		borrador	ia
 en2069	¿Cómo se conocieron?		borrador	ia
+en2070	¿Cómo se escribe?		borrador	ia
 en2071	¿Cómo se escribe tu nombre?		borrador	ia
 en2072	¿Qué tan lejos está?		borrador	ia
 en2073	cuánto tiempo		borrador	ia
 en2074	¿Cuánto se demora a pie?		borrador	ia
 en2075	¿Cuánto se demora?		borrador	ia
 en2076	¿Desde cuándo tiene estos síntomas?		borrador	ia
+en2077	¿Cuánto se demora en llegar?		borrador	ia
 en2078	¿Cuánto tiempo va a tardar?		borrador	ia
 en2079	cuántos		borrador	ia
 en2080	¿Cuántos dormitorios tiene?		borrador	ia
@@ -1783,7 +1941,9 @@ en2084	¿Cuánto cuesta un corte de pelo?		borrador	ia
 en2085	¿Cuánto cuesta la membresía?		borrador	ia
 en2086	¿Cuánto es todo?		borrador	ia
 en2087	¿Cuánto cuesta por noche?		borrador	ia
+en2088	¿Cuánto cuesta enviar este paquete?		borrador	ia
 en2089	¿Cuánto cuesta el pasaje?		borrador	ia
+en2090	¿Cuánto es la tarifa?		borrador	ia
 en2091	¿Cuánto es el alquiler?		borrador	ia
 en2092	¿Cuánto cuesta esto?		borrador	ia
 en2093	¿Cuánto va a costar?		borrador	ia
@@ -1791,6 +1951,7 @@ en2094	con qué frecuencia		borrador	ia
 en2095	¿Cada cuánto pasan los buses?		borrador	ia
 en2096	cuántos años		borrador	ia
 en2097	¿Cuántos años tienes?		borrador	ia
+en2098	¿Cómo te fue en la prueba?		borrador	ia
 en2099	¿Cómo va todo?		borrador	ia
 en2100	¿Qué tal?		borrador	ia
 en2101	¿Cómo está tu familia?		borrador	ia
@@ -1816,28 +1977,38 @@ en2121	No puedo ir.		borrador	ia
 en2122	Vengo de Chile.		borrador	ia
 en2123	No me siento bien.		borrador	ia
 en2124	No me gusta el color.		borrador	ia
+en2125	No entiendo la pregunta.		borrador	ia
 en2126	no entiendo		borrador	ia
+en2127	Reprobé el examen.		borrador	ia
 en2128	Hoy me siento mejor.		borrador	ia
 en2129	Estoy mareado.		borrador	ia
 en2130	Tengo náuseas.		borrador	ia
+en2131	Salgo a las cinco.		borrador	ia
 en2132	Me llevo bien con él.		borrador	ia
 en2133	Me levanto a las siete.		borrador	ia
 en2134	Salgo a correr todas las mañanas.		borrador	ia
 en2135	Me acuesto a las once.		borrador	ia
+en2136	Me saqué una buena nota.		borrador	ia
 en2137	Odio el frío.		borrador	ia
 en2138	Tengo tos.		borrador	ia
 en2139	Tengo fiebre.		borrador	ia
 en2140	Se me pinchó un neumático.		borrador	ia
 en2141	Me duele la cabeza.		borrador	ia
+en2142	Tengo una reunión a las diez.		borrador	ia
 en2143	Tengo una reserva a nombre de Ana.		borrador	ia
 en2144	Me duele la garganta.		borrador	ia
 en2145	Me duele el estómago.		borrador	ia
+en2146	Tengo hora a las diez.		borrador	ia
 en2147	Tengo una cita a las tres.		borrador	ia
+en2148	Mañana tengo un examen.		borrador	ia
+en2149	Mañana tengo una entrevista.		borrador	ia
+en2150	Tengo tarea que hacer.		borrador	ia
 en2151	No tengo señal.		borrador	ia
 en2152	Tengo que cancelar.		borrador	ia
 en2153	Tengo dos hermanos.		borrador	ia
 en2154	Hace siglos que no te veo.		borrador	ia
 en2155	Me lastimé el tobillo.		borrador	ia
+en2156	Me gustan las matemáticas.		borrador	ia
 en2157	Me gusta la música.		borrador	ia
 en2158	Vivo en Santiago.		borrador	ia
 en2159	Vivo con mi familia.		borrador	ia
@@ -1848,12 +2019,16 @@ en2163	Te extraño.		borrador	ia
 en2164	Perdí el bus.		borrador	ia
 en2165	Perdí tu llamada.		borrador	ia
 en2166	Necesito un médico.		borrador	ia
+en2167	Necesito más tiempo.		borrador	ia
 en2168	Necesito acostarme.		borrador	ia
 en2169	Necesito denunciar un robo.		borrador	ia
 en2170	Necesito ver a un médico.		borrador	ia
+en2171	Necesito estudiar.		borrador	ia
+en2172	Aprobé el examen.		borrador	ia
 en2173	Toco el violín.		borrador	ia
 en2174	Comparto apartamento con dos amigos.		borrador	ia
 en2175	Hablo español y un poco de inglés.		borrador	ia
+en2176	Estudio en la universidad.		borrador	ia
 en2177	Estudio ingeniería.		borrador	ia
 en2178	Tomo este medicamento todos los días.		borrador	ia
 en2179	Creo que estoy resfriado.		borrador	ia
@@ -1861,35 +2036,49 @@ en2180	Quiero ponerme en forma.		borrador	ia
 en2181	Quiero ponerme más fuerte.		borrador	ia
 en2182	Quiero bajar de peso.		borrador	ia
 en2183	Nací en Chile.		borrador	ia
+en2184	Trabajo como ingeniero.		borrador	ia
+en2185	Trabajo en una empresa pequeña.		borrador	ia
+en2186	Trabajo desde casa.		borrador	ia
+en2187	Trabajo a tiempo completo.		borrador	ia
 en2188	Trabajo en un banco.		borrador	ia
 en2189	Entreno tres veces a la semana.		borrador	ia
+en2190	Trabajo a tiempo parcial.		borrador	ia
 en2191	Quisiera un corte de pelo, por favor.		borrador	ia
 en2192	Quiero un kilo de manzanas, por favor.		borrador	ia
 en2193	Quisiera un asiento junto a la ventana, por favor.		borrador	ia
 en2194	Quiero el pollo, por favor.		borrador	ia
 en2195	Lo quiero para llevar, por favor.		borrador	ia
+en2196	Quisiera postular a este trabajo.		borrador	ia
 en2197	Quisiera reservar una habitación, por favor.		borrador	ia
 en2198	Quisiera cambiar mi peinado.		borrador	ia
 en2199	Quisiera registrarme, por favor.		borrador	ia
 en2200	Quisiera dejar la habitación, por favor.		borrador	ia
+en2201	Quisiera depositar dinero.		borrador	ia
 en2202	Quisiera teñirme el pelo.		borrador	ia
+en2203	Quisiera cambiar unos dólares.		borrador	ia
 en2204	Me gustaría invitarte a cenar.		borrador	ia
 en2205	Quisiera inscribirme en el gimnasio.		borrador	ia
 en2206	Quisiera pedir una hora para un corte de pelo.		borrador	ia
 en2207	Quisiera pedir una cita.		borrador	ia
+en2208	Quisiera abrir una cuenta bancaria.		borrador	ia
 en2209	Quisiera arrendar una bicicleta.		borrador	ia
 en2210	Quisiera arrendar un auto.		borrador	ia
 en2211	Quiero devolver esto.		borrador	ia
+en2212	Quisiera enviar esta carta a Chile.		borrador	ia
+en2213	Quisiera retirar dinero.		borrador	ia
 en2214	Quiero presentarte a mi amigo.		borrador	ia
 en2215	¡Me encantaría!		borrador	ia
 en2216	Me encantaría, pero no puedo.		borrador	ia
 en2217	yo + futuro		borrador	ia
 en2218	Estaré ahí a las ocho.		borrador	ia
 en2219	Te llamo más tarde.		borrador	ia
+en2220	Lo reviso y te aviso.		borrador	ia
 en2221	Para mí, la sopa, por favor.		borrador	ia
 en2222	Te aviso.		borrador	ia
 en2223	Le comunico.		borrador	ia
 en2224	Nos vemos ahí.		borrador	ia
+en2225	Te mando un correo.		borrador	ia
+en2226	Hoy te mando el informe.		borrador	ia
 en2227	Voy a tomar un taxi.		borrador	ia
 en2228	Me lo llevo.		borrador	ia
 en2229	Te escribo.		borrador	ia
@@ -1907,13 +2096,20 @@ en2240	Estoy libre el viernes.		borrador	ia
 en2241	Soy de Chile.		borrador	ia
 en2242	Estoy bien, gracias.		borrador	ia
 en2243	Voy a hacer una fiesta el sábado.		borrador	ia
+en2244	Estoy aquí de vacaciones.		borrador	ia
+en2245	Estoy en primer año.		borrador	ia
 en2246	Solo estoy mirando, gracias.		borrador	ia
+en2247	Voy tarde al trabajo.		borrador	ia
 en2248	Estoy aprendiendo inglés.		borrador	ia
 en2249	Me quedé afuera sin llaves.		borrador	ia
 en2250	Busco un apartamento en alquiler.		borrador	ia
 en2251	Busco un regalo.		borrador	ia
+en2252	Estoy buscando trabajo.		borrador	ia
 en2253	Estoy perdido.		borrador	ia
+en2254	No soy bueno en física.		borrador	ia
+en2255	Hoy estoy con licencia médica.		borrador	ia
 en2256	Estoy bien, gracias.		borrador	ia
+en2257	La próxima semana estoy de vacaciones.		borrador	ia
 en2258	Voy en camino.		borrador	ia
 en2259	Llegué a tiempo.		borrador	ia
 en2260	Me quedé sin aliento.		borrador	ia
@@ -1923,6 +2119,8 @@ en2263	Estudio en la universidad.		borrador	ia
 en2264	Estoy cansado.		borrador	ia
 en2265	Tengo veinte años.		borrador	ia
 en2266	Soy vegetariano.		borrador	ia
+en2267	Ahora estoy muy ocupado.		borrador	ia
+en2268	Estoy trabajando en un proyecto.		borrador	ia
 en2269	Perdí mis llaves.		borrador	ia
 en2270	Perdí mi pasaporte.		borrador	ia
 en2271	el hielo		borrador	ia
@@ -1933,15 +2131,20 @@ en2278	el té helado		borrador	ia
 en2279	Islandia		borrador	ia
 en2280	islandés / el islandés		borrador	ia
 en2281	helado		borrador	ia
+en2282	el carnet		borrador	ia
+en2283	el carnet de identidad		borrador	ia
 en2284	la idea		borrador	ia
+en2285	la cédula de identidad		borrador	ia
 en2286	si		borrador	ia
 en2287	enfermo		borrador	ia
+en2288	ilegal		borrador	ia
 en2289	la enfermedad		borrador	ia
 en2291	la imaginación		borrador	ia
 en2292	imaginativo		borrador	ia
 en2293	imaginar		borrador	ia
 en2294	inmediatamente		borrador	ia
 en2295	la inmigración		borrador	ia
+en2296	la importación		borrador	ia
 en2297	importante		borrador	ia
 en2298	imposible		borrador	ia
 en2299	mejorar		borrador	ia
@@ -1979,6 +2182,7 @@ en2330	Indonesia		borrador	ia
 en2331	indonesio / el indonesio		borrador	ia
 en2332	bajo techo		borrador	ia
 en2333	bajo techo		borrador	ia
+en2334	la industria		borrador	ia
 en2335	económico		borrador	ia
 en2336	la influencia		borrador	ia
 en2337	informar		borrador	ia
@@ -1988,12 +2192,16 @@ en2340	los ingredientes		borrador	ia
 en2341	herir		borrador	ia
 en2342	herido		borrador	ia
 en2343	la lesión		borrador	ia
+en2344	la tinta		borrador	ia
 en2345	la consulta		borrador	ia
 en2346	el insecto		borrador	ia
 en2347	adentro / el interior / dentro de		borrador	ia
 en2348	insistir		borrador	ia
 en2349	la plantilla		borrador	ia
 en2351	en cambio		borrador	ia
+en2352	las instrucciones		borrador	ia
+en2353	el instructor		borrador	ia
+en2355	el seguro		borrador	ia
 en2356	inteligente		borrador	ia
 en2357	tener la intención de		borrador	ia
 en2358	el interés		borrador	ia
@@ -2003,10 +2211,12 @@ en2361	intermedio		borrador	ia
 en2362	internacional		borrador	ia
 en2363	internet		borrador	ia
 en2364	interrumpir		borrador	ia
+en2366	la entrevista / entrevistar		borrador	ia
 en2368	en, dentro de		borrador	ia
 en2369	presentar		borrador	ia
 en2370	la introducción		borrador	ia
 en2374	invitar		borrador	ia
+en2375	la factura		borrador	ia
 en2376	Irán		borrador	ia
 en2377	iraní / el iraní		borrador	ia
 en2378	Irak		borrador	ia
@@ -2031,12 +2241,14 @@ en2396	¿Hay wifi en la habitación?		borrador	ia
 en2397	¿Este plato es picante?		borrador	ia
 en2398	¿Esto está en oferta?		borrador	ia
 en2399	¿Está libre este asiento?		borrador	ia
+en2400	¿Es esta la oficina correcta?		borrador	ia
 en2401	¿Es este el andén correcto para Madrid?		borrador	ia
 en2402	¿Es este el camino correcto al museo?		borrador	ia
 en2403	la isla		borrador	ia
 en2404	no es, no está		borrador	ia
 en2405	Israel		borrador	ia
 en2406	israelí / el israelí		borrador	ia
+en2407	lo, eso		borrador	ia
 en2408	No me queda bien.		borrador	ia
 en2409	Me queda bien.		borrador	ia
 en2410	Me duele aquí.		borrador	ia
@@ -2088,6 +2300,7 @@ en2455	su		borrador	ia
 en2456	sí mismo		borrador	ia
 en2457	la chaqueta		borrador	ia
 en2458	el jaguar		borrador	ia
+en2459	la cárcel		borrador	ia
 en2460	la mermelada		borrador	ia
 en2461	enero		borrador	ia
 en2462	Japón		borrador	ia
@@ -2104,12 +2317,15 @@ en2474	el desfase horario		borrador	ia
 en2475	la joyería		borrador	ia
 en2476	las joyas		borrador	ia
 en2477	las joyas		borrador	ia
+en2478	el trabajo		borrador	ia
 en2479	trotar		borrador	ia
 en2483	la articulación		borrador	ia
 en2484	el chiste / bromear		borrador	ia
+en2485	el periodista		borrador	ia
 en2486	el viaje		borrador	ia
 en2487	la alegría		borrador	ia
 en2488	alegre		borrador	ia
+en2489	el juez / juzgar		borrador	ia
 en2491	la jarra		borrador	ia
 en2492	el jugo		borrador	ia
 en2493	el exprimidor		borrador	ia
@@ -2131,12 +2347,14 @@ en2510	retener		borrador	ia
 en2511	seguir		borrador	ia
 en2512	Quédese con el cambio.		borrador	ia
 en2513	mantener el ritmo		borrador	ia
+en2514	el cuidador		borrador	ia
 en2515	Kenia		borrador	ia
 en2516	keniano / el keniano		borrador	ia
 en2517	el kétchup		borrador	ia
 en2518	el hervidor		borrador	ia
 en2519	la llave		borrador	ia
 en2520	la tarjeta llave		borrador	ia
+en2521	el teclado		borrador	ia
 en2522	el llavero		borrador	ia
 en2523	patear / la patada		borrador	ia
 en2524	el niño		borrador	ia
@@ -2144,6 +2362,7 @@ en2525	el riñón		borrador	ia
 en2526	matar		borrador	ia
 en2527	el kilómetro		borrador	ia
 en2528	el tipo / amable		borrador	ia
+en2529	el rey		borrador	ia
 en2530	el quiosco		borrador	ia
 en2531	el beso / besar		borrador	ia
 en2532	el equipo		borrador	ia
@@ -2155,11 +2374,13 @@ en2538	el cuchillo		borrador	ia
 en2539	tejer		borrador	ia
 en2540	golpear		borrador	ia
 en2541	derribar		borrador	ia
+en2542	saber		borrador	ia
 en2543	el conocimiento		borrador	ia
 en2544	el koala		borrador	ia
 en2545	Corea		borrador	ia
 en2546	coreano / el coreano		borrador	ia
 en2547	la etiqueta / etiquetar		borrador	ia
+en2548	el laboratorio		borrador	ia
 en2549	los cordones		borrador	ia
 en2550	la lactosa		borrador	ia
 en2551	la escalera de mano		borrador	ia
@@ -2197,12 +2418,16 @@ en2582	las capas		borrador	ia
 en2583	la escala		borrador	ia
 en2584	flojo		borrador	ia
 en2585	guiar		borrador	ia
+en2586	el líder		borrador	ia
 en2587	la hoja		borrador	ia
 en2589	magro		borrador	ia
+en2590	aprender		borrador	ia
 en2591	mínimo / menos		borrador	ia
 en2592	el cuero		borrador	ia
 en2593	salir		borrador	ia
 en2594	las hojas		borrador	ia
+en2595	la clase magistral / dar clase		borrador	ia
+en2596	el profesor universitario		borrador	ia
 en2597	el puerro		borrador	ia
 en2598	izquierda		borrador	ia
 en2599	izquierdo		borrador	ia
@@ -2216,17 +2441,21 @@ en2607	la longitud		borrador	ia
 en2608	las lentejas		borrador	ia
 en2609	el leopardo		borrador	ia
 en2610	menos		borrador	ia
+en2611	la lección		borrador	ia
 en2612	dejar		borrador	ia
 en2613	Déjame revisar mi agenda.		borrador	ia
 en2614	Permítame presentarme.		borrador	ia
 en2615	Te presento a mi amigo.		borrador	ia
+en2616	Avísame si tienes preguntas.		borrador	ia
 en2617	Avísame cuando llegues.		borrador	ia
 en2618	vamos a		borrador	ia
 en2619	Salgamos esta noche.		borrador	ia
 en2620	Vamos juntos.		borrador	ia
+en2621	Tomemos un descanso.		borrador	ia
 en2622	Sigamos en contacto.		borrador	ia
 en2623	Nos vemos a las seis.		borrador	ia
 en2624	Nos vemos frente al cine.		borrador	ia
+en2625	Empecemos la reunión.		borrador	ia
 en2626	Mantengámonos en contacto.		borrador	ia
 en2627	Estiremos.		borrador	ia
 en2628	Tomémonos una foto juntos.		borrador	ia
@@ -2234,6 +2463,7 @@ en2629	Primero calentemos.		borrador	ia
 en2630	la carta / la letra		borrador	ia
 en2631	la lechuga		borrador	ia
 en2632	el nivel		borrador	ia
+en2633	el bibliotecario		borrador	ia
 en2634	la biblioteca		borrador	ia
 en2635	la licencia		borrador	ia
 en2636	la tapa		borrador	ia
@@ -2262,6 +2492,9 @@ en2658	los labios		borrador	ia
 en2659	el lápiz labial		borrador	ia
 en2660	el líquido		borrador	ia
 en2661	la lista		borrador	ia
+en2662	escuchar		borrador	ia
+en2663	Escuchen con atención.		borrador	ia
+en2665	la literatura		borrador	ia
 en2666	el litro		borrador	ia
 en2667	la basura		borrador	ia
 en2668	pequeño / poco / poco		borrador	ia
@@ -2273,6 +2506,7 @@ en2673	la sala		borrador	ia
 en2674	la lagartija		borrador	ia
 en2675	la llama		borrador	ia
 en2676	los mocasines		borrador	ia
+en2677	el préstamo		borrador	ia
 en2678	el vestíbulo		borrador	ia
 en2679	la langosta		borrador	ia
 en2680	local		borrador	ia
@@ -2289,6 +2523,7 @@ en2690	largo		borrador	ia
 en2691	el pelo largo		borrador	ia
 en2693	¡Tanto tiempo!		borrador	ia
 en2694	de manga larga		borrador	ia
+en2695	mirar / la mirada		borrador	ia
 en2696	cuidar		borrador	ia
 en2698	buscar		borrador	ia
 en2699	tener ganas de		borrador	ia
@@ -2305,6 +2540,7 @@ en2709	el montón		borrador	ia
 en2710	la loción		borrador	ia
 en2711	mucho / muchos / montones		borrador	ia
 en2712	muchos, muchas		borrador	ia
+en2713	la lotería		borrador	ia
 en2714	fuerte		borrador	ia
 en2715	en voz alta		borrador	ia
 en2716	amar / el amor		borrador	ia
@@ -2324,6 +2560,7 @@ en2731	señora		borrador	ia
 en2732	hecho de		borrador	ia
 en2733	hecho de		borrador	ia
 en2736	magnífico		borrador	ia
+en2737	el correo / enviar por correo		borrador	ia
 en2738	principal		borrador	ia
 en2739	el plato principal		borrador	ia
 en2740	importante		borrador	ia
@@ -2337,6 +2574,7 @@ en2747	masculino		borrador	ia
 en2748	el centro comercial		borrador	ia
 en2749	el hombre		borrador	ia
 en2750	lograr		borrador	ia
+en2751	el gerente		borrador	ia
 en2752	el mandarín / la mandarina		borrador	ia
 en2753	el mango		borrador	ia
 en2754	la manicura		borrador	ia
@@ -2344,6 +2582,8 @@ en2755	muchos / muchos		borrador	ia
 en2756	el mapa		borrador	ia
 en2758	marzo		borrador	ia
 en2759	la margarina		borrador	ia
+en2760	la nota		borrador	ia
+en2761	el plumón		borrador	ia
 en2762	el mercado		borrador	ia
 en2763	el puesto del mercado		borrador	ia
 en2764	la mermelada de naranja		borrador	ia
@@ -2357,11 +2597,16 @@ en2771	el partido / combinar		borrador	ia
 en2772	a juego		borrador	ia
 en2773	el amigo		borrador	ia
 en2774	el material		borrador	ia
+en2775	las matemáticas		borrador	ia
+en2776	las matemáticas		borrador	ia
+en2777	las matemáticas		borrador	ia
 en2778	mate		borrador	ia
 en2779	el asunto / importar		borrador	ia
 en2780	el colchón		borrador	ia
 en2781	máximo / el máximo		borrador	ia
 en2782	mayo / poder / poder		borrador	ia
+en2783	¿Puedo pasar?		borrador	ia
+en2784	¿Puedo ir al baño?		borrador	ia
 en2785	quizás		borrador	ia
 en2786	Quizás otro día.		borrador	ia
 en2787	la mayonesa		borrador	ia
@@ -2424,10 +2669,12 @@ en2846	desdichado		borrador	ia
 en2847	perder / la señorita		borrador	ia
 en2848	la llamada perdida		borrador	ia
 en2849	desaparecido		borrador	ia
+en2850	el error		borrador	ia
 en2851	las manoplas		borrador	ia
 en2852	mezclar		borrador	ia
 en2853	la batidora		borrador	ia
 en2854	el teléfono móvil		borrador	ia
+en2855	el modelo		borrador	ia
 en2856	moderno		borrador	ia
 en2857	las moléculas		borrador	ia
 en2858	la mamá		borrador	ia
@@ -2475,11 +2722,14 @@ en2906	los músculos		borrador	ia
 en2907	musculoso		borrador	ia
 en2908	el museo		borrador	ia
 en2909	el champiñón		borrador	ia
+en2910	la música		borrador	ia
+en2912	el músico		borrador	ia
 en2913	los mejillones		borrador	ia
 en2914	deber		borrador	ia
 en2915	la mostaza		borrador	ia
 en2916	silenciar		borrador	ia
 en2917	mi		borrador	ia
+en2918	Mi dirección es Calle Principal 12.		borrador	ia
 en2919	Me duele la espalda.		borrador	ia
 en2920	Me estoy quedando sin batería.		borrador	ia
 en2921	Mi inglés no es muy bueno.		borrador	ia
@@ -2504,6 +2754,7 @@ en2939	nativo		borrador	ia
 en2940	natural		borrador	ia
 en2941	los recursos naturales		borrador	ia
 en2942	la naturaleza		borrador	ia
+en2943	las ciencias naturales		borrador	ia
 en2944	travieso		borrador	ia
 en2945	azul marino		borrador	ia
 en2946	cerca / cerca de / cercano		borrador	ia
@@ -2530,7 +2781,9 @@ en2966	nuevo		borrador	ia
 en2967	el Año Nuevo		borrador	ia
 en2968	Nueva Zelanda		borrador	ia
 en2969	neozelandés / el neozelandés		borrador	ia
+en2970	las noticias		borrador	ia
 en2971	el quiosco de periódicos		borrador	ia
+en2972	el periódico		borrador	ia
 en2973	próximo / después		borrador	ia
 en2974	al lado de		borrador	ia
 en2975	simpático		borrador	ia
@@ -2576,9 +2829,16 @@ en3016	la fosa nasal		borrador	ia
 en3017	no		borrador	ia
 en3018	Nada mal.		borrador	ia
 en3019	No muy corto, por favor.		borrador	ia
+en3020	la nota / anotar		borrador	ia
+en3021	el cuaderno		borrador	ia
+en3022	el papel de carta		borrador	ia
+en3023	los apuntes		borrador	ia
 en3024	nada		borrador	ia
+en3026	el diario mural		borrador	ia
 en3027	la notificación		borrador	ia
 en3028	el sustantivo		borrador	ia
+en3029	la novela		borrador	ia
+en3030	el novelista		borrador	ia
 en3031	noviembre		borrador	ia
 en3032	ahora		borrador	ia
 en3033	hoy en día		borrador	ia
@@ -2594,6 +2854,7 @@ en3042	el objeto		borrador	ia
 en3044	observar		borrador	ia
 en3045	obtener		borrador	ia
 en3046	obviamente		borrador	ia
+en3047	la ocupación		borrador	ia
 en3048	el océano		borrador	ia
 en3049	Oceanía		borrador	ia
 en3050	el octágono		borrador	ia
@@ -2604,6 +2865,8 @@ en3054	por supuesto		borrador	ia
 en3055	apagado / fuera de		borrador	ia
 en3056	ofrecer / la oferta		borrador	ia
 en3057	la oficina		borrador	ia
+en3058	el oficial		borrador	ia
+en3059	oficial / el funcionario		borrador	ia
 en3060	desconectado		borrador	ia
 en3061	a menudo		borrador	ia
 en3062	oh		borrador	ia
@@ -2638,6 +2901,8 @@ en3090	solo / único		borrador	ia
 en3091	el hijo único		borrador	ia
 en3092	sobre		borrador	ia
 en3093	opaco		borrador	ia
+en3094	abrir / abierto		borrador	ia
+en3095	Abran sus libros.		borrador	ia
 en3098	operar		borrador	ia
 en3099	la operación		borrador	ia
 en3100	el operador		borrador	ia
@@ -2668,6 +2933,7 @@ en3125	sin aliento		borrador	ia
 en3126	vencido		borrador	ia
 en3127	pasado de moda		borrador	ia
 en3128	fuera de servicio		borrador	ia
+en3129	sin trabajo		borrador	ia
 en3130	al aire libre		borrador	ia
 en3131	el atuendo		borrador	ia
 en3132	el contorno		borrador	ia
@@ -2679,20 +2945,26 @@ en3137	los guantes de cocina		borrador	ia
 en3138	encima / sobre		borrador	ia
 en3139	el overol		borrador	ia
 en3140	nocturno / durante la noche		borrador	ia
+en3141	las horas extra		borrador	ia
 en3142	con sobrepeso		borrador	ia
 en3143	deber		borrador	ia
 en3144	el búho		borrador	ia
 en3145	propio		borrador	ia
+en3146	el dueño		borrador	ia
 en3147	el oxígeno		borrador	ia
 en3148	la ostra		borrador	ia
 en3149	la capa de ozono		borrador	ia
 en3150	de la tarde		borrador	ia
 en3151	empacar		borrador	ia
+en3152	el paquete		borrador	ia
 en3153	el paquete		borrador	ia
+en3154	la página		borrador	ia
 en3155	el dolor		borrador	ia
 en3156	doloroso		borrador	ia
 en3157	la pintura / pintar		borrador	ia
 en3158	la brocha		borrador	ia
+en3159	el pintor		borrador	ia
+en3160	la pintura		borrador	ia
 en3161	el par		borrador	ia
 en3162	el par de zapatos		borrador	ia
 en3163	el pijama		borrador	ia
@@ -2709,10 +2981,12 @@ en3173	el panda		borrador	ia
 en3174	los pantalones		borrador	ia
 en3175	la papaya		borrador	ia
 en3176	de papel / el papel		borrador	ia
+en3177	el clip		borrador	ia
 en3178	el párrafo		borrador	ia
 en3179	Paraguay		borrador	ia
 en3180	paraguayo / el paraguayo		borrador	ia
 en3181	el paramédico		borrador	ia
+en3182	el paquete		borrador	ia
 en3183	¿perdón? / ¡perdón!		borrador	ia
 en3184	el padre		borrador	ia
 en3185	los padres		borrador	ia
@@ -2722,6 +2996,9 @@ en3188	el estacionamiento		borrador	ia
 en3189	el lugar para estacionar		borrador	ia
 en3190	el loro		borrador	ia
 en3191	el perejil		borrador	ia
+en3192	la parte		borrador	ia
+en3193	a tiempo parcial		borrador	ia
+en3194	de medio tiempo		borrador	ia
 en3195	particular		borrador	ia
 en3196	la raya del pelo		borrador	ia
 en3197	en parte		borrador	ia
@@ -2742,6 +3019,7 @@ en3212	hacer una pausa		borrador	ia
 en3213	la vereda		borrador	ia
 en3214	la pata		borrador	ia
 en3215	pagar / el sueldo		borrador	ia
+en3216	el pago		borrador	ia
 en3218	la arveja		borrador	ia
 en3219	la paz		borrador	ia
 en3220	tranquilo		borrador	ia
@@ -2754,7 +3032,10 @@ en3226	las arvejas		borrador	ia
 en3227	el peatón		borrador	ia
 en3228	la cáscara / pelar		borrador	ia
 en3229	el pelador		borrador	ia
+en3230	el lápiz pasta		borrador	ia
 en3231	los peniques		borrador	ia
+en3232	el lápiz		borrador	ia
+en3233	el estuche		borrador	ia
 en3234	el colgante		borrador	ia
 en3235	el amigo por correspondencia		borrador	ia
 en3236	el pingüino		borrador	ia
@@ -2790,7 +3071,11 @@ en3268	la farmacia		borrador	ia
 en3269	el teléfono / llamar		borrador	ia
 en3270	la llamada telefónica		borrador	ia
 en3271	el número de teléfono		borrador	ia
+en3273	la fotocopia		borrador	ia
+en3275	el fotógrafo		borrador	ia
+en3276	la fotografía		borrador	ia
 en3277	la frase		borrador	ia
+en3278	la física		borrador	ia
 en3280	elegir		borrador	ia
 en3281	contestar (el teléfono)		borrador	ia
 en3282	quisquilloso		borrador	ia
@@ -2811,6 +3096,7 @@ en3296	la pizca		borrador	ia
 en3297	la piña		borrador	ia
 en3298	rosado / el rosado		borrador	ia
 en3299	la tubería		borrador	ia
+en3300	el pirata		borrador	ia
 en3301	la lástima		borrador	ia
 en3302	la pizza		borrador	ia
 en3303	el lugar		borrador	ia
@@ -2837,9 +3123,12 @@ en3327	los alicates		borrador	ia
 en3328	el enchufe		borrador	ia
 en3329	enchufar		borrador	ia
 en3330	la ciruela		borrador	ia
+en3331	el gasfíter		borrador	ia
 en3332	el plural		borrador	ia
 en3333	más / y además		borrador	ia
 en3334	el bolsillo		borrador	ia
+en3335	la mesada		borrador	ia
+en3337	el poeta		borrador	ia
 en3339	señalar / el punto		borrador	ia
 en3340	puntiagudo		borrador	ia
 en3342	Polonia		borrador	ia
@@ -2849,9 +3138,13 @@ en3345	la policía		borrador	ia
 en3346	el carro policial		borrador	ia
 en3347	el policía		borrador	ia
 en3348	la comisaría		borrador	ia
+en3349	el policía		borrador	ia
+en3350	la policía		borrador	ia
 en3351	polaco / el polaco		borrador	ia
 en3352	educado		borrador	ia
 en3353	político		borrador	ia
+en3354	el político		borrador	ia
+en3355	la política		borrador	ia
 en3356	la contaminación		borrador	ia
 en3357	el polo		borrador	ia
 en3358	el poliéster		borrador	ia
@@ -2859,10 +3152,12 @@ en3359	la granada		borrador	ia
 en3360	el estanque		borrador	ia
 en3361	la cola de caballo		borrador	ia
 en3363	pobre		borrador	ia
+en3366	la estrella del pop		borrador	ia
 en3367	popular		borrador	ia
 en3368	la porcelana		borrador	ia
 en3369	la carne de cerdo		borrador	ia
 en3370	el puerto		borrador	ia
+en3371	el portero		borrador	ia
 en3372	la porción		borrador	ia
 en3373	Portugal		borrador	ia
 en3374	portugués / el portugués		borrador	ia
@@ -2872,6 +3167,11 @@ en3377	posible		borrador	ia
 en3378	posiblemente		borrador	ia
 en3379	publicar / la publicación		borrador	ia
 en3380	la oficina de correos		borrador	ia
+en3381	el pósit		borrador	ia
+en3382	la postal		borrador	ia
+en3383	el código postal		borrador	ia
+en3384	el póster		borrador	ia
+en3385	el cartero		borrador	ia
 en3386	posponer		borrador	ia
 en3387	la olla		borrador	ia
 en3388	la papa		borrador	ia
@@ -2881,6 +3181,8 @@ en3391	el polvo		borrador	ia
 en3392	la leche en polvo		borrador	ia
 en3393	el poder		borrador	ia
 en3394	poderoso		borrador	ia
+en3395	la práctica		borrador	ia
+en3396	practicar		borrador	ia
 en3397	el camarón		borrador	ia
 en3398	preferir		borrador	ia
 en3399	embarazada		borrador	ia
@@ -2888,6 +3190,7 @@ en3400	preparar		borrador	ia
 en3401	preparado		borrador	ia
 en3402	la receta médica		borrador	ia
 en3404	la presentación		borrador	ia
+en3405	el presidente		borrador	ia
 en3406	presionar		borrador	ia
 en3407	bonito / bastante		borrador	ia
 en3408	Bastante bien.		borrador	ia
@@ -2896,6 +3199,7 @@ en3410	anteriormente		borrador	ia
 en3411	el precio		borrador	ia
 en3412	espinoso		borrador	ia
 en3413	el color primario		borrador	ia
+en3414	la escuela primaria		borrador	ia
 en3415	el príncipe		borrador	ia
 en3416	la princesa		borrador	ia
 en3417	principal		borrador	ia
@@ -2906,11 +3210,22 @@ en3422	privado		borrador	ia
 en3424	probablemente		borrador	ia
 en3425	el problema		borrador	ia
 en3426	el proceso		borrador	ia
+en3427	los productos agrícolas		borrador	ia
+en3428	el producto		borrador	ia
+en3429	la profesión		borrador	ia
+en3430	el profesional		borrador	ia
+en3431	el profesor universitario		borrador	ia
 en3432	el perfil		borrador	ia
+en3433	la ganancia		borrador	ia
+en3436	el programador		borrador	ia
+en3437	proyectar / el proyecto		borrador	ia
+en3438	el proyector		borrador	ia
 en3439	la promesa / prometer		borrador	ia
 en3440	promover		borrador	ia
+en3441	el ascenso		borrador	ia
 en3442	pronunciar		borrador	ia
 en3443	la pronunciación		borrador	ia
+en3444	la prueba		borrador	ia
 en3445	adecuado		borrador	ia
 en3446	la propiedad		borrador	ia
 en3447	proteger		borrador	ia
@@ -2921,6 +3236,7 @@ en3451	el pub		borrador	ia
 en3452	público / el público		borrador	ia
 en3453	el transporte público		borrador	ia
 en3454	publicar		borrador	ia
+en3455	la editorial		borrador	ia
 en3456	el pudín		borrador	ia
 en3457	tirar		borrador	ia
 en3458	el suéter		borrador	ia
@@ -2929,6 +3245,7 @@ en3460	el puma		borrador	ia
 en3461	la bomba		borrador	ia
 en3462	la calabaza		borrador	ia
 en3463	castigar		borrador	ia
+en3464	el alumno		borrador	ia
 en3465	el cachorro		borrador	ia
 en3466	puro		borrador	ia
 en3467	morado		borrador	ia
@@ -2944,16 +3261,20 @@ en3476	ponerse		borrador	ia
 en3477	apagar		borrador	ia
 en3479	el pijama		borrador	ia
 en3480	la pirámide		borrador	ia
+en3481	la calificación		borrador	ia
 en3482	calificado		borrador	ia
 en3483	la cantidad		borrador	ia
 en3484	el cuarto		borrador	ia
 en3485	el quechua		borrador	ia
+en3486	la reina		borrador	ia
 en3487	la pregunta		borrador	ia
 en3488	el cuestionario		borrador	ia
+en3489	la fila		borrador	ia
 en3490	rápido		borrador	ia
 en3491	rápidamente		borrador	ia
 en3492	tranquilo		borrador	ia
 en3493	en silencio		borrador	ia
+en3494	renunciar		borrador	ia
 en3495	bastante		borrador	ia
 en3497	el conejo		borrador	ia
 en3500	de carreras		borrador	ia
@@ -2979,7 +3300,9 @@ en3521	más bien		borrador	ia
 en3522	crudo		borrador	ia
 en3523	la máquina de afeitar		borrador	ia
 en3524	alcanzar		borrador	ia
+en3525	leer		borrador	ia
 en3526	el lector		borrador	ia
+en3527	la lectura		borrador	ia
 en3528	listo		borrador	ia
 en3529	real		borrador	ia
 en3530	darse cuenta		borrador	ia
@@ -2996,6 +3319,7 @@ en3540	recientemente		borrador	ia
 en3541	la recepción		borrador	ia
 en3542	el recepcionista		borrador	ia
 en3543	la receta		borrador	ia
+en3544	el destinatario		borrador	ia
 en3545	reconocer		borrador	ia
 en3546	recomendar		borrador	ia
 en3547	el récord / grabar		borrador	ia
@@ -3013,11 +3337,14 @@ en3559	rebajado		borrador	ia
 en3560	el arrecife		borrador	ia
 en3561	los refrigerios		borrador	ia
 en3562	el refrigerador		borrador	ia
+en3563	el reembolso		borrador	ia
 en3564	negarse		borrador	ia
 en3565	considerar		borrador	ia
 en3566	con respecto a		borrador	ia
 en3567	los saludos		borrador	ia
 en3568	la región		borrador	ia
+en3569	el correo certificado		borrador	ia
+en3570	la inscripción		borrador	ia
 en3571	el arrepentimiento / arrepentirse		borrador	ia
 en3572	regular		borrador	ia
 en3573	la relación		borrador	ia
@@ -3026,10 +3353,13 @@ en3575	relajarse		borrador	ia
 en3576	la relajación		borrador	ia
 en3577	relajado		borrador	ia
 en3578	confiable		borrador	ia
+en3579	la religión		borrador	ia
 en3580	permanecer		borrador	ia
+en3581	recordar		borrador	ia
 en3582	recordar		borrador	ia
 en3583	el control remoto		borrador	ia
 en3584	quitar		borrador	ia
+en3585	renovar		borrador	ia
 en3586	renovable		borrador	ia
 en3587	el alquiler / alquilar		borrador	ia
 en3588	el auto de arriendo		borrador	ia
@@ -3039,21 +3369,30 @@ en3591	la repetición		borrador	ia
 en3592	reemplazar		borrador	ia
 en3593	la respuesta / responder		borrador	ia
 en3594	denunciar / el informe		borrador	ia
+en3595	el reportero		borrador	ia
 en3596	representar		borrador	ia
 en3597	la solicitud / solicitar		borrador	ia
 en3598	requerir		borrador	ia
+en3599	reprogramar		borrador	ia
 en3600	el rescate / rescatar		borrador	ia
 en3601	resentir		borrador	ia
 en3602	la reserva		borrador	ia
 en3603	la reserva / reservar		borrador	ia
+en3604	la residencia		borrador	ia
+en3605	el residente		borrador	ia
+en3606	renunciar		borrador	ia
 en3607	el respeto / respetar		borrador	ia
 en3608	responsable		borrador	ia
 en3609	el descanso / descansar		borrador	ia
 en3610	el restaurante		borrador	ia
 en3611	inquieto		borrador	ia
 en3612	el resultado / resultar		borrador	ia
+en3613	el currículum		borrador	ia
+en3614	jubilarse		borrador	ia
+en3615	la jubilación		borrador	ia
 en3616	la devolución / devolver		borrador	ia
 en3617	el boleto de ida y vuelta		borrador	ia
+en3619	el repaso		borrador	ia
 en3620	el rinoceronte		borrador	ia
 en3622	la costilla		borrador	ia
 en3623	las costillas		borrador	ia
@@ -3102,10 +3441,12 @@ en3673	la rutina		borrador	ia
 en3676	la goma		borrador	ia
 en3677	gomoso		borrador	ia
 en3678	la basura		borrador	ia
+en3679	la mochila		borrador	ia
 en3680	grosero		borrador	ia
 en3681	el tapete		borrador	ia
 en3683	la ruina		borrador	ia
 en3684	la regla / gobernar		borrador	ia
+en3685	la regla		borrador	ia
 en3686	correr		borrador	ia
 en3687	acabarse		borrador	ia
 en3688	el corredor		borrador	ia
@@ -3118,7 +3459,13 @@ en3695	seguro		borrador	ia
 en3696	con seguridad		borrador	ia
 en3697	la vela / navegar		borrador	ia
 en3699	el velero		borrador	ia
+en3700	el marinero		borrador	ia
 en3701	la ensalada		borrador	ia
+en3702	el sueldo		borrador	ia
+en3703	la venta		borrador	ia
+en3704	el vendedor		borrador	ia
+en3705	el vendedor		borrador	ia
+en3706	la vendedora		borrador	ia
 en3707	el salmón		borrador	ia
 en3708	el salón de belleza		borrador	ia
 en3709	la sal		borrador	ia
@@ -3156,7 +3503,10 @@ en3742	el paisaje		borrador	ia
 en3743	el horario		borrador	ia
 en3744	la escuela		borrador	ia
 en3745	el escolar		borrador	ia
+en3746	la ciencia		borrador	ia
+en3747	la ciencia ficción		borrador	ia
 en3748	científico		borrador	ia
+en3749	el científico		borrador	ia
 en3750	las tijeras		borrador	ia
 en3751	el scooter		borrador	ia
 en3753	Escocia		borrador	ia
@@ -3180,12 +3530,16 @@ en3771	el cinturón de seguridad		borrador	ia
 en3772	el alga marina		borrador	ia
 en3773	segundo / en segundo lugar / segundo / el segundo / segundo		borrador	ia
 en3774	de segunda mano		borrador	ia
+en3775	secundario		borrador	ia
 en3776	el secreto / secreto		borrador	ia
+en3777	el secretario		borrador	ia
 en3778	la sección		borrador	ia
 en3779	la seguridad		borrador	ia
+en3780	el guardia de seguridad		borrador	ia
 en3781	ver		borrador	ia
 en3782	nos vemos		borrador	ia
 en3783	Nos vemos a las seis.		borrador	ia
+en3784	Nos vemos en clase.		borrador	ia
 en3785	Hasta luego.		borrador	ia
 en3786	Hasta pronto.		borrador	ia
 en3787	Hasta mañana.		borrador	ia
@@ -3198,6 +3552,7 @@ en3793	vender		borrador	ia
 en3794	el semicírculo		borrador	ia
 en3795	enviar		borrador	ia
 en3796	Mándame un mensaje.		borrador	ia
+en3797	el remitente		borrador	ia
 en3798	el sentido		borrador	ia
 en3799	sensato		borrador	ia
 en3800	la oración		borrador	ia
@@ -3206,6 +3561,7 @@ en3802	septiembre		borrador	ia
 en3804	serio		borrador	ia
 en3805	en serio		borrador	ia
 en3806	servir		borrador	ia
+en3808	el servicio		borrador	ia
 en3809	el cargo por servicio		borrador	ia
 en3810	poner / la serie		borrador	ia
 en3811	partir		borrador	ia
@@ -3233,6 +3589,7 @@ en3832	la forma		borrador	ia
 en3833	compartir		borrador	ia
 en3834	el tiburón		borrador	ia
 en3835	afilado		borrador	ia
+en3836	el sacapuntas		borrador	ia
 en3837	afeitarse		borrador	ia
 en3838	el chal		borrador	ia
 en3839	ella		borrador	ia
@@ -3279,6 +3636,7 @@ en3881	cerrado / cerrar		borrador	ia
 en3882	el transfer		borrador	ia
 en3883	tímido		borrador	ia
 en3884	enfermo		borrador	ia
+en3885	la licencia médica		borrador	ia
 en3886	el lado		borrador	ia
 en3887	el acompañamiento		borrador	ia
 en3888	el aparador		borrador	ia
@@ -3287,6 +3645,7 @@ en3890	el turismo		borrador	ia
 en3891	la señal / firmar		borrador	ia
 en3892	registrarse		borrador	ia
 en3893	la señal / señalar		borrador	ia
+en3894	la firma		borrador	ia
 en3895	el letrero indicador		borrador	ia
 en3896	el silencio		borrador	ia
 en3897	silencioso		borrador	ia
@@ -3298,6 +3657,7 @@ en3902	parecido		borrador	ia
 en3903	simple		borrador	ia
 en3904	desde / ya que		borrador	ia
 en3905	sinceramente		borrador	ia
+en3907	el cantante		borrador	ia
 en3909	el soltero / soltero		borrador	ia
 en3910	la habitación individual		borrador	ia
 en3911	el boleto de ida		borrador	ia
@@ -3322,6 +3682,7 @@ en3929	sesenta		borrador	ia
 en3930	la talla		borrador	ia
 en3932	la patineta / andar en patineta		borrador	ia
 en3935	el esqueleto		borrador	ia
+en3938	las habilidades		borrador	ia
 en3939	la leche descremada		borrador	ia
 en3940	la piel		borrador	ia
 en3942	la falda		borrador	ia
@@ -3363,6 +3724,7 @@ en3983	el jabón		borrador	ia
 en3986	sociable		borrador	ia
 en3987	social		borrador	ia
 en3988	las redes sociales		borrador	ia
+en3989	la sociedad		borrador	ia
 en3990	el calcetín		borrador	ia
 en3991	el enchufe de pared		borrador	ia
 en3992	los calcetines		borrador	ia
@@ -3372,6 +3734,7 @@ en3995	suave		borrador	ia
 en3996	el refresco		borrador	ia
 en3998	la tierra		borrador	ia
 en3999	la energía solar		borrador	ia
+en4000	el soldado		borrador	ia
 en4001	la suela		borrador	ia
 en4002	sólido		borrador	ia
 en4003	la solución		borrador	ia
@@ -3429,6 +3792,7 @@ en4056	la especie		borrador	ia
 en4057	espectacular		borrador	ia
 en4058	el discurso		borrador	ia
 en4059	la velocidad		borrador	ia
+en4060	deletrear		borrador	ia
 en4061	la ortografía		borrador	ia
 en4062	gastar		borrador	ia
 en4063	la esfera		borrador	ia
@@ -3460,12 +3824,15 @@ en4089	el calamar		borrador	ia
 en4090	la ardilla		borrador	ia
 en4091	estable		borrador	ia
 en4092	el estadio		borrador	ia
+en4093	el personal		borrador	ia
 en4095	el escalón		borrador	ia
 en4096	la escalera		borrador	ia
 en4097	las escaleras		borrador	ia
 en4098	el puesto		borrador	ia
 en4099	el sello		borrador	ia
 en4100	estar de pie		borrador	ia
+en4101	la corchetera		borrador	ia
+en4102	los corchetes		borrador	ia
 en4103	la estrella		borrador	ia
 en4104	la estrella de mar		borrador	ia
 en4105	empezar		borrador	ia
@@ -3503,6 +3870,7 @@ en4136	detener / la parada		borrador	ia
 en4137	la tienda		borrador	ia
 en4138	la tormenta		borrador	ia
 en4139	tormentoso		borrador	ia
+en4140	el cuento		borrador	ia
 en4141	la estufa		borrador	ia
 en4142	recto / derecho		borrador	ia
 en4143	todo derecho		borrador	ia
@@ -3524,6 +3892,9 @@ en4158	la raya		borrador	ia
 en4159	a rayas		borrador	ia
 en4160	fuerte		borrador	ia
 en4161	terco		borrador	ia
+en4162	el estudiante		borrador	ia
+en4163	los estudios		borrador	ia
+en4165	estudiar / el estudio		borrador	ia
 en4166	las cosas		borrador	ia
 en4167	estúpido		borrador	ia
 en4168	el estilo		borrador	ia
@@ -3540,6 +3911,7 @@ en4178	tal		borrador	ia
 en4179	repentino		borrador	ia
 en4180	de repente		borrador	ia
 en4181	sufrir		borrador	ia
+en4182	el sufijo		borrador	ia
 en4183	el azúcar		borrador	ia
 en4184	sugerir		borrador	ia
 en4185	la sugerencia		borrador	ia
@@ -3559,6 +3931,7 @@ en4199	la puesta de sol		borrador	ia
 en4200	la luz del sol		borrador	ia
 en4201	el supermercado		borrador	ia
 en4202	la cena		borrador	ia
+en4203	el suministro		borrador	ia
 en4204	el apoyo / apoyar		borrador	ia
 en4205	el hincha		borrador	ia
 en4206	suponer		borrador	ia
@@ -3590,6 +3963,8 @@ en4235	suizo / el suizo		borrador	ia
 en4236	el interruptor		borrador	ia
 en4237	apagar		borrador	ia
 en4239	Suiza		borrador	ia
+en4240	las sílabas		borrador	ia
+en4241	los símbolos		borrador	ia
 en4242	simétrico		borrador	ia
 en4244	el almíbar		borrador	ia
 en4245	el sistema		borrador	ia
@@ -3624,13 +3999,20 @@ en4278	la llave del agua		borrador	ia
 en4279	el agua de la llave		borrador	ia
 en4280	la cinta adhesiva		borrador	ia
 en4281	la tarta		borrador	ia
+en4282	la tarea		borrador	ia
 en4283	el sabor / probar		borrador	ia
 en4284	sabroso		borrador	ia
+en4285	el impuesto		borrador	ia
 en4286	el taxi		borrador	ia
+en4287	el taxista		borrador	ia
 en4288	el té		borrador	ia
 en4289	el paño de cocina		borrador	ia
+en4290	enseñar		borrador	ia
+en4291	el profesor		borrador	ia
+en4292	el equipo		borrador	ia
 en4293	la lágrima / romper		borrador	ia
 en4294	la cucharita		borrador	ia
+en4295	la tecnología		borrador	ia
 en4297	los dientes		borrador	ia
 en4298	el teléfono		borrador	ia
 en4299	la televisión		borrador	ia
@@ -3640,16 +4022,20 @@ en4302	temporal		borrador	ia
 en4303	diez		borrador	ia
 en4304	el inquilino		borrador	ia
 en4305	tierno		borrador	ia
+en4307	el tenista		borrador	ia
 en4310	décimo		borrador	ia
+en4311	el semestre		borrador	ia
 en4312	la terminal		borrador	ia
 en4313	la terraza		borrador	ia
 en4314	terrible		borrador	ia
 en4315	terriblemente		borrador	ia
 en4316	estupendo		borrador	ia
 en4317	aterrado		borrador	ia
+en4318	la prueba / probar		borrador	ia
 en4319	el mensaje de texto / escribir un mensaje		borrador	ia
 en4320	responder el mensaje		borrador	ia
 en4321	el mensaje de texto		borrador	ia
+en4322	el libro de texto		borrador	ia
 en4323	tailandés / el tailandés		borrador	ia
 en4324	Tailandia		borrador	ia
 en4325	que		borrador	ia
@@ -3663,21 +4049,26 @@ en4332	Gracias por una noche increíble.		borrador	ia
 en4333	Gracias por llamar.		borrador	ia
 en4334	Gracias por venir.		borrador	ia
 en4335	Gracias por todo.		borrador	ia
+en4336	Gracias por tu ayuda.		borrador	ia
 en4337	ese / eso / que		borrador	ia
 en4338	Fue un buen entrenamiento.		borrador	ia
 en4339	Me viene bien.		borrador	ia
 en4340	Eso es todo, gracias.		borrador	ia
+en4341	Correcto.		borrador	ia
+en4342	No es correcto.		borrador	ia
 en4343	Está perfecto, gracias.		borrador	ia
 en4344	Muy amable de tu parte.		borrador	ia
 en4345	el, la, los, las		borrador	ia
 en4346	El aire acondicionado no funciona.		borrador	ia
 en4347	El bus está lleno.		borrador	ia
 en4348	la República Checa		borrador	ia
+en4349	El plazo vence el viernes.		borrador	ia
 en4350	la República Dominicana		borrador	ia
 en4351	La puerta está atascada.		borrador	ia
 en4352	La calefacción no funciona.		borrador	ia
 en4353	La luz no funciona.		borrador	ia
 en4354	Se escucha mal.		borrador	ia
+en4355	La reunión empieza a las nueve.		borrador	ia
 en4356	los Países Bajos		borrador	ia
 en4357	Filipinas		borrador	ia
 en4358	Brilla el sol.		borrador	ia
@@ -3741,6 +4132,7 @@ en4416	el trueno		borrador	ia
 en4417	la tormenta eléctrica		borrador	ia
 en4418	jueves		borrador	ia
 en4419	así		borrador	ia
+en4420	el visto / marcar		borrador	ia
 en4421	el boleto		borrador	ia
 en4422	la marea		borrador	ia
 en4423	ordenado / ordenar		borrador	ia
@@ -3751,6 +4143,7 @@ en4427	ajustado		borrador	ia
 en4428	las medias		borrador	ia
 en4429	hasta que / hasta		borrador	ia
 en4430	el tiempo / cronometrar		borrador	ia
+en4431	el tiempo libre		borrador	ia
 en4432	el horario		borrador	ia
 en4433	la lata		borrador	ia
 en4434	diminuto		borrador	ia
@@ -3796,6 +4189,7 @@ en4474	resistente		borrador	ia
 en4475	el recorrido / recorrer		borrador	ia
 en4476	el guía turístico		borrador	ia
 en4477	el turista		borrador	ia
+en4478	la oficina de información turística		borrador	ia
 en4480	hacia		borrador	ia
 en4481	la toalla		borrador	ia
 en4482	la torre		borrador	ia
@@ -3805,6 +4199,7 @@ en4485	el juguete		borrador	ia
 en4486	la juguetería		borrador	ia
 en4488	el conjunto deportivo		borrador	ia
 en4489	el tractor		borrador	ia
+en4490	el oficio		borrador	ia
 en4491	tradicional		borrador	ia
 en4492	el tráfico		borrador	ia
 en4493	el taco		borrador	ia
@@ -3813,6 +4208,7 @@ en4495	el tren		borrador	ia
 en4496	la estación de trenes		borrador	ia
 en4497	el entrenador		borrador	ia
 en4498	las zapatillas deportivas		borrador	ia
+en4499	la capacitación		borrador	ia
 en4500	el tranvía		borrador	ia
 en4501	transferir		borrador	ia
 en4502	traducir		borrador	ia
@@ -3822,6 +4218,7 @@ en4505	el transporte		borrador	ia
 en4506	el basurero		borrador	ia
 en4507	viajar		borrador	ia
 en4508	la agencia de viajes		borrador	ia
+en4509	el agente de viajes		borrador	ia
 en4510	la bandeja		borrador	ia
 en4511	la trotadora		borrador	ia
 en4512	el tesoro		borrador	ia
@@ -3839,6 +4236,7 @@ en4526	el maletero		borrador	ia
 en4527	confiar		borrador	ia
 en4528	la verdad		borrador	ia
 en4529	intentar / el intento		borrador	ia
+en4530	Inténtalo otra vez.		borrador	ia
 en4531	probarse		borrador	ia
 en4533	el tubo		borrador	ia
 en4534	martes		borrador	ia
@@ -3890,8 +4288,10 @@ en4581	subterráneo / el metro		borrador	ia
 en4582	subrayar		borrador	ia
 en4583	debajo de		borrador	ia
 en4584	los calzoncillos		borrador	ia
+en4585	entender		borrador	ia
 en4586	la ropa interior		borrador	ia
 en4587	desvestirse		borrador	ia
+en4588	desempleado		borrador	ia
 en4589	el desempleo		borrador	ia
 en4590	inesperado		borrador	ia
 en4591	injusto		borrador	ia
@@ -3981,7 +4381,11 @@ en4681	la voz		borrador	ia
 en4682	el mensaje de voz		borrador	ia
 en4683	el buzón de voz		borrador	ia
 en4685	el volumen		borrador	ia
+en4686	el voto / votar		borrador	ia
+en4687	la vocal		borrador	ia
 en4688	el waffle		borrador	ia
+en4689	el salario		borrador	ia
+en4690	el sueldo		borrador	ia
 en4691	la cintura		borrador	ia
 en4692	el chaleco		borrador	ia
 en4693	esperar / la espera		borrador	ia
@@ -3997,6 +4401,7 @@ en4703	las botas de montaña		borrador	ia
 en4704	la pared		borrador	ia
 en4705	la billetera		borrador	ia
 en4706	querer		borrador	ia
+en4707	la guerra		borrador	ia
 en4708	el clóset		borrador	ia
 en4709	cálido		borrador	ia
 en4710	calentar		borrador	ia
@@ -4052,6 +4457,7 @@ en4764	la bienvenida / dar la bienvenida		borrador	ia
 en4765	Bienvenido a mi casa.		borrador	ia
 en4766	bueno / sano / bien / ¡vaya!		borrador	ia
 en4767	bien cocido		borrador	ia
+en4768	¡Bien hecho!		borrador	ia
 en4769	bien vestido		borrador	ia
 en4770	conocido		borrador	ia
 en4771	las botas de lluvia		borrador	ia
@@ -4065,6 +4471,7 @@ en4778	¡Qué día tan lindo!		borrador	ia
 en4779	¿Y tú?		borrador	ia
 en4780	¿Cuál es el horario de atención?		borrador	ia
 en4781	¿Qué haces esta noche?		borrador	ia
+en4782	¿Qué estudias?		borrador	ia
 en4783	¿Cuáles son tus pasatiempos?		borrador	ia
 en4784	¿Qué planes tienes para el fin de semana?		borrador	ia
 en4785	¿Qué día es hoy?		borrador	ia
@@ -4072,10 +4479,13 @@ en4786	¿A qué te dedicas?		borrador	ia
 en4787	¿Qué haces?		borrador	ia
 en4788	¿Qué te gusta hacer?		borrador	ia
 en4789	¿Qué me recomienda?		borrador	ia
+en4790	¿Qué documentos necesito?		borrador	ia
 en4791	¿Qué significa eso?		borrador	ia
+en4792	¿Qué significa esta palabra?		borrador	ia
 en4793	¿Qué has hecho últimamente?		borrador	ia
 en4794	¿Cómo te llamo?		borrador	ia
 en4795	¿A qué hora cierran?		borrador	ia
+en4796	¿A qué hora sales del trabajo?		borrador	ia
 en4797	¿A qué hora te levantas?		borrador	ia
 en4798	¿A qué hora abren?		borrador	ia
 en4799	¿A qué hora termina?		borrador	ia
@@ -4087,17 +4497,20 @@ en4804	¿A qué hora hay que dejar la habitación?		borrador	ia
 en4805	¿A qué hora te viene bien?		borrador	ia
 en4806	¿qué hora es?		borrador	ia
 en4807	¿A qué hora pasa el último bus?		borrador	ia
+en4808	¿A qué hora es la clase?		borrador	ia
 en4809	¿A qué hora es la reunión?		borrador	ia
 en4810	¿A qué hora nos vemos?		borrador	ia
 en4811	¿Qué lleva este plato?		borrador	ia
 en4812	¿Cuál es la dirección?		borrador	ia
 en4813	¿Qué fecha es hoy?		borrador	ia
+en4814	¿A cuánto está el cambio hoy?		borrador	ia
 en4815	¿Cuál es el pronóstico para mañana?		borrador	ia
 en4816	¿Cuál es el plato del día?		borrador	ia
 en4817	¿Qué temperatura hace?		borrador	ia
 en4818	¿Cómo está el tiempo en Santiago?		borrador	ia
 en4819	¿Cómo está el tiempo hoy?		borrador	ia
 en4820	¿Cuál es la contraseña del wifi?		borrador	ia
+en4821	¿Cuál es tu asignatura favorita?		borrador	ia
 en4822	¿Cómo te llamas?		borrador	ia
 en4823	¿Cuál es tu número de teléfono?		borrador	ia
 en4824	lo que sea / cualquier		borrador	ia
@@ -4107,6 +4520,7 @@ en4827	la silla de ruedas		borrador	ia
 en4828	cuando / cuando / cuándo		borrador	ia
 en4829	¿Cuándo me puedo mudar?		borrador	ia
 en4830	¿Cuándo puede venir a repararlo?		borrador	ia
+en4831	¿Cuándo es el examen?		borrador	ia
 en4832	¿Cuándo pasa el próximo bus?		borrador	ia
 en4833	¿Cuándo pasa el camión de la basura?		borrador	ia
 en4834	cada vez que		borrador	ia
@@ -4122,6 +4536,7 @@ en4843	¿Dónde puedo estacionar?		borrador	ia
 en4844	¿Dónde hago el transbordo?		borrador	ia
 en4845	¿Dónde despacho mi equipaje?		borrador	ia
 en4846	¿Dónde dejo la basura?		borrador	ia
+en4847	¿Dónde firmo?		borrador	ia
 en4848	¿Dónde vives?		borrador	ia
 en4849	¿Dónde le duele?		borrador	ia
 en4850	¿Dónde está la recogida de equipaje?		borrador	ia
@@ -4129,15 +4544,19 @@ en4851	¿Dónde está la parada de bus?		borrador	ia
 en4852	¿Dónde está la caja?		borrador	ia
 en4853	¿Dónde está la salida de emergencia?		borrador	ia
 en4854	¿Dónde está la llave?		borrador	ia
+en4855	¿Dónde está la biblioteca?		borrador	ia
+en4856	¿Dónde está el cajero más cercano?		borrador	ia
 en4857	¿Dónde está el hospital más cercano?		borrador	ia
 en4858	¿Dónde está la estación de metro más cercana?		borrador	ia
 en4859	¿Dónde está la farmacia más cercana?		borrador	ia
 en4860	¿Dónde está la comisaría?		borrador	ia
+en4861	¿Dónde está la oficina de correos?		borrador	ia
 en4862	¿Dónde nos vemos?		borrador	ia
 en4863	dondequiera que		borrador	ia
 en4864	si		borrador	ia
 en4865	cuál / que / qué		borrador	ia
 en4866	¿Qué bus va al centro?		borrador	ia
+en4867	¿A qué ventanilla debo ir?		borrador	ia
 en4868	¿Cuál es la puerta de mi vuelo?		borrador	ia
 en4869	¿Qué línea debo tomar?		borrador	ia
 en4870	¿De qué andén sale?		borrador	ia
@@ -4149,6 +4568,7 @@ en4875	susurrar		borrador	ia
 en4876	silbar		borrador	ia
 en4877	blanco		borrador	ia
 en4878	el vino blanco		borrador	ia
+en4879	la pizarra blanca		borrador	ia
 en4880	quién / que		borrador	ia
 en4881	entero / el todo		borrador	ia
 en4882	la leche entera		borrador	ia
@@ -4178,6 +4598,8 @@ en4908	el cable		borrador	ia
 en4909	sabio		borrador	ia
 en4910	el deseo / desear		borrador	ia
 en4911	con		borrador	ia
+en4912	retirar		borrador	ia
+en4913	el retiro		borrador	ia
 en4914	dentro de		borrador	ia
 en4915	sin		borrador	ia
 en4916	el testigo / presenciar		borrador	ia
@@ -4192,7 +4614,12 @@ en4924	de madera		borrador	ia
 en4925	la lana		borrador	ia
 en4926	de lana		borrador	ia
 en4927	la palabra		borrador	ia
+en4928	trabajar / el trabajo		borrador	ia
+en4929	trabajar desde casa		borrador	ia
 en4930	entrenar		borrador	ia
+en4931	el permiso de trabajo		borrador	ia
+en4932	el trabajador		borrador	ia
+en4933	laboral		borrador	ia
 en4934	el horario laboral		borrador	ia
 en4935	el entrenamiento		borrador	ia
 en4936	la encimera		borrador	ia
@@ -4216,8 +4643,10 @@ en4953	la llave inglesa		borrador	ia
 en4955	la arruga		borrador	ia
 en4956	las arrugas		borrador	ia
 en4957	la muñeca		borrador	ia
+en4958	escribir		borrador	ia
 en4959	anotar		borrador	ia
 en4960	el escritor		borrador	ia
+en4961	la escritura		borrador	ia
 en4962	escrito		borrador	ia
 en4963	equivocado		borrador	ia
 en4964	la radiografía		borrador	ia
@@ -4253,5 +4682,6 @@ en4994	la cebra		borrador	ia
 en4995	el cero / cero		borrador	ia
 en4996	el zigzag		borrador	ia
 en4997	el cierre		borrador	ia
+en4998	el código postal		borrador	ia
 en4999	la zona		borrador	ia
 en5000	el zoológico		borrador	ia
