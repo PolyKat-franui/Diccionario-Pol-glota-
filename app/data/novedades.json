@@ -1,0 +1,39 @@
+{
+  "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
+  "novedades": [
+    {
+      "version": "0.4.0",
+      "fecha": "2026-10-10",
+      "titulo": "Kitty, sakuras y nuevos íconos",
+      "cambios": [
+        "Kitty ahora vive en sus 14 expresiones: cambia de cara según lo que pasa. La cara feliz es el logo.",
+        "La racha se cuenta con sakuras, y al terminar una sesión caen pétalos.",
+        "Nueva moneda de Kitty tokens con una sakura en relieve, que gira al ganar tokens.",
+        "Íconos nuevos: mensaje, burbuja de texto, cerezas y estrella."
+      ]
+    },
+    {
+      "version": "0.2.0",
+      "fecha": "2026-10-09",
+      "titulo": "Nueva identidad y página web",
+      "cambios": [
+        "Paleta Creme, Sand, Dusty Pink y Burgundy; tipografía Bodoni Moda y Jost.",
+        "Paletas Crema, Taupe y Arena en Ajustes, en modo claro y oscuro.",
+        "Página web de Franui: método, cómo funciona, idiomas, Kitty, creadora y novedades."
+      ]
+    },
+    {
+      "version": "0.1.0",
+      "fecha": "2026-10-09",
+      "titulo": "Primera versión de prueba",
+      "cambios": [
+        "Tarjetas que se deslizan, con traducción, tipo, pronunciación y dificultad.",
+        "Repetición espaciada (SRS) en bloques de 10 tarjetas.",
+        "Kitty tokens, racha diaria con la patita de Kitty y palabras favoritas.",
+        "6 idiomas: inglés, español, portugués, francés, italiano y alemán.",
+        "Banco de 5.000 palabras y frases en inglés; «Conversación y vida social» traducido (borrador).",
+        "Modo claro y oscuro, paletas de color, tamaño de letra y brillo."
+      ]
+    }
+  ]
+}

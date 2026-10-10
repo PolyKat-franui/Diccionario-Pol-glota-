@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Franui — Un idioma nuevo, un minuto a la vez</title>
+  <meta name="description" content="Franui: aprende el vocabulario y las frases cotidianas de seis idiomas a la vez, en tarjetas que deslizas como un reel.">
+  <meta name="theme-color" content="#F4EDE6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1E1416" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Franui — Diccionario políglota">
+  <meta property="og:description" content="Vocabulario y frases de seis idiomas, un minuto a la vez.">
+  <link rel="icon" href="app/assets/caras/feliz.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="app/css/tokens.css">
+  <link rel="stylesheet" href="web.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Ir al contenido</a>
+
+  <header class="nav" id="nav">
+    <a class="marca" href="#inicio"><img src="app/assets/caras/feliz.svg" alt="" width="28" height="24"><span>Franui</span></a>
+    <nav class="nav-links" aria-label="Secciones">
+      <a href="#metodo">Método</a>
+      <a href="#como">Cómo funciona</a>
+      <a href="#idiomas">Idiomas</a>
+      <a href="#kitty">Kitty</a>
+      <a href="#creadora">Creadora</a>
+      <a href="#novedades">Novedades</a>
+    </nav>
+    <a class="btn primario nav-cta" href="app/">Abrir la app</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Menú">
+      <span></span><span></span>
+    </button>
+  </header>
+  <nav class="menu-movil" id="menu-movil" aria-label="Secciones" hidden>
+    <a href="#metodo">Método</a>
+    <a href="#como">Cómo funciona</a>
+    <a href="#idiomas">Idiomas</a>
+    <a href="#kitty">Kitty</a>
+    <a href="#creadora">Creadora</a>
+    <a href="#novedades">Novedades</a>
+    <a class="btn primario" href="app/">Abrir la app</a>
+  </nav>
+
+  <main id="contenido" tabindex="-1">
+    <!-- Portada -->
+    <section class="hero" id="inicio">
+      <div class="hero-texto">
+        <p class="sobretitulo revelar">Diccionario políglota</p>
+        <h1 class="display hero-titulo revelar">Un idioma nuevo,<br><em>un minuto</em> a la vez.</h1>
+        <p class="hero-rota revelar" aria-hidden="true">
+          <span class="rota" id="rota">Hola</span>
+          <span class="rota-idioma" id="rota-idioma">español</span>
+        </p>
+        <p class="hero-sub revelar">Vocabulario y frases cotidianas de seis idiomas, en tarjetas que deslizas como un reel. Sin pasos obligados.</p>
+        <div class="hero-cta revelar">
+          <a class="btn primario grande" href="app/">Empezar ahora</a>
+          <a class="btn grande" href="#como">Cómo funciona</a>
+        </div>
+      </div>
+
+      <div class="hero-visual revelar" aria-hidden="true">
+        <div class="telefono" id="telefono">
+          <div class="telefono-isla"></div>
+          <div class="demo-progreso"><i></i></div>
+          <div class="demo-tarjeta" id="demo-tarjeta">
+            <div class="demo-top"><span class="demo-nivel"><i></i>Nueva</span><span class="demo-tipo" id="demo-idioma">Francés</span></div>
+            <p class="demo-palabra" id="demo-palabra">Enchanté.</p>
+            <p class="demo-trad" id="demo-trad">Mucho gusto.</p>
+            <div class="demo-acciones"><span>Repasar</span><span class="demo-sabe">✓ Lo sé</span></div>
+          </div>
+          <div class="demo-riel"><span>♡</span><span>◁)</span><img src="app/assets/caras/feliz.svg" alt="" width="28" height="24"></div>
+        </div>
+        <img class="hero-kitty" src="app/assets/caras/feliz.svg" alt="" width="84" height="72">
+      </div>
+    </section>
+
+    <!-- Cifras (estilo tablero de aeropuerto) -->
+    <section class="cifras" aria-label="Franui en cifras">
+      <div class="cifra revelar"><span class="flap" data-valor="5000">5000</span><span class="cifra-txt">palabras y frases en el banco</span></div>
+      <div class="cifra revelar"><span class="flap" data-valor="6">6</span><span class="cifra-txt">idiomas para empezar</span></div>
+      <div class="cifra revelar"><span class="flap" data-valor="13">13</span><span class="cifra-txt">grandes temas de la vida diaria</span></div>
+      <div class="cifra revelar"><span class="flap" data-valor="10">10</span><span class="cifra-txt">tarjetas por sesión</span></div>
+    </section>
+
+    <!-- Objetivo -->
+    <section class="manifiesto" id="objetivo">
+      <p class="sobretitulo">Nuestro objetivo</p>
+      <p class="manifiesto-texto" id="manifiesto">Perder el miedo a hablar. Aprender las palabras que de verdad se usan. Volver cada día, aunque sea un minuto, y sentir que avanzas.</p>
+    </section>
+
+    <!-- Método -->
+    <section class="seccion" id="metodo">
+      <header class="seccion-cabeza revelar">
+        <p class="sobretitulo">El método</p>
+        <h2 class="display">Tres ideas simples,<br>un hábito que dura.</h2>
+      </header>
+      <div class="grid-3">
+        <article class="pieza revelar">
+          <span class="pieza-num">I</span>
+          <h3>Kaizen</h3>
+          <p>Mejorar un 1 % cada día. Sesiones de uno a cinco minutos que caben en cualquier pausa.</p>
+        </article>
+        <article class="pieza revelar">
+          <span class="pieza-num">II</span>
+          <h3>Kumon</h3>
+          <p>Bloques pequeños y progresivos. Dominas un bloque de diez tarjetas antes de pasar al siguiente.</p>
+        </article>
+        <article class="pieza revelar">
+          <span class="pieza-num">III</span>
+          <h3>Repetición espaciada</h3>
+          <p>Cada tarjeta vuelve justo antes de que la olvides: en minutos, en días o en semanas, según cómo te fue.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Cómo funciona -->
+    <section class="seccion como" id="como">
+      <header class="seccion-cabeza revelar">
+        <p class="sobretitulo">Cómo funciona</p>
+        <h2 class="display">Desliza. Recuerda. Repite.</h2>
+      </header>
+      <ol class="pasos">
+        <li class="paso revelar"><span class="paso-num">01</span><h3>Elige tu idioma</h3><p>La app se muestra en tu idioma nativo y tú eliges el que quieres aprender.</p></li>
+        <li class="paso revelar"><span class="paso-num">02</span><h3>Elige un tema</h3><p>Saludos, comida, viajes, trabajo… y la dificultad: fácil, medio o difícil.</p></li>
+        <li class="paso revelar"><span class="paso-num">03</span><h3>Desliza tarjetas</h3><p>Toca para ver la traducción, escucha la pronunciación y marca «Lo sé» o «Repasar».</p></li>
+        <li class="paso revelar"><span class="paso-num">04</span><h3>Suma tu racha <img class="icono-pixel" src="app/assets/sakura.svg" alt="" width="23" height="23"><img class="icono-pixel" src="app/assets/moneda.svg" alt="" width="24" height="24"></h3><p>Cada día que estudias suma una sakura a tu racha. Cada tarjeta te da Kitty tokens.</p></li>
+      </ol>
+      <div class="niveles revelar" aria-label="Íconos de dificultad">
+        <span class="nivel" data-nivel="nueva"><i></i>Nueva</span>
+        <span class="nivel" data-nivel="dificil"><i></i>Difícil</span>
+        <span class="nivel" data-nivel="media"><i></i>Media</span>
+        <span class="nivel" data-nivel="facil"><i></i>Fácil</span>
+        <span class="nivel" data-nivel="dominada"><i></i>Dominada</span>
+      </div>
+    </section>
+
+    <!-- Idiomas -->
+    <section class="seccion" id="idiomas">
+      <header class="seccion-cabeza revelar">
+        <p class="sobretitulo">Alcance</p>
+        <h2 class="display">Seis idiomas hoy.<br><em>Todos</em>, mañana.</h2>
+        <p class="suave">Cada idioma tiene su propio banco de palabras, ordenado por temas y por frecuencia de uso.</p>
+      </header>
+      <ul class="lista-idiomas" id="lista-idiomas"></ul>
+    </section>
+
+    <!-- Kitty -->
+    <section class="seccion kitty-seccion" id="kitty">
+      <div class="kitty-arte revelar"><img src="app/assets/caras/feliz.svg" alt="Kitty feliz, en pixel art" width="168" height="144"></div>
+      <div class="revelar">
+        <p class="sobretitulo">Conoce a Kitty</p>
+        <h2 class="display">Tu compañera de estudio.</h2>
+        <ul class="kitty-lista">
+          <li>Resuelve dudas rápidas de vocabulario.</li>
+          <li>Te responde en tu idioma nativo, corto y directo.</li>
+          <li>Te propone frases con las palabras que ya conoces.</li>
+          <li>Corrige con suavidad y sin mezclar pronunciaciones.</li>
+        </ul>
+        <p class="nota">Hoy Kitty busca en el diccionario. La conversación con inteligencia artificial llega en una próxima versión.</p>
+      </div>
+      <div class="caras revelar">
+        <p class="sobretitulo">Sus expresiones</p>
+        <ul class="caras-galeria" id="caras-galeria"></ul>
+      </div>
+    </section>
+
+    <!-- Creadora -->
+    <section class="seccion creadora" id="creadora">
+      <!-- Para usar una foto: guarda web/img/francisca.jpg y reemplaza el monograma por
+           <img class="retrato" src="img/francisca.jpg" alt="Francisca Sanhueza Flores"> -->
+      <div class="retrato revelar" aria-hidden="true"><span>FS</span></div>
+      <div class="revelar">
+        <p class="sobretitulo">La creadora</p>
+        <h2 class="display">Francisca Ignacia<br>Sanhueza Flores</h2>
+        <p class="creadora-rol">Creadora de Franui · Estudiante de la Universidad de Chile</p>
+        <p class="creadora-texto">Franui busca que aprender idiomas sea tan natural como deslizar la pantalla: un método simple, una estética cuidada y una compañera, Kitty, para volver cada día.</p>
+      </div>
+    </section>
+
+    <!-- Novedades y trayectoria -->
+    <section class="seccion" id="novedades">
+      <header class="seccion-cabeza revelar">
+        <p class="sobretitulo">Trayectoria</p>
+        <h2 class="display">Novedades</h2>
+      </header>
+      <div class="novedades-grid">
+        <ol class="linea" id="lista-novedades"></ol>
+        <div class="ruta revelar">
+          <h3>Lo que viene</h3>
+          <p class="nota">Plan de trabajo, sujeto a cambios.</p>
+          <ul>
+            <li>Traducción completa y revisada del banco en los seis idiomas.</li>
+            <li>Cuentas en la nube: tu avance en todos tus dispositivos y ranking.</li>
+            <li>Kitty con inteligencia artificial.</li>
+            <li>App instalable en el celular.</li>
+            <li>Práctica de pronunciación en voz alta.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Llamado final -->
+    <section class="cta-final">
+      <h2 class="display revelar">Tu primer minuto<br>empieza ahora.</h2>
+      <a class="btn primario grande revelar" href="app/">Abrir Franui</a>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="pie-marca"><img src="app/assets/caras/feliz.svg" alt="" width="28" height="24"><span>Franui</span></div>
+    <nav aria-label="Pie de página">
+      <a href="#metodo">Método</a>
+      <a href="#idiomas">Idiomas</a>
+      <a href="#novedades">Novedades</a>
+      <a href="app/">App</a>
+    </nav>
+    <p class="pie-legal">Términos y condiciones · Política de privacidad · Política de cookies — <em>en preparación</em></p>
+    <p class="pie-legal">© 2026 Francisca Ignacia Sanhueza Flores. Traducciones en revisión.</p>
+  </footer>
+
+  <!-- Kitty en la web: preguntas frecuentes -->
+  <button class="kitty-fab" id="kitty-fab" type="button" aria-label="Preguntarle a Kitty">
+    <img src="app/assets/caras/feliz.svg" alt="" width="56" height="48">
+  </button>
+  <dialog class="kitty-panel" id="kitty-panel" aria-labelledby="kitty-titulo">
+    <header>
+      <img class="kitty-cara" id="kitty-cara" src="app/assets/caras/feliz.svg" alt="" width="28" height="24">
+      <h2 id="kitty-titulo">Kitty</h2>
+      <button type="button" class="cerrar" id="kitty-cerrar" aria-label="Cerrar">✕</button>
+    </header>
+    <div class="kitty-msgs" id="kitty-msgs" aria-live="polite"></div>
+    <div class="kitty-preguntas" id="kitty-preguntas"></div>
+  </dialog>
+
+  <script type="module" src="web.js"></script>
+</body>
+</html>

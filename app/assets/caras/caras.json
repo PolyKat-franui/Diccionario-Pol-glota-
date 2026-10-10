@@ -1,0 +1,58 @@
+[
+  {
+    "id": "feliz",
+    "nombre": "Feliz"
+  },
+  {
+    "id": "muy_feliz",
+    "nombre": "Muy feliz"
+  },
+  {
+    "id": "guino",
+    "nombre": "Guiño"
+  },
+  {
+    "id": "sorprendida",
+    "nombre": "Sorprendida"
+  },
+  {
+    "id": "confundida",
+    "nombre": "Confundida"
+  },
+  {
+    "id": "mareada",
+    "nombre": "Mareada"
+  },
+  {
+    "id": "enamorada",
+    "nombre": "Enamorada"
+  },
+  {
+    "id": "llorando",
+    "nombre": "Llorando"
+  },
+  {
+    "id": "enojada",
+    "nombre": "Enojada"
+  },
+  {
+    "id": "con_sueno",
+    "nombre": "Con sueño"
+  },
+  {
+    "id": "avergonzada",
+    "nombre": "Avergonzada"
+  },
+  {
+    "id": "orgullosa",
+    "nombre": "Orgullosa"
+  },
+  {
+    "id": "pensando",
+    "nombre": "Pensando"
+  },
+  {
+    "id": "celebrando",
+    "nombre": "Celebrando"
+  }
+]

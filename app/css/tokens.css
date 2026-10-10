@@ -1,0 +1,86 @@
+/* ==========================================================
+   Franui — tokens de diseño. Cambia colores y fuentes SOLO aquí.
+   Paleta de Francisca (2026-10-09):
+     Creme #EEE4DA · Sand #D8C4AC · Dusty Pink #C8A49F · Burgundy #4D0E13
+     Deep Taupe #7E615F · Rose Ebony #634649 · Old Burgundy #493036
+     Boy Red #6F5E53 · Black Shadows #C0B7B0
+   Texto siempre oscuro (contraste ≥ 4,5:1, comprobado en tests/contraste.test.mjs).
+   ========================================================== */
+:root {
+  /* Tipografía: serif de alto contraste (títulos) + sans geométrica fina (texto) */
+  --font-display: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
+  --font-body: 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
+  --font-ipa: 'Noto Sans', 'Segoe UI', system-ui, sans-serif; /* símbolos de pronunciación */
+  --escala: 1;              /* ajuste "tamaño de letra" */
+  --fs-xs: calc(13px * var(--escala));
+  --fs-sm: calc(14px * var(--escala));
+  --fs-md: calc(16px * var(--escala));
+  --fs-lg: calc(20px * var(--escala));
+  --fs-xl: calc(26px * var(--escala));
+  --fs-word: calc(clamp(38px, 10vw, 62px) * var(--escala));
+
+  /* Espacios, radios, sombras */
+  --r-sm: 10px;
+  --r-md: 18px;
+  --r-lg: 28px;
+  --r-pill: 999px;
+  --tap: 44px;              /* tamaño mínimo táctil */
+  --ease: cubic-bezier(.2, .8, .2, 1);
+
+  /* Paleta "Crema" (por defecto, modo claro) */
+  --bg: #F4EDE6;
+  --surface: #FBF8F4;
+  --surface-2: #EEE4DA;     /* Creme */
+  --accent: #C8A49F;        /* Dusty Pink */
+  --accent-soft: #EADBD5;
+  --line: #C0B7B0;          /* Black Shadows */
+  --ink: #493036;           /* Old Burgundy */
+  --ink-soft: #6F5E53;      /* Boy Red */
+  --primary: #4D0E13;       /* Burgundy: botones principales */
+  --on-primary: #EEE4DA;    /* Creme sobre Burgundy */
+  --enfasis: #4D0E13;       /* enlaces, bordes activos, corazón */
+  --gold: #7E615F;          /* Deep Taupe: números y detalles */
+  --sand: #D8C4AC;
+  --shadow: 0 1px 2px rgba(73, 48, 54, .06), 0 14px 40px rgba(73, 48, 54, .09);
+
+  /* Dificultad (siempre con texto, nunca solo color) */
+  --d-nueva: #6F5E53;
+  --d-dificil: #8E1B24;
+  --d-media: #87561F;
+  --d-facil: #3F5B40;
+  --d-dominada: #4B3A6B;
+}
+
+/* Paletas alternativas (Ajustes → Paleta) */
+:root[data-paleta="taupe"] {
+  --surface-2: #E9E1DD; --accent: #C0B7B0; --accent-soft: #EEE8E4;
+  --primary: #493036; --enfasis: #634649;
+}
+:root[data-paleta="arena"] {
+  --surface-2: #EFE5D8; --accent: #D8C4AC; --accent-soft: #F2EADF;
+  --primary: #6F5E53; --on-primary: #F4EDE6; --enfasis: #6F5E53;
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1E1416; --surface: #2A1D20; --surface-2: #3A282C; --accent: #C8A49F;
+    --accent-soft: #44302F; --line: #6F5E53; --ink: #EEE4DA; --ink-soft: #C0B7B0;
+    --primary: #C8A49F; --on-primary: #2B1418; --enfasis: #E3C7C2; --gold: #D8C4AC;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 14px 40px rgba(0, 0, 0, .45);
+    --d-nueva: #C0B7B0; --d-dificil: #F0A0A0; --d-media: #E3B77E; --d-facil: #A8C49A; --d-dominada: #C3B3E3;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1E1416; --surface: #2A1D20; --surface-2: #3A282C; --accent: #C8A49F;
+  --accent-soft: #44302F; --line: #6F5E53; --ink: #EEE4DA; --ink-soft: #C0B7B0;
+  --primary: #C8A49F; --on-primary: #2B1418; --enfasis: #E3C7C2; --gold: #D8C4AC;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 14px 40px rgba(0, 0, 0, .45);
+  --d-nueva: #C0B7B0; --d-dificil: #F0A0A0; --d-media: #E3B77E; --d-facil: #A8C49A; --d-dominada: #C3B3E3;
+}
+:root[data-theme="dark"][data-paleta="taupe"] { --primary: #C0B7B0; --enfasis: #D9CFC9; --surface-2: #352A2B; --accent: #C0B7B0; }
+:root[data-theme="dark"][data-paleta="arena"] { --primary: #D8C4AC; --on-primary: #2B1418; --enfasis: #E5D5C1; --surface-2: #3A2F27; --accent: #D8C4AC; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-paleta="taupe"] { --primary: #C0B7B0; --enfasis: #D9CFC9; --surface-2: #352A2B; --accent: #C0B7B0; }
+  :root:not([data-theme="light"])[data-paleta="arena"] { --primary: #D8C4AC; --on-primary: #2B1418; --enfasis: #E5D5C1; --surface-2: #3A2F27; --accent: #D8C4AC; }
+}

@@ -1,0 +1,17 @@
+{
+  "_ayuda": "estado: disponible | nuevo | proximamente. Un idioma 'nuevo' se ve colorido con etiqueta Nuevo; 'proximamente' se ve gris y no se puede abrir.",
+  "idiomas": [
+    { "code": "en", "estado": "disponible" },
+    { "code": "es", "estado": "disponible" },
+    { "code": "pt", "estado": "disponible" },
+    { "code": "fr", "estado": "disponible" },
+    { "code": "it", "estado": "disponible" },
+    { "code": "de", "estado": "nuevo" },
+    { "code": "ja", "estado": "proximamente" },
+    { "code": "ko", "estado": "proximamente" },
+    { "code": "zh", "estado": "proximamente" },
+    { "code": "ru", "estado": "proximamente" },
+    { "code": "ar", "estado": "proximamente" },
+    { "code": "nl", "estado": "proximamente" }
+  ]
+}
