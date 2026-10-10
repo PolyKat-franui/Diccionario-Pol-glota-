@@ -87,6 +87,8 @@ marca lo corregido, no mezcla pronunciaciones.
 [ABIERTO] Proveedor de IA. Nota técnica: una app no puede "usar la cuenta de Google"
 de alguien para hablar con Claude/ChatGPT/Gemini; se necesita una API con clave
 guardada en un servidor propio (nunca en el navegador). Ver `docs/RECOMENDACIONES.md`.
+Nombre de la app [PROVISORIO 2026-10-10, en discusión]: **Polyglok** (antes «Franui»). Se usa en títulos y textos;
+los nombres internos (carpetas, `franui:v1`, esta skill) no cambian.
 Logo [DECIDIDO 2026-10-10, reemplaza a la cara de Kitty]: la frase **«Polyglot in progress»** en letra de
 máquina de escribir (Special Elite, `--font-logo`), con un cursor que parpadea después de «in progress».
 Eslogan (por ahora): **«Be fluent in multiple languages»**, en mayúsculas espaciadas bajo una línea.

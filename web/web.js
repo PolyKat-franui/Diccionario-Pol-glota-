@@ -172,7 +172,7 @@ fetch('app/assets/caras/caras.json').then((r) => r.json()).then((caras) => {
 
 // ---------- Kitty: preguntas frecuentes ----------
 const FAQ = [
-  ['¿Qué es Franui?', 'Una app para aprender vocabulario y frases cotidianas de varios idiomas, deslizando tarjetas en sesiones de uno a cinco minutos.'],
+  ['¿Qué es Polyglok?', 'Una app para aprender vocabulario y frases cotidianas de varios idiomas, deslizando tarjetas en sesiones de uno a cinco minutos.'],
   ['¿Qué idiomas tiene?', 'Inglés, español, portugués, francés, italiano y alemán. Vienen más.'],
   ['¿Cómo funciona?', 'Eliges idioma y tema, tocas la tarjeta para ver la traducción y marcas «Lo sé» o «Repasar». Las que te cuestan vuelven antes.'],
   ['¿Necesito una cuenta?', 'Puedes entrar sin cuenta: tu avance se guarda en tu navegador. Las cuentas en la nube llegan pronto.'],
@@ -194,7 +194,7 @@ $$('#kitty-preguntas button').forEach((b) => b.addEventListener('click', () => {
   setTimeout(() => { decir(r); $('#kitty-cara').src = `app/assets/caras/${CARA_FAQ[b.dataset.i]}.svg`; }, quieto ? 0 : 350);
 }));
 $('#kitty-fab').addEventListener('click', () => {
-  if (!msgs.childElementCount) decir('¡Miau! Soy Kitty. ¿Qué quieres saber de Franui?');
+  if (!msgs.childElementCount) decir('¡Miau! Soy Kitty. ¿Qué quieres saber de Polyglok?');
   $('#kitty-panel').showModal();
 });
 $('#kitty-cerrar').addEventListener('click', () => $('#kitty-panel').close());
