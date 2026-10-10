@@ -84,7 +84,7 @@ main { outline: none; }
 .hero-sub { font-size: clamp(17px, 1.6vw, 20px); color: var(--ink-soft); max-width: 520px; font-weight: 300; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero-visual { position: relative; justify-self: center; }
-.hero-kitty { position: absolute; left: -48px; bottom: -24px; width: 110px; animation: flotar 5s ease-in-out infinite; filter: drop-shadow(0 18px 30px rgba(73, 48, 54, .2)); }
+.hero-kitty { position: absolute; left: -48px; bottom: -24px; width: 116px; height: 100px; animation: flotar 5s ease-in-out infinite; filter: drop-shadow(0 18px 30px rgba(73, 48, 54, .2)); }
 
 /* Teléfono de muestra */
 .telefono {
@@ -112,7 +112,7 @@ main { outline: none; }
 .demo-acciones span { border: 1px solid var(--line); border-radius: 999px; padding: 10px 4px; }
 .demo-acciones .demo-sabe { background: var(--primary); color: var(--on-primary); border-color: transparent; }
 .demo-riel { position: absolute; right: 22px; top: 50%; display: grid; gap: 10px; transform: translateY(-30%); }
-.demo-riel span, .demo-riel img { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 1px solid color-mix(in srgb, var(--line) 60%, transparent); font-size: 13px; }
+.demo-riel span, .demo-riel img { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 1px solid color-mix(in srgb, var(--line) 60%, transparent); font-size: 13px; }
 
 /* ---------- Cifras ---------- */
 .cifras {
@@ -176,7 +176,7 @@ main { outline: none; }
 .kitty-seccion { grid-template-columns: 1fr; align-items: center; }
 .kitty-arte { justify-self: center; position: relative; }
 .kitty-arte::before { content: ''; position: absolute; inset: -12%; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--gold) 50%, transparent); animation: girar 40s linear infinite; border-style: dashed; }
-.kitty-arte img { width: min(300px, 70vw); animation: flotar 6s ease-in-out infinite; filter: drop-shadow(0 30px 40px rgba(73, 48, 54, .18)); }
+.kitty-arte img { width: 256px; height: 256px; animation: flotar 6s ease-in-out infinite; filter: drop-shadow(0 30px 40px rgba(73, 48, 54, .18)); }
 .kitty-lista { padding: 0; margin: 24px 0; list-style: none; display: grid; gap: 12px; }
 .kitty-lista li { padding-left: 28px; position: relative; font-size: 18px; }
 .kitty-lista li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); }
@@ -186,9 +186,10 @@ main { outline: none; }
 .caras-galeria { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 12px; }
 .caras-galeria li { display: grid; justify-items: center; gap: 8px; padding: 14px 6px 12px; border-radius: 20px; background: var(--surface); box-shadow: var(--shadow); font-size: 14px; color: var(--ink-soft); transition: transform .4s var(--ease); }
 .caras-galeria li:hover { transform: translateY(-4px) rotate(-2deg); }
-.caras-galeria img { width: 84px; height: auto; }
-.icono-pixel { display: inline-block; vertical-align: middle; width: 28px; height: 28px; margin-left: 4px; }
-.kitty-cara { border-radius: 50%; background: var(--surface-2); }
+.caras-galeria img { width: 84px; height: 72px; }
+.skins-galeria img { height: 84px; }
+.icono-pixel { display: inline-block; vertical-align: middle; margin-left: 4px; }
+.kitty-cara { width: 28px; height: 24px; flex: none; border-radius: 50%; background: var(--surface-2); padding: 8px 6px; box-sizing: content-box; }
 
 /* Creadora */
 .creadora { grid-template-columns: 1fr; align-items: center; }
@@ -227,7 +228,7 @@ main { outline: none; }
 
 /* Kitty en la web */
 .kitty-fab {
-  position: fixed; right: 18px; bottom: 18px; z-index: 31; width: 64px; height: 64px; border-radius: 50%; border: 0; padding: 4px;
+  position: fixed; right: 18px; bottom: 18px; z-index: 31; width: 64px; height: 64px; border-radius: 50%; border: 0; padding: 0;
   background: var(--surface); box-shadow: 0 12px 30px rgba(43, 20, 24, .28); cursor: pointer; transition: transform .4s var(--ease);
 }
 .kitty-fab:hover { transform: translateY(-3px) rotate(-6deg); }

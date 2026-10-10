@@ -178,7 +178,7 @@ function ir(hash) {
 }
 
 function cargando() {
-  vista.innerHTML = '<div class="cargando" aria-busy="true"><img src="assets/kitty.svg" alt="" width="72" height="72"></div>';
+  vista.innerHTML = '<div class="cargando" aria-busy="true"><img src="assets/kitty.svg" alt="" width="64" height="64"></div>';
 }
 
 // ---------- Inicio: entrar / crear cuenta / invitado ----------
@@ -187,7 +187,7 @@ function vistaInicio() {
   vista.innerHTML = `
     <section class="inicio">
       <div class="inicio-hero">
-        <img class="inicio-kitty" src="assets/kitty.svg" alt="Kitty" width="132" height="132">
+        <img class="inicio-kitty" src="assets/kitty.svg" alt="Kitty" width="128" height="128">
         <h1 class="display">Franui</h1>
         <p class="lema">${t('lema')}</p>
       </div>
@@ -434,7 +434,7 @@ async function vistaEstudiar(r) {
     const q = new URLSearchParams(r.q); q.set('libre', '1');
     vista.innerHTML = `
       <section class="pagina angosta centro vacio-estado">
-        <img class="cara-grande" src="${cara(ids.length ? 'orgullosa' : 'pensando')}" alt="" width="120" height="120">
+        <img class="cara-grande" src="${cara(ids.length ? 'orgullosa' : 'pensando')}" alt="" width="112" height="96">
         <h1 class="display">${ids.length ? t('aldia_titulo') : t('traduccion_en_camino')}</h1>
         <p class="suave">${ids.length ? t('aldia_texto') : t('vacio_tema')}</p>
         <div class="acciones">
@@ -485,7 +485,7 @@ function htmlSlide(id, primera = false) {
         <div class="riel">
           <button class="riel-btn btn-fav" type="button" aria-pressed="${fav}" aria-label="${t(fav ? 'quitar_favorito' : 'favorito')}">${fav ? ICON.corazonLleno : ICON.corazon}</button>
           <button class="riel-btn btn-audio" type="button" aria-label="${t('escuchar')}">${ICON.audio}</button>
-          <button class="riel-btn btn-kitty" type="button" aria-label="${t('kitty_abrir')}"><img src="assets/kitty.svg" alt="" width="40" height="40"></button>
+          <button class="riel-btn btn-kitty" type="button" aria-label="${t('kitty_abrir')}"><img src="assets/kitty.svg" alt="" width="32" height="32"></button>
         </div>
         <div class="tarjeta-acciones">
           <button class="btn btn-repasar" type="button">${ICON.repetir}<span>${t('repasar')}</span></button>
@@ -567,14 +567,14 @@ function terminar() {
   $('#slide-fin').innerHTML = `
     <div class="tarjeta fin-card">
       <div class="lluvia" aria-hidden="true">${Array.from({ length: 12 }, (_, i) => `<img src="assets/patita.svg" alt="" style="--i:${i}">`).join('')}</div>
-      <img class="cara-grande" src="${cara(sesion.sabias >= sesion.repasar ? 'celebrando' : 'muy_feliz')}" alt="" width="112" height="112">
+      <img class="cara-grande" src="${cara(sesion.sabias >= sesion.repasar ? 'celebrando' : 'muy_feliz')}" alt="" width="112" height="96">
       <h2 class="display">${t('fin_titulo')}</h2>
       <dl class="stats">
         <div><dt>${t('fin_sabias')}</dt><dd>${sesion.sabias}</dd></div>
         <div><dt>${t('fin_repasar')}</dt><dd>${sesion.repasar}</dd></div>
         <div><dt>${t('fin_tokens')}</dt><dd>+${sesion.tokens}</dd></div>
       </dl>
-      <p class="racha-fin"><img src="assets/patita.svg" alt="" width="28" height="28">${tn('racha_n', racha)}</p>
+      <p class="racha-fin"><img src="assets/patita.svg" alt="" width="40" height="36">${tn('racha_n', racha)}</p>
       <div class="acciones">
         <button class="btn primario" type="button" id="btn-otra">${t('otra_sesion')}</button>
         <a class="btn" href="${sesion.volverA}">${t('cambiar_tema')}</a>
@@ -586,7 +586,7 @@ function terminar() {
 function flotar(slide, texto) {
   const el = document.createElement('span');
   el.className = 'flotante';
-  el.innerHTML = `<img src="assets/moneda.svg" alt="" width="28" height="28">${texto}`;
+  el.innerHTML = `<img src="assets/moneda.svg" alt="" width="24" height="24">${texto}`;
   el.setAttribute('aria-hidden', 'true');
   $('.tarjeta', slide).append(el);
   setTimeout(() => el.remove(), 900);
@@ -650,7 +650,7 @@ async function vistaFavoritos() {
       <p class="sobretitulo" lang="${meta}">${esc(nombreIdioma(meta))}</p>
       <h1 class="display">${t('fav_titulo')}</h1>
       ${ids.length ? `<a class="btn primario" href="#/estudiar?fav=1">${t('fav_estudiar')}</a><ul class="lista-fav">${filas}</ul>`
-        : `<div class="vacio-estado centro"><img class="cara-grande" src="${cara('enamorada')}" alt="" width="104" height="104"><p class="suave">${t('fav_vacio')}</p></div>`}
+        : `<div class="vacio-estado centro"><img class="cara-grande" src="${cara('enamorada')}" alt="" width="112" height="96"><p class="suave">${t('fav_vacio')}</p></div>`}
     </section>`;
   $$('.fila-fav').forEach((li) => {
     $('.btn-audio', li).addEventListener('click', () => { if (!hablar(banco.texto(meta, li.dataset.id).texto, meta)) toast(t('sin_voz')); });
@@ -671,7 +671,7 @@ function vistaRanking() {
       <ol class="ranking">
         <li class="yo"><span class="puesto">1</span><span class="avatar">${esc((S.perfil.nombre || '').charAt(0).toUpperCase()) || ICON.usuario}</span>
           <strong>${esc(S.perfil.nombre || t('rank_tu'))}</strong>
-          <span class="chip"><img src="assets/patita.svg" alt="" width="22" height="22">${racha}</span></li>
+          <span class="chip"><img src="assets/patita.svg" alt="" width="20" height="18">${racha}</span></li>
       </ol>
       <p class="aviso">${t('rank_pronto')}</p>
     </section>`;
@@ -778,10 +778,16 @@ function vistaAjustes() {
   $$('[data-modal]').forEach((b) => b.addEventListener('click', () => {
     const m = b.dataset.modal;
     if (m === 'tutorial') modal(t('aj_tutorial'), `<ol class="tutorial">${[1, 2, 3, 4, 5].map((n) => `<li>${t('tut_' + n)}</li>`).join('')}</ol>`);
-    if (m === 'cosmeticos') modal(t('aj_cosmeticos'), `<p>${t('aj_cos_texto')}</p><p class="chip"><img class="moneda" src="assets/moneda.svg" alt="" width="24" height="24">${S.tokens}</p>`);
+    if (m === 'cosmeticos') abrirCosmeticos();
     if (m === 'apoyar') modal(t('aj_apoyar'), `<p>${t('aj_apoyar_texto')}</p>`);
     if (m === 'legal') modal(t('aj_legal'), `<p>${t('legal_texto')}</p>`);
   }));
+  async function abrirCosmeticos() {
+    const skins = await fetch('assets/skins/skins.json').then((r) => r.json()).catch(() => []);
+    modal(t('aj_cosmeticos'), `<p>${t('aj_cos_texto')}</p>
+      <p class="chip"><img class="moneda" src="assets/moneda.svg" alt="" width="24" height="24">${S.tokens}</p>
+      <ul class="skins">${skins.map((k) => `<li><img src="assets/skins/${k.id}.svg" alt="" width="63" height="63"><span>${esc(k.nombre)}</span><small class="tag tag-pronto">${t('pronto')}</small></li>`).join('')}</ul>`);
+  }
   $('#aj-borrar').addEventListener('click', () => {
     if (!confirm(t('aj_borrar_confirmar'))) return;
     const ajustes = S.ajustes;
@@ -806,7 +812,7 @@ function kittyMsg(html, de = 'kitty', expresion = 'feliz') {
   if (de === 'kitty') {
     fila = document.createElement('div');
     fila.className = 'msg-fila';
-    fila.innerHTML = `<img class="msg-cara" src="${cara(expresion)}" alt="" width="36" height="36">`;
+    fila.innerHTML = `<img class="msg-cara" src="${cara(expresion)}" alt="" width="28" height="24">`;
     fila.append(el);
     $('#kitty-cara').src = cara(expresion);
   }

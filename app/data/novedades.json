@@ -2,6 +2,16 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.4.0",
+      "fecha": "2026-10-10",
+      "titulo": "Skins de Kitty y nuevos íconos",
+      "cambios": [
+        "12 skins de Kitty con accesorios divertidos (vista previa en Cosméticos).",
+        "Patita y moneda rediseñadas, más nítidas y sin deformarse.",
+        "Íconos nuevos: mensaje, burbuja de texto, cerezas y estrella."
+      ]
+    },
+    {
       "version": "0.3.0",
       "fecha": "2026-10-10",
       "titulo": "Kitty 2.0",

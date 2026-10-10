@@ -140,8 +140,21 @@ genera los SVG en `app/assets/` (una prueba falla si quedan desactualizados).
   no la encontró → confundida; propone frase → guiño; explica la tarjeta → orgullosa;
   fin de sesión → celebrando (o muy feliz); todo al día → orgullosa; sin traducción → pensando;
   favoritos vacíos → enamorada. La web muestra la galería completa.
-- **Patita**: simple, blanca con contorno grueso y almohadillas rosadas grandes (3 dedos + 1).
-- **Moneda de Kitty tokens**: dorada, redonda, con la misma patita grabada; gira al ganar tokens.
+- **Patita** (v0.4, como la referencia de Francisca): blanca, contorno grueso, 3 dedos marcados
+  arriba, cada almohadilla rosa con anillo y almohadilla grande con hendidura. 20×18.
+- **Moneda de Kitty tokens** (v0.4, como la referencia): dorada, contorno grueso, borde brillante,
+  anillo interior, patita en relieve y destello. 24×24. Gira al ganar tokens.
+- **Skins de Kitty** (v0.4, estilo gatitos sentados de tres cuartos con sombra): 12 skins con
+  accesorio — Clásica (perlas), Gris lectora (gafas), Naranja atigrada (bufanda), Jengibre (hoja),
+  Capa gris (estrella), Plateada real (corona), Negra (cascabel), Calicó (flor), Café parisina
+  (boina), Siamesa (moño), Rosa (corazón), Esmoquin (corbatín). 21×21. Se ven en Ajustes →
+  Cosméticos ("Próximamente") y en la web. [ABIERTO] ¿El logo principal pasa a este estilo?
+- **Íconos nuevos** (v0.4): mensaje/notificación (burbuja con corazón), burbuja vacía para texto
+  (se estira con CSS `border-image`), cerezas y estrella. [ABIERTO] Cerezas y estrellas serán otras
+  variables de puntos; Francisca las define después.
+- **Regla: el pixel art se muestra siempre a escala entera** de su tamaño (×1, ×2, ×3…). Si no, los
+  pixeles quedan disparejos ("se deforma"). Hay una prueba que lo revisa en la app y la web.
+- Catálogo visual de todo el arte: `docs/arte.html`.
 - Referencias de Francisca: no se guardan en el repo (tienen derechos de autor).
 
 ## 12. Reglas de trabajo [DECIDIDO]

@@ -171,6 +171,13 @@ try {
   await page.locator('[data-tema=oscuro]').click();
   assert.equal(await page.evaluate(() => document.documentElement.dataset.theme), 'dark');
   await foto(page, '10-celular-ajustes-oscuro');
+  await page.locator('[data-modal=cosmeticos]').click();
+  await page.locator('.skins li').nth(11).waitFor();
+  assert.equal(await page.locator('.skins li').count(), 12);
+  await page.waitForTimeout(400);
+  await imagenesCargadas(page, 'cosméticos');
+  await foto(page, '10b-celular-cosmeticos');
+  await page.locator('#modal-cerrar').click();
   await page.goto(`${URL_APP}#/estudiar?mega=${encodeURIComponent('Conversación y vida social')}&dif=todas`);
   await page.locator('#feed .slide .palabra').first().waitFor();
   await foto(page, '11-celular-tarjeta-oscuro');

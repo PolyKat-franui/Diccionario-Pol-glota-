@@ -1,39 +1,62 @@
-// Kitty 2.0: el pixel art está bien formado y los SVG publicados coinciden con el código.
+// Pixel art de Franui: bien formado, al día y siempre mostrado sin deformar.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { COLORES, kittyCuerpo, cara, EXPRESIONES, patita, moneda } from '../scripts/kitty-arte.mjs';
-import { toSvg } from '../scripts/kitty.mjs';
+import { COLORES, kittyCuerpo, cara, EXPRESIONES } from '../scripts/kitty-arte.mjs';
+import { ICONOS } from '../scripts/arte-iconos.mjs';
+import { SKINS, skin } from '../scripts/arte-skins.mjs';
+import { archivos } from '../scripts/kitty.mjs';
 
-const ASSETS = new URL('../app/assets/', import.meta.url);
-const dibujos = { kitty: kittyCuerpo(), patita: patita(), moneda: moneda(), ...Object.fromEntries(Object.keys(EXPRESIONES).map((k) => [`cara:${k}`, cara(k)])) };
+const R = (p) => new URL(`../${p}`, import.meta.url);
+const leer = (p) => readFileSync(R(p), 'utf8');
 
-test('14 expresiones de Kitty', () => {
+const dibujos = {
+  kitty: { filas: kittyCuerpo(), colores: COLORES },
+  ...Object.fromEntries(Object.keys(EXPRESIONES).map((k) => [`cara:${k}`, { filas: cara(k), colores: COLORES }])),
+  ...Object.fromEntries(Object.entries(ICONOS).map(([k, f]) => [k, f()])),
+  ...Object.fromEntries(SKINS.map((s) => [`skin:${s.id}`, skin(s.id)])),
+};
+
+test('14 expresiones y 12 skins', () => {
   assert.equal(Object.keys(EXPRESIONES).length, 14);
-  const lista = JSON.parse(readFileSync(new URL('caras/caras.json', ASSETS), 'utf8'));
-  assert.deepEqual(lista.map((c) => c.id), Object.keys(EXPRESIONES));
+  assert.equal(SKINS.length, 12);
+  assert.equal(new Set(SKINS.map((s) => s.id)).size, 12);
 });
 
-for (const [nombre, filas] of Object.entries(dibujos)) {
+for (const [nombre, { filas, colores }] of Object.entries(dibujos)) {
   test(`pixel art bien formado: ${nombre}`, () => {
-    const ancho = filas[0].length;
-    assert.ok(filas.every((f) => f.length === ancho), 'todas las filas del mismo ancho');
-    const desconocidos = [...new Set(filas.join(''))].filter((ch) => ch !== '.' && !COLORES[ch]);
+    assert.ok(filas.every((f) => f.length === filas[0].length), 'todas las filas del mismo ancho');
+    const desconocidos = [...new Set(filas.join(''))].filter((ch) => ch !== '.' && !colores[ch]);
     assert.deepEqual(desconocidos, [], 'solo colores definidos');
   });
 }
 
-test('la patita y la moneda son simétricas', () => {
-  // en la moneda se ignoran los brillos (son asimétricos a propósito): solo forma y patita
-  for (const filas of [patita(), moneda().map((f) => f.replace(/[lhd]/g, 'f'))]) {
-    for (const f of filas) assert.equal(f, [...f].reverse().join(''));
-  }
+test('la patita es simétrica', () => {
+  for (const f of ICONOS.patita().filas) assert.equal(f, [...f].reverse().join(''));
 });
 
-test('los SVG de app/assets están al día (si falla: node scripts/kitty.mjs)', () => {
-  const leer = (p) => readFileSync(new URL(p, ASSETS), 'utf8');
-  assert.equal(leer('kitty-sola.svg'), toSvg(kittyCuerpo(), { titulo: 'Kitty' }));
-  assert.equal(leer('patita.svg'), toSvg(patita(), { titulo: 'Racha' }));
-  assert.equal(leer('moneda.svg'), toSvg(moneda(), { titulo: 'Kitty token' }));
-  for (const [k, v] of Object.entries(EXPRESIONES)) assert.equal(leer(`caras/${k}.svg`), toSvg(cara(k), { titulo: `Kitty: ${v.nombre}` }));
+test('los archivos de app/assets están al día (si falla: node scripts/kitty.mjs)', () => {
+  for (const [ruta, contenido] of Object.entries(archivos())) assert.equal(leer(`app/assets/${ruta}`), contenido, ruta);
 });
+
+// ---------- que no se deformen: cada <img> a escala entera de su tamaño real ----------
+const tamano = (svg) => { const m = svg.match(/viewBox="0 0 (\d+) (\d+)"/); return [Number(m[1]), Number(m[2])]; };
+function assetDe(src) {
+  if (/cara\(|caras\//.test(src)) return 'caras/feliz.svg';
+  if (/skins\//.test(src)) return 'skins/clasica.svg';
+  const m = src.match(/assets\/([\w-]+\.svg)/);
+  return m ? m[1] : null;
+}
+for (const archivo of ['app/index.html', 'app/js/main.js', 'web/index.html', 'web/web.js']) {
+  test(`imágenes a escala entera: ${archivo}`, () => {
+    const imgs = [...leer(archivo).matchAll(/<img[^>]*?src="([^"]+)"[^>]*?width="(\d+)" height="(\d+)"/g)];
+    assert.ok(imgs.length > 0);
+    for (const [, src, w, h] of imgs) {
+      const asset = assetDe(src);
+      if (!asset) continue;
+      const [aw, ah] = tamano(leer(`app/assets/${asset}`));
+      const k = Number(w) / aw;
+      assert.ok(Number.isInteger(k) && Number(h) === ah * k, `${src}: ${w}×${h} no es múltiplo entero de ${aw}×${ah}`);
+    }
+  });
+}

@@ -20,24 +20,17 @@ export const COLORES = {
   Z: '#7E615F', // Zzz y burbujas (Deep Taupe)
   K: '#2B1418', // lentes
   H: '#FFFFFF', // brillo
-  // moneda
-  c: '#5E4325', // contorno de la moneda
-  d: '#B8894A', // borde dorado oscuro
-  f: '#D9B26A', // cara dorada
-  l: '#EBCF92', // dorado claro
-  h: '#FFF3D6', // brillo
-  p: '#8A6232', // patita grabada en la moneda
 };
 
 // ---------- utilidades de dibujo ----------
 export function lienzo(w, h) { return Array.from({ length: h }, () => Array(w).fill('.')); }
-const pon = (g, x, y, c) => { if (y >= 0 && y < g.length && x >= 0 && x < g[0].length) g[y][x] = c; };
-const ponTodos = (g, celdas, c) => celdas.forEach(([x, y]) => pon(g, x, y, c));
+export const pon = (g, x, y, c) => { if (y >= 0 && y < g.length && x >= 0 && x < g[0].length) g[y][x] = c; };
+export const ponTodos = (g, celdas, c) => celdas.forEach(([x, y]) => pon(g, x, y, c));
 /** Espejo horizontal respecto del eje de la figura (figura simétrica entre cx-1 y cx). */
-const espejo = (cx, x) => 2 * cx - 1 - x;
-const simetrico = (g, cx, celdas, c) => { ponTodos(g, celdas, c); ponTodos(g, celdas.map(([x, y]) => [espejo(cx, x), y]), c); };
+export const espejo = (cx, x) => 2 * cx - 1 - x;
+export const simetrico = (g, cx, celdas, c) => { ponTodos(g, celdas, c); ponTodos(g, celdas.map(([x, y]) => [espejo(cx, x), y]), c); };
 /** Rellena filas simétricas: anchos = { y: medioAncho }. */
-function silueta(g, cx, anchos, c = 'W') {
+export function silueta(g, cx, anchos, c = 'W') {
   for (const [y, hw] of Object.entries(anchos)) for (let x = cx - hw; x < cx + hw; x++) pon(g, x, Number(y), c);
 }
 /** Contorno automático alrededor de todo lo que no es vacío. */
@@ -50,7 +43,7 @@ export function contornear(g, c = 'O') {
   return g;
 }
 export const aTexto = (g) => g.map((r) => r.join(''));
-function sello(g, x0, y0, filas, mapa = {}) {
+export function sello(g, x0, y0, filas, mapa = {}) {
   filas.forEach((fila, dy) => [...fila].forEach((ch, dx) => { if (ch !== '.') pon(g, x0 + dx, y0 + dy, mapa[ch] ?? ch); }));
 }
 
@@ -196,68 +189,5 @@ export const EXPRESIONES = {
 export function cara(nombre) {
   const g = caraBase();
   EXPRESIONES[nombre].dibujar(g);
-  return aTexto(g);
-}
-
-// ---------- Patita (simple: almohadilla grande + 3 dedos) ----------
-export function patita() {
-  const g = lienzo(18, 16);
-  sello(g, 0, 1, [
-    '.......WWWW.......',
-    '......WWWWWW......',
-    '..WWW.WWWWWW.WWW..',
-    '.WWWWWWWWWWWWWWWW.',
-    '.WWWWWWWWWWWWWWWW.',
-    '.WWWWWWWWWWWWWWWW.',
-    '.WWWWWWWWWWWWWWWW.',
-    '.WWWWWWWWWWWWWWWW.',
-    '.WWWWWWWWWWWWWWWW.',
-    '.WWWWWWWWWWWWWWWW.',
-    '..WWWWWWWWWWWWWW..',
-    '...WWWWWWWWWWWW...',
-  ]);
-  contornear(g);
-  // almohadillas rosadas grandes: 3 dedos + almohadilla principal
-  sello(g, 0, 2, [
-    '........PP........',
-    '.......PPPP.......',
-    '.......PPPP.......',
-    '..PPP........PPP..',
-    '..PPP........PPP..',
-    '..PPP........PPP..',
-    '........PP........',
-    '......PPPPPP......',
-    '.....PPPPPPPP.....',
-    '.....PPPPPPPP.....',
-    '.....PPP..PPP.....',
-  ].map((f) => f.slice(0, 18)));
-  return aTexto(g);
-}
-
-// ---------- Moneda de Kitty tokens (con la patita adentro) ----------
-export function moneda() {
-  const g = lienzo(20, 20);
-  // círculo pixel art redondo (diámetro 18) sin "puntas"
-  silueta(g, 10, { 1: 3, 2: 5, 3: 6, 4: 7, 5: 8, 6: 8, 7: 9, 8: 9, 9: 9, 10: 9, 11: 9, 12: 9, 13: 8, 14: 8, 15: 7, 16: 6, 17: 5, 18: 3 }, 'f');
-  contornear(g, 'c');
-  // borde: claro arriba a la izquierda, oscuro abajo a la derecha
-  const copia = g.map((r) => [...r]);
-  for (let y = 0; y < 20; y++) for (let x = 0; x < 20; x++) {
-    if (copia[y][x] !== 'f') continue;
-    if ([[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => copia[y + dy]?.[x + dx] === 'c')) g[y][x] = x + y < 19 ? 'l' : 'd';
-  }
-  // brillo
-  ponTodos(g, [[5, 4], [4, 5], [6, 4], [4, 6]], 'h');
-  // patita grabada en el centro (3 dedos + almohadilla, como la patita de racha)
-  sello(g, 5, 5, [
-    '....pp....',
-    '...pppp...',
-    '.pp....pp.',
-    '.pp....pp.',
-    '....pp....',
-    '..pppppp..',
-    '.pppppppp.',
-    '.ppp..ppp.',
-  ]);
   return aTexto(g);
 }

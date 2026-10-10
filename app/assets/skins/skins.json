@@ -1,0 +1,62 @@
+[
+  {
+    "id": "clasica",
+    "nombre": "Clásica",
+    "accesorio": "perlas"
+  },
+  {
+    "id": "gris",
+    "nombre": "Gris lectora",
+    "accesorio": "gafas"
+  },
+  {
+    "id": "naranja",
+    "nombre": "Naranja atigrada",
+    "accesorio": "bufanda"
+  },
+  {
+    "id": "jengibre",
+    "nombre": "Jengibre",
+    "accesorio": "hoja"
+  },
+  {
+    "id": "capa",
+    "nombre": "Capa gris",
+    "accesorio": "estrella"
+  },
+  {
+    "id": "plateada",
+    "nombre": "Plateada real",
+    "accesorio": "corona"
+  },
+  {
+    "id": "negra",
+    "nombre": "Negra",
+    "accesorio": "cascabel"
+  },
+  {
+    "id": "calico",
+    "nombre": "Calicó",
+    "accesorio": "flor"
+  },
+  {
+    "id": "cafe",
+    "nombre": "Café parisina",
+    "accesorio": "boina"
+  },
+  {
+    "id": "siamesa",
+    "nombre": "Siamesa",
+    "accesorio": "mono"
+  },
+  {
+    "id": "rosa",
+    "nombre": "Rosa",
+    "accesorio": "corazon"
+  },
+  {
+    "id": "esmoquin",
+    "nombre": "Esmoquin",
+    "accesorio": "corbatin"
+  }
+]
