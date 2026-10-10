@@ -6,7 +6,7 @@ export const CLAVE = 'franui:v1';
 export const TOKENS_POR_TARJETA = 1;
 export const TOKENS_POR_SESION = 5;
 
-export const PALETAS = ['higo', 'piedra', 'carbon'];
+export const PALETAS = ['higo', 'piedra', 'carbon', 'tamarindo', 'medianoche'];
 
 export function estadoInicial() {
   return {

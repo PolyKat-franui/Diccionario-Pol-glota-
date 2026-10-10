@@ -102,7 +102,13 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
   - Texto: Carbón; texto secundario: Taupe oscurecido `#5C524B`. **Texto siempre oscuro** en modo claro.
   - Botón principal: Higo con letras claras. Fondo Lino aclarado `#E4E2DA`; tarjetas `#F1F0EB`;
     bordes y detalles Gris piedra y Taupe. Zonas oscuras (pie de la web): Carbón con letras Lino.
-  - Paletas en Ajustes: Higo (por defecto), Piedra, Carbón. Modo oscuro: fondo Carbón, texto Lino.
+  - Paletas en Ajustes: Higo (por defecto), Piedra, Carbón, **Tamarindo** y **Medianoche** (2026-10-10).
+    Cada una en claro y oscuro. Modo oscuro de Higo: fondo Carbón, texto Lino.
+    - Tamarindo: Mountain Boulder `#BFB8B4` · Warm Grey Flannel `#ADA39D` · Ardcoat `#E4DFDF` ·
+      Sassafras `#5B3A3E` · Tamarind `#34141A` · Prairie Dog `#936F6A`.
+    - Medianoche: Midnight Express `#202937` · Dance of the Goddesses `#E6D7CD` · New Wool `#D4C1B9` ·
+      Bluish Black `#423D42` · Trillium `#A99898` · Paradise Grape `#766664`.
+    - La página web usa siempre Higo; las paletas son para personalizar la app.
   - Pixel art con los mismos tonos (contornos Carbón, corazones Higo). La sakura conserva su rosado
     y la moneda/estrella su dorado, para que se reconozcan.
   - Descartadas: la paleta Creme/Sand/Dusty Pink/Burgundy (2026-10-09), los rosados fuertes y la rosa/lavanda.

@@ -2,6 +2,11 @@
    Franui — tokens de diseño. Cambia colores y fuentes SOLO aquí.
    Paleta "Higo" de Francisca (2026-10-10):
      Gris piedra #B4B1AD · Lino #CFCDBF · Higo #602B27 · Taupe #8A7C70 · Carbón #211A18
+   Paletas extra para elegir en Ajustes (2026-10-10):
+     Tamarindo: Mountain Boulder #BFB8B4 · Warm Grey Flannel #ADA39D · Ardcoat #E4DFDF ·
+                Sassafras #5B3A3E · Tamarind #34141A · Prairie Dog #936F6A
+     Medianoche: Midnight Express #202937 · Dance of the Goddesses #E6D7CD · New Wool #D4C1B9 ·
+                 Bluish Black #423D42 · Trillium #A99898 · Paradise Grape #766664
    Los demás tonos son mezclas de esos cinco (más claros u oscuros) para fondos y textos.
    Texto siempre oscuro en modo claro (contraste ≥ 4,5:1, comprobado en tests/contraste.test.mjs).
    ========================================================== */
@@ -61,6 +66,8 @@
 .muestra-higo { background: conic-gradient(#CFCDBF 0 33%, #8A7C70 0 66%, #602B27 0); }
 .muestra-piedra { background: conic-gradient(#CFCDBF 0 33%, #B4B1AD 0 66%, #5C524B 0); }
 .muestra-carbon { background: conic-gradient(#CFCDBF 0 33%, #8A7C70 0 66%, #211A18 0); }
+.muestra-tamarindo { background: conic-gradient(#E4DFDF 0 33%, #936F6A 0 66%, #5B3A3E 0); }
+.muestra-medianoche { background: conic-gradient(#E6D7CD 0 33%, #A99898 0 66%, #202937 0); }
 
 /* Paletas alternativas (Ajustes → Paleta) */
 :root[data-paleta="piedra"] {
@@ -70,6 +77,19 @@
 :root[data-paleta="carbon"] {
   --surface-2: #DCDAD3; --accent: #8A7C70; --accent-soft: #D9D7CF;
   --primary: #211A18; --on-primary: #E4E2DA; --enfasis: #211A18;
+}
+
+:root[data-paleta="tamarindo"] {
+  --bg: #E4DFDF; --surface: #F3F0F0; --surface-2: #BFB8B4; --accent: #BFB8B4; --accent-soft: #D6CFCD;
+  --line: #ADA39D; --ink: #34141A; --ink-soft: #5B3A3E; --primary: #5B3A3E; --on-primary: #F3F0F0;
+  --enfasis: #5B3A3E; --gold: #6E5450; --sand: #936F6A; --oscuro: #34141A; --sobre-oscuro: #E4DFDF;
+  --sobre-oscuro-suave: #BFB8B4; --sombra-color: #34141A;
+}
+:root[data-paleta="medianoche"] {
+  --bg: #E6D7CD; --surface: #F3EBE6; --surface-2: #D4C1B9; --accent: #A99898; --accent-soft: #DDCFC8;
+  --line: #A99898; --ink: #202937; --ink-soft: #423D42; --primary: #202937; --on-primary: #F3EBE6;
+  --enfasis: #202937; --gold: #5C504E; --sand: #766664; --oscuro: #202937; --sobre-oscuro: #E6D7CD;
+  --sobre-oscuro-suave: #D4C1B9; --sombra-color: #202937;
 }
 
 /* Modo oscuro */
@@ -91,7 +111,27 @@
 }
 :root[data-theme="dark"][data-paleta="piedra"] { --primary: #B4B1AD; --enfasis: #CFCDBF; --surface-2: #34302D; --accent: #B4B1AD; }
 :root[data-theme="dark"][data-paleta="carbon"] { --primary: #CFCDBF; --on-primary: #211A18; --enfasis: #E4E2DA; --surface-2: #332B28; --accent: #8A7C70; }
+:root[data-theme="dark"][data-paleta="tamarindo"] {
+  --bg: #34141A; --surface: #45252B; --surface-2: #5B3A3E; --accent: #936F6A; --accent-soft: #4E2E34;
+  --line: #936F6A; --ink: #E4DFDF; --ink-soft: #BFB8B4; --primary: #C9A9A4; --on-primary: #34141A;
+  --enfasis: #C9A9A4; --gold: #BFB8B4; --sand: #936F6A;
+}
+:root[data-theme="dark"][data-paleta="medianoche"] {
+  --bg: #202937; --surface: #2A3342; --surface-2: #3A3F4C; --accent: #766664; --accent-soft: #333A48;
+  --line: #766664; --ink: #E6D7CD; --ink-soft: #D4C1B9; --primary: #E6D7CD; --on-primary: #202937;
+  --enfasis: #E6D7CD; --gold: #D4C1B9; --sand: #766664;
+}
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"])[data-paleta="piedra"] { --primary: #B4B1AD; --enfasis: #CFCDBF; --surface-2: #34302D; --accent: #B4B1AD; }
   :root:not([data-theme="light"])[data-paleta="carbon"] { --primary: #CFCDBF; --on-primary: #211A18; --enfasis: #E4E2DA; --surface-2: #332B28; --accent: #8A7C70; }
+  :root:not([data-theme="light"])[data-paleta="tamarindo"] {
+    --bg: #34141A; --surface: #45252B; --surface-2: #5B3A3E; --accent: #936F6A; --accent-soft: #4E2E34;
+    --line: #936F6A; --ink: #E4DFDF; --ink-soft: #BFB8B4; --primary: #C9A9A4; --on-primary: #34141A;
+    --enfasis: #C9A9A4; --gold: #BFB8B4; --sand: #936F6A;
+  }
+  :root:not([data-theme="light"])[data-paleta="medianoche"] {
+    --bg: #202937; --surface: #2A3342; --surface-2: #3A3F4C; --accent: #766664; --accent-soft: #333A48;
+    --line: #766664; --ink: #E6D7CD; --ink-soft: #D4C1B9; --primary: #E6D7CD; --on-primary: #202937;
+    --enfasis: #E6D7CD; --gold: #D4C1B9; --sand: #766664;
+  }
 }

@@ -23,6 +23,10 @@ const paletas = {
   carbon: { ...claro, ...bloque(':root[data-paleta="carbon"]') },
   'piedra oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="piedra"]') },
   'carbon oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="carbon"]') },
+  tamarindo: { ...claro, ...bloque(':root[data-paleta="tamarindo"]') },
+  medianoche: { ...claro, ...bloque(':root[data-paleta="medianoche"]') },
+  'tamarindo oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="tamarindo"]') },
+  'medianoche oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="medianoche"]') },
 };
 
 for (const [nombre, p] of Object.entries({ claro, oscuro, ...paletas })) {

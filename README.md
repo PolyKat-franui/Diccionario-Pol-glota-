@@ -29,7 +29,7 @@ NODE_PATH=$(npm root -g) npm run test:e2e  # recorrido completo de la app y la w
 - **Tarjetas:** palabra grande, traducción que se revela al tocar, tipo, IPA, audio, corazón (favoritos), ícono de dificultad (nueva, difícil, media, fácil, dominada).
 - **Kitty tokens**, **racha** (sakuras), **favoritos**, **ranking** (local por ahora), **novedades**.
 - **Kitty:** chat en modo diccionario (sin IA conectada todavía).
-- **Ajustes:** tema claro/oscuro, 3 paletas, tamaño de letra, brillo, IPA, perfil, sugerencias, tutorial, legal.
+- **Ajustes:** tema claro/oscuro, 5 paletas (Higo, Piedra, Carbón, Tamarindo, Medianoche), tamaño de letra, brillo, IPA, perfil, sugerencias, tutorial, legal.
 - Interfaz en 6 idiomas según el idioma nativo. Celular, tablet y computador.
 
 ## Estructura
