@@ -73,7 +73,7 @@ p { margin: 0; }
 }
 .moneda { width: 24px; height: 24px; flex: none; }
 .moneda.gira { animation: girarMoneda .7s var(--ease); }
-.cara-grande { border-radius: 50%; background: var(--surface-2); padding: 18px 10px; box-sizing: content-box; }
+.cara-grande { border-radius: 50%; background: var(--surface-2); padding: 30px 24px; box-sizing: content-box; }
 
 .card { background: var(--surface); border-radius: var(--r-lg); padding: 24px; box-shadow: var(--shadow); display: grid; gap: 16px; }
 .card h2 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 600; }
@@ -153,7 +153,7 @@ main { outline: none; }
 .inicio { max-width: 440px; margin: 0 auto; padding: 40px 16px 48px; display: grid; gap: 24px; }
 .inicio-hero { display: grid; justify-items: center; gap: 8px; text-align: center; animation: aparecer .8s var(--ease) both; }
 .inicio-hero .display { font-size: calc(64px * var(--escala)); }
-.inicio-kitty { animation: flotar 4s ease-in-out infinite; filter: drop-shadow(0 16px 30px rgba(110,79,92,.18)); }
+.inicio-kitty { border-radius: 50%; background: var(--surface-2); padding: 28px 22px; box-sizing: content-box; animation: flotar 4s ease-in-out infinite; filter: drop-shadow(0 16px 30px rgba(110,79,92,.18)); }
 .lema { color: var(--ink-soft); font-size: var(--fs-lg); font-family: var(--font-display); font-style: italic; }
 .inicio-card { animation: aparecer .8s .1s var(--ease) both; }
 .inicio-card .seg { display: flex; }
@@ -279,7 +279,7 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 }
 .riel-btn:hover { transform: scale(1.06); }
 .riel-btn svg { width: 24px; height: 24px; }
-.riel-btn img { width: 32px; height: 32px; border-radius: 50%; }
+.riel-btn img { width: 28px; height: 24px; }
 .btn-fav[aria-pressed="true"] { color: var(--enfasis); }
 .btn-fav.pop svg { animation: pop .45s var(--ease); }
 .tarjeta-acciones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -308,7 +308,7 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 .stats dd { margin: 0; font-family: var(--font-display); font-size: calc(36px * var(--escala)); font-weight: 600; }
 .racha-fin { display: flex; align-items: center; gap: 8px; font-weight: 600; }
 .lluvia { position: absolute; inset: 0; pointer-events: none; }
-.lluvia img { position: absolute; top: -40px; left: calc(var(--i) * 8.3%); width: 20px; height: 18px; animation: caer 2.6s calc(var(--i) * 90ms) ease-in forwards; opacity: 0; }
+.lluvia img { position: absolute; top: -40px; left: calc(var(--i) * 8.3%); width: 23px; height: 23px; animation: caer 2.6s calc(var(--i) * 90ms) ease-in forwards; opacity: 0; }
 
 /* ---------- Favoritos, ranking, novedades ---------- */
 .lista-fav, .ranking, .novedades { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
@@ -356,19 +356,15 @@ body[data-ruta="estudiar"] { overflow: hidden; }
   border-image: url(../assets/burbuja.svg) 8 12 12 8 fill / 16px 24px 24px 16px stretch;
   padding: 0 6px; color: #493036; font-size: var(--fs-md); line-height: 1.4;
 }
-.skins { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-height: 50dvh; overflow-y: auto; }
-.skins .tag { white-space: normal; font-size: 11px; text-align: center; min-height: 22px; }
-.skins li { display: grid; justify-items: center; gap: 4px; padding: 10px 4px; border-radius: var(--r-md); background: var(--surface-2); text-align: center; font-size: var(--fs-sm); }
-.skins img { width: 63px; height: 63px; }
 
 /* ---------- Kitty ---------- */
 .kitty-fab {
   position: fixed; z-index: 21; right: 16px; bottom: calc(var(--tab-h) + 16px);
-  width: 64px; height: 64px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; background: var(--surface);
+  width: 64px; height: 64px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; background: var(--surface-2); display: grid; place-items: center;
   box-shadow: 0 10px 30px rgba(110,79,92,.28); transition: transform .3s var(--ease);
 }
 .kitty-fab:hover { transform: translateY(-3px) rotate(-6deg); }
-.kitty-fab img { border-radius: 50%; }
+.kitty-fab img { width: 56px; height: 48px; }
 body[data-ruta="estudiar"] .kitty-fab { display: none; }
 dialog { border: 0; padding: 0; color: var(--ink); background: var(--surface); box-shadow: var(--shadow); }
 dialog::backdrop { background: rgba(20, 16, 22, .38); backdrop-filter: blur(3px); }

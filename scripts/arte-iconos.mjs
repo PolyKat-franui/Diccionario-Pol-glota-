@@ -1,4 +1,4 @@
-// Íconos pixel art de Franui: patita, moneda, estrella, cerezas, notificación y burbuja vacía.
+// Íconos pixel art de Franui: sakura (racha), moneda, estrella, cerezas, notificación y burbuja vacía.
 // Cada función devuelve { filas, colores }. Se exportan en tamaño exacto (sin relleno)
 // y se muestran siempre a escala entera (1x, 2x, 3x…) para que no se deformen.
 import { lienzo, pon, ponTodos, silueta, sello, contornear, aTexto } from './kitty-arte.mjs';
@@ -15,35 +15,51 @@ function sombra(g, c = 's', dx = 1, dy = 1) {
   }
 }
 
-// ---------- Patita (como la referencia: 3 dedos con anillo + almohadilla con hendidura) ----------
-export function patita() {
-  const g = lienzo(20, 18);
-  // silueta con 3 bultos arriba (un dedo central y dos laterales)
-  silueta(g, 10, { 1: 2, 2: 3, 3: 3, 4: 8, 5: 9, 6: 9, 7: 9, 8: 9, 9: 9, 10: 9, 11: 9, 12: 9, 13: 9, 14: 8, 15: 7, 16: 5 }, 'W');
-  ponTodos(g, [[3, 2], [4, 2], [5, 2], [14, 2], [15, 2], [16, 2], [2, 3], [3, 3], [4, 3], [5, 3], [14, 3], [15, 3], [16, 3], [17, 3]], 'W');
-  contornear(g);
-  // dedo central
-  ponTodos(g, [[9, 2], [10, 2], [8, 3], [11, 3], [8, 4], [11, 4], [9, 5], [10, 5]], 'O');
-  ponTodos(g, [[9, 3], [10, 3], [9, 4], [10, 4]], 'P');
-  // dedos laterales (bajo cada bulto)
-  for (const x0 of [2, 14]) {
-    ponTodos(g, [[x0 + 1, 3], [x0 + 2, 3], [x0, 4], [x0 + 3, 4], [x0, 5], [x0 + 3, 5], [x0 + 1, 6], [x0 + 2, 6]], 'O');
-    ponTodos(g, [[x0 + 1, 4], [x0 + 2, 4], [x0 + 1, 5], [x0 + 2, 5]], 'P');
+// ---------- Sakura (flor de cerezo: ícono de la racha) ----------
+const COLORES_SAKURA = { o: '#7A4A47', a: '#FBC4CD', b: '#F5A3AE', m: '#EC8893', c: '#DB6A72', n: '#C2545E', h: '#FFE6EA' };
+
+/**
+ * Sakura de 5 pétalos (como la referencia): cada pétalo es una forma propia con contorno,
+ * hay un pequeño espacio entre pétalos, muesca en la punta y centro más oscuro.
+ */
+function dibujarSakura(n, R, { brillo = true } = {}) {
+  const g = lienzo(n, n);
+  const cx = (n - 1) / 2, cy = (n - 1) / 2 + R * 0.04;
+  const etiqueta = lienzo(n, n).map((f) => f.map(() => 0));
+  const ejes = Array.from({ length: 5 }, (_, k) => -Math.PI / 2 + (k * 2 * Math.PI) / 5);
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const dx = x - cx, dy = y - cy;
+    ejes.forEach((a, k) => {
+      const u = dx * Math.cos(a) + dy * Math.sin(a);       // a lo largo del pétalo
+      const v = -dx * Math.sin(a) + dy * Math.cos(a);      // a lo ancho
+      const ancho = R * 0.31 * (0.55 + 0.45 * Math.min(1, u / (R * 0.55)));
+      const dentro = ((u - R * 0.56) / (R * 0.46)) ** 2 + (v / ancho) ** 2 <= 1;
+      const muesca = u > R * 0.86 && Math.abs(v) < R * 0.11;
+      if (dentro && !muesca) etiqueta[y][x] = k + 1;
+    });
+    if (Math.hypot(dx, dy) < R * 0.24) etiqueta[y][x] = 9; // centro
   }
-  // almohadilla grande con hendidura abajo
-  sello(g, 5, 8, [
-    '..OOOOOO..',
-    '.OPPPPPPO.',
-    'OPPPPPPPPO',
-    'OPPPPPPPPO',
-    'OPPPPPPPPO',
-    'OPPPOOPPPO',
-    '.OOO..OOO.',
-  ]);
-  return { filas: aTexto(g), colores: { O: '#493036', W: '#FFFFFF', P: '#E8AFAA' } };
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const e = etiqueta[y][x];
+    if (!e) continue;
+    const r = Math.hypot(x - cx, y - cy);
+    if (e === 9) { g[y][x] = r < R * 0.12 ? 'n' : 'c'; continue; }
+    const borde = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([ax, ay]) => { const o = etiqueta[y + ay]?.[x + ax] ?? 0; return o !== e && o !== 9; });
+    g[y][x] = borde ? 'o' : r < R * 0.38 ? 'm' : 'a';
+  }
+  if (brillo) for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const r = Math.hypot(x - cx, y - cy);
+    if (g[y][x] === 'a' && r > R * 0.66 && r < R * 0.76) g[y][x] = 'b';
+  }
+  return g;
 }
 
-// ---------- Moneda de Kitty tokens (como la referencia, con la patita en relieve) ----------
+export function sakura() {
+  const g = dibujarSakura(23, 11.2);
+  return { filas: aTexto(g), colores: COLORES_SAKURA };
+}
+
+// ---------- Moneda de Kitty tokens (como la referencia, con una sakura en relieve) ----------
 export function moneda() {
   const n = 24, c = 11.5;
   const g = lienzo(n, n);
@@ -59,49 +75,43 @@ export function moneda() {
   // brillos en el borde
   ponTodos(g, [[6, 3], [5, 4], [4, 5], [3, 7], [7, 3]], 'h');
   ponTodos(g, [[20, 13], [20, 14], [19, 16]], 'h');
-  // patita en relieve: contorno oscuro y relleno claro
-  const p = lienzo(12, 11);
-  sello(p, 1, 1, [
-    '....WW....',
-    '.W..WW..W.',
-    '.W......W.',
-    '...WWWW...',
-    '..WWWWWW..',
-    '..WWWWWW..',
-    '..WW..WW..',
-  ]);
-  ponTodos(p, [[5, 1], [6, 1]], 'W');
-  contornear(p, 'r');
-  sello(g, 6, 6, aTexto(p), { W: 'l' });
-  ponTodos(g, [[11, 8], [8, 9]], 'h');
+  // sakura en relieve (contorno oscuro y relleno claro)
+  const flor = dibujarSakura(15, 7.3, { brillo: false }).map((fila) => fila.map((ch) => (ch === '.' ? '.' : ch === 'o' ? 'r' : ['n', 'c'].includes(ch) ? 'd' : 'l')));
+  sello(g, 4, 4, aTexto(flor));
   // destello arriba a la derecha
   sello(g, 18, 0, ['..h..', '..h..', 'hhhhh', '..h..', '..h..'].map((f) => f.replace(/h/g, 'H')));
   return { filas: aTexto(g), colores: { o: '#5A3418', d: '#C98A2E', f: '#F2BE4A', l: '#FCDB7E', r: '#B8701E', h: '#FFF6D8', H: '#FFFFFF' } };
 }
 
-// ---------- Estrella (otra variable de puntos, por definir) ----------
+// ---------- Estrella (polígono de 5 puntas: líneas rectas y caras con volumen) ----------
 export function estrella() {
-  const g = lienzo(17, 16);
-  sello(g, 1, 1, [
-    '.......Y.......',
-    '......YYY......',
-    '......YYY......',
-    '.....YYYYY.....',
-    'YYYYYYYYYYYYYYY',
-    '.YYYYYYYYYYYYY.',
-    '..YYYYYYYYYYY..',
-    '...YYYYYYYYY...',
-    '...YYYYYYYYY...',
-    '..YYYYY.YYYYY..',
-    '..YYYY...YYYY..',
-    '.YYY.......YYY.',
-  ]);
+  const n = 21;
+  const g = lienzo(n, n);
+  const cx = 10, cy = 11, R = 10.4, r = 5.1;
+  const vert = Array.from({ length: 10 }, (_, i) => {
+    const a = -Math.PI / 2 + (i * Math.PI) / 5;
+    const rad = i % 2 ? r : R;
+    return [cx + rad * Math.cos(a), cy + rad * Math.sin(a)];
+  });
+  const dentro = (px, py) => { // regla par-impar
+    let c = false;
+    for (let i = 0, j = vert.length - 1; i < vert.length; j = i++) {
+      const [xi, yi] = vert[i], [xj, yj] = vert[j];
+      if ((yi > py) !== (yj > py) && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) c = !c;
+    }
+    return c;
+  };
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    if (!dentro(x, y)) continue;
+    // cada punta tiene una cara clara (izquierda) y una oscura (derecha), como una estrella tallada
+    const a = Math.atan2(y - cy, x - cx) + Math.PI / 2;
+    const sector = ((((a % (2 * Math.PI / 5)) + 2 * Math.PI / 5) % (2 * Math.PI / 5)));
+    const cerca = Math.hypot(x - cx, y - cy) < 1.6;
+    g[y][x] = cerca ? 'l' : sector < Math.PI / 5 ? 'D' : 'Y';
+  }
   contornear(g, 'o');
-  // volumen: claro a la izquierda, dorado a la derecha, brillo arriba
-  for (let y = 0; y < 16; y++) for (let x = 0; x < 17; x++) if (g[y][x] === 'Y' && x > 8 && y > 4) g[y][x] = 'D';
-  ponTodos(g, [[8, 3], [8, 4], [7, 5], [7, 6]], 'h');
-  ponTodos(g, [[4, 6], [5, 6], [3, 6]], 'l');
-  return { filas: aTexto(g), colores: { o: '#B8611E', Y: '#FFD75A', D: '#F2B33A', l: '#FFF0A8', h: '#FFFFFF' } };
+  ponTodos(g, [[9, 4], [9, 5], [8, 7]], 'h');
+  return { filas: aTexto(g), colores: { o: '#A8521A', Y: '#FFD54F', D: '#F0A82E', l: '#FFF0A8', h: '#FFFFFF' } };
 }
 
 // ---------- Cerezas (otra variable de puntos, por definir) ----------
@@ -194,4 +204,4 @@ export function burbuja() {
   return { filas: aTexto(g), colores: { o: '#7E615F', W: '#FFFDF9', S: '#EAE0D6', Y: '#E4B95B' } };
 }
 
-export const ICONOS = { patita, moneda, estrella, cerezas, mensaje, burbuja };
+export const ICONOS = { sakura, moneda, estrella, cerezas, mensaje, burbuja };

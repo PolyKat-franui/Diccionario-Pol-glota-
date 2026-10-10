@@ -172,9 +172,7 @@ try {
   assert.equal(await page.evaluate(() => document.documentElement.dataset.theme), 'dark');
   await foto(page, '10-celular-ajustes-oscuro');
   await page.locator('[data-modal=cosmeticos]').click();
-  await page.locator('.skins li').nth(11).waitFor();
-  assert.equal(await page.locator('.skins li').count(), 12);
-  await page.waitForTimeout(400);
+  await page.locator('#modal .moneda').waitFor();
   await imagenesCargadas(page, 'cosméticos');
   await foto(page, '10b-celular-cosmeticos');
   await page.locator('#modal-cerrar').click();

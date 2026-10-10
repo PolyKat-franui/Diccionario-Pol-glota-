@@ -73,7 +73,7 @@ botón de audio, IPA como ayuda opcional (pequeña).
 
 ## 6. Variables [DECIDIDO]
 - Kitty tokens: +1 por tarjeta revisada, +5 al terminar una sesión.
-- Racha: día con al menos 1 tarjeta estudiada. Ícono: patita de Kitty rosa y blanca.
+- Racha: día con al menos 1 tarjeta estudiada. Ícono: **sakura** (flor de cerezo), decidido 2026-10-10.
 - Favoritos: carpeta "Palabras favoritas".
 
 ## 7. Pronunciación
@@ -87,8 +87,7 @@ marca lo corregido, no mezcla pronunciaciones.
 [ABIERTO] Proveedor de IA. Nota técnica: una app no puede "usar la cuenta de Google"
 de alguien para hablar con Claude/ChatGPT/Gemini; se necesita una API con clave
 guardada en un servidor propio (nunca en el navegador). Ver `docs/RECOMENDACIONES.md`.
-Logo: pixel art, gato blanco completo, bigotes blancos, patitas rosadas, collar de perlas
-(`app/assets/kitty.svg`, generado por `scripts/kitty.mjs`).
+Logo: la expresión **feliz** de Kitty (`app/assets/caras/feliz.svg`), decidido 2026-10-10.
 
 ## 9. Estética [DECIDIDO 2026-10-09]
 Sensación limpia, simple, lujo "old money", estudio corto. Referencias: Apple, Dior, Chanel, Bvlgari.
@@ -128,33 +127,26 @@ llamado final y pie legal ("en preparación"). Kitty responde preguntas frecuent
 - Pendiente de Francisca: foto (`web/img/francisca.jpg`) y 2–3 líneas propias para "La creadora".
 - Sin cifras inventadas ni testimonios falsos (ver docs/RECOMENDACIONES.md §8).
 
-## 11b. Kitty 2.0 [HECHO v0.3 — diseño aprobado por Francisca 2026-10-10]
-Todo el pixel art se dibuja con código en `scripts/kitty-arte.mjs`; `node scripts/kitty.mjs`
-genera los SVG en `app/assets/` (una prueba falla si quedan desactualizados).
-- **Kitty**: gata blanca **delgada en forma de campana** (cabeza angosta con orejas, cuerpo que
-  se ensancha, dos patitas abajo, cola en "?"), ojos verticales juntos, mejillas Dusty Pink,
-  collar de perlas, contorno Old Burgundy y un destello dorado. Sin bigotes oscuros.
-- **14 expresiones** (`app/assets/caras/`, nombres en `caras.json`): feliz, muy feliz, guiño,
-  sorprendida, confundida, mareada, enamorada, llorando, enojada, con sueño, avergonzada,
-  orgullosa, pensando, celebrando. Uso en la app: hola → muy feliz; encontró la palabra → feliz;
-  no la encontró → confundida; propone frase → guiño; explica la tarjeta → orgullosa;
-  fin de sesión → celebrando (o muy feliz); todo al día → orgullosa; sin traducción → pensando;
-  favoritos vacíos → enamorada. La web muestra la galería completa.
-- **Patita** (v0.4, como la referencia de Francisca): blanca, contorno grueso, 3 dedos marcados
-  arriba, cada almohadilla rosa con anillo y almohadilla grande con hendidura. 20×18.
-- **Moneda de Kitty tokens** (v0.4, como la referencia): dorada, contorno grueso, borde brillante,
-  anillo interior, patita en relieve y destello. 24×24. Gira al ganar tokens.
-- **Skins de Kitty** (v0.4, estilo gatitos sentados de tres cuartos con sombra): 12 skins con
-  accesorio — Clásica (perlas), Gris lectora (gafas), Naranja atigrada (bufanda), Jengibre (hoja),
-  Capa gris (estrella), Plateada real (corona), Negra (cascabel), Calicó (flor), Café parisina
-  (boina), Siamesa (moño), Rosa (corazón), Esmoquin (corbatín). 21×21. Se ven en Ajustes →
-  Cosméticos ("Próximamente") y en la web. [ABIERTO] ¿El logo principal pasa a este estilo?
-- **Íconos nuevos** (v0.4): mensaje/notificación (burbuja con corazón), burbuja vacía para texto
-  (se estira con CSS `border-image`), cerezas y estrella. [ABIERTO] Cerezas y estrellas serán otras
-  variables de puntos; Francisca las define después.
-- **Regla: el pixel art se muestra siempre a escala entera** de su tamaño (×1, ×2, ×3…). Si no, los
-  pixeles quedan disparejos ("se deforma"). Hay una prueba que lo revisa en la app y la web.
-- Catálogo visual de todo el arte: `docs/arte.html`.
+## 11b. Kitty e íconos pixel art [DECIDIDO 2026-10-10]
+Todo se dibuja con código (`scripts/kitty-arte.mjs` y `scripts/arte-iconos.mjs`);
+`node scripts/kitty.mjs` genera los SVG en `app/assets/` y el catálogo `docs/arte.html`.
+- **Kitty = sus 14 expresiones** (`app/assets/caras/`, nombres en `caras.json`). La cara
+  **feliz** es el logo (barra, botón de Kitty, inicio, ícono de pestaña, web). Uso: hola → muy feliz;
+  encontró la palabra → feliz; no la encontró → confundida; propone frase → guiño; explica la
+  tarjeta → orgullosa; fin de sesión → celebrando (o muy feliz); todo al día → orgullosa;
+  sin traducción → pensando; favoritos vacíos → enamorada.
+- **Sakura** (reemplaza a la patita): 5 pétalos separados con contorno café, muesca en la
+  punta y centro más oscuro, como la referencia de Francisca. Ícono de la racha; al terminar una
+  sesión caen sakuras. 23×23.
+- **Moneda de Kitty tokens**: dorada, contorno grueso, borde brillante, anillo interior, sakura en
+  relieve y destello. 24×24. Gira al ganar tokens.
+- **Estrella**: polígono de 5 puntas con líneas rectas y caras claras/oscuras (tallada). 21×21.
+- **Mensaje** (notificación: burbuja con corazón), **burbuja vacía** para texto (clase CSS
+  `.burbuja-texto`, se estira con `border-image`) y **cerezas**.
+  [ABIERTO] Cerezas y estrellas serán otras variables de puntos; Francisca las define después.
+- Descartado (2026-10-10): Kitty de cuerpo entero, las 12 skins y la patita (no le gustaron).
+- **Regla: el pixel art se muestra siempre a escala entera** de su tamaño (×1, ×2, ×3…); si no,
+  los pixeles quedan disparejos. Una prueba lo revisa en la app y la web.
 - Referencias de Francisca: no se guardan en el repo (tienen derechos de autor).
 
 ## 12. Reglas de trabajo [DECIDIDO]

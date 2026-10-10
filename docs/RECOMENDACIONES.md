@@ -76,7 +76,7 @@ Automatización recomendada (siguiente bloque):
 |---|---|---|
 | 1 | App base: tarjetas deslizables, SRS, Kumon, tokens, racha, favoritos, Kitty diccionario, ajustes, 6 idiomas de interfaz, banco importado | **Hecho** |
 | 2 | Página web promocional (misma estética, sección de la creadora, novedades) + nueva paleta y tipografía | **Hecho** |
-| 2b | Kitty 2.0: nuevo pixel art, expresiones, patita simple, moneda con patita | **Hecho** |
+| 2b | Kitty en 14 expresiones (cara feliz = logo), sakuras para la racha, moneda, estrella, cerezas, mensaje | **Hecho** |
 | 3 | Traducción completa del banco (Wiktionary + DeepL) + pantalla de revisión | |
 | 4 | Cuentas en la nube (Supabase): Google, sincronizar avance, ranking real, buzón de sugerencias | |
 | 5 | Kitty con IA real (servidor propio que guarda la clave) | |
@@ -164,7 +164,7 @@ lujo + sans legible, movimientos suaves con curva de aceleración, respeto de
 | Pixel art | **Sí** (identidad) | Kitty, racha, cosméticos, logros |
 | Kinetic type | **Sí** | Web: "hola · hello · bonjour…" que cambia en grande |
 | Split flap | **Sí** | Web: contador de palabras/idiomas estilo aeropuerto (viaje + idiomas) |
-| Particles | Sí, con medida | Celebraciones (ya: lluvia de patitas al terminar sesión) |
+| Particles | Sí, con medida | Celebraciones (ya: lluvia de sakuras al terminar sesión) |
 | Glassmorphism | Sutil | Barra superior (ya aplicada) |
 | Liquid morph | Opcional | Botón de Kitty, transición entre pantallas |
 | Art deco | Opcional | Detalles dorados en la web (encaja con "lujo") |
@@ -184,7 +184,7 @@ lujo + sans legible, movimientos suaves con curva de aceleración, respeto de
 1. **Cuenta antes de estudiar** (decidido 2026-10-09): se pide solo la primera vez y la
    sesión queda guardada. Mantener ese paso lo más corto posible: "Continuar sin cuenta" visible.
 2. **Botón "Continuar"** en la portada: un toque y vuelves a tu último tema.
-3. **Meta diaria Kaizen:** elegir 1, 3 o 5 minutos al día; la patita se llena al cumplirla.
+3. **Meta diaria Kaizen:** elegir 1, 3 o 5 minutos al día; la sakura florece al cumplirla.
 4. **Mini prueba de nivel** (5 tarjetas) para saltar lo que ya sabes.
 5. **"Varios idiomas a la vez":** modo donde la misma tarjeta muestra la palabra en dos
    idiomas que estás aprendiendo (p. ej. francés + italiano). Es el diferenciador de Franui.

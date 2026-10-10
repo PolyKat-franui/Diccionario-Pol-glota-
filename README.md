@@ -27,7 +27,7 @@ NODE_PATH=$(npm root -g) npm run test:e2e  # recorrido completo de la app y la w
 - **Idiomas:** inglés, español, portugués, francés, italiano, alemán (Nuevo) y otros (Próximamente).
 - **Temas:** los 13 mega temas del banco, con dificultad (fácil/medio/difícil) y bloques de 10.
 - **Tarjetas:** palabra grande, traducción que se revela al tocar, tipo, IPA, audio, corazón (favoritos), ícono de dificultad (nueva, difícil, media, fácil, dominada).
-- **Kitty tokens**, **racha** (patita de Kitty), **favoritos**, **ranking** (local por ahora), **novedades**.
+- **Kitty tokens**, **racha** (sakuras), **favoritos**, **ranking** (local por ahora), **novedades**.
 - **Kitty:** chat en modo diccionario (sin IA conectada todavía).
 - **Ajustes:** tema claro/oscuro, 3 paletas, tamaño de letra, brillo, IPA, perfil, sugerencias, tutorial, legal.
 - Interfaz en 6 idiomas según el idioma nativo. Celular, tablet y computador.
@@ -40,7 +40,7 @@ app/                 la app (se publica en /app/)
   css/tokens.css     colores, fuentes y tamaños (cambiar la estética aquí)
   js/                lógica (srs, sesion, store) e interfaz (main)
   data/              idiomas, novedades y banco en JSON (generado)
-  assets/            Kitty, 14 caras, patita y moneda en pixel art (generados por scripts/kitty.mjs)
+  assets/            14 caras de Kitty, sakura, moneda y otros íconos pixel art (generados por scripts/kitty.mjs)
 banco/               banco de palabras en TSV (fuente de verdad) → ver banco/README.md
 scripts/             build del banco, importador, pixel art, servidor local
 tests/               pruebas

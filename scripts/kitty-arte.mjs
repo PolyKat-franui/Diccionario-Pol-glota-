@@ -1,13 +1,12 @@
-// Kitty 2.0 — pixel art dibujado con código (cada celda = un pixel).
-// Kitty: gata blanca delgada en forma de campana, contorno Old Burgundy, mejillas y patitas
-// Dusty Pink, collar de perlas (diseño aprobado por Francisca el 2026-10-10).
+// Kitty — pixel art dibujado con código (cada celda = un pixel).
+// Kitty son sus 14 expresiones de cara; la expresión "feliz" es el logo (decisión 2026-10-10).
 // Para retocar: cambia coordenadas o colores aquí y corre `node scripts/kitty.mjs`.
 
 export const COLORES = {
   O: '#493036', // contorno (Old Burgundy)
   W: '#FFFFFF', // pelaje
   S: '#EFE6E1', // sombra suave del pelaje
-  P: '#E3B9B3', // orejas y patitas (Dusty Pink suave)
+  P: '#E3B9B3', // interior de las orejas (Dusty Pink suave)
   B: '#EDBDB7', // mejillas
   E: '#2B1418', // ojos
   N: '#C48780', // nariz
@@ -45,40 +44,6 @@ export function contornear(g, c = 'O') {
 export const aTexto = (g) => g.map((r) => r.join(''));
 export function sello(g, x0, y0, filas, mapa = {}) {
   filas.forEach((fila, dy) => [...fila].forEach((ch, dx) => { if (ch !== '.') pon(g, x0 + dx, y0 + dy, mapa[ch] ?? ch); }));
-}
-
-// ---------- Kitty de cuerpo entero ----------
-export function kittyCuerpo() {
-  const g = lienzo(29, 25);
-  const cx = 12;
-  // orejas
-  simetrico(g, cx, [[cx - 5, 1], [cx - 4, 1], [cx - 6, 2], [cx - 5, 2], [cx - 4, 2], [cx - 3, 2]], 'W');
-  // silueta de campana: cabeza angosta que se ensancha hacia abajo
-  silueta(g, cx, { 3: 6, 4: 6, 5: 6, 6: 6, 7: 6, 8: 7, 9: 7, 10: 7, 11: 8, 12: 8, 13: 8, 14: 9, 15: 9, 16: 9, 17: 10, 18: 10, 19: 10, 20: 10, 21: 9 });
-  // cola en forma de "?" a la derecha
-  ponTodos(g, [[cx + 10, 19], [cx + 11, 19], [cx + 11, 18], [cx + 12, 18], [cx + 12, 17], [cx + 13, 17], [cx + 12, 16], [cx + 13, 16],
-    [cx + 12, 15], [cx + 13, 15], [cx + 12, 14], [cx + 13, 14], [cx + 12, 13]], 'W');
-  contornear(g);
-  // patitas: dos líneas abajo y el borde entre ellas un poco más alto
-  simetrico(g, cx, [[cx - 3, 19], [cx - 3, 20], [cx - 3, 21]], 'O');
-  for (let x = cx - 2; x < cx + 2; x++) { pon(g, x, 21, 'O'); pon(g, x, 22, '.'); }
-  simetrico(g, cx, [[cx - 6, 21], [cx - 5, 21], [cx - 4, 21]], 'P');
-  // interior de las orejas
-  simetrico(g, cx, [[cx - 5, 2], [cx - 4, 2]], 'P');
-  // cara: ojos verticales juntos, nariz entre ellos y mejillas al lado
-  simetrico(g, cx, [[cx - 3, 8], [cx - 3, 9]], 'E');
-  ponTodos(g, [[cx - 1, 9], [cx, 9]], 'N');
-  simetrico(g, cx, [[cx - 6, 9], [cx - 5, 9]], 'B');
-  // collar de perlas
-  for (let x = cx - 6; x < cx + 6; x++) pon(g, x, 12, (x - cx) % 2 === 0 ? 'L' : 'G');
-  ponTodos(g, [[cx - 1, 13], [cx, 13]], 'L');
-  ponTodos(g, [[cx - 1, 14], [cx, 14]], 'G');
-  // volumen: sombra suave al lado derecho
-  for (let y = 15; y <= 20; y++) pon(g, cx + (y < 17 ? 8 : 9), y, 'S');
-  // destello
-  sello(g, 24, 1, ['.Y.', 'YYY', '.Y.']);
-  pon(g, 26, 5, 'Y');
-  return aTexto(g);
 }
 
 // ---------- Caras (expresiones) ----------

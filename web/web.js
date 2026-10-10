@@ -170,11 +170,6 @@ fetch('app/assets/caras/caras.json').then((r) => r.json()).then((caras) => {
     <li><img src="app/assets/caras/${c.id}.svg" alt="Kitty ${esc(c.nombre.toLowerCase())}" width="84" height="72" loading="lazy"><span>${esc(c.nombre)}</span></li>`).join('');
 }).catch(() => {});
 
-fetch('app/assets/skins/skins.json').then((r) => r.json()).then((skins) => {
-  $('#skins-galeria').innerHTML = skins.map((k) => `
-    <li><img src="app/assets/skins/${k.id}.svg" alt="Kitty ${esc(k.nombre)}" width="84" height="84" loading="lazy"><span>${esc(k.nombre)}</span></li>`).join('');
-}).catch(() => {});
-
 // ---------- Kitty: preguntas frecuentes ----------
 const FAQ = [
   ['¿Qué es Franui?', 'Una app para aprender vocabulario y frases cotidianas de varios idiomas, deslizando tarjetas en sesiones de uno a cinco minutos.'],

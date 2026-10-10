@@ -101,7 +101,6 @@ try {
   paso('Kitty responde preguntas frecuentes');
 
   assert.equal(await page.locator('#caras-galeria img').count(), 14);
-  assert.equal(await page.locator('#skins-galeria img').count(), 12);
   await page.locator('#caras-galeria').scrollIntoViewIfNeeded();
   await page.waitForTimeout(800);
   await page.locator('.kitty-seccion').screenshot({ path: `${CAPTURAS}/web-kitty-expresiones.png` });

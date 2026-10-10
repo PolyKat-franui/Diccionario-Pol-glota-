@@ -11,5 +11,5 @@
 - Colores y fuentes solo en `app/css/tokens.css`. Contraste ≥ 4,5:1, botones ≥ 44 px, nunca solo color.
 - Textos de interfaz: agregar la clave en los 6 idiomas de `app/js/i18n.js` (hay una prueba que lo exige).
 - Commit con mensaje claro después de cada paso que funcione.
-- Pixel art: editar `scripts/kitty-arte.mjs`, `arte-iconos.mjs` o `arte-skins.mjs` y correr `node scripts/kitty.mjs`.
+- Pixel art: editar `scripts/kitty-arte.mjs` (caras de Kitty) o `scripts/arte-iconos.mjs` (sakura, moneda, estrella…) y correr `node scripts/kitty.mjs`.
   Mostrar cada imagen a escala entera de su tamaño (×1, ×2, ×3…) para que no se deforme.
