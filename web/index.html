@@ -12,15 +12,16 @@
   <link rel="icon" href="app/assets/caras/feliz.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300;400;500;600&family=Special+Elite&display=swap">
   <link rel="stylesheet" href="app/css/tokens.css">
+  <link rel="stylesheet" href="app/css/logo.css">
   <link rel="stylesheet" href="web.css">
 </head>
 <body>
   <a class="saltar" href="#contenido">Ir al contenido</a>
 
   <header class="nav" id="nav">
-    <a class="marca" href="#inicio"><img src="app/assets/caras/feliz.svg" alt="" width="28" height="24"><span>Franui</span></a>
+    <a class="marca" href="#inicio" aria-label="Polyglot in progress"><span class="logo"><span class="logo-a">Polyglot</span> <span class="logo-b">in progress</span></span></a>
     <nav class="nav-links" aria-label="Secciones">
       <a href="#metodo">Método</a>
       <a href="#como">Cómo funciona</a>
@@ -48,7 +49,7 @@
     <!-- Portada -->
     <section class="hero" id="inicio">
       <div class="hero-texto">
-        <p class="sobretitulo revelar">Diccionario políglota</p>
+        <p class="sobretitulo eslogan-hero revelar">Be fluent in multiple languages</p>
         <h1 class="display hero-titulo revelar">Un idioma nuevo,<br><em>un minuto</em> a la vez.</h1>
         <p class="hero-rota revelar" aria-hidden="true">
           <span class="rota" id="rota">Hola</span>
@@ -212,7 +213,7 @@
   </main>
 
   <footer class="pie">
-    <div class="pie-marca"><img src="app/assets/caras/feliz.svg" alt="" width="28" height="24"><span>Franui</span></div>
+    <div class="pie-marca marca-completa"><span class="logo apilado"><span class="logo-a">Polyglot</span> <span class="logo-b">in progress</span></span><span class="marca-linea" aria-hidden="true"></span><span class="eslogan">Be fluent in multiple languages</span></div>
     <nav aria-label="Pie de página">
       <a href="#metodo">Método</a>
       <a href="#idiomas">Idiomas</a>

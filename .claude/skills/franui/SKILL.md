@@ -87,7 +87,11 @@ marca lo corregido, no mezcla pronunciaciones.
 [ABIERTO] Proveedor de IA. Nota técnica: una app no puede "usar la cuenta de Google"
 de alguien para hablar con Claude/ChatGPT/Gemini; se necesita una API con clave
 guardada en un servidor propio (nunca en el navegador). Ver `docs/RECOMENDACIONES.md`.
-Logo: la expresión **feliz** de Kitty (`app/assets/caras/feliz.svg`), decidido 2026-10-10.
+Logo [DECIDIDO 2026-10-10, reemplaza a la cara de Kitty]: la frase **«Polyglot in progress»** en letra de
+máquina de escribir (Special Elite, `--font-logo`), con un cursor que parpadea después de «in progress».
+Eslogan (por ahora): **«Be fluent in multiple languages»**, en mayúsculas espaciadas bajo una línea.
+No se traducen. Estilos en `app/css/logo.css` (una línea, apilado y marca completa con eslogan).
+Kitty sigue siendo la mascota (y el ícono de la pestaña del navegador).
 
 ## 9. Estética [DECIDIDO 2026-10-09]
 Sensación limpia, simple, lujo "old money", estudio corto. Referencias: Apple, Dior, Chanel, Bvlgari.

@@ -49,7 +49,9 @@ main { outline: none; }
 }
 .nav.solida { background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3); border-color: color-mix(in srgb, var(--line) 45%, transparent); }
 .nav.oculta { transform: translateY(-100%); }
-.marca { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--font-display); font-size: 24px; letter-spacing: .05em; min-height: 44px; }
+.marca { display: flex; align-items: center; text-decoration: none; color: var(--ink); min-height: 44px; }
+.marca .logo { --logo-size: 15px; }
+.eslogan-hero { font-family: var(--font-logo); letter-spacing: .26em; }
 .nav-links { display: none; gap: 4px; margin: 0 auto; }
 .nav-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; text-decoration: none; font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-soft); position: relative; }
 .nav-links a::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 10px; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease); }
@@ -221,7 +223,9 @@ main { outline: none; }
 
 /* Pie */
 .pie { padding: 48px clamp(16px, 5vw, 72px) 120px; display: grid; gap: 18px; background: var(--oscuro); color: var(--sobre-oscuro-suave); border-top: 1px solid color-mix(in srgb, var(--sobre-oscuro) 12%, transparent); font-size: 14px; }
-.pie-marca { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 22px; color: var(--sobre-oscuro); }
+.pie-marca { justify-self: start; color: var(--sobre-oscuro); }
+.pie-marca .logo { --logo-size: 20px; }
+.pie-marca .eslogan { color: var(--sobre-oscuro-suave); font-size: 12px; }
 .pie nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
 .pie nav a { color: var(--sobre-oscuro); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; }
 .pie-legal { color: var(--sobre-oscuro-suave); }

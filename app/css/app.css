@@ -115,7 +115,7 @@ input[type=range] { accent-color: var(--enfasis); width: 100%; min-height: var(-
   backdrop-filter: saturate(1.4) blur(18px); -webkit-backdrop-filter: saturate(1.4) blur(18px);
   border-bottom: 1px solid color-mix(in srgb, var(--line) 35%, transparent);
 }
-.marca { display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: var(--font-display); font-size: 24px; font-weight: 500; letter-spacing: .04em; min-height: var(--tap); }
+.marca { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); min-height: var(--tap); }
 .nav-sup { display: none; gap: 4px; margin: 0 auto; }
 .nav-sup a { display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 14px; text-decoration: none; font-size: var(--fs-xs); letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); position: relative; }
 .nav-sup a svg { display: none; }
@@ -152,7 +152,8 @@ main { outline: none; }
 /* ---------- Inicio ---------- */
 .inicio { max-width: 440px; margin: 0 auto; padding: 40px 16px 48px; display: grid; gap: 24px; }
 .inicio-hero { display: grid; justify-items: center; gap: 8px; text-align: center; animation: aparecer .8s var(--ease) both; }
-.inicio-hero .display { font-size: calc(64px * var(--escala)); }
+.inicio-hero .marca-completa { margin: 8px 0 0; font-weight: 400; }
+.inicio-hero .logo { --logo-size: calc(22px * var(--escala)); }
 .inicio-kitty { border-radius: 50%; background: var(--surface-2); padding: 28px 22px; box-sizing: content-box; animation: flotar 4s ease-in-out infinite; filter: drop-shadow(0 16px 30px color-mix(in srgb, var(--sombra-color) 18%, transparent)); }
 .lema { color: var(--ink-soft); font-size: var(--fs-lg); font-family: var(--font-display); font-style: italic; }
 .inicio-card { animation: aparecer .8s .1s var(--ease) both; }
@@ -418,7 +419,8 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 38%, trans
 
 /* ---------- Celular angosto ---------- */
 @media (max-width: 479px) {
-  .marca span { display: none; }
+  .marca .logo { --logo-size: 11px; flex-direction: column; align-items: flex-start; row-gap: .25em; }
+  .marca .logo-a { font-size: 1.4em; }
   .avatar { display: none; }
   .barra { gap: 8px; padding: 0 10px; }
   .chip { padding: 0 10px; }

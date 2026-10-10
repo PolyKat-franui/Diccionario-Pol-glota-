@@ -10,6 +10,7 @@
   --font-display: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
   --font-body: 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
   --font-ipa: 'Noto Sans', 'Segoe UI', system-ui, sans-serif; /* símbolos de pronunciación */
+  --font-logo: 'Special Elite', 'Courier Prime', 'Courier New', ui-monospace, monospace; /* logo y eslogan: máquina de escribir */
   --escala: 1;              /* ajuste "tamaño de letra" */
   --fs-xs: calc(13px * var(--escala));
   --fs-sm: calc(14px * var(--escala));

@@ -1,0 +1,36 @@
+/* ==========================================================
+   Logo de Franui: la frase «Polyglot in progress» en letra de máquina de escribir.
+   Eslogan (por ahora): «Be fluent in multiple languages».
+   Lo usan la app y la página web. Colores y fuentes vienen de tokens.css.
+   Variantes:
+     .logo               una línea (barra superior)
+     .logo.apilado       dos líneas: POLYGLOT / in progress (pantallas chicas, portada)
+     .marca-completa     logo + línea + eslogan
+   ========================================================== */
+.logo {
+  --logo-size: 16px;
+  display: inline-flex; align-items: baseline; flex-wrap: wrap; column-gap: .45em;
+  font-family: var(--font-logo); font-weight: 400; color: inherit; line-height: 1;
+  font-size: var(--logo-size); white-space: nowrap;
+}
+.logo-a { text-transform: uppercase; letter-spacing: .12em; font-size: 1.12em; }
+.logo-b { letter-spacing: .04em; }
+/* «in progress»: cursor de máquina de escribir que parpadea */
+.logo-b::after {
+  content: ''; display: inline-block; width: .5em; height: .1em; margin-left: .12em;
+  background: currentColor; vertical-align: baseline; animation: logoCursor 1.1s steps(1) infinite;
+}
+.logo.apilado { flex-direction: column; align-items: flex-start; row-gap: .28em; }
+.logo.apilado .logo-a { font-size: 1.5em; letter-spacing: .14em; }
+
+.marca-completa { display: inline-grid; justify-items: center; gap: 14px; text-align: center; color: var(--ink); }
+.marca-completa .logo { justify-content: center; }
+.marca-completa .logo.apilado { align-items: center; }
+.marca-linea { width: 100%; min-width: 160px; height: 1.5px; background: currentColor; }
+.eslogan {
+  margin: 0; font-family: var(--font-logo); font-size: 13px; letter-spacing: .26em;
+  text-transform: uppercase; line-height: 1.6; color: var(--ink-soft);
+}
+
+@keyframes logoCursor { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .logo-b::after { animation: none; } }

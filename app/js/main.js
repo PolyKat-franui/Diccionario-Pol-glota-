@@ -188,8 +188,7 @@ function vistaInicio() {
     <section class="inicio">
       <div class="inicio-hero">
         <img class="inicio-kitty" src="assets/caras/feliz.svg" alt="Kitty" width="84" height="72">
-        <h1 class="display">Franui</h1>
-        <p class="lema">${t('lema')}</p>
+        <h1 class="marca-completa"><span class="logo apilado"><span class="logo-a">Polyglot</span> <span class="logo-b">in progress</span></span><span class="marca-linea" aria-hidden="true"></span><span class="eslogan">Be fluent in multiple languages</span></h1>
       </div>
       <div class="card inicio-card">
         <div class="seg" role="tablist">
