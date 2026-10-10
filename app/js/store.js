@@ -6,13 +6,13 @@ export const CLAVE = 'franui:v1';
 export const TOKENS_POR_TARJETA = 1;
 export const TOKENS_POR_SESION = 5;
 
-export const PALETAS = ['creme', 'taupe', 'arena'];
+export const PALETAS = ['higo', 'piedra', 'carbon'];
 
 export function estadoInicial() {
   return {
     version: 1,
     perfil: { nombre: '', cuenta: null, elegido: false }, // cuenta: null = sin cuenta (invitado)
-    ajustes: { nativo: null, tema: 'sistema', paleta: 'creme', escala: 1, brillo: 1, ipa: true },
+    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true },
     aprendiendo: null,
     tokens: 0,
     ejercicios: 0,

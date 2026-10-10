@@ -79,7 +79,7 @@ test('normalizar completa campos nuevos en datos antiguos', () => {
   const s = store.normalizar({ tokens: 9, ajustes: { tema: 'oscuro' } });
   assert.equal(s.tokens, 9);
   assert.equal(s.ajustes.tema, 'oscuro');
-  assert.equal(s.ajustes.paleta, 'creme');
-  assert.equal(store.normalizar({ ajustes: { paleta: 'lavanda' } }).ajustes.paleta, 'creme');
+  assert.equal(s.ajustes.paleta, 'higo');
+  assert.equal(store.normalizar({ ajustes: { paleta: 'lavanda' } }).ajustes.paleta, 'higo');
   assert.deepEqual(s.racha, { actual: 0, mejor: 0, ultimoDia: null });
 });

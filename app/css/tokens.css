@@ -1,10 +1,9 @@
 /* ==========================================================
    Franui — tokens de diseño. Cambia colores y fuentes SOLO aquí.
-   Paleta de Francisca (2026-10-09):
-     Creme #EEE4DA · Sand #D8C4AC · Dusty Pink #C8A49F · Burgundy #4D0E13
-     Deep Taupe #7E615F · Rose Ebony #634649 · Old Burgundy #493036
-     Boy Red #6F5E53 · Black Shadows #C0B7B0
-   Texto siempre oscuro (contraste ≥ 4,5:1, comprobado en tests/contraste.test.mjs).
+   Paleta "Higo" de Francisca (2026-10-10):
+     Gris piedra #B4B1AD · Lino #CFCDBF · Higo #602B27 · Taupe #8A7C70 · Carbón #211A18
+   Los demás tonos son mezclas de esos cinco (más claros u oscuros) para fondos y textos.
+   Texto siempre oscuro en modo claro (contraste ≥ 4,5:1, comprobado en tests/contraste.test.mjs).
    ========================================================== */
 :root {
   /* Tipografía: serif de alto contraste (títulos) + sans geométrica fina (texto) */
@@ -27,60 +26,71 @@
   --tap: 44px;              /* tamaño mínimo táctil */
   --ease: cubic-bezier(.2, .8, .2, 1);
 
-  /* Paleta "Crema" (por defecto, modo claro) */
-  --bg: #F4EDE6;
-  --surface: #FBF8F4;
-  --surface-2: #EEE4DA;     /* Creme */
-  --accent: #C8A49F;        /* Dusty Pink */
-  --accent-soft: #EADBD5;
-  --line: #C0B7B0;          /* Black Shadows */
-  --ink: #493036;           /* Old Burgundy */
-  --ink-soft: #6F5E53;      /* Boy Red */
-  --primary: #4D0E13;       /* Burgundy: botones principales */
-  --on-primary: #EEE4DA;    /* Creme sobre Burgundy */
-  --enfasis: #4D0E13;       /* enlaces, bordes activos, corazón */
-  --gold: #7E615F;          /* Deep Taupe: números y detalles */
-  --sand: #D8C4AC;
-  --shadow: 0 1px 2px rgba(73, 48, 54, .06), 0 14px 40px rgba(73, 48, 54, .09);
+  /* Paleta "Higo" (por defecto, modo claro) */
+  --bg: #E4E2DA;            /* Lino aclarado */
+  --surface: #F1F0EB;       /* tarjetas */
+  --surface-2: #CFCDBF;     /* Lino */
+  --accent: #B4B1AD;        /* Gris piedra */
+  --accent-soft: #D9D7CF;
+  --line: #B4B1AD;          /* Gris piedra */
+  --ink: #211A18;           /* Carbón */
+  --ink-soft: #5C524B;      /* Taupe oscurecido (texto secundario) */
+  --primary: #602B27;       /* Higo: botones principales */
+  --on-primary: #F1F0EB;
+  --enfasis: #602B27;       /* enlaces, bordes activos, corazón */
+  --gold: #655850;          /* Taupe oscurecido: números y detalles */
+  --sand: #8A7C70;          /* Taupe: brillos de fondo */
+  --shadow: 0 1px 2px rgba(33, 26, 24, .06), 0 14px 40px rgba(33, 26, 24, .10);
+
+  /* Zonas oscuras fijas (pie de página, contador de la web, burbuja) */
+  --oscuro: #211A18;        /* Carbón */
+  --sobre-oscuro: #CFCDBF;  /* Lino sobre Carbón */
+  --sobre-oscuro-suave: #B4B1AD;
+  --sombra-color: #211A18;
 
   /* Dificultad (siempre con texto, nunca solo color) */
-  --d-nueva: #6F5E53;
-  --d-dificil: #8E1B24;
-  --d-media: #87561F;
+  --d-nueva: #5C524B;
+  --d-dificil: #602B27;
+  --d-media: #6B4E1C;
   --d-facil: #3F5B40;
   --d-dominada: #4B3A6B;
 }
 
+/* Muestras de cada paleta (Ajustes → Paleta) */
+.muestra-higo { background: conic-gradient(#CFCDBF 0 33%, #8A7C70 0 66%, #602B27 0); }
+.muestra-piedra { background: conic-gradient(#CFCDBF 0 33%, #B4B1AD 0 66%, #5C524B 0); }
+.muestra-carbon { background: conic-gradient(#CFCDBF 0 33%, #8A7C70 0 66%, #211A18 0); }
+
 /* Paletas alternativas (Ajustes → Paleta) */
-:root[data-paleta="taupe"] {
-  --surface-2: #E9E1DD; --accent: #C0B7B0; --accent-soft: #EEE8E4;
-  --primary: #493036; --enfasis: #634649;
+:root[data-paleta="piedra"] {
+  --surface-2: #D3D1CC; --accent: #B4B1AD; --accent-soft: #DEDCD8;
+  --primary: #5C524B; --enfasis: #5C524B;
 }
-:root[data-paleta="arena"] {
-  --surface-2: #EFE5D8; --accent: #D8C4AC; --accent-soft: #F2EADF;
-  --primary: #6F5E53; --on-primary: #F4EDE6; --enfasis: #6F5E53;
+:root[data-paleta="carbon"] {
+  --surface-2: #DCDAD3; --accent: #8A7C70; --accent-soft: #D9D7CF;
+  --primary: #211A18; --on-primary: #E4E2DA; --enfasis: #211A18;
 }
 
 /* Modo oscuro */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #1E1416; --surface: #2A1D20; --surface-2: #3A282C; --accent: #C8A49F;
-    --accent-soft: #44302F; --line: #6F5E53; --ink: #EEE4DA; --ink-soft: #C0B7B0;
-    --primary: #C8A49F; --on-primary: #2B1418; --enfasis: #E3C7C2; --gold: #D8C4AC;
+    --bg: #211A18; --surface: #2B2320; --surface-2: #382E2A; --accent: #8A7C70;
+    --accent-soft: #3A302C; --line: #5C524B; --ink: #CFCDBF; --ink-soft: #B4B1AD;
+    --primary: #CDA39C; --on-primary: #211A18; --enfasis: #CDA39C; --gold: #C2B5A9; --sand: #8A7C70;
     --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 14px 40px rgba(0, 0, 0, .45);
-    --d-nueva: #C0B7B0; --d-dificil: #F0A0A0; --d-media: #E3B77E; --d-facil: #A8C49A; --d-dominada: #C3B3E3;
+    --d-nueva: #B4B1AD; --d-dificil: #E0A39C; --d-media: #E3B77E; --d-facil: #A8C49A; --d-dominada: #C3B3E3;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #1E1416; --surface: #2A1D20; --surface-2: #3A282C; --accent: #C8A49F;
-  --accent-soft: #44302F; --line: #6F5E53; --ink: #EEE4DA; --ink-soft: #C0B7B0;
-  --primary: #C8A49F; --on-primary: #2B1418; --enfasis: #E3C7C2; --gold: #D8C4AC;
+  --bg: #211A18; --surface: #2B2320; --surface-2: #382E2A; --accent: #8A7C70;
+  --accent-soft: #3A302C; --line: #5C524B; --ink: #CFCDBF; --ink-soft: #B4B1AD;
+  --primary: #CDA39C; --on-primary: #211A18; --enfasis: #CDA39C; --gold: #C2B5A9; --sand: #8A7C70;
   --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 14px 40px rgba(0, 0, 0, .45);
-  --d-nueva: #C0B7B0; --d-dificil: #F0A0A0; --d-media: #E3B77E; --d-facil: #A8C49A; --d-dominada: #C3B3E3;
+  --d-nueva: #B4B1AD; --d-dificil: #E0A39C; --d-media: #E3B77E; --d-facil: #A8C49A; --d-dominada: #C3B3E3;
 }
-:root[data-theme="dark"][data-paleta="taupe"] { --primary: #C0B7B0; --enfasis: #D9CFC9; --surface-2: #352A2B; --accent: #C0B7B0; }
-:root[data-theme="dark"][data-paleta="arena"] { --primary: #D8C4AC; --on-primary: #2B1418; --enfasis: #E5D5C1; --surface-2: #3A2F27; --accent: #D8C4AC; }
+:root[data-theme="dark"][data-paleta="piedra"] { --primary: #B4B1AD; --enfasis: #CFCDBF; --surface-2: #34302D; --accent: #B4B1AD; }
+:root[data-theme="dark"][data-paleta="carbon"] { --primary: #CFCDBF; --on-primary: #211A18; --enfasis: #E4E2DA; --surface-2: #332B28; --accent: #8A7C70; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"])[data-paleta="taupe"] { --primary: #C0B7B0; --enfasis: #D9CFC9; --surface-2: #352A2B; --accent: #C0B7B0; }
-  :root:not([data-theme="light"])[data-paleta="arena"] { --primary: #D8C4AC; --on-primary: #2B1418; --enfasis: #E5D5C1; --surface-2: #3A2F27; --accent: #D8C4AC; }
+  :root:not([data-theme="light"])[data-paleta="piedra"] { --primary: #B4B1AD; --enfasis: #CFCDBF; --surface-2: #34302D; --accent: #B4B1AD; }
+  :root:not([data-theme="light"])[data-paleta="carbon"] { --primary: #CFCDBF; --on-primary: #211A18; --enfasis: #E4E2DA; --surface-2: #332B28; --accent: #8A7C70; }
 }

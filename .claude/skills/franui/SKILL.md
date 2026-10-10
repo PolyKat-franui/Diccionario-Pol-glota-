@@ -92,17 +92,20 @@ Logo: la expresión **feliz** de Kitty (`app/assets/caras/feliz.svg`), decidido 
 ## 9. Estética [DECIDIDO 2026-10-09]
 Sensación limpia, simple, lujo "old money", estudio corto. Referencias: Apple, Dior, Chanel, Bvlgari.
 Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo ahí).
-- **Paleta de Francisca:** Creme `#EEE4DA` · Sand `#D8C4AC` · Dusty Pink `#C8A49F` ·
-  Burgundy `#4D0E13` · Deep Taupe `#7E615F` · Rose Ebony `#634649` · Old Burgundy `#493036` ·
-  Boy Red `#6F5E53` · Black Shadows `#C0B7B0`.
-  - Texto: Old Burgundy; texto secundario: Boy Red. **Texto siempre oscuro.**
-  - Botón principal: Burgundy con letras Creme. Fondos Creme; detalles Dusty Pink y Sand.
-  - Paletas en Ajustes: Crema (por defecto), Taupe, Arena. Modo oscuro con los mismos tonos.
-  - Descartados: rosados fuertes (#F0B6C6, #8E2F55) y la paleta rosa/lavanda anterior.
+- **Paleta "Higo" de Francisca [DECIDIDO 2026-10-10, reemplaza a la anterior]:**
+  Gris piedra `#B4B1AD` · Lino `#CFCDBF` · Higo `#602B27` · Taupe `#8A7C70` · Carbón `#211A18`.
+  Otros tonos (fondos, texto secundario) son mezclas más claras u oscuras de estos cinco.
+  - Texto: Carbón; texto secundario: Taupe oscurecido `#5C524B`. **Texto siempre oscuro** en modo claro.
+  - Botón principal: Higo con letras claras. Fondo Lino aclarado `#E4E2DA`; tarjetas `#F1F0EB`;
+    bordes y detalles Gris piedra y Taupe. Zonas oscuras (pie de la web): Carbón con letras Lino.
+  - Paletas en Ajustes: Higo (por defecto), Piedra, Carbón. Modo oscuro: fondo Carbón, texto Lino.
+  - Pixel art con los mismos tonos (contornos Carbón, corazones Higo). La sakura conserva su rosado
+    y la moneda/estrella su dorado, para que se reconozcan.
+  - Descartadas: la paleta Creme/Sand/Dusty Pink/Burgundy (2026-10-09), los rosados fuertes y la rosa/lavanda.
 - **Tipografía:** títulos y palabra de la tarjeta en **Bodoni Moda** (serif de alto contraste,
   estilo moda); texto en **Jost** (sans geométrica fina); IPA en Noto Sans. Etiquetas en
   mayúsculas con mucho espaciado.
-- Dificultad: nueva `#6F5E53`, difícil `#8E1B24`, media `#87561F`, fácil `#3F5B40`,
+- Dificultad: nueva `#5C524B`, difícil `#602B27`, media `#6B4E1C`, fácil `#3F5B40`,
   dominada `#4B3A6B` (oscuro: versiones más claras).
 - Accesibilidad: contraste ≥ 4,5:1 (prueba automática), botones ≥ 44 px, nunca solo color.
 - Tres formatos: celular, tablet, computador. Modo claro y oscuro.

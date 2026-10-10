@@ -34,7 +34,7 @@ main { outline: none; }
 .btn.grande { min-height: 56px; padding: 0 36px; font-size: 16px; }
 .chip { min-height: 44px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; font: inherit; font-size: 15px; text-align: left; }
 .tag { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: .06em; white-space: nowrap; }
-.tag-nuevo { background: var(--accent); color: #2B1418; }
+.tag-nuevo { background: var(--accent); color: var(--oscuro); }
 .tag-pronto { background: var(--surface-2); color: var(--ink-soft); }
 
 /* ---------- Aparición ---------- */
@@ -84,15 +84,15 @@ main { outline: none; }
 .hero-sub { font-size: clamp(17px, 1.6vw, 20px); color: var(--ink-soft); max-width: 520px; font-weight: 300; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero-visual { position: relative; justify-self: center; }
-.hero-kitty { position: absolute; left: -48px; bottom: -24px; width: 84px; height: 72px; border-radius: 50%; background: var(--surface-2); padding: 28px 22px; box-sizing: content-box; animation: flotar 5s ease-in-out infinite; filter: drop-shadow(0 18px 30px rgba(73, 48, 54, .2)); }
+.hero-kitty { position: absolute; left: -48px; bottom: -24px; width: 84px; height: 72px; border-radius: 50%; background: var(--surface-2); padding: 28px 22px; box-sizing: content-box; animation: flotar 5s ease-in-out infinite; filter: drop-shadow(0 18px 30px color-mix(in srgb, var(--sombra-color) 20%, transparent)); }
 
 /* Teléfono de muestra */
 .telefono {
   position: relative; width: min(300px, 78vw); aspect-ratio: 9 / 18.5; border-radius: 46px; padding: 46px 14px 18px;
-  background: var(--surface); border: 10px solid color-mix(in srgb, var(--ink) 80%, #000); box-shadow: 0 40px 80px rgba(43, 20, 24, .28), inset 0 0 0 1px rgba(255,255,255,.4);
+  background: var(--surface); border: 10px solid var(--oscuro); box-shadow: 0 40px 80px color-mix(in srgb, var(--sombra-color) 28%, transparent), inset 0 0 0 1px rgba(255,255,255,.4);
   transform: rotate(-4deg); display: grid; grid-template-rows: auto 1fr; gap: 10px; overflow: hidden;
 }
-.telefono-isla { position: absolute; top: 12px; left: 50%; width: 84px; height: 22px; margin-left: -42px; border-radius: 20px; background: #2B1418; }
+.telefono-isla { position: absolute; top: 12px; left: 50%; width: 84px; height: 22px; margin-left: -42px; border-radius: 20px; background: var(--oscuro); }
 .demo-progreso { height: 3px; border-radius: 3px; background: var(--accent-soft); overflow: hidden; }
 .demo-progreso i { display: block; height: 100%; width: 40%; background: var(--enfasis); animation: progreso 18s linear infinite; }
 .demo-tarjeta {
@@ -124,7 +124,7 @@ main { outline: none; }
 .flap { display: inline-flex; gap: 4px; font-family: var(--font-display); font-size: clamp(36px, 5vw, 60px); line-height: 1; min-height: 1.3em; }
 .celda {
   display: inline-grid; place-items: center; width: .82em; padding: .1em 0; border-radius: 6px; position: relative;
-  background: #2B1418; color: #EEE4DA; box-shadow: inset 0 -1px 0 rgba(255,255,255,.06);
+  background: var(--oscuro); color: var(--sobre-oscuro); box-shadow: inset 0 -1px 0 rgba(255,255,255,.06);
 }
 .celda::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(0, 0, 0, .55); }
 .celda.gira { animation: voltear .07s linear; }
@@ -168,7 +168,7 @@ main { outline: none; }
 .idioma-txt small { color: var(--ink-soft); }
 .monograma { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; flex: none; background: var(--surface-2); font-family: var(--font-display); font-size: 18px; letter-spacing: .06em; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold) 45%, transparent); }
 .idioma.nuevo { box-shadow: var(--shadow), inset 0 0 0 1.5px var(--accent); }
-.idioma.nuevo .monograma { background: var(--accent); color: #2B1418; }
+.idioma.nuevo .monograma { background: var(--accent); color: var(--oscuro); }
 .idioma.proximamente { background: transparent; box-shadow: none; border: 1px dashed var(--line); }
 .idioma.proximamente .idioma-txt strong, .idioma.proximamente .monograma { color: var(--ink-soft); }
 .idioma.proximamente .monograma { background: transparent; }
@@ -177,7 +177,7 @@ main { outline: none; }
 .kitty-seccion { grid-template-columns: 1fr; align-items: center; }
 .kitty-arte { justify-self: center; position: relative; }
 .kitty-arte::before { content: ''; position: absolute; inset: -12%; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--gold) 50%, transparent); animation: girar 40s linear infinite; border-style: dashed; }
-.kitty-arte img { width: 168px; height: 144px; border-radius: 50%; background: var(--surface-2); padding: 56px 44px; box-sizing: content-box; animation: flotar 6s ease-in-out infinite; filter: drop-shadow(0 30px 40px rgba(73, 48, 54, .18)); }
+.kitty-arte img { width: 168px; height: 144px; border-radius: 50%; background: var(--surface-2); padding: 56px 44px; box-sizing: content-box; animation: flotar 6s ease-in-out infinite; filter: drop-shadow(0 30px 40px color-mix(in srgb, var(--sombra-color) 18%, transparent)); }
 .kitty-lista { padding: 0; margin: 24px 0; list-style: none; display: grid; gap: 12px; }
 .kitty-lista li { padding-left: 28px; position: relative; font-size: 18px; }
 .kitty-lista li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); }
@@ -214,27 +214,27 @@ main { outline: none; }
 /* Llamado final */
 .cta-final {
   padding: clamp(96px, 14vw, 180px) 16px; display: grid; gap: 36px; justify-items: center; text-align: center;
-  background: #2B1418; color: #EEE4DA;
+  background: var(--oscuro); color: var(--sobre-oscuro);
 }
 .cta-final .display { font-size: clamp(40px, 7vw, 96px); }
-.cta-final .btn.primario { background: #EEE4DA; color: #2B1418; }
+.cta-final .btn.primario { background: var(--sobre-oscuro); color: var(--oscuro); }
 
 /* Pie */
-.pie { padding: 48px clamp(16px, 5vw, 72px) 120px; display: grid; gap: 18px; background: #2B1418; color: #C0B7B0; border-top: 1px solid rgba(238, 228, 218, .12); font-size: 14px; }
-.pie-marca { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 22px; color: #EEE4DA; }
+.pie { padding: 48px clamp(16px, 5vw, 72px) 120px; display: grid; gap: 18px; background: var(--oscuro); color: var(--sobre-oscuro-suave); border-top: 1px solid color-mix(in srgb, var(--sobre-oscuro) 12%, transparent); font-size: 14px; }
+.pie-marca { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 22px; color: var(--sobre-oscuro); }
 .pie nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
-.pie nav a { color: #EEE4DA; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; }
-.pie-legal { color: #C0B7B0; }
+.pie nav a { color: var(--sobre-oscuro); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; }
+.pie-legal { color: var(--sobre-oscuro-suave); }
 
 /* Kitty en la web */
 .kitty-fab {
   position: fixed; right: 18px; bottom: 18px; z-index: 31; width: 64px; height: 64px; border-radius: 50%; border: 0; padding: 0; display: grid; place-items: center;
-  background: var(--surface); box-shadow: 0 12px 30px rgba(43, 20, 24, .28); cursor: pointer; transition: transform .4s var(--ease);
+  background: var(--surface); box-shadow: 0 12px 30px color-mix(in srgb, var(--sombra-color) 28%, transparent); cursor: pointer; transition: transform .4s var(--ease);
 }
 .kitty-fab:hover { transform: translateY(-3px) rotate(-6deg); }
 .kitty-fab img { width: 56px; height: 48px; }
 dialog { border: 0; padding: 0; background: var(--surface); color: var(--ink); }
-dialog::backdrop { background: rgba(30, 20, 22, .4); backdrop-filter: blur(3px); }
+dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, transparent); backdrop-filter: blur(3px); }
 .kitty-panel { width: min(420px, calc(100% - 24px)); max-height: min(620px, 86svh); border-radius: 28px; box-shadow: var(--shadow); margin: auto 12px 12px auto; }
 .kitty-panel[open] { display: grid; grid-template-rows: auto 1fr auto; animation: aparecer .4s var(--ease); }
 .kitty-panel header { display: flex; align-items: center; gap: 12px; padding: 16px 16px 12px 20px; border-bottom: 1px solid color-mix(in srgb, var(--line) 40%, transparent); }
