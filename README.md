@@ -40,7 +40,7 @@ app/                 la app (se publica en /app/)
   css/tokens.css     colores, fuentes y tamaños (cambiar la estética aquí)
   js/                lógica (srs, sesion, store) e interfaz (main)
   data/              idiomas, novedades y banco en JSON (generado)
-  assets/            Kitty y patita en pixel art (generados)
+  assets/            Kitty, 14 caras, patita y moneda en pixel art (generados por scripts/kitty.mjs)
 banco/               banco de palabras en TSV (fuente de verdad) → ver banco/README.md
 scripts/             build del banco, importador, pixel art, servidor local
 tests/               pruebas

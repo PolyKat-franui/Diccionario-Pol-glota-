@@ -2,6 +2,16 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.3.0",
+      "fecha": "2026-10-10",
+      "titulo": "Kitty 2.0",
+      "cambios": [
+        "Nueva Kitty en pixel art: delgada, con collar de perlas y patitas rosadas.",
+        "14 expresiones: Kitty cambia de cara según lo que pasa (feliz, confundida, celebrando…).",
+        "Nueva patita de racha y moneda de Kitty tokens con la patita adentro, que gira al ganar tokens."
+      ]
+    },
+    {
       "version": "0.2.0",
       "fecha": "2026-10-09",
       "titulo": "Nueva identidad y página web",

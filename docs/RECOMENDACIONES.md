@@ -76,7 +76,7 @@ Automatización recomendada (siguiente bloque):
 |---|---|---|
 | 1 | App base: tarjetas deslizables, SRS, Kumon, tokens, racha, favoritos, Kitty diccionario, ajustes, 6 idiomas de interfaz, banco importado | **Hecho** |
 | 2 | Página web promocional (misma estética, sección de la creadora, novedades) + nueva paleta y tipografía | **Hecho** |
-| 2b | Kitty 2.0: nuevo pixel art, expresiones, patita simple, moneda con patita | **Siguiente** |
+| 2b | Kitty 2.0: nuevo pixel art, expresiones, patita simple, moneda con patita | **Hecho** |
 | 3 | Traducción completa del banco (Wiktionary + DeepL) + pantalla de revisión | |
 | 4 | Cuentas en la nube (Supabase): Google, sincronizar avance, ranking real, buzón de sugerencias | |
 | 5 | Kitty con IA real (servidor propio que guarda la clave) | |

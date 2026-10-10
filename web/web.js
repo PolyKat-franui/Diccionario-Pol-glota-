@@ -164,6 +164,12 @@ fetch('app/data/novedades.json').then((r) => r.json()).then(({ novedades }) => {
   observarRevelar($('#lista-novedades'));
 }).catch(() => {});
 
+// ---------- Expresiones de Kitty (mismo archivo que genera scripts/kitty.mjs) ----------
+fetch('app/assets/caras/caras.json').then((r) => r.json()).then((caras) => {
+  $('#caras-galeria').innerHTML = caras.map((c) => `
+    <li><img src="app/assets/caras/${c.id}.svg" alt="Kitty ${esc(c.nombre.toLowerCase())}" width="96" height="96" loading="lazy"><span>${esc(c.nombre)}</span></li>`).join('');
+}).catch(() => {});
+
 // ---------- Kitty: preguntas frecuentes ----------
 const FAQ = [
   ['¿Qué es Franui?', 'Una app para aprender vocabulario y frases cotidianas de varios idiomas, deslizando tarjetas en sesiones de uno a cinco minutos.'],
@@ -172,6 +178,7 @@ const FAQ = [
   ['¿Necesito una cuenta?', 'Puedes entrar sin cuenta: tu avance se guarda en tu navegador. Las cuentas en la nube llegan pronto.'],
   ['¿Las traducciones son definitivas?', 'Todavía no: están en revisión y la app lo indica en cada tarjeta.'],
 ];
+const CARA_FAQ = ['muy_feliz', 'celebrando', 'guino', 'feliz', 'avergonzada'];
 const msgs = $('#kitty-msgs');
 const decir = (texto, quien = 'kitty') => {
   const p = document.createElement('p');
@@ -184,7 +191,7 @@ $('#kitty-preguntas').innerHTML = FAQ.map(([q], i) => `<button type="button" cla
 $$('#kitty-preguntas button').forEach((b) => b.addEventListener('click', () => {
   const [q, r] = FAQ[b.dataset.i];
   decir(q, 'yo');
-  setTimeout(() => decir(r), quieto ? 0 : 350);
+  setTimeout(() => { decir(r); $('#kitty-cara').src = `app/assets/caras/${CARA_FAQ[b.dataset.i]}.svg`; }, quieto ? 0 : 350);
 }));
 $('#kitty-fab').addEventListener('click', () => {
   if (!msgs.childElementCount) decir('¡Miau! Soy Kitty. ¿Qué quieres saber de Franui?');

@@ -19,9 +19,11 @@ const errores = [];
 let pasos = 0;
 const paso = (msg) => console.log(`  ✓ ${++pasos}. ${msg}`);
 
+let ultimaPagina = null; // para guardar una captura si algo falla
 async function nuevaPagina(viewport, extra = {}) {
   const ctx = await browser.newContext({ viewport, locale: 'es-CL', ...extra });
   const page = await ctx.newPage();
+  ultimaPagina = page;
   page.on('pageerror', (e) => errores.push(`pageerror: ${e.message}`));
   page.on('console', (m) => {
     if (m.type() === 'error' && !/fonts\.(googleapis|gstatic)|ERR_TUNNEL|net::ERR/.test(m.text())) errores.push(`console: ${m.text()}`);
@@ -30,6 +32,11 @@ async function nuevaPagina(viewport, extra = {}) {
 }
 const foto = (page, nombre) => page.screenshot({ path: `${CAPTURAS}/${nombre}.png` });
 const tokens = (page) => page.locator('#chip-tokens span:last-child').innerText().then(Number);
+/** Todas las imágenes visibles cargaron (sin archivos faltantes). */
+const imagenesCargadas = async (page, donde) => {
+  const rotas = await page.evaluate(() => [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src));
+  assert.deepEqual(rotas, [], `${donde}: imágenes que no cargan`);
+};
 const sinScrollHorizontal = async (page, donde) => {
   const [sw, iw] = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth]);
   assert.ok(sw <= iw, `${donde}: hay scroll horizontal (${sw} > ${iw})`);
@@ -104,7 +111,9 @@ try {
   await page.waitForFunction(() => document.querySelector('#chip-tokens span:last-child').textContent === '1');
   assert.match(await primera.locator('.nivel').innerText(), /Media/);
   assert.equal(await page.locator('#chip-racha span').innerText(), '1');
-  paso('"Lo sé" → +1 Kitty token, nivel "Media", racha 1');
+  assert.ok(await page.locator('#chip-tokens .moneda').evaluate((m) => m.classList.contains('gira')), 'la moneda gira al ganar tokens');
+  await imagenesCargadas(page, 'tarjeta');
+  paso('"Lo sé" → +1 Kitty token (la moneda gira), nivel "Media", racha 1');
 
   await page.waitForTimeout(900);
   const segunda = page.locator('#feed .slide').nth(1);
@@ -125,7 +134,9 @@ try {
   assert.equal(finTokens, respondidas + 5, 'tokens = 1 por tarjeta + 5 por la sesión');
   await page.waitForTimeout(800);
   await foto(page, '07-celular-fin-sesion');
-  paso(`Fin de sesión: ${respondidas} tarjetas, ${finTokens} Kitty tokens`);
+  assert.match(await page.locator('#slide-fin .cara-grande').getAttribute('src'), /caras\/(celebrando|muy_feliz)\.svg/);
+  await imagenesCargadas(page, 'fin de sesión');
+  paso(`Fin de sesión: ${respondidas} tarjetas, ${finTokens} Kitty tokens, Kitty celebra`);
 
   await page.reload();
   await page.waitForFunction((n) => document.querySelector('#chip-tokens span:last-child')?.textContent === String(n), finTokens);
@@ -147,8 +158,14 @@ try {
   await page.locator('.msg-kitty', { hasText: 'thank' }).first().waitFor();
   await page.waitForTimeout(500);
   await foto(page, '09-celular-kitty');
+  assert.equal(await page.locator('#kitty-msgs .msg-fila .msg-cara').first().getAttribute('src'), 'assets/caras/muy_feliz.svg');
+  assert.equal(await page.locator('#kitty-cara').getAttribute('src'), 'assets/caras/feliz.svg');
+  await page.locator('#kitty-input').fill('zzqqxx');
+  await page.locator('#kitty-input').press('Enter');
+  await page.waitForFunction(() => document.querySelector('#kitty-cara').getAttribute('src').includes('confundida'));
+  await imagenesCargadas(page, 'chat de Kitty');
   await page.locator('#kitty-cerrar').click();
-  paso('Kitty encuentra «gracias» → «thank you»');
+  paso('Kitty encuentra «gracias» → «thank you» y cambia de cara (feliz / confundida)');
 
   await page.goto(`${URL_APP}#/ajustes`);
   await page.locator('[data-tema=oscuro]').click();
@@ -201,6 +218,7 @@ try {
   paso('Sin errores de JavaScript en la consola');
   console.log(`\n✓ ${pasos} pasos OK. Capturas en ${CAPTURAS}/`);
 } catch (e) {
+  await ultimaPagina?.screenshot({ path: `${CAPTURAS}/FALLO.png` }).catch(() => {});
   console.error('\n✗ Falló:', e.message, errores.length ? `\nErrores de consola:\n${errores.join('\n')}` : '');
   process.exitCode = 1;
 } finally {

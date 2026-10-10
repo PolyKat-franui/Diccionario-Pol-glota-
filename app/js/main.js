@@ -72,6 +72,10 @@ const NAV = [
   ['novedades', ICON.brillo],
 ];
 
+/** Ruta de una expresión de Kitty (ver app/assets/caras/caras.json). */
+const cara = (nombre) => `assets/caras/${nombre}.svg`;
+let tokensVistos = null;
+
 function actualizarChips() {
   const racha = store.rachaVigente(S.racha);
   const chipR = $('#chip-racha');
@@ -80,6 +84,12 @@ function actualizarChips() {
   chipR.title = tn('racha_n', racha);
   const chipT = $('#chip-tokens');
   chipT.querySelector('span:last-child').textContent = S.tokens;
+  // la moneda gira cuando ganas Kitty tokens
+  if (tokensVistos !== null && S.tokens > tokensVistos) {
+    const m = chipT.querySelector('.moneda');
+    m.classList.remove('gira'); void m.offsetWidth; m.classList.add('gira');
+  }
+  tokensVistos = S.tokens;
   chipT.setAttribute('aria-label', t('tokens_n', { n: S.tokens }));
   chipT.title = t('tokens_n', { n: S.tokens });
 }
@@ -424,7 +434,7 @@ async function vistaEstudiar(r) {
     const q = new URLSearchParams(r.q); q.set('libre', '1');
     vista.innerHTML = `
       <section class="pagina angosta centro vacio-estado">
-        <img src="assets/kitty.svg" alt="" width="120" height="120">
+        <img class="cara-grande" src="${cara(ids.length ? 'orgullosa' : 'pensando')}" alt="" width="120" height="120">
         <h1 class="display">${ids.length ? t('aldia_titulo') : t('traduccion_en_camino')}</h1>
         <p class="suave">${ids.length ? t('aldia_texto') : t('vacio_tema')}</p>
         <div class="acciones">
@@ -557,7 +567,7 @@ function terminar() {
   $('#slide-fin').innerHTML = `
     <div class="tarjeta fin-card">
       <div class="lluvia" aria-hidden="true">${Array.from({ length: 12 }, (_, i) => `<img src="assets/patita.svg" alt="" style="--i:${i}">`).join('')}</div>
-      <img src="assets/kitty.svg" alt="" width="104" height="104">
+      <img class="cara-grande" src="${cara(sesion.sabias >= sesion.repasar ? 'celebrando' : 'muy_feliz')}" alt="" width="112" height="112">
       <h2 class="display">${t('fin_titulo')}</h2>
       <dl class="stats">
         <div><dt>${t('fin_sabias')}</dt><dd>${sesion.sabias}</dd></div>
@@ -576,7 +586,7 @@ function terminar() {
 function flotar(slide, texto) {
   const el = document.createElement('span');
   el.className = 'flotante';
-  el.textContent = texto;
+  el.innerHTML = `<img src="assets/moneda.svg" alt="" width="28" height="28">${texto}`;
   el.setAttribute('aria-hidden', 'true');
   $('.tarjeta', slide).append(el);
   setTimeout(() => el.remove(), 900);
@@ -640,7 +650,7 @@ async function vistaFavoritos() {
       <p class="sobretitulo" lang="${meta}">${esc(nombreIdioma(meta))}</p>
       <h1 class="display">${t('fav_titulo')}</h1>
       ${ids.length ? `<a class="btn primario" href="#/estudiar?fav=1">${t('fav_estudiar')}</a><ul class="lista-fav">${filas}</ul>`
-        : `<div class="vacio-estado centro"><img src="assets/kitty.svg" alt="" width="96" height="96"><p class="suave">${t('fav_vacio')}</p></div>`}
+        : `<div class="vacio-estado centro"><img class="cara-grande" src="${cara('enamorada')}" alt="" width="104" height="104"><p class="suave">${t('fav_vacio')}</p></div>`}
     </section>`;
   $$('.fila-fav').forEach((li) => {
     $('.btn-audio', li).addEventListener('click', () => { if (!hablar(banco.texto(meta, li.dataset.id).texto, meta)) toast(t('sin_voz')); });
@@ -768,7 +778,7 @@ function vistaAjustes() {
   $$('[data-modal]').forEach((b) => b.addEventListener('click', () => {
     const m = b.dataset.modal;
     if (m === 'tutorial') modal(t('aj_tutorial'), `<ol class="tutorial">${[1, 2, 3, 4, 5].map((n) => `<li>${t('tut_' + n)}</li>`).join('')}</ol>`);
-    if (m === 'cosmeticos') modal(t('aj_cosmeticos'), `<p>${t('aj_cos_texto')}</p><p class="chip"><span class="moneda">K</span>${S.tokens}</p>`);
+    if (m === 'cosmeticos') modal(t('aj_cosmeticos'), `<p>${t('aj_cos_texto')}</p><p class="chip"><img class="moneda" src="assets/moneda.svg" alt="" width="24" height="24">${S.tokens}</p>`);
     if (m === 'apoyar') modal(t('aj_apoyar'), `<p>${t('aj_apoyar_texto')}</p>`);
     if (m === 'legal') modal(t('aj_legal'), `<p>${t('legal_texto')}</p>`);
   }));
@@ -787,12 +797,21 @@ function vistaAjustes() {
 let kittyEntradas = null;
 let ultimaFrase = null;
 
-function kittyMsg(html, de = 'kitty') {
+/** Mensaje en el chat. Los de Kitty llevan su cara (expresión) al lado. */
+function kittyMsg(html, de = 'kitty', expresion = 'feliz') {
   const el = document.createElement('p');
   el.className = `msg msg-${de}`;
   el.innerHTML = html;
-  $('#kitty-msgs').append(el);
-  el.scrollIntoView({ block: 'end' });
+  let fila = el;
+  if (de === 'kitty') {
+    fila = document.createElement('div');
+    fila.className = 'msg-fila';
+    fila.innerHTML = `<img class="msg-cara" src="${cara(expresion)}" alt="" width="36" height="36">`;
+    fila.append(el);
+    $('#kitty-cara').src = cara(expresion);
+  }
+  $('#kitty-msgs').append(fila);
+  fila.scrollIntoView({ block: 'end' });
 }
 
 async function entradasKitty() {
@@ -813,21 +832,22 @@ const fichaKitty = (e) => `<span lang="${S.aprendiendo}">«${esc(e.meta)}»</spa
 
 async function kittyResponder(texto) {
   const entradas = await entradasKitty();
-  if (!S.aprendiendo) return kittyMsg(esc(t('idiomas_titulo')));
+  if (!S.aprendiendo) return kittyMsg(esc(t('idiomas_titulo')), 'kitty', 'pensando');
   const q = normalizar(texto);
   if (q === normalizar(t('kitty_palabra_frase')) || q === 'frase' || q === 'phrase') {
     const f = fraseConocida(entradas, store.progresoDe(S, S.aprendiendo), ultimaFrase);
-    if (!f) return kittyMsg(esc(t('kitty_sin_frase')));
+    if (!f) return kittyMsg(esc(t('kitty_sin_frase')), 'kitty', 'pensando');
     ultimaFrase = f.id;
-    return kittyMsg(`${esc(t('kitty_frase'))}<br>${fichaKitty(f)}`);
+    return kittyMsg(`${esc(t('kitty_frase'))}<br>${fichaKitty(f)}`, 'kitty', 'guino');
   }
   const r = buscar(texto, entradas);
-  kittyMsg(r.length ? r.map(fichaKitty).join('<br>') : esc(t('kitty_no', { q: texto })));
+  if (r.length) kittyMsg(r.map(fichaKitty).join('<br>'), 'kitty', 'feliz');
+  else kittyMsg(esc(t('kitty_no', { q: texto })), 'kitty', 'confundida');
 }
 
 function kittyAbrir() {
   const panel = $('#kitty-panel');
-  if (!$('#kitty-msgs').childElementCount) kittyMsg(esc(t('kitty_hola')));
+  if (!$('#kitty-msgs').childElementCount) kittyMsg(esc(t('kitty_hola')), 'kitty', 'muy_feliz');
   const rapidas = [`<button type="button" class="chip" data-r="frase">${esc(t('kitty_palabra_frase'))}</button>`];
   const slide = sesion ? $$('#feed .slide')[sesion.actual] : null;
   if (slide && !slide.classList.contains('fin')) rapidas.unshift(`<button type="button" class="chip" data-r="esta">${esc(t('kitty_esta'))}</button>`);
@@ -838,7 +858,7 @@ function kittyAbrir() {
     const e = (await entradasKitty()).find((x) => x.id === id);
     kittyMsg(esc(t('kitty_esta')), 'yo');
     const ipa = banco.texto(S.aprendiendo, id).ipa;
-    if (e) kittyMsg(`${fichaKitty(e)}${ipa ? `<br><small>IPA: /${esc(ipa)}/</small>` : ''}`);
+    if (e) kittyMsg(`${fichaKitty(e)}${ipa ? `<br><small>IPA: /${esc(ipa)}/</small>` : ''}`, 'kitty', 'orgullosa');
   }));
   panel.showModal();
   $('#kitty-input').focus();

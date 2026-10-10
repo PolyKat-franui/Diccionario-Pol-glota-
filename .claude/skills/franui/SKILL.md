@@ -128,20 +128,21 @@ llamado final y pie legal ("en preparación"). Kitty responde preguntas frecuent
 - Pendiente de Francisca: foto (`web/img/francisca.jpg`) y 2–3 líneas propias para "La creadora".
 - Sin cifras inventadas ni testimonios falsos (ver docs/RECOMENDACIONES.md §8).
 
-## 11b. Kitty 2.0 [PRÓXIMO BLOQUE — pedido 2026-10-09, "para después"]
-Referencias que mandó Francisca (no se guardan en el repo: tienen derechos de autor):
-gatitos kawaii de cabeza redonda tipo "mochi" con orejas puntiagudas, gato pixel art blanco
-sentado de frente (simple, contorno oscuro, mejillas rosadas), gato blanco acostado,
-patitas pixel art simples y moneda pixel art dorada con brillo.
-- **Rediseñar a Kitty** en pixel art mezclando esas ideas: gata blanca, contorno oscuro
-  (Old Burgundy), mejillas y patitas Dusty Pink, collar de perlas, más redonda y tierna.
-- **Expresiones** (íconos de cara, mismo tamaño): feliz, muy feliz (ojos ^^), guiño,
-  sorprendida (!?), confundida (??), mareada (ojos espiral), enamorada (corazón), llorando,
-  enojada (nubecita), con sueño (Zzz), avergonzada (sonrojo), orgullosa (lentes de sol),
-  pensando, celebrando (destellos). Usos: respuestas de Kitty, fin de sesión, rachas, errores.
-- **Patita** mucho más simple: 1 almohadilla grande + 3 dedos, blanca con rosa y contorno grueso.
-- **Moneda de Kitty tokens** en pixel art: dorada (Sand/Camel + brillo) con la patita
-  dentro; opcional animación de giro al ganar tokens.
+## 11b. Kitty 2.0 [HECHO v0.3 — diseño aprobado por Francisca 2026-10-10]
+Todo el pixel art se dibuja con código en `scripts/kitty-arte.mjs`; `node scripts/kitty.mjs`
+genera los SVG en `app/assets/` (una prueba falla si quedan desactualizados).
+- **Kitty**: gata blanca **delgada en forma de campana** (cabeza angosta con orejas, cuerpo que
+  se ensancha, dos patitas abajo, cola en "?"), ojos verticales juntos, mejillas Dusty Pink,
+  collar de perlas, contorno Old Burgundy y un destello dorado. Sin bigotes oscuros.
+- **14 expresiones** (`app/assets/caras/`, nombres en `caras.json`): feliz, muy feliz, guiño,
+  sorprendida, confundida, mareada, enamorada, llorando, enojada, con sueño, avergonzada,
+  orgullosa, pensando, celebrando. Uso en la app: hola → muy feliz; encontró la palabra → feliz;
+  no la encontró → confundida; propone frase → guiño; explica la tarjeta → orgullosa;
+  fin de sesión → celebrando (o muy feliz); todo al día → orgullosa; sin traducción → pensando;
+  favoritos vacíos → enamorada. La web muestra la galería completa.
+- **Patita**: simple, blanca con contorno grueso y almohadillas rosadas grandes (3 dedos + 1).
+- **Moneda de Kitty tokens**: dorada, redonda, con la misma patita grabada; gira al ganar tokens.
+- Referencias de Francisca: no se guardan en el repo (tienen derechos de autor).
 
 ## 12. Reglas de trabajo [DECIDIDO]
 - Hablar en español, texto corto y fácil de leer en el celular.

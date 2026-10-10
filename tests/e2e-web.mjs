@@ -24,6 +24,11 @@ async function pagina(viewport, extra = {}) {
   page.on('console', (m) => { if (m.type() === 'error' && !/fonts\.(googleapis|gstatic)|net::ERR/.test(m.text())) errores.push(`console: ${m.text()}`); });
   return { ctx, page };
 }
+/** Todas las imágenes visibles cargaron (sin archivos faltantes). */
+const imagenesCargadas = async (page, donde) => {
+  const rotas = await page.evaluate(() => [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src));
+  assert.deepEqual(rotas, [], `${donde}: imágenes que no cargan`);
+};
 const sinScrollHorizontal = async (page, donde) => {
   const [sw, iw] = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth]);
   assert.ok(sw <= iw, `${donde}: scroll horizontal (${sw} > ${iw})`);
@@ -94,6 +99,13 @@ try {
   await page.screenshot({ path: `${CAPTURAS}/web-kitty.png` });
   await page.locator('#kitty-cerrar').click();
   paso('Kitty responde preguntas frecuentes');
+
+  assert.equal(await page.locator('#caras-galeria img').count(), 14);
+  await page.locator('#caras-galeria').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(800);
+  await page.locator('.kitty-seccion').screenshot({ path: `${CAPTURAS}/web-kitty-expresiones.png` });
+  await imagenesCargadas(page, 'web');
+  paso('Galería con las 14 expresiones de Kitty; todas las imágenes cargan');
 
   await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
   await page.locator('.hero-cta a', { hasText: 'Empezar ahora' }).click();

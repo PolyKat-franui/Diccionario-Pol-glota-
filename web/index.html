@@ -126,7 +126,7 @@
         <li class="paso revelar"><span class="paso-num">01</span><h3>Elige tu idioma</h3><p>La app se muestra en tu idioma nativo y tú eliges el que quieres aprender.</p></li>
         <li class="paso revelar"><span class="paso-num">02</span><h3>Elige un tema</h3><p>Saludos, comida, viajes, trabajo… y la dificultad: fácil, medio o difícil.</p></li>
         <li class="paso revelar"><span class="paso-num">03</span><h3>Desliza tarjetas</h3><p>Toca para ver la traducción, escucha la pronunciación y marca «Lo sé» o «Repasar».</p></li>
-        <li class="paso revelar"><span class="paso-num">04</span><h3>Suma tu racha</h3><p>Cada día que estudias, la patita de Kitty crece. Cada tarjeta te da Kitty tokens.</p></li>
+        <li class="paso revelar"><span class="paso-num">04</span><h3>Suma tu racha <img class="icono-pixel" src="app/assets/patita.svg" alt="" width="28" height="28"><img class="icono-pixel" src="app/assets/moneda.svg" alt="" width="28" height="28"></h3><p>Cada día que estudias, la patita de Kitty crece. Cada tarjeta te da Kitty tokens.</p></li>
       </ol>
       <div class="niveles revelar" aria-label="Íconos de dificultad">
         <span class="nivel" data-nivel="nueva"><i></i>Nueva</span>
@@ -160,6 +160,10 @@
           <li>Corrige con suavidad y sin mezclar pronunciaciones.</li>
         </ul>
         <p class="nota">Hoy Kitty busca en el diccionario. La conversación con inteligencia artificial llega en una próxima versión.</p>
+      </div>
+      <div class="caras revelar">
+        <p class="sobretitulo">Sus expresiones</p>
+        <ul class="caras-galeria" id="caras-galeria"></ul>
       </div>
     </section>
 
@@ -223,7 +227,7 @@
   </button>
   <dialog class="kitty-panel" id="kitty-panel" aria-labelledby="kitty-titulo">
     <header>
-      <img src="app/assets/kitty.svg" alt="" width="40" height="40">
+      <img class="kitty-cara" id="kitty-cara" src="app/assets/caras/feliz.svg" alt="" width="40" height="40">
       <h2 id="kitty-titulo">Kitty</h2>
       <button type="button" class="cerrar" id="kitty-cerrar" aria-label="Cerrar">✕</button>
     </header>

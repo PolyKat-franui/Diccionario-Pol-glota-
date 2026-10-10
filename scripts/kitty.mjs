@@ -1,106 +1,52 @@
-// Genera el pixel art de Kitty y de la patita de racha como SVG.
-// Para retocar: edita las grillas (cada letra = un pixel) y corre `node scripts/kitty.mjs`.
-import { writeFileSync } from 'node:fs';
+// Genera los SVG de Kitty 2.0 a partir de scripts/kitty-arte.mjs.
+//   app/assets/kitty.svg        Kitty de cuerpo entero sobre círculo Creme (logo, botón)
+//   app/assets/kitty-sola.svg   Kitty sin fondo
+//   app/assets/caras/<nombre>.svg  14 expresiones (+ caras.json con sus nombres)
+//   app/assets/patita.svg       patita de racha
+//   app/assets/moneda.svg       moneda de Kitty tokens
+// Uso: node scripts/kitty.mjs
+import { writeFileSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { COLORES, kittyCuerpo, cara, EXPRESIONES, patita, moneda } from './kitty-arte.mjs';
 
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'app', 'assets');
+const CARAS = join(OUT, 'caras');
 
-// Kitty: gato blanco completo, bigotes blancos, patitas rosadas, collar de perlas.
-const KITTY = [
-  '..........................',
-  '.....O............O.......',
-  '....OPO..........OPO......',
-  '....OPPO........OPPO......',
-  '...OPPPWOOOOOOOOWPPPO.....',
-  '...OWPWWWWWWWWWWWWPWO.....',
-  '..OWWWWWWWWWWWWWWWWWWO....',
-  '..OWWWWWWWWWWWWWWWWWWO....',
-  '..OWWEEWWWWWWWWWWEEWWO....',
-  'KKKWWEEWWWWWWWWWWEEWWKKK..',
-  '..KKWWWWWWWNNWWWWWWWKK....',
-  '..OWWWWWWWMWWMWWWWWWWO....',
-  '...OWWWWWWWMMWWWWWWWO.....',
-  '....OLGLGLGLLGLGLGLO.....O',
-  '...OWWWWWWWLLWWWWWWWO...OWO',
-  '..OWWWWWWWWWWWWWWWWWWO..OWO',
-  '..OWWWWWWWWWWWWWWWWWWO..OWO',
-  '.OWWWWWWWWWWWWWWWWWWWWO.OWO',
-  '.OWWWWWSWWWWWWWWSWWWWWO.OWO',
-  '.OWWWWWSWWWWWWWWSWWWWWOOWWO',
-  '.OWWWWWSWWWWWWWWSWWWWWWWWO.',
-  '.OPPPWOPPPOWWOPPPOWPPPWWO..',
-  '..OOOOOOOOOOOOOOOOOOOOOO...',
-  '..........................',
-];
-
-const KITTY_COLORS = {
-  O: '#493036', // contorno (Old Burgundy)
-  W: '#FFFFFF', // pelaje
-  S: '#E6DCD6', // sombra suave
-  P: '#DDBDB8', // patitas y orejas (Dusty Pink suave)
-  E: '#2B1418', // ojos
-  H: '#FFFFFF', // brillo del ojo
-  N: '#B9827C', // nariz
-  M: '#493036', // boca
-  K: '#FFFFFF', // bigotes
-  L: '#FBF3EA', // perla
-  G: '#B5A79F', // perla en sombra
-};
-
-// Patita de racha (rosa y blanco). El contorno se calcula solo.
-const PAW = [
-  '.............',
-  '....W...W....',
-  '...WPW.WPW...',
-  '...WPW.WPW...',
-  '.W..W...W..W.',
-  'WPW.......WPW',
-  'WPW..WWW..WPW',
-  '.W..WPPPW..W.',
-  '...WPPPPPW...',
-  '..WPPPPPPPW..',
-  '..WPPPWPPPW..',
-  '...WWW.WWW...',
-  '.............',
-];
-const PAW_COLORS = { W: '#FFFFFF', P: '#D9B3AD', O: '#7E615F' };
-
-function addOutline(grid, fill = 'O') {
-  const g = grid.map((r) => r.split(''));
-  const h = g.length, w = Math.max(...grid.map((r) => r.length));
-  const out = g.map((r) => [...r]);
-  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
-    if ((g[y][x] ?? '.') !== '.') continue;
-    const near = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => (g[y + dy]?.[x + dx] ?? '.') !== '.');
-    if (near) out[y][x] = fill;
-  }
-  return out.map((r) => r.join(''));
-}
-
-function toSvg(grid, colors, { title, background } = {}) {
-  const w = Math.max(...grid.map((r) => r.length));
-  const h = grid.length;
+export function toSvg(filas, { titulo, fondo } = {}) {
+  const w = Math.max(...filas.map((r) => r.length));
+  const h = filas.length;
   const rects = [];
-  grid.forEach((row, y) => {
+  filas.forEach((fila, y) => {
     // une pixeles iguales seguidos en una sola franja para un SVG más liviano
     let x = 0;
-    while (x < row.length) {
-      const ch = row[x];
-      let len = 1;
-      while (row[x + len] === ch) len++;
-      if (colors[ch]) rects.push(`<rect x="${x}" y="${y}" width="${len}" height="1" fill="${colors[ch]}"/>`);
-      x += len;
+    while (x < fila.length) {
+      const ch = fila[x];
+      let largo = 1;
+      while (fila[x + largo] === ch) largo++;
+      if (COLORES[ch]) rects.push(`<rect x="${x}" y="${y}" width="${largo}" height="1" fill="${COLORES[ch]}"/>`);
+      x += largo;
     }
   });
-  const pad = background ? 3 : 0;
-  const size = Math.max(w, h) + pad * 2;
-  const ox = (size - w) / 2, oy = (size - h) / 2;
-  const bg = background ? `<circle cx="${size / 2}" cy="${size / 2}" r="${size / 2}" fill="${background}"/>` : '';
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" shape-rendering="crispEdges" role="img" aria-label="${title}"><title>${title}</title>${bg}<g transform="translate(${ox} ${oy})">${rects.join('')}</g></svg>\n`;
+  const pad = fondo ? 4 : 0;
+  const lado = Math.max(w, h) + pad * 2;
+  const ox = (lado - w) / 2, oy = (lado - h) / 2;
+  const circulo = fondo ? `<circle cx="${lado / 2}" cy="${lado / 2}" r="${lado / 2}" fill="${fondo}"/>` : '';
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${lado} ${lado}" shape-rendering="crispEdges" role="img" aria-label="${titulo}"><title>${titulo}</title>${circulo}<g transform="translate(${ox} ${oy})">${rects.join('')}</g></svg>\n`;
 }
 
-writeFileSync(join(OUT, 'kitty.svg'), toSvg(KITTY, KITTY_COLORS, { title: 'Kitty', background: '#EEE4DA' }));
-writeFileSync(join(OUT, 'kitty-sola.svg'), toSvg(KITTY, KITTY_COLORS, { title: 'Kitty' }));
-writeFileSync(join(OUT, 'patita.svg'), toSvg(addOutline(PAW), PAW_COLORS, { title: 'Racha' }));
-console.log('✓ app/assets/kitty.svg, kitty-sola.svg, patita.svg');
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  mkdirSync(CARAS, { recursive: true });
+  for (const f of readdirSync(CARAS)) rmSync(join(CARAS, f));
+  const cuerpo = kittyCuerpo();
+  writeFileSync(join(OUT, 'kitty.svg'), toSvg(cuerpo, { titulo: 'Kitty', fondo: '#EEE4DA' }));
+  writeFileSync(join(OUT, 'kitty-sola.svg'), toSvg(cuerpo, { titulo: 'Kitty' }));
+  writeFileSync(join(OUT, 'patita.svg'), toSvg(patita(), { titulo: 'Racha' }));
+  writeFileSync(join(OUT, 'moneda.svg'), toSvg(moneda(), { titulo: 'Kitty token' }));
+  for (const [nombre, { nombre: etiqueta }] of Object.entries(EXPRESIONES)) {
+    writeFileSync(join(CARAS, `${nombre}.svg`), toSvg(cara(nombre), { titulo: `Kitty: ${etiqueta}` }));
+  }
+  const lista = Object.entries(EXPRESIONES).map(([id, { nombre }]) => ({ id, nombre }));
+  writeFileSync(join(CARAS, 'caras.json'), JSON.stringify(lista, null, 2) + '\n');
+  console.log(`✓ Kitty, patita, moneda y ${Object.keys(EXPRESIONES).length} caras en app/assets/`);
+}
