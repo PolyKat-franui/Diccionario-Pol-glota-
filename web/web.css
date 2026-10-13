@@ -90,7 +90,7 @@ main { outline: none; }
 
 /* Teléfono de muestra */
 .telefono {
-  position: relative; width: min(300px, 78vw); aspect-ratio: 9 / 18.5; border-radius: 46px; padding: 46px 14px 18px;
+  position: relative; width: min(300px, 78vw); aspect-ratio: 9 / 18.5; border-radius: 46px; padding: 44px 14px 18px;
   background: var(--surface); border: 10px solid var(--oscuro); box-shadow: 0 40px 80px color-mix(in srgb, var(--sombra-color) 28%, transparent), inset 0 0 0 1px rgba(255,255,255,.4);
   transform: rotate(-4deg); display: grid; grid-template-rows: auto 1fr; gap: 10px; overflow: hidden;
 }
@@ -306,3 +306,125 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, trans
 .cta-final { background: linear-gradient(135deg, var(--nodo-1), var(--nodo-2) 60%, var(--nodo-6)); color: var(--blanco); }
 .cta-final .btn.primario { background: var(--blanco); color: var(--nodo-1); }
 .pie { --oscuro: var(--surface-2); --sobre-oscuro: var(--ink); --sobre-oscuro-suave: var(--ink-soft); }
+
+/* ---------- Teléfono: tres pantallas como historias (menú → tarjetas → premio) ---------- */
+.historias { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.historias i { height: 3px; border-radius: 3px; background: var(--accent-soft); overflow: hidden; position: relative; }
+.historias i::after { content: ''; position: absolute; inset: 0; background: var(--enfasis); transform: scaleX(0); transform-origin: left; }
+.historias i.llena::after { transform: scaleX(1); }
+.historias i.llenando::after { animation: llenarBarra var(--dur, 5s) linear forwards; }
+.pantallas { position: relative; min-height: 0; }
+.pantalla { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; transform: scale(.96); transition: opacity .5s var(--ease), transform .5s var(--ease); pointer-events: none; }
+.pantalla.activa { opacity: 1; transform: none; }
+.pantalla.p-tarjeta .demo-tarjeta { flex: 1; }
+.p-menu, .p-premio { align-items: center; justify-content: center; gap: 10px; text-align: center; border-radius: 26px; background: radial-gradient(120% 60% at 50% 0%, var(--accent-soft), transparent 70%); }
+.mini-fichas { display: flex; gap: 2px; }
+.mini-fichas span { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; font-family: var(--font-logo); font-size: 15px; color: var(--blanco); background: var(--nodo-1); box-shadow: 0 2px 0 color-mix(in srgb, var(--sombra-color) 30%, transparent); }
+.mini-fichas span:nth-child(6n+2) { background: var(--nodo-2); } .mini-fichas span:nth-child(6n+3) { background: var(--nodo-3); }
+.mini-fichas span:nth-child(6n+4) { background: var(--nodo-4); } .mini-fichas span:nth-child(6n+5) { background: var(--nodo-5); }
+.mini-fichas span:nth-child(6n+6) { background: var(--nodo-6); }
+.p-menu.activa .mini-fichas span { animation: fichaCae .6s cubic-bezier(.3, 1.6, .5, 1) both; }
+.mini-fichas span:nth-child(2) { animation-delay: 70ms !important; } .mini-fichas span:nth-child(3) { animation-delay: 140ms !important; }
+.mini-fichas span:nth-child(4) { animation-delay: 210ms !important; } .mini-fichas span:nth-child(5) { animation-delay: 280ms !important; }
+.mini-fichas span:nth-child(6) { animation-delay: 350ms !important; } .mini-fichas span:nth-child(7) { animation-delay: 420ms !important; }
+.mini-fichas span:nth-child(8) { animation-delay: 490ms !important; }
+.mini-sub { font-family: var(--font-logo); font-size: 13px; letter-spacing: .04em; }
+.mini-kitty { width: 60px; height: 48px; padding: 14px; box-sizing: content-box; image-rendering: pixelated; background: radial-gradient(circle closest-side, var(--surface-2) 99%, transparent 100%); animation: kittySalta 1.6s ease-in-out infinite; }
+.mini-stats { display: flex; gap: 6px; }
+.mini-stats span { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px 4px 6px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-weight: 700; font-size: 13px; }
+.mini-stats img { image-rendering: pixelated; }
+.mini-jugar { display: block; width: 86%; padding: 10px 0; border-radius: 18px; background: var(--primary); color: var(--on-primary); font-family: var(--font-display); font-weight: 700; font-size: 18px; box-shadow: 0 4px 0 color-mix(in srgb, var(--primary) 55%, var(--sombra-color)); animation: latidoSuave 1.8s ease-in-out infinite; }
+.mini-botones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; width: 86%; }
+.mini-botones i { height: 38px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 3px 0 color-mix(in srgb, var(--nodo-2) 40%, transparent); }
+.mini-titulo { font-family: var(--font-display); font-weight: 700; font-size: 28px; color: var(--enfasis); }
+.mini-rodillos { display: flex; gap: 6px; padding: 8px; border-radius: 16px; background: var(--oscuro); }
+.mini-rodillos span { width: 48px; height: 48px; border-radius: 10px; background: var(--surface); overflow: hidden; position: relative; }
+.mini-rodillos i { position: absolute; left: 0; right: 0; top: 0; height: 288px; background: url(app/assets/sakura.svg) center 12px / 23px 23px repeat-y, url(app/assets/moneda.svg) center 36px / 24px 24px repeat-y; background-size: 23px 23px, 24px 24px; image-rendering: pixelated; }
+.p-premio.gira .mini-rodillos i { animation: rodilloMini 1.2s cubic-bezier(.2, .7, .3, 1) both; }
+.p-premio.gira .mini-rodillos span:nth-child(2) i { animation-duration: 1.5s; }
+.p-premio.gira .mini-rodillos span:nth-child(3) i { animation-duration: 1.8s; }
+.mini-num { font-family: var(--font-display); font-weight: 700; font-size: 44px; line-height: 1; color: var(--gold); }
+.p-premio.gira .mini-num { animation: pop .6s 1.8s both; }
+.mini-txt { font-size: 13px; color: var(--ink-soft); font-weight: 700; }
+
+/* ---------- Cinta de saludos (se mueve sola, como un ticker) ---------- */
+.cinta { overflow: hidden; padding: 18px 0; border-block: 1px solid color-mix(in srgb, var(--line) 50%, transparent); background: var(--surface); }
+.cinta-pista { display: flex; gap: 12px; width: max-content; animation: cinta 38s linear infinite; }
+.cinta:hover .cinta-pista { animation-play-state: paused; }
+.cinta-item { display: inline-flex; align-items: baseline; gap: 8px; padding: 8px 18px; border-radius: 999px; background: var(--c); color: var(--blanco); white-space: nowrap; }
+.cinta-item b { font-family: var(--font-display); font-weight: 600; font-size: 22px; }
+.cinta-item small { font-size: 11px; letter-spacing: .14em; font-weight: 700; opacity: .9; }
+.cinta-item.pronto { background: transparent; color: var(--ink); border: 1.5px dashed var(--line); }
+
+/* ---------- Pruébalo aquí ---------- */
+.prueba-juego { display: grid; justify-items: center; gap: 18px; max-width: 460px; width: 100%; margin: 0 auto; }
+.prueba-idiomas { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.prueba-idiomas .chip[aria-checked="true"] { background: var(--primary); color: var(--on-primary); border-color: transparent; font-weight: 700; }
+.prueba-marcador { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: var(--surface); box-shadow: var(--shadow); font-weight: 800; font-size: 18px; }
+.prueba-marcador .moneda { image-rendering: pixelated; }
+.prueba-marcador.pulso { animation: pop .45s var(--ease); }
+.mazo { position: relative; width: min(340px, 100%); aspect-ratio: 4 / 5; }
+.carta {
+  --sw: 0; position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 18px; padding: 28px 22px; text-align: center;
+  border-radius: 30px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 18px 40px color-mix(in srgb, var(--sombra-color) 18%, transparent);
+  transform: translateY(calc(var(--k, 0) * 10px)) scale(calc(1 - var(--k, 0) * .04)); cursor: grab; touch-action: pan-y; user-select: none;
+}
+.carta:active { cursor: grabbing; }
+.carta-idioma { position: absolute; top: 18px; left: 0; right: 0; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); font-weight: 700; }
+.carta-frase { font-family: var(--font-display); font-weight: 600; font-size: clamp(28px, 7vw, 38px); line-height: 1.1; }
+.carta-trad { padding: 10px 16px; border-radius: 14px; border: 1px dashed var(--line); filter: blur(8px); transition: filter .4s var(--ease), background .4s; font-size: 18px; }
+.carta.revelada .carta-trad { filter: none; background: var(--surface-2); border-color: transparent; }
+.sello { position: absolute; top: 46px; padding: 6px 12px; border: 3px solid currentColor; border-radius: 10px; font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: .06em; opacity: 0; }
+.sello-si { left: 18px; color: var(--d-facil); transform: rotate(-14deg); opacity: max(0, var(--sw)); }
+.sello-no { right: 18px; color: var(--d-dificil); transform: rotate(14deg); opacity: max(0, calc(var(--sw) * -1)); }
+.carta-fin { cursor: default; background: var(--surface-2); }
+.carta-fin strong { font-family: var(--font-display); font-size: 30px; }
+.carta-fin img { image-rendering: pixelated; }
+.prueba-botones { display: flex; gap: 28px; }
+.redondo { width: 64px; height: 64px; border-radius: 50%; border: 0; font-size: 26px; font-weight: 700; cursor: pointer; color: var(--blanco); box-shadow: 0 10px 24px color-mix(in srgb, var(--sombra-color) 22%, transparent); transition: transform .2s var(--ease); }
+.redondo:active { transform: scale(.9); }
+.redondo.no { background: var(--d-dificil); }
+.redondo.si { background: var(--d-facil); }
+
+/* ---------- Una frase, seis idiomas ---------- */
+.frase-tarjeta {
+  --c: var(--nodo-1); position: relative; width: min(560px, 100%); min-height: 300px; margin: 0 auto; padding: 28px 24px 22px; border: 0; border-radius: 32px; cursor: pointer;
+  display: grid; grid-template-rows: auto auto 1fr auto; gap: 16px; text-align: left; font: inherit; color: var(--blanco);
+  background: linear-gradient(150deg, var(--c), color-mix(in srgb, var(--c) 70%, var(--oscuro))); box-shadow: 0 24px 50px color-mix(in srgb, var(--c) 35%, transparent);
+  transition: background .6s var(--ease), box-shadow .6s var(--ease);
+}
+.frase-barras { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+.frase-barras i { height: 4px; border-radius: 4px; background: color-mix(in srgb, var(--blanco) 35%, transparent); position: relative; overflow: hidden; }
+.frase-barras i::after { content: ''; position: absolute; inset: 0; background: var(--blanco); transform: scaleX(0); transform-origin: left; }
+.frase-barras i.llena::after { transform: scaleX(1); }
+.frase-barras i.llenando::after { animation: llenarBarra 2.6s linear forwards; }
+.frase-idioma { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 17px; }
+.frase-idioma .monograma { width: 44px; height: 44px; font-size: 15px; background: color-mix(in srgb, var(--blanco) 22%, transparent); color: var(--blanco); box-shadow: none; }
+.frase-texto { align-self: center; font-family: var(--font-display); font-weight: 600; font-size: clamp(32px, 6vw, 52px); line-height: 1.08; }
+.frase-texto.entra { animation: entraFrase .5s var(--ease); }
+.frase-pista { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; opacity: .85; }
+
+/* ---------- Kitty interactiva ---------- */
+.kitty-arte { display: grid; justify-items: center; gap: 12px; }
+.kitty-dice { position: relative; z-index: 1; max-width: 280px; padding: 12px 18px; border-radius: 20px; background: var(--surface); box-shadow: var(--shadow); font-weight: 700; text-align: center; }
+.kitty-dice::after { content: ''; position: absolute; left: 50%; bottom: -8px; width: 16px; height: 16px; margin-left: -8px; background: var(--surface); transform: rotate(45deg); }
+.kitty-dice.entra { animation: pop .45s var(--ease); }
+.kitty-arte img.brinca { animation: kittyBrinco .6s cubic-bezier(.3, 1.6, .5, 1); }
+.caras-galeria li { padding: 0; background: none; box-shadow: none; }
+.caras-galeria button { width: 100%; display: grid; justify-items: center; gap: 8px; padding: 14px 6px 12px; border-radius: 20px; border: 2px solid transparent; background: var(--surface); box-shadow: var(--shadow); font: inherit; font-size: 14px; color: var(--ink-soft); cursor: pointer; }
+.caras-galeria button[aria-pressed="true"] { border-color: var(--primary); color: var(--ink); font-weight: 700; }
+.caras-galeria img { image-rendering: pixelated; }
+
+@keyframes llenarBarra { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes cinta { to { transform: translateX(-50%); } }
+@keyframes fichaCae { from { transform: translateY(-80px) rotate(-12deg); opacity: 0; } 60% { opacity: 1; } }
+@keyframes kittySalta { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes kittyBrinco { 30% { transform: translateY(-30px) scale(1.06, .94); } 60% { transform: translateY(0) scale(.94, 1.06); } }
+@keyframes latidoSuave { 50% { transform: scale(1.04); } }
+@keyframes pop { 40% { transform: scale(1.3); } }
+@keyframes rodilloMini { from { transform: translateY(-240px); } to { transform: translateY(0); } }
+@keyframes entraFrase { from { opacity: 0; transform: translateY(16px); filter: blur(4px); } }
+@media (prefers-reduced-motion: reduce) { .cinta-pista { flex-wrap: wrap; width: auto; justify-content: center; } }
+/* El círculo punteado rodea solo a Kitty (no a la burbuja) */
+.kitty-arte::before { inset: auto; left: 50%; bottom: -34px; width: min(348px, 88vw); aspect-ratio: 1; margin-left: calc(min(348px, 88vw) / -2); }
+.kitty-seccion { overflow-x: clip; }

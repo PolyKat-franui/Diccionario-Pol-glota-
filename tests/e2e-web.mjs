@@ -70,7 +70,7 @@ try {
 
   const { ctx, page } = await pagina({ width: 1440, height: 900 });
   await page.goto(URL_WEB);
-  assert.equal(await page.locator('.nav-links a').count(), 6);
+  assert.equal(await page.locator('.nav-links a').count(), 7);
   await recorrer(page);
 
   assert.equal(await page.locator('#lista-idiomas .idioma').count(), 12);

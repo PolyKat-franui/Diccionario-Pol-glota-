@@ -26,6 +26,7 @@
     <nav class="nav-links" aria-label="Secciones">
       <a href="#metodo">Método</a>
       <a href="#como">Cómo funciona</a>
+      <a href="#prueba">Pruébalo</a>
       <a href="#idiomas">Idiomas</a>
       <a href="#kitty">Kitty</a>
       <a href="#creadora">Creadora</a>
@@ -39,6 +40,7 @@
   <nav class="menu-movil" id="menu-movil" aria-label="Secciones" hidden>
     <a href="#metodo">Método</a>
     <a href="#como">Cómo funciona</a>
+    <a href="#prueba">Pruébalo</a>
     <a href="#idiomas">Idiomas</a>
     <a href="#kitty">Kitty</a>
     <a href="#creadora">Creadora</a>
@@ -66,18 +68,43 @@
       <div class="hero-visual revelar" aria-hidden="true">
         <div class="telefono" id="telefono">
           <div class="telefono-isla"></div>
-          <div class="demo-progreso"><i></i></div>
-          <div class="demo-tarjeta" id="demo-tarjeta">
-            <div class="demo-top"><span class="demo-nivel"><i></i>Nueva</span><span class="demo-tipo" id="demo-idioma">Francés</span></div>
-            <p class="demo-palabra" id="demo-palabra">Enchanté.</p>
-            <p class="demo-trad" id="demo-trad">Mucho gusto.</p>
-            <div class="demo-acciones"><span>Repasar</span><span class="demo-sabe">✓ Lo sé</span></div>
+          <div class="historias" id="historias"><i></i><i></i><i></i></div>
+          <div class="pantallas">
+            <!-- Pantalla 1: menú principal -->
+            <div class="pantalla p-menu activa" data-dur="5200">
+              <div class="mini-fichas"><span>P</span><span>O</span><span>L</span><span>Y</span><span>G</span><span>L</span><span>O</span><span>K</span></div>
+              <p class="mini-sub">in progress</p>
+              <img class="mini-kitty" src="app/assets/caras/muy_feliz.svg" alt="" width="60" height="48">
+              <div class="mini-stats"><span><img src="app/assets/sakura.svg" alt="" width="23" height="23">7</span><span><img src="app/assets/moneda.svg" alt="" width="24" height="24">240</span></div>
+              <span class="mini-jugar">▶ ¡Jugar!</span>
+              <div class="mini-botones"><i></i><i></i><i></i></div>
+            </div>
+            <!-- Pantalla 2: tarjeta que se desliza -->
+            <div class="pantalla p-tarjeta" data-dur="10800">
+              <div class="demo-tarjeta" id="demo-tarjeta">
+                <div class="demo-top"><span class="demo-nivel"><i></i>Nueva</span><span class="demo-tipo" id="demo-idioma">Francés</span></div>
+                <p class="demo-palabra" id="demo-palabra">Enchanté.</p>
+                <p class="demo-trad" id="demo-trad">Mucho gusto.</p>
+                <div class="demo-acciones"><span>Repasar</span><span class="demo-sabe">✓ Lo sé</span></div>
+              </div>
+              <div class="demo-riel"><span>♡</span><span>◁)</span><img src="app/assets/caras/feliz.svg" alt="" width="20" height="16"></div>
+            </div>
+            <!-- Pantalla 3: premio de tragamonedas -->
+            <div class="pantalla p-premio" data-dur="5200">
+              <p class="mini-titulo">¡Premio!</p>
+              <div class="mini-rodillos"><span><i></i></span><span><i></i></span><span><i></i></span></div>
+              <p class="mini-num">+15</p>
+              <p class="mini-txt">10 palabras hoy</p>
+              <img class="mini-kitty" src="app/assets/caras/celebrando.svg" alt="" width="60" height="48">
+            </div>
           </div>
-          <div class="demo-riel"><span>♡</span><span>◁)</span><img src="app/assets/caras/feliz.svg" alt="" width="20" height="16"></div>
         </div>
         <img class="hero-kitty" src="app/assets/caras/feliz.svg" alt="" width="80" height="64">
       </div>
     </section>
+
+    <!-- Cinta de saludos en todos los idiomas (los próximos, marcados) -->
+    <div class="cinta" aria-hidden="true"><div class="cinta-pista" id="cinta"></div></div>
 
     <!-- Cifras (estilo tablero de aeropuerto) -->
     <section class="cifras" aria-label="Polyglok en cifras">
@@ -139,6 +166,38 @@
       </div>
     </section>
 
+    <!-- Pruébalo aquí: tarjetas jugables como en la app -->
+    <section class="seccion prueba" id="prueba">
+      <header class="seccion-cabeza revelar">
+        <p class="sobretitulo">Pruébalo aquí</p>
+        <h2 class="display">Desliza y gana<br>tus primeras <em>monedas</em>.</h2>
+        <p class="suave">Toca la tarjeta para ver la traducción. Desliza a la derecha si la sabías, a la izquierda para repasarla.</p>
+      </header>
+      <div class="prueba-juego revelar">
+        <div class="prueba-idiomas" role="radiogroup" aria-label="Idioma para probar" id="prueba-idiomas"></div>
+        <div class="prueba-marcador" aria-live="polite"><img class="moneda" src="app/assets/moneda.svg" alt="" width="24" height="24"><span id="prueba-monedas">0</span> <span class="suave">Kitty tokens</span></div>
+        <div class="mazo" id="mazo"></div>
+        <div class="prueba-botones">
+          <button type="button" class="redondo no" id="prueba-no" aria-label="Repasar">✕</button>
+          <button type="button" class="redondo si" id="prueba-si" aria-label="Lo sé">✓</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Una frase, seis idiomas (como historias: toca para avanzar) -->
+    <section class="seccion frase" id="frase">
+      <header class="seccion-cabeza revelar">
+        <p class="sobretitulo">Una frase, seis idiomas</p>
+        <h2 class="display">Lo mismo, dicho<br>de <em>seis</em> maneras.</h2>
+      </header>
+      <button type="button" class="frase-tarjeta revelar" id="frase-tarjeta" aria-label="Siguiente idioma">
+        <span class="frase-barras" id="frase-barras"></span>
+        <span class="frase-idioma"><span class="monograma" id="frase-mono">ES</span><span id="frase-nombre">Español</span></span>
+        <span class="frase-texto" id="frase-texto" aria-live="polite">¿Cómo estás?</span>
+        <span class="frase-pista">Toca para avanzar</span>
+      </button>
+    </section>
+
     <!-- Idiomas -->
     <section class="seccion" id="idiomas">
       <header class="seccion-cabeza revelar">
@@ -151,7 +210,10 @@
 
     <!-- Kitty -->
     <section class="seccion kitty-seccion" id="kitty">
-      <div class="kitty-arte revelar"><img src="app/assets/caras/feliz.svg" alt="Kitty feliz, en pixel art" width="160" height="128"></div>
+      <div class="kitty-arte revelar">
+        <p class="kitty-dice" id="kitty-dice" aria-live="polite">¡Miau! Toca una de mis caras.</p>
+        <img id="kitty-grande" src="app/assets/caras/feliz.svg" alt="Kitty feliz, en pixel art" width="160" height="128">
+      </div>
       <div class="revelar">
         <p class="sobretitulo">Conoce a Kitty</p>
         <h2 class="display">Tu compañera de estudio.</h2>
@@ -164,7 +226,7 @@
         <p class="nota">Hoy Kitty busca en el diccionario. La conversación con inteligencia artificial llega en una próxima versión.</p>
       </div>
       <div class="caras revelar">
-        <p class="sobretitulo">Sus expresiones</p>
+        <p class="sobretitulo">Sus expresiones · toca una</p>
         <ul class="caras-galeria" id="caras-galeria"></ul>
       </div>
     </section>
