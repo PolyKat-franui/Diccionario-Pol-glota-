@@ -68,6 +68,18 @@ test('¿Qué avance conservo?: detecta avances distintos y conserva el elegido',
   assert.equal(store.elegirAvance(cuenta, nav, 'navegador').tokens, 3);
 });
 
+test('cuenta de Google: subir, bajar o preguntar qué avance conservar', () => {
+  const vacio = store.estadoInicial();
+  const nube = store.estadoInicial(); nube.tokens = 50; nube.ejercicios = 40; nube.actualizado = 200;
+  const nav = store.estadoInicial(); nav.tokens = 3; nav.ejercicios = 3; nav.actualizado = 100;
+  assert.equal(store.decidirAlEntrar(null, nav), 'subir');           // primera vez: la nube toma el navegador
+  assert.equal(store.decidirAlEntrar(nube, vacio), 'bajar');         // celular nuevo: trae el avance de la nube
+  assert.equal(store.decidirAlEntrar(vacio, nav), 'subir');
+  assert.equal(store.decidirAlEntrar(nube, nav), 'preguntar');       // los dos tienen avance distinto
+  const igual = JSON.parse(JSON.stringify(nube)); igual.actualizado = 300;
+  assert.equal(store.decidirAlEntrar(nube, igual), 'subir');         // mismo avance: gana el más reciente
+});
+
 test('sugerencias: se guardan sin texto vacío', () => {
   const s = store.estadoInicial();
   assert.equal(store.agregarSugerencia(s, '   '), false);

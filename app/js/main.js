@@ -10,6 +10,7 @@ import { ICON } from './iconos.js';
 import { sonido, activarSonido } from './sonido.js';
 import { sembrarAdornos, estallido } from './adornos.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
+import * as nube from './nube.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -27,9 +28,81 @@ let tutorialAlRevelar = null;  // el tutorial avanza cuando se revela la primera
 let timerGuardar = null;
 function guardar() {
   clearTimeout(timerGuardar);
-  timerGuardar = setTimeout(() => store.guardar(S), 150);
+  timerGuardar = setTimeout(() => { store.guardar(S); subirPronto(); }, 150);
 }
-const guardarYa = () => { clearTimeout(timerGuardar); store.guardar(S); };
+const guardarYa = () => { clearTimeout(timerGuardar); store.guardar(S); subirYa(); };
+
+// ---------- Nube (cuenta de Google) ----------
+// Con cuenta, cada cambio se sube unos segundos después (y al cerrar o esconder la app).
+// Solo se sube si hay cambios sin enviar: así un celular olvidado abierto no pisa lo estudiado en otro.
+let timerNube = null;
+let sinSubir = false;
+let cuentaPendiente = null; // avance de la nube que espera la pantalla «¿Qué avance conservo?»
+const conCuenta = () => S.perfil.cuenta?.tipo === 'google' && nube.nubeLista();
+function subirYa(forzar = false) {
+  clearTimeout(timerNube);
+  if (!conCuenta() || (!sinSubir && !forzar)) return;
+  sinSubir = false;
+  nube.guardarAvance(S.perfil.cuenta.uid, S).catch(() => { sinSubir = true; });
+}
+function subirPronto() {
+  if (!conCuenta() || cuentaPendiente) return;
+  sinSubir = true;
+  clearTimeout(timerNube);
+  timerNube = setTimeout(subirYa, 4000);
+}
+/** Une el avance de la nube con el del navegador según store.decidirAlEntrar. Devuelve la acción. */
+function sincronizar(remota, cuenta) {
+  const accion = store.decidirAlEntrar(remota, S);
+  if (accion === 'bajar') {
+    const perfil = { ...S.perfil }, nativo = S.ajustes.nativo;
+    S = store.normalizar(remota);
+    S.perfil = { ...S.perfil, ...perfil, cuenta };
+    S.ajustes.nativo ||= nativo;
+    aplicarAjustes();
+  } else if (accion === 'preguntar') {
+    cuentaPendiente = store.normalizar(remota);
+  }
+  S.perfil.cuenta = cuenta;
+  store.guardar(S);
+  if (accion === 'subir') subirYa(true);
+  return accion;
+}
+/** Botón «Entrar con Google» (portada y Ajustes). */
+async function conectarGoogle() {
+  if (!nube.nubeLista()) return void toast(t('login_pronto'));
+  try {
+    const cuenta = await nube.entrarConGoogle();
+    const remota = await nube.leerAvance(cuenta.uid);
+    S.perfil.elegido = true;
+    if (!S.perfil.nombre && cuenta.nombre) S.perfil.nombre = cuenta.nombre.split(' ')[0];
+    const accion = sincronizar(remota, cuenta);
+    toast(t('nube_conectada', { email: cuenta.email }));
+    if (accion === 'preguntar') return void ir('#/conservar');
+    ir(S.aprendiendo ? '#/menu' : '#/idiomas');
+  } catch (e) {
+    if (e?.code === 'auth/popup-closed-by-user' || e?.code === 'auth/cancelled-popup-request') return;
+    toast(t('nube_error'));
+  }
+}
+async function salirDeGoogle() {
+  try { subirYa(); await nube.salir(); } catch { /* sin conexión: igual se cierra aquí */ }
+  S.perfil.cuenta = null;
+  guardar();
+  toast(t('nube_salio'));
+  router();
+}
+/** Al abrir la app con cuenta: trae lo más nuevo de la nube (p. ej. lo que estudiaste en otro celular). */
+async function sincronizarAlAbrir() {
+  if (!conCuenta()) return;
+  try {
+    const cuenta = await nube.sesionActual();
+    if (!cuenta) { S.perfil.cuenta = null; guardar(); return; }
+    const accion = sincronizar(await nube.leerAvance(cuenta.uid), cuenta);
+    if (accion === 'preguntar') ir('#/conservar');
+    else if (accion === 'bajar') router();
+  } catch { /* sin conexión: se sigue con el avance de este navegador */ }
+}
 addEventListener('pagehide', guardarYa);
 document.addEventListener('visibilitychange', () => { if (document.hidden) guardarYa(); });
 
@@ -300,7 +373,7 @@ function vistaInicio() {
     toast(t('login_pronto'));
     continuar(usuario);
   });
-  $('#btn-google').addEventListener('click', () => toast(t('login_pronto')));
+  $('#btn-google').addEventListener('click', conectarGoogle);
   $('#btn-invitado').addEventListener('click', () => continuar());
 }
 
@@ -368,7 +441,7 @@ function cuentaDeMuestra() {
 
 function vistaConservar(r) {
   const demo = r.q.get('demo') === '1';
-  const cuenta = demo ? cuentaDeMuestra() : null; // con cuentas reales: vendrá del servidor
+  const cuenta = demo ? cuentaDeMuestra() : cuentaPendiente; // avance de la cuenta de Google
   if (!cuenta || (!demo && !store.hayConflicto(cuenta, S))) return void (location.hash = '#/aprender');
   const linea = (est) => t('cons_linea', store.resumen(est));
   vista.innerHTML = `
@@ -382,7 +455,13 @@ function vistaConservar(r) {
       </div>
     </section>`;
   $$('.opcion').forEach((b) => b.addEventListener('click', () => {
-    if (!demo) { S = store.elegirAvance(cuenta, S, b.dataset.eleccion); guardar(); }
+    if (!demo) {
+      const perfil = { ...S.perfil };
+      S = store.elegirAvance(cuenta, S, b.dataset.eleccion);
+      S.perfil = { ...S.perfil, cuenta: perfil.cuenta, elegido: true };
+      cuentaPendiente = null;
+      aplicarAjustes(); store.guardar(S); subirYa(true);
+    }
     else toast(`✓ ${b.querySelector('strong').textContent}`);
     ir('#/aprender');
   }));
@@ -1092,12 +1171,13 @@ function vistaAjustes() {
         <h2>${t('perfil')}</h2>
         <label class="campo"><span>${t('aj_nombre')}</span><input id="aj-nombre" maxlength="30" value="${esc(S.perfil.nombre)}" autocomplete="nickname"></label>
         <dl class="datos">
-          <div><dt>${t('aj_cuenta')}</dt><dd>${t('aj_invitado')}</dd></div>
+          <div><dt>${t('aj_cuenta')}</dt><dd>${S.perfil.cuenta ? `${esc(S.perfil.cuenta.email)}<br><small class="suave">${t('nube_guardando')}</small>` : t('aj_invitado')}</dd></div>
           <div><dt>${t('rank_racha')}</dt><dd>${store.rachaVigente(S.racha)}</dd></div>
           <div><dt>${t('aj_mejor_racha')}</dt><dd>${S.racha.mejor}</dd></div>
           <div><dt>Kitty tokens</dt><dd>${S.tokens}</dd></div>
         </dl>
-        <button class="btn ancho" type="button" id="aj-google">${ICON.google}<span>${t('aj_google')}</span></button>
+        ${S.perfil.cuenta ? `<button class="btn fantasma ancho" type="button" id="aj-salir">${t('aj_salir')}</button>`
+          : `<button class="btn ancho" type="button" id="aj-google">${ICON.google}<span>${t('aj_google')}</span></button>`}
         <a class="enlace pequeno" href="#/conservar?demo=1">${t('cons_titulo')} (demo)</a>
       </div>
 
@@ -1154,7 +1234,8 @@ function vistaAjustes() {
     </section>`;
 
   $('#aj-nombre').addEventListener('input', (e) => { S.perfil.nombre = e.target.value.trim(); guardar(); pintarMarco('ajustes'); });
-  $('#aj-google').addEventListener('click', () => toast(t('login_pronto')));
+  $('#aj-google')?.addEventListener('click', conectarGoogle);
+  $('#aj-salir')?.addEventListener('click', salirDeGoogle);
   $$('[data-tema]').forEach((b) => b.addEventListener('click', () => { a.tema = b.dataset.tema; guardar(); aplicarAjustes(); vistaAjustes(); }));
   $$('.paletas [data-paleta]').forEach((b) => b.addEventListener('click', () => { a.paleta = b.dataset.paleta; guardar(); aplicarAjustes(); vistaAjustes(); }));
   $('#aj-escala').addEventListener('input', (e) => { a.escala = Number(e.target.value); $('#o-escala').textContent = `${Math.round(a.escala * 100)}%`; aplicarAjustes(); guardar(); });
@@ -1282,3 +1363,4 @@ S.ajustes.nativo ??= nativoInicial();
 aplicarAjustes();
 matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', aplicarAjustes);
 router();
+sincronizarAlAbrir();
