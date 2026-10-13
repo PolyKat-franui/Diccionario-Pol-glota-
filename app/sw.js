@@ -2,7 +2,7 @@
 // Estrategia: primero la red (así siempre ves la versión nueva) y, si no hay conexión, lo guardado.
 // El banco de palabras (data/banco/*.json) se guarda la primera vez que se usa.
 // Al agregar archivos a la app, súmalos a NUCLEO (tests/pwa.test.mjs lo revisa).
-const VERSION = 'franui-v2';
+const VERSION = 'franui-v3';
 const NUCLEO = [
   './',
   'index.html',
@@ -59,13 +59,16 @@ const NUCLEO = [
   'assets/jardin/cojin.svg',
   'assets/jardin/columpio.svg',
   'assets/jardin/dango.svg',
+  'assets/jardin/daruma.svg',
   'assets/jardin/estanque.svg',
   'assets/jardin/farol.svg',
   'assets/jardin/fondo-atardecer.svg',
   'assets/jardin/fondo-dia.svg',
   'assets/jardin/fondo-noche.svg',
   'assets/jardin/furin.svg',
+  'assets/jardin/koinobori.svg',
   'assets/jardin/luciernagas.svg',
+  'assets/jardin/maneki.svg',
   'assets/jardin/mantel.svg',
   'assets/jardin/mariposas.svg',
   'assets/jardin/noche.svg',
@@ -73,6 +76,9 @@ const NUCLEO = [
   'assets/jardin/petalos.svg',
   'assets/jardin/protector.svg',
   'assets/jardin/set-te.svg',
+  'assets/jardin/tanzaku.svg',
+  'assets/jardin/teru.svg',
+  'assets/jardin/torii.svg',
   'assets/jardin/wagasa.svg',
   'assets/mensaje.svg',
   'assets/moneda.svg',

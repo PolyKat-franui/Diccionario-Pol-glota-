@@ -27,38 +27,62 @@ const ruido = (x, y, s = 1) => { const n = Math.sin(x * 12.9898 + y * 78.233 + s
 const salida = (g, colores) => ({ filas: aTexto(g), colores });
 
 // ---------- el sakura en 8 etapas ----------
+// Flores en racimos (como el pixel art de referencia), tronco oscuro con ramas que asoman entre las sombras
+// y, en las etapas grandes, flores que cuelgan.
 const COL_ARBOL = {
-  o: '#5E2A3C', T: '#8A5A3A', D: '#5E3A22', d: '#7A5236', m: '#9C6B48',
-  h: '#FFE8EE', a: '#F7C2CE', b: '#EE97AB', c: '#CF6782', v: '#7FAE5A', V: '#A9CF7E', s: '#4F7A3A',
+  o: '#4A2232', T: '#6B3F3A', D: '#40242A', d: '#7A5236', m: '#9C6B48',
+  h: '#FFE6EE', a: '#F8BDCD', b: '#EE94AD', c: '#D26A89', e: '#A64566', v: '#7FAE5A', V: '#A9CF7E', s: '#4F7A3A',
 };
+const RAMAS = [];
 /** Tronco desde la base (32, 62) hacia arriba, con ancho que se afina, y ramas opcionales. */
 function tronco(g, alto, ancho, ramas = []) {
   for (let y = 0; y < alto; y++) {
     const w = Math.max(1, Math.round(ancho - (ancho - 1) * (y / alto) * 0.7));
-    const x0 = 32 - Math.floor(w / 2);
-    for (let x = x0; x < x0 + w; x++) pon(g, x, 62 - y, x === x0 + w - 1 && w > 1 ? 'D' : 'T');
+    const x0 = 32 - Math.floor(w / 2) + Math.round(Math.sin(y / 6) * (ancho > 3 ? 1 : 0)); // leve curva
+    for (let x = x0; x < x0 + w; x++) pon(g, x, 62 - y, x >= x0 + w - Math.ceil(w / 3) && w > 1 ? 'D' : 'T');
   }
+  RAMAS.length = 0;
   for (const [x0, y0, dx, largo] of ramas) for (let k = 0; k < largo; k++) {
-    pon(g, x0 + dx * k, y0 - k, 'T'); pon(g, x0 + dx * k, y0 - k + 1, 'D');
+    const x = x0 + Math.round(dx * k * 1.2), y = y0 - k;
+    pon(g, x, y, 'T'); pon(g, x, y + 1, 'D'); RAMAS.push([x, y], [x, y + 1]);
   }
-  // raíces en la base
-  if (ancho >= 3) { ponTodos(g, [[32 - ancho, 62], [32 + ancho - 1, 62], [31 - ancho, 62]], 'D'); }
+  if (ancho >= 3) ponTodos(g, [[32 - ancho, 62], [32 + ancho - 1, 62], [31 - ancho, 62], [32 + ancho, 62]], 'D');
 }
-/** Copa de flores: unión de círculos con luz arriba a la izquierda y sombra abajo a la derecha. */
-function copa(g, blobs, { verde = 0 } = {}) {
-  const dentro = (x, y) => blobs.some(([cx, cy, r]) => (x - cx) ** 2 + (y - cy) ** 2 <= r * r);
-  const ys = blobs.map(([, cy, r]) => [cy - r, cy + r]).flat();
-  const xs = blobs.map(([cx, , r]) => [cx - r, cx + r]).flat();
-  const cx0 = (Math.min(...xs) + Math.max(...xs)) / 2, cy0 = (Math.min(...ys) + Math.max(...ys)) / 2;
-  const R = Math.max(...xs) - cx0 || 1;
-  for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) {
-    if (!dentro(x, y)) continue;
-    const luz = ((x - cx0) * 0.6 + (y - cy0) * 0.8) / R; // -1 arriba izq … +1 abajo der
-    const n = ruido(x, y);
-    let c = luz < -0.55 ? 'h' : luz < -0.1 ? 'a' : luz < 0.45 ? 'b' : 'c';
-    if (n > 0.94) c = c === 'h' ? 'a' : c === 'a' ? 'h' : c === 'b' ? 'a' : 'b'; // flores sueltas
-    if (verde && n < verde) c = luz > 0.2 ? 's' : 'v';                          // hojitas verdes
+const TONOS = ['h', 'a', 'b', 'c', 'e'];
+/** Copa de flores hecha de racimos: cada racimo con su luz, más la luz general arriba a la izquierda. */
+function copa(g, blobs, { verde = 0, colgantes = 0 } = {}) {
+  const racimos = [];
+  blobs.forEach(([cx, cy, r], bi) => {
+    const n = Math.round((r * r) / 4);
+    for (let i = 0; i < n; i++) {
+      const ang = ruido(i, bi, 21) * Math.PI * 2, dist = Math.sqrt(ruido(i, bi, 22)) * Math.max(1, r - 2.5);
+      racimos.push([cx + Math.cos(ang) * dist, cy + Math.sin(ang) * dist * 0.85, 2.4 + ruido(i, bi, 23) * 2]);
+    }
+    racimos.push([cx, cy, r * 0.55]);
+  });
+  const xs = racimos.map(([x, , r]) => [x - r, x + r]).flat(), ys = racimos.map(([, y, r]) => [y - r, y + r]).flat();
+  const cx0 = (Math.min(...xs) + Math.max(...xs)) / 2, cy0 = (Math.min(...ys) + Math.max(...ys)) / 2, R = (Math.max(...xs) - Math.min(...xs)) / 2 || 1;
+  racimos.sort((p, q) => p[1] - q[1]); // los de abajo se pintan encima
+  for (const [cx, cy, r] of racimos) for (let y = Math.floor(cy - r); y <= cy + r; y++) for (let x = Math.floor(cx - r); x <= cx + r; x++) {
+    if ((x - cx) ** 2 + (y - cy) ** 2 > r * r || y < 0 || y > 63 || x < 0 || x > 63) continue;
+    const local = ((x - cx) * 0.6 + (y - cy) * 0.8) / r;
+    const global = ((x - cx0) * 0.5 + (y - cy0) * 0.8) / R;
+    let i = local < -0.6 ? 0 : local < -0.15 ? 1 : local < 0.4 ? 2 : 3;
+    i += global < -0.45 ? -1 : global > 0.45 ? 1 : 0;
+    let c = TONOS[Math.max(0, Math.min(4, i))];
+    if (verde && ruido(x, y, 31) < verde) c = global > 0.1 ? 's' : 'v';
     g[y][x] = c;
+  }
+  // ramas que asoman entre las sombras de la copa
+  for (const [x, y] of RAMAS) if (['c', 'e'].includes(g[y]?.[x])) g[y][x] = 'D';
+  // flores colgantes bajo la copa
+  if (colgantes) for (let x = 2; x < 62; x++) {
+    if (ruido(x, 7, 41) > colgantes) continue;
+    let fondo = -1;
+    for (let y = 63; y >= 0; y--) if (TONOS.includes(g[y][x])) { fondo = y; break; }
+    if (fondo < 0 || fondo > 56) continue;
+    const largo = 2 + Math.floor(ruido(x, 8, 42) * 6);
+    for (let k = 1; k <= largo; k++) if (g[fondo + k]?.[x] === '.') g[fondo + k][x] = k % 2 ? 'b' : 'a';
   }
 }
 const ARBOL = [
@@ -71,70 +95,94 @@ const ARBOL = [
   (g) => { elipse(g, 32, 62, 7, 2.2, 'd', (x, y) => y <= 62); for (let y = 46; y < 61; y++) pon(g, 32, y, y > 54 ? 'T' : 's');
     sello(g, 25, 50, ['.vvv.', 'vVVvs', '.vvs.']); sello(g, 33, 47, ['.vvvv.', 'sVVVVv', '.svvv.']);
     sello(g, 27, 43, ['.vvv.', 'vVVvs', '.vvs.']); sello(g, 33, 41, ['.vv.', 'vVVs', '.ss.']);
-    ponTodos(g, [[31, 40], [32, 39]], 'b'); },
+    ponTodos(g, [[31, 40], [32, 39]], 'b'); ponTodos(g, [[31, 39]], 'a'); },
   // 3 · arbolito
-  (g) => { tronco(g, 16, 2); copa(g, [[32, 42, 8], [27, 45, 5], [37, 45, 5]], { verde: 0.45 }); },
+  (g) => { tronco(g, 16, 2, [[31, 52, -1, 3]]); copa(g, [[32, 42, 8], [27, 45, 5], [37, 45, 5]], { verde: 0.3 }); },
   // 4 · árbol joven
-  (g) => { tronco(g, 22, 3, [[31, 48, -1, 5], [33, 50, 1, 5]]); copa(g, [[32, 33, 10], [24, 38, 7], [40, 38, 7], [32, 40, 8]], { verde: 0.25 }); },
+  (g) => { tronco(g, 22, 3, [[31, 48, -1, 6], [33, 50, 1, 6]]); copa(g, [[32, 33, 10], [23, 38, 7], [41, 38, 7], [32, 40, 8]], { verde: 0.12 }); },
   // 5 · primera flor
-  (g) => { tronco(g, 24, 4, [[31, 48, -1, 7], [33, 46, 1, 7]]); copa(g, [[32, 28, 12], [21, 34, 9], [43, 34, 9], [27, 38, 8], [38, 38, 8]], { verde: 0.1 }); },
+  (g) => { tronco(g, 24, 4, [[31, 48, -1, 8], [33, 46, 1, 8]]); copa(g, [[32, 27, 12], [20, 33, 9], [44, 33, 9], [26, 38, 8], [38, 38, 8]], { verde: 0.03 }); },
   // 6 · sakura en flor
-  (g) => { tronco(g, 26, 5, [[30, 46, -1, 9], [34, 45, 1, 9], [32, 40, -1, 5]]);
-    copa(g, [[32, 22, 13], [19, 28, 10], [45, 28, 10], [24, 36, 9], [40, 36, 9], [32, 33, 11], [12, 35, 6], [52, 35, 6]]); },
-  // 7 · gran sakura: copa enorme y pétalos que caen
-  (g) => { tronco(g, 28, 6, [[30, 44, -1, 11], [35, 43, 1, 11], [32, 38, -1, 6], [33, 37, 1, 6]]);
-    copa(g, [[32, 18, 14], [17, 24, 11], [47, 24, 11], [9, 33, 7], [55, 33, 7], [22, 34, 10], [42, 34, 10], [32, 30, 12], [32, 8, 8]]);
-    ponTodos(g, [[8, 46], [14, 52], [52, 48], [57, 55], [44, 56], [20, 58]], 'a'); },
+  (g) => { tronco(g, 26, 5, [[30, 46, -1, 10], [34, 45, 1, 10], [32, 40, -1, 6]]);
+    copa(g, [[32, 21, 13], [18, 27, 10], [46, 27, 10], [24, 35, 9], [40, 35, 9], [32, 32, 11], [11, 34, 6], [53, 34, 6]], { colgantes: 0.35 }); },
+  // 7 · gran sakura: copa enorme, flores colgantes y pétalos que caen
+  (g) => { tronco(g, 28, 6, [[30, 44, -1, 12], [35, 43, 1, 12], [32, 38, -1, 7], [33, 37, 1, 7]]);
+    copa(g, [[32, 17, 14], [16, 23, 11], [48, 23, 11], [8, 32, 7], [56, 32, 7], [22, 33, 10], [42, 33, 10], [32, 29, 12], [32, 8, 8]], { colgantes: 0.6 });
+    ponTodos(g, [[6, 50], [14, 56], [52, 52], [58, 58], [44, 59], [20, 60]], 'a'); },
 ];
 function arbol(i) {
   const g = lienzo(64, 64);
+  RAMAS.length = 0;
   ARBOL[i](g);
   contornear(g, 'o');
-  // los pétalos sueltos de la etapa 7 no llevan contorno grueso: se repintan encima
-  if (i === 7) ponTodos(g, [[8, 46], [14, 52], [52, 48], [57, 55], [44, 56], [20, 58]], 'b');
+  // las flores colgantes y los pétalos sueltos van sin contorno grueso: se repintan encima
+  for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) {
+    if (g[y][x] !== 'o') continue;
+    const vecinos = [[1, 0], [-1, 0], [0, 1], [0, -1]].map(([dx, dy]) => g[y + dy]?.[x + dx]);
+    const soloColgante = vecinos.filter((v) => v && v !== '.' && v !== 'o').length === 1 && vecinos.some((v) => v === 'a' || v === 'b') && y > 40;
+    if (soloColgante && i >= 6) g[y][x] = '.';
+  }
+  if (i === 7) ponTodos(g, [[6, 50], [14, 56], [52, 52], [58, 58], [44, 59], [20, 60]], 'b');
   return salida(g, COL_ARBOL);
 }
 
-// ---------- fondos de la escena (96×96): cielo en franjas con tramado, colinas y pasto ----------
+// ---------- fondos de la escena (96×96): cielo, monte Fuji con sol o luna, cerezos lejanos y pasto con pétalos ----------
+// Referencias de Francisca: separadores japoneses (Fuji con sol rojo), paisajes de atardecer durazno y pixel art de sakuras.
 const FONDOS = {
-  dia: { cielo: ['#BFE3F5', '#CDE9F6', '#DCEFF6', '#EAF4F2', '#F6F2EA'], colina: ['#B9D7A4', '#9CC489'], pasto: ['#86B86A', '#74A85A', '#9BCB7C'], astro: ['sol', 78, 14] },
-  atardecer: { cielo: ['#8E6BB0', '#C77AA6', '#EE9B9B', '#F6BB8E', '#FAD9A1'], colina: ['#B88AA6', '#9C7394'], pasto: ['#7E9E62', '#6A8A52', '#93B376'], astro: ['solGrande', 70, 48] },
-  noche: { cielo: ['#1E2147', '#262A58', '#2F3468', '#3A3F78', '#4A4C86'], colina: ['#3B4A6E', '#2F3D5E'], pasto: ['#3E6448', '#33573D', '#4B7656'], astro: ['luna', 76, 14] },
+  dia: { cielo: ['#CFE6F2', '#DCEDF2', '#E8F1EE', '#F3F1E6', '#FAF2E4'], fuji: ['#8FA3C8', '#6F84AE', '#FFFFFF', '#DCE6F2'],
+    lejos: ['#F6C9D4', '#EBAFC0', '#D98DA5'], pasto: ['#8DBB6E', '#79A95C', '#A3CC82'], astro: ['sol', 24, 18, '#E8584A', '#F07A6A'] },
+  atardecer: { cielo: ['#F2A99B', '#F6B8A0', '#F9C7A6', '#FBD5AE', '#FCE1B8'], fuji: ['#A99AB8', '#8A7DA0', '#FCEBEA', '#F2CFD2'],
+    lejos: ['#F08FA4', '#E07490', '#C95A7A'], pasto: ['#86A665', '#72914F', '#9DBA7A'], astro: ['solGrande', 48, 26, '#FDE3C2', '#FFF0DA'] },
+  noche: { cielo: ['#1C1F45', '#232756', '#2C3166', '#363B74', '#434784'], fuji: ['#3E4677', '#323A66', '#D9DDF0', '#AEB5D6'],
+    lejos: ['#8A6C9E', '#76598C', '#5E4778'], pasto: ['#3E6448', '#33573D', '#4B7656'], astro: ['luna', 76, 13, '#F4EFD8'] },
 };
 function fondo(nombre) {
   const f = FONDOS[nombre];
   const g = lienzo(96, 96);
   const col = {};
   const letra = (hex) => { for (const [k, v] of Object.entries(col)) if (v === hex) return k; const k = String.fromCharCode(65 + Object.keys(col).length); col[k] = hex; return k; };
+  // cielo en franjas con tramado
   const banda = 60 / f.cielo.length;
   for (let y = 0; y < 60; y++) for (let x = 0; x < 96; x++) {
-    const t = y / banda;
-    let i = Math.floor(t);
-    const frac = t - i;
-    if (frac > 0.75 && (x + y) % 2 === 0) i += 1; // tramado entre franjas
+    const t = y / banda; let i = Math.floor(t);
+    if (t - i > 0.75 && (x + y) % 2 === 0) i += 1;
     g[y][x] = letra(f.cielo[Math.min(i, f.cielo.length - 1)]);
   }
-  // astro
-  const [tipo, ax, ay] = f.astro;
-  if (tipo === 'sol') { elipse(g, ax, ay, 6, 6, letra('#FFE07A')); elipse(g, ax - 1, ay - 1, 3, 3, letra('#FFF2B8')); }
-  if (tipo === 'solGrande') { elipse(g, ax, ay, 10, 10, letra('#FFB27A')); elipse(g, ax - 2, ay - 2, 6, 6, letra('#FFD49A')); }
+  // nubes alargadas (como en los separadores)
+  const nube = (cx, cy, w, c) => { elipse(g, cx, cy, w, 1.6, letra(c)); elipse(g, cx - w * 0.3, cy - 1.4, w * 0.45, 1.6, letra(c)); };
+  if (nombre === 'dia') { nube(70, 12, 9, '#FFFFFF'); nube(14, 30, 7, '#FFFFFF'); }
+  if (nombre === 'atardecer') { nube(16, 14, 10, '#F7C6C0'); nube(80, 20, 9, '#F7C6C0'); nube(66, 34, 7, '#FBD9CC'); }
+  // astro (detrás del Fuji)
+  const [tipo, ax, ay, c1, c2] = f.astro;
+  if (tipo === 'sol') { elipse(g, ax, ay, 6.5, 6.5, letra(c1)); elipse(g, ax - 1.5, ay - 1.5, 3, 3, letra(c2)); }
+  if (tipo === 'solGrande') { elipse(g, ax, ay, 13, 13, letra(c2)); elipse(g, ax, ay, 11, 11, letra(c1)); }
   if (tipo === 'luna') {
-    elipse(g, ax, ay, 6, 6, letra('#F4EFD8')); elipse(g, ax + 3, ay - 2, 5, 5, letra(f.cielo[0]));
-    for (const [x, y] of [[10, 8], [24, 18], [40, 6], [58, 22], [88, 30], [16, 34], [48, 30], [66, 10], [30, 40], [84, 4]]) pon(g, x, y, letra('#FFFFFF'));
+    elipse(g, ax, ay, 6, 6, letra(c1)); elipse(g, ax + 3, ay - 2, 5, 5, letra(f.cielo[0]));
+    for (const [x, y] of [[10, 8], [24, 18], [40, 6], [58, 22], [88, 30], [16, 34], [48, 4], [66, 10], [30, 40], [86, 4], [6, 22]]) pon(g, x, y, letra('#FFFFFF'));
     for (const [x, y] of [[12, 22], [52, 14], [72, 34], [36, 26]]) pon(g, x, y, letra('#B9BCE8'));
   }
-  if (nombre === 'dia') for (const [cx, cy] of [[20, 14], [44, 22]]) { elipse(g, cx, cy, 7, 2.5, letra('#FFFFFF')); elipse(g, cx + 3, cy - 2, 4, 2.5, letra('#FFFFFF')); }
-  // colinas lejanas
+  // monte Fuji: cumbre plana, laderas cóncavas, nieve con bordes irregulares, luz a la izquierda
+  const [luz, sombra, nieve, nieveSombra] = f.fuji;
   for (let x = 0; x < 96; x++) {
-    const h1 = Math.round(50 + 4 * Math.sin(x / 9) + 2 * Math.sin(x / 4));
-    const h2 = Math.round(54 + 3 * Math.sin(x / 7 + 2));
-    for (let y = h1; y < 60; y++) g[y][x] = letra(f.colina[0]);
-    for (let y = h2; y < 60; y++) g[y][x] = letra(f.colina[1]);
+    const d = Math.abs(x - 48);
+    const top = d < 4 ? 24 : Math.round(24 + (d - 4) * 0.55 + ((d - 4) ** 2) * 0.004);
+    for (let y = Math.max(0, top); y < 60; y++) {
+      const lineaNieve = 32 + Math.round(3 * ruido(Math.floor(x / 2), 1, 5)) + (d < 8 ? 0 : (d - 8) * 0.2);
+      const izq = x < 48 + (y - 24) * 0.15;
+      g[y][x] = letra(y < lineaNieve ? (izq ? nieve : nieveSombra) : (izq ? luz : sombra));
+    }
   }
-  // pasto con matas
+  // fila de cerezos lejanos frente al Fuji
+  for (let x = -2; x < 98; x += 5) {
+    const cy = 54 + Math.round(2 * ruido(x, 2, 8)), r = 4 + Math.round(2 * ruido(x, 3, 8));
+    elipse(g, x, cy, r, r * 0.8, letra(f.lejos[Math.floor(ruido(x, 4, 8) * 2)]));
+  }
+  for (let x = 0; x < 96; x++) for (let y = 50; y < 60; y++) if (g[y][x] && ruido(x, y, 11) > 0.93 && y > 52) g[y][x] = letra(f.lejos[2]);
+  // pasto con matas y pétalos caídos
   for (let y = 60; y < 96; y++) for (let x = 0; x < 96; x++) {
     const n = ruido(x, y, 3);
-    g[y][x] = letra(n > 0.9 ? f.pasto[2] : n < 0.12 || (y === 60) ? f.pasto[1] : f.pasto[0]);
+    g[y][x] = letra(n > 0.9 ? f.pasto[2] : n < 0.12 || y === 60 ? f.pasto[1] : f.pasto[0]);
+    if (ruido(x, y, 13) > 0.975) g[y][x] = letra(nombre === 'noche' ? '#C9A6C8' : '#F7C2CE');
   }
   return salida(g, col);
 }
@@ -259,6 +307,68 @@ const OBJETOS = {
     rect(g, 0, 18, 14, 2, 'w'); rect(g, 0, 19, 14, 1, 'd');
     rect(g, 0, 20, 1, 2, 'd'); rect(g, 13, 20, 1, 2, 'd');
     return salida(g, { k: '#7A5A3A', w: '#C98E55', d: '#8A5A2E' });
+  },
+  maneki() {
+    // gato de la suerte: blanco con manchas, pata levantada, collar rojo y moneda dorada
+    const g = lienzo(16, 18);
+    elipse(g, 7, 13, 5.4, 4.2, 'W'); elipse(g, 7, 6.5, 5.2, 4.2, 'W');
+    sello(g, 2, 1, ['W.', 'WW']); sello(g, 10, 1, ['.W', 'WW']); ponTodos(g, [[3, 2], [11, 2]], 'P');
+    elipse(g, 13, 4.5, 1.6, 1.8, 'W'); rect(g, 12, 6, 2, 3, 'W'); pon(g, 13, 4, 'P');      // pata en alto
+    sello(g, 3, 3, ['OO', 'OOO']); sello(g, 9, 3, ['.KK', 'KKK']);                           // manchas
+    ponTodos(g, [[4, 6], [5, 7], [6, 6], [8, 6], [9, 7], [10, 6]], 'k');                       // ojos felices
+    ponTodos(g, [[3, 8], [11, 8]], 'P'); pon(g, 7, 8, 'k');
+    rect(g, 3, 10, 9, 1, 'R'); pon(g, 7, 11, 'Y');
+    rect(g, 5, 12, 4, 4, 'Y'); ponTodos(g, [[6, 13], [7, 14]], 'G');                            // moneda koban
+    contornear(g, 'o');
+    return salida(g, { o: '#3A2A2A', W: '#FFFBF5', P: '#F4A4C4', O: '#E8944A', K: '#3A3030', k: '#2A1A1A', R: '#D9455F', Y: '#F5C83C', G: '#C98A2E' });
+  },
+  teru() {
+    // teru teru bozu: muñequito de tela que se cuelga para pedir buen tiempo
+    const g = lienzo(10, 16);
+    rect(g, 4, 0, 2, 3, 'k');
+    elipse(g, 4.5, 6, 3, 2.8, 'W');
+    for (let y = 9; y < 15; y++) rect(g, 4 - Math.floor((y - 9) / 1.6), y, 2 + 2 * Math.floor((y - 9) / 1.6), 1, 'W');
+    contornear(g, 'o');
+    ponTodos(g, [[3, 6], [6, 6]], 'k'); ponTodos(g, [[2, 7], [7, 7]], 'p'); ponTodos(g, [[4, 7], [5, 7]], 'k');
+    rect(g, 3, 9, 4, 1, 'R'); ponTodos(g, [[2, 10], [7, 10]], 'R');
+    return salida(g, { o: '#6A6A7A', W: '#FFFFFF', k: '#2A1A1A', p: '#F7C2CE', R: '#D9455F' });
+  },
+  daruma() {
+    const g = lienzo(12, 13);
+    elipse(g, 5.5, 6.6, 5, 5.6, 'R'); elipse(g, 5.5, 5.2, 3.2, 2.6, 'W');
+    ponTodos(g, [[3, 4], [4, 4], [7, 4], [8, 4]], 'k'); ponTodos(g, [[4, 5], [7, 5]], 'k'); ponTodos(g, [[5, 7], [6, 7]], 'r');
+    rect(g, 4, 10, 4, 1, 'Y'); ponTodos(g, [[3, 9], [8, 9]], 'Y');
+    contornear(g, 'o'); ponTodos(g, [[2, 4], [2, 5]], 'h');
+    return salida(g, { o: '#4A1A1A', R: '#D9333F', r: '#A8232E', W: '#FFF4E6', k: '#2A1A1A', Y: '#F5C83C', h: '#F07A7F' });
+  },
+  koinobori() {
+    // mástil con tres carpas de tela al viento
+    const g = lienzo(18, 24);
+    for (let y = 1; y < 24; y++) pon(g, 1, y, 't'); pon(g, 1, 0, 'Y');
+    [['B', 'b', 4], ['R', 'r', 10], ['G', 'g', 16]].forEach(([c, c2, cy]) => {
+      elipse(g, 9.5, cy, 6.6, 1.9, c);
+      for (let x = 5; x < 15; x += 2) if (g[cy - 1]?.[x] === c) g[cy - 1][x] = c2;
+      ponTodos(g, [[17, cy - 1], [17, cy + 1], [16, cy]], c);
+      pon(g, 4, cy, 'W'); pon(g, 5, cy, 'k');
+      pon(g, 2, cy - 1, 'k');
+    });
+    return salida(g, { t: '#7A5A3A', Y: '#F5C83C', B: '#4A7FB0', b: '#8FB8DA', R: '#E0485E', r: '#F49AAA', G: '#5E9A44', g: '#A7D27E', W: '#FFFFFF', k: '#2A1A1A' });
+  },
+  torii() {
+    const g = lienzo(28, 24);
+    rect(g, 0, 2, 28, 2, 'K'); ponTodos(g, [[0, 1], [27, 1]], 'K');           // kasagi con puntas
+    rect(g, 1, 4, 26, 1, 'R'); rect(g, 2, 8, 24, 2, 'R');                       // vigas
+    rect(g, 13, 4, 2, 4, 'K');                                                   // placa
+    for (const x of [5, 20]) { rect(g, x, 5, 3, 17, 'R'); rect(g, x + 2, 5, 1, 17, 'r'); rect(g, x - 1, 22, 5, 2, 'K'); }
+    return salida(g, { K: '#2A1A1A', R: '#D9333F', r: '#A8232E' });
+  },
+  tanzaku() {
+    // bambú con papelitos de deseos (tanabata)
+    const g = lienzo(12, 28);
+    for (let y = 0; y < 28; y++) { pon(g, 5, y, 'G'); pon(g, 6, y, y % 7 === 6 ? 'g' : 'H'); if (y % 7 === 6) pon(g, 5, y, 'g'); }
+    sello(g, 7, 2, ['.vv', 'vv.']); sello(g, 2, 5, ['vv.', '.vv']); sello(g, 7, 9, ['vvv']); sello(g, 1, 13, ['.vv', 'vv.']);
+    [[1, 8, 'P'], [8, 12, 'Y'], [2, 18, 'B'], [8, 20, 'L']].forEach(([x, y, c]) => { pon(g, x + (x < 5 ? 1 : 0), y - 1, 'k'); rect(g, x, y, 2, 5, c); });
+    return salida(g, { G: '#7FAE5A', H: '#A9CF7E', g: '#4F7A3A', v: '#6E9E4C', P: '#F7A8BA', Y: '#F8D77E', B: '#9CC6E8', L: '#C9A6E0', k: '#7A5A3A' });
   },
   petalos() {
     const g = lienzo(12, 12);

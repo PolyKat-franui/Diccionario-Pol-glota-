@@ -892,3 +892,10 @@ body[data-ruta="estudiar"] .adornos { display: none; }
   .tienda-txt small { font-size: 13px; }
 }
 #j-recoger:disabled { font-size: var(--fs-base, 16px); min-height: 52px; background: var(--surface-2); color: var(--ink-soft); border-color: var(--line); }
+
+/* Estilo sticker (referencias): borde blanco recortado alrededor de los objetos de la tienda y del menú */
+.tienda-icono img, .decor-chip img, .menu-jardin-arbol img, .sube-arbol {
+  filter: drop-shadow(2px 0 0 var(--blanco)) drop-shadow(-2px 0 0 var(--blanco)) drop-shadow(0 2px 0 var(--blanco)) drop-shadow(0 -2px 0 var(--blanco))
+    drop-shadow(0 3px 4px color-mix(in srgb, var(--sombra-color) 30%, transparent));
+}
+.tienda-icono { background: radial-gradient(circle closest-side, var(--accent-soft) 99%, transparent 100%); }

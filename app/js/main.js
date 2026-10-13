@@ -556,13 +556,13 @@ function dibujarEscena() {
   const nivel = J.nivelDe(j.crecimiento);
   const img = (src, x, y, w, h, extra = '') => `<img src="${src}" alt="" width="${w * k}" height="${h * k}" style="left:${x * k}px;top:${y * k}px;${extra}"`;
   const decor = J.CATALOGO.filter((o) => o.tipo === 'decor' && j.tiene[o.id] && !j.ocultos[o.id]);
-  const colgantes = ['chochin', 'furin', 'columpio'];
+  const colgantes = ['chochin', 'furin', 'columpio', 'teru'];
   const petalos = Math.min(18, 2 + nivel + (j.tiene.petalos ? 10 : 0));
   const azar = (i, s) => { const v = Math.sin(i * 91.7 + s * 13.1) * 9999; return v - Math.floor(v); };
   esc0.innerHTML = `
     ${img(`assets/jardin/fondo-${j.fondo}.svg`, 0, 0, 96, 96)} class="escena-fondo">
     ${img(srcArbol(nivel), 16, 8, 64, 64, 'z-index:70')} class="escena-arbol" id="escena-arbol">
-    ${decor.map((o) => { const [x, y] = J.posicion(j, o.id); return `${img(`assets/jardin/${o.id}.svg`, x, y, o.w, o.h, `z-index:${colgantes.includes(o.id) ? 150 : y + o.h}`)} class="escena-decor ${o.id === 'furin' ? 'meciendo' : ''}" data-id="${o.id}" draggable="false">`; }).join('')}
+    ${decor.map((o) => { const [x, y] = J.posicion(j, o.id); return `${img(`assets/jardin/${o.id}.svg`, x, y, o.w, o.h, `z-index:${colgantes.includes(o.id) ? 150 : y + o.h}`)} class="escena-decor ${['furin', 'teru', 'koinobori'].includes(o.id) ? 'meciendo' : ''}" data-id="${o.id}" draggable="false">`; }).join('')}
     ${img('assets/caras/feliz.svg', 54, 68, 20, 16, 'z-index:84')} class="escena-kitty" id="escena-kitty">
     ${Array.from({ length: petalos }, (_, i) => img('assets/jardin/petalo.svg', Math.round(6 + azar(i, 1) * 80), -4, 4, 3,
       `--dur:${(7 + azar(i, 2) * 7).toFixed(1)}s;--retraso:-${(azar(i, 3) * 14).toFixed(1)}s;--vaiven:${Math.round(8 + azar(i, 4) * 16) * k}px;--caida:${100 * k}px;z-index:160`) + ' class="escena-petalo">').join('')}

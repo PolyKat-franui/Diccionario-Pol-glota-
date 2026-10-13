@@ -47,6 +47,13 @@ export const CATALOGO = [
   { id: 'estanque', tipo: 'decor', precio: 180, w: 32, h: 12, pos: [58, 82] },
   { id: 'furin', tipo: 'decor', precio: 50, w: 6, h: 14, pos: [76, 40] },
   { id: 'columpio', tipo: 'decor', precio: 150, w: 14, h: 22, pos: [60, 40] },
+  // Amuletos y detalles japoneses (referencias de Francisca)
+  { id: 'maneki', tipo: 'decor', precio: 130, w: 16, h: 18, pos: [42, 74] },
+  { id: 'teru', tipo: 'decor', precio: 45, w: 10, h: 16, pos: [14, 40] },
+  { id: 'daruma', tipo: 'decor', precio: 75, w: 12, h: 13, pos: [30, 80] },
+  { id: 'koinobori', tipo: 'decor', precio: 120, w: 18, h: 24, pos: [76, 34] },
+  { id: 'torii', tipo: 'decor', precio: 220, w: 28, h: 24, pos: [2, 36] },
+  { id: 'tanzaku', tipo: 'decor', precio: 65, w: 12, h: 28, pos: [84, 56] },
   // Ambiente: efectos que se mueven en la escena
   { id: 'petalos', tipo: 'ambiente', precio: 60, w: 12, h: 12 },
   { id: 'mariposas', tipo: 'ambiente', precio: 90, w: 9, h: 7 },
