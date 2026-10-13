@@ -45,6 +45,20 @@ function subirYa(forzar = false) {
   if (!conCuenta() || (!sinSubir && !forzar)) return;
   sinSubir = false;
   nube.guardarAvance(S.perfil.cuenta.uid, S).catch(() => { sinSubir = true; });
+  publicarMiRanking();
+}
+/** Fila pública del ranking: solo nombre y números (nunca el correo). Se puede apagar en Ajustes. */
+const filaRanking = () => ({
+  nombre: (S.perfil.nombre || S.perfil.cuenta?.nombre?.split(' ')[0] || 'Polyglot').trim().slice(0, 30),
+  racha: store.rachaVigente(S.racha),
+  dia: S.racha.ultimoDia || '',
+  palabras: store.resumen(S).palabras,
+  nivel: J.nivelDe(S.jardin.crecimiento),
+  actualizado: Date.now(),
+});
+function publicarMiRanking() {
+  if (!conCuenta() || S.ajustes.ranking === false) return;
+  nube.publicarRanking(S.perfil.cuenta.uid, filaRanking()).catch(() => {});
 }
 function subirPronto() {
   if (!conCuenta() || cuentaPendiente) return;
@@ -1455,23 +1469,52 @@ async function vistaFavoritos(r) {
 }
 
 // ---------- Ranking ----------
-function vistaRanking() {
-  const racha = store.rachaVigente(S.racha);
-  vista.innerHTML = `
-    <section class="pagina angosta">
-      <h1 class="display">${t('rank_titulo')}</h1>
-      <div class="seg" role="tablist">
-        <button role="tab" type="button" aria-selected="true">${t('rank_racha')}</button>
-        <button role="tab" type="button" aria-selected="false" aria-disabled="true" id="tab-palabras">${t('rank_palabras')} · ${t('pronto')}</button>
-      </div>
-      <ol class="ranking">
-        <li class="yo"><span class="puesto">1</span><span class="avatar">${esc((S.perfil.nombre || '').charAt(0).toUpperCase()) || ICON.usuario}</span>
-          <strong>${esc(S.perfil.nombre || t('rank_tu'))}</strong>
-          <span class="chip"><img src="assets/sakura.svg" alt="" width="23" height="23">${racha}</span></li>
-      </ol>
-      <p class="aviso">${t('rank_pronto')}</p>
-    </section>`;
-  $('#tab-palabras').addEventListener('click', () => toast(t('pronto')));
+let campoRanking = 'racha';
+async function vistaRanking() {
+  const campo = campoRanking;
+  const yo = filaRanking();
+  const uid = S.perfil.cuenta?.uid;
+  const ayer = store.diaLocal(Date.now() - 864e5);
+  // La racha guardada se «vence» si esa persona no estudió ni hoy ni ayer
+  const valor = (f) => (campo === 'racha' ? (f.dia && f.dia >= ayer ? f.racha : 0) : f[campo] ?? 0);
+  const icono = { racha: '<img src="assets/sakura.svg" alt="" width="23" height="23">', palabras: ICON.libro, nivel: ICON.arbol }[campo];
+  const fila = (f, puesto) => `
+    <li class="${f.uid && f.uid === uid ? 'yo' : ''}"><span class="puesto">${puesto}</span>
+      <span class="avatar">${esc((f.nombre || '?').charAt(0).toUpperCase())}</span>
+      <strong>${esc(f.nombre || '?')}${f.uid === uid ? ` <small>(${t('rank_tu')})</small>` : ''}</strong>
+      <span class="chip">${icono}<span>${campo === 'nivel' ? t('jar_nivel', { n: valor(f) }) : valor(f)}</span></span></li>`;
+  const tabs = nube.CAMPOS_RANKING.map((c) => `<button role="tab" type="button" data-campo="${c}" aria-selected="${c === campo}">${t(c === 'racha' ? 'rank_t_racha' : 'rank_' + c)}</button>`).join('');
+  const marco = (contenido) => {
+    vista.innerHTML = `
+      <section class="pagina angosta">
+        <h1 class="display">${t('rank_titulo')}</h1>
+        <div class="seg ranking-tabs" role="tablist">${tabs}</div>
+        ${contenido}
+      </section>`;
+    $$('[data-campo]').forEach((b) => b.addEventListener('click', () => { campoRanking = b.dataset.campo; vistaRanking(); }));
+  };
+  if (!conCuenta()) {
+    marco(`<ol class="ranking">${fila({ ...yo, nombre: S.perfil.nombre || t('rank_tu'), uid: 'yo' }, 1).replace('class=""', 'class="yo"')}</ol>
+      <p class="aviso">${t(nube.nubeLista() ? 'rank_entra' : 'rank_pronto')}</p>
+      ${nube.nubeLista() ? `<button class="btn primario ancho" type="button" id="rank-google">${ICON.google}<span>${t('login_google')}</span></button>` : ''}`);
+    $('#rank-google')?.addEventListener('click', conectarGoogle);
+    return;
+  }
+  marco('<div class="cargando" aria-busy="true"><img src="assets/corazon.svg" alt="" width="52" height="48"></div>');
+  try {
+    if (S.ajustes.ranking !== false) await nube.publicarRanking(uid, yo);
+    let filas = await nube.leerRanking(campo);
+    if (campoRanking !== campo) return; // cambió de pestaña mientras cargaba
+    if (S.ajustes.ranking !== false && !filas.some((f) => f.uid === uid)) filas.push({ ...yo, uid });
+    filas = filas.map((f) => (f.uid === uid ? { ...f, ...yo, uid } : f)).sort((x, y) => valor(y) - valor(x));
+    const mio = filas.findIndex((f) => f.uid === uid);
+    marco(`
+      <ol class="ranking">${filas.map((f, i) => fila(f, i + 1)).join('')}</ol>
+      ${filas.length <= 1 ? `<p class="aviso">${t('rank_vacio')}</p>` : ''}
+      ${S.ajustes.ranking === false ? `<p class="aviso">${t('rank_oculto')}</p>` : mio >= 0 ? `<p class="suave centro">${t('rank_puesto', { n: mio + 1 })}</p>` : ''}`);
+  } catch {
+    marco(`<ol class="ranking">${fila({ ...yo, uid }, 1)}</ol><p class="aviso">${t('rank_error')}</p>`);
+  }
 }
 
 // ---------- Novedades ----------
@@ -1525,6 +1568,7 @@ function vistaAjustes() {
           <div><dt>${t('aj_mejor_racha')}</dt><dd>${S.racha.mejor}</dd></div>
           <div><dt>Kitty tokens</dt><dd>${S.tokens}</dd></div>
         </dl>
+        ${S.perfil.cuenta ? `<label class="interruptor"><input type="checkbox" id="aj-ranking" ${a.ranking !== false ? 'checked' : ''}><span>${t('aj_ranking')}</span></label>` : ''}
         ${S.perfil.cuenta ? `<button class="btn fantasma ancho" type="button" id="aj-salir">${t('aj_salir')}</button>`
           : `<button class="btn ancho" type="button" id="aj-google">${ICON.google}<span>${t('aj_google')}</span></button>`}
         <a class="enlace pequeno" href="#/conservar?demo=1">${t('cons_titulo')} (demo)</a>
@@ -1600,6 +1644,12 @@ function vistaAjustes() {
   $('#aj-nombre').addEventListener('input', (e) => { S.perfil.nombre = e.target.value.trim(); guardar(); pintarMarco('ajustes'); });
   $('#aj-google')?.addEventListener('click', conectarGoogle);
   $('#aj-salir')?.addEventListener('click', salirDeGoogle);
+  $('#aj-ranking')?.addEventListener('change', (e) => {
+    a.ranking = e.target.checked;
+    guardar();
+    if (a.ranking) publicarMiRanking();
+    else if (conCuenta()) nube.borrarRanking(S.perfil.cuenta.uid).catch(() => {});
+  });
   $$('[data-tema]').forEach((b) => b.addEventListener('click', () => { a.tema = b.dataset.tema; guardar(); aplicarAjustes(); vistaAjustes(); }));
   $$('[data-meta]').forEach((b) => b.addEventListener('click', () => { a.meta = Number(b.dataset.meta); guardar(); vistaAjustes(); }));
   $$('.paletas [data-paleta]').forEach((b) => b.addEventListener('click', () => { a.paleta = b.dataset.paleta; guardar(); aplicarAjustes(); vistaAjustes(); }));

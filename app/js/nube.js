@@ -62,3 +62,25 @@ export async function guardarAvance(uid, estado) {
     version: estado.version || 1,
   });
 }
+
+// ---------- Ranking ----------
+// Colección pública (solo para quien inició sesión) ranking/{uid}: nombre + números, nunca el correo.
+export const CAMPOS_RANKING = ['racha', 'palabras', 'nivel'];
+
+/** Publica (o actualiza) la fila de esta persona en el ranking. */
+export async function publicarRanking(uid, fila) {
+  const { fs, db } = await cargarSdk();
+  await fs.setDoc(fs.doc(db, 'ranking', uid), fila);
+}
+/** Saca a esta persona del ranking. */
+export async function borrarRanking(uid) {
+  const { fs, db } = await cargarSdk();
+  await fs.deleteDoc(fs.doc(db, 'ranking', uid));
+}
+/** Las primeras `n` filas ordenadas por un campo (racha, palabras o nivel). */
+export async function leerRanking(campo, n = 50) {
+  if (!CAMPOS_RANKING.includes(campo)) throw new Error('campo');
+  const { fs, db } = await cargarSdk();
+  const snap = await fs.getDocs(fs.query(fs.collection(db, 'ranking'), fs.orderBy(campo, 'desc'), fs.limit(n)));
+  return snap.docs.map((d) => ({ uid: d.id, ...d.data() }));
+}

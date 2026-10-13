@@ -2,6 +2,16 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.9.2",
+      "fecha": "2026-10-13",
+      "titulo": "Ranking real",
+      "cambios": [
+        "El ranking ya funciona con otras personas: compite en racha, palabras y nivel del jardín.",
+        "Solo se muestran tu nombre y tus números, nunca tu correo.",
+        "Si prefieres no aparecer, apágalo en Ajustes."
+      ]
+    },
+    {
       "version": "0.9.1",
       "fecha": "2026-10-13",
       "titulo": "Entra con tu cuenta de Google",

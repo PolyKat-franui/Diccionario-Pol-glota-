@@ -11,6 +11,8 @@ que niegan leer sin sesión. Falta probar el login real en un celular.
 - Cada cambio se sube unos segundos después, y también al cerrar o esconder la app.
 - Al abrir la app en otro celular, se trae el avance más nuevo.
 - Si la nube y el navegador tienen avances distintos, sale «¿Qué avance conservo?».
+- Ranking: al guardar se publica `ranking/{uid}` = { nombre, racha, dia, palabras, nivel, actualizado }.
+  Se puede apagar en Ajustes («Aparecer en el ranking») y entonces la fila se borra.
 - Gratis: el plan Spark de Firebase alcanza de sobra al comienzo.
 
 ## Pasos (una sola vez, ~10 minutos)
@@ -22,18 +24,10 @@ que niegan leer sin sesión. Falta probar el login real en un celular.
    `franciscasanhueza.github.io`
 4. **Firestore Database** → Crear base de datos → modo **producción** → región `southamerica-east1`
    (o la más cercana).
-5. Firestore → pestaña **Reglas** → pega esto y **Publica**:
-
-   ```
-   rules_version = '2';
-   service cloud.firestore {
-     match /databases/{database}/documents {
-       match /progreso/{uid} {
-         allow read, write: if request.auth != null && request.auth.uid == uid;
-       }
-     }
-   }
-   ```
+5. Firestore → pestaña **Reglas** → borra todo, pega el contenido de **`firestore.rules`** (en la raíz del
+   repositorio) y **Publica**. Esas reglas protegen el avance de cada persona (`progreso/{uid}`) y el
+   **ranking** (`ranking/{uid}`: lo ve quien inició sesión; cada uno escribe solo su fila, con nombre y números).
+   Si cambian las reglas en el repositorio, hay que volver a pegarlas aquí.
 
 6. ⚙️ **Configuración del proyecto** → *Tus apps* → ícono web `</>` → nombre `franui-polykat` → Registrar.
    Copia el objeto `firebaseConfig` que aparece.

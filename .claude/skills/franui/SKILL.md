@@ -188,6 +188,13 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
   flores colgantes, borde blanco tipo sticker. Arte en `scripts/arte-jardin.mjs` → `app/assets/jardin/`.
 - Futuro: mundo grande para recorrer con varios espacios (ver `docs/REFERENCIAS.md`).
 
+## 9g. Cuenta de Google y ranking real [DECIDIDO 2026-10-13]
+- Firebase activo (proyecto `franui-polykat`, config en `app/js/nube-config.js`). Guía y estado: `docs/NUBE.md`.
+- Reglas de Firestore versionadas en **`firestore.rules`**: si cambian, Francisca debe pegarlas en la consola.
+- Ranking: `ranking/{uid}` = { nombre, racha, dia, palabras, nivel, actualizado } (nunca el correo).
+  Pestañas Racha / Palabras / Jardín; la racha se «vence» si `dia` es anterior a ayer. Lo ve quien inició sesión.
+  Interruptor «Aparecer en el ranking» en Ajustes (apagado = se borra la fila).
+
 ## 10. Pantallas de la app
 Inicio/cuenta (Entrar, Crear cuenta con usuario + contraseña ≥ 6, Google, Invitado) —
 [DECIDIDO 2026-10-09] se pide **antes de estudiar**, solo la primera vez; la sesión queda
