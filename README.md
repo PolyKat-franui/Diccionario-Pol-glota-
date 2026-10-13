@@ -3,6 +3,9 @@
 > Nombre provisorio (en discusión). Antes se llamaba «Franui»; los nombres internos del código no cambian.
 > Logo: «Polyglot in progress» · Eslogan: «Be fluent in multiple languages».
 
+**En línea:** https://franciscasanhueza.github.io/Diccionario-Pol-glota-/ (web) · https://franciscasanhueza.github.io/Diccionario-Pol-glota-/app/ (app).
+Se publica sola con cada cambio en `main` (`.github/workflows/publicar.yml`).
+
 App para aprender el vocabulario y las frases cotidianas de varios idiomas a la vez,
 deslizando tarjetas como en TikTok o Reels. Método: recuerdo activo, repetición
 espaciada (SRS), Kaizen (sesiones de 1 a 5 minutos) y Kumon (bloques progresivos).

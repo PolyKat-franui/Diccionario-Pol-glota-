@@ -81,7 +81,7 @@ Automatización recomendada (siguiente bloque):
 | 3 | Traducción completa del banco (borrador IA hecho) + revisión con fuente confiable + pantalla de revisión | **En curso** |
 | 4 | Cuentas en la nube (Supabase): Google, sincronizar avance, ranking real, buzón de sugerencias | |
 | 5 | Kitty con IA real (servidor propio que guarda la clave) | |
-| 6 | App instalable (PWA) y sin internet; publicar en un dominio | |
+| 6 | Publicar en internet (GitHub Pages, hecho 2026-10-13) · app instalable (PWA) y sin internet · dominio propio | **En curso** |
 | 7 | Mejor audio (Wiktionary / texto a voz) y reconocimiento de voz | |
 | 8 | Tienda de cosméticos, juegos, apps en tiendas (Capacitor) | |
 
