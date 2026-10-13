@@ -147,6 +147,29 @@ try {
   await page.waitForURL(/#\/aprender/);
   paso('Recargar la página: el progreso no se pierde y no se vuelve a pedir la cuenta');
 
+  // Deslizar a la derecha = «Lo sé»; al completar 10 palabras en el día sale el premio de tragamonedas
+  await page.goto(`${URL_APP}#/estudiar?mega=${encodeURIComponent('Conversación y vida social')}&dif=todas`);
+  const tarjeta1 = page.locator('#feed .slide').first();
+  await tarjeta1.locator('.palabra').waitFor();
+  await page.waitForTimeout(500);
+  const caja = await tarjeta1.locator('.palabra').boundingBox();
+  await page.mouse.move(caja.x + caja.width / 2, caja.y + caja.height / 2);
+  await page.mouse.down();
+  for (let dx = 0; dx <= 180; dx += 30) await page.mouse.move(caja.x + caja.width / 2 + dx, caja.y + caja.height / 2 + 4);
+  await page.mouse.up();
+  await page.waitForFunction(() => document.querySelector('#feed .slide')?.dataset.r === 'si');
+  for (let i = 0; i < 12 && !(await page.locator('.premio-capa').count()); i++) {
+    await page.waitForTimeout(650);
+    await page.keyboard.press('ArrowRight');
+  }
+  await page.locator('.premio-capa').waitFor();
+  await page.waitForFunction(() => document.querySelector('#premio-num')?.textContent === '+10', null, { timeout: 5000 });
+  await page.waitForTimeout(400);
+  await foto(page, '07b-celular-premio');
+  await page.locator('#premio-ok').click();
+  await page.locator('.premio-capa').waitFor({ state: 'detached' });
+  paso('Deslizar → «Lo sé»; a las 10 palabras del día sale el premio (+10 monedas)');
+
   await page.goto(`${URL_APP}#/favoritos`);
   await page.locator('.fila-fav').first().waitFor();
   assert.equal(await page.locator('.fila-fav').count(), 1);

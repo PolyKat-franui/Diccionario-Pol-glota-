@@ -83,3 +83,21 @@ test('normalizar completa campos nuevos en datos antiguos', () => {
   assert.equal(store.normalizar({ ajustes: { paleta: 'lavanda' } }).ajustes.paleta, 'higo');
   assert.deepEqual(s.racha, { actual: 0, mejor: 0, ultimoDia: null });
 });
+
+test('premios incrementales: 10, 15, 23, 34… monedas', () => {
+  assert.deepEqual([1, 2, 3, 4, 5].map(store.premioDeNivel), [10, 15, 23, 34, 51]);
+});
+
+test('cada 10 palabras revisadas en el día se cobra un premio, y al día siguiente se reinicia', () => {
+  const s = store.estadoInicial();
+  const dia1 = new Date(2026, 9, 13, 10).getTime();
+  const premios = [];
+  for (let i = 0; i < 25; i++) { const p = store.contarRevision(s, dia1); if (p) premios.push(p); }
+  assert.deepEqual(premios.map((p) => [p.revisadas, p.monedas, p.siguiente]), [[10, 10, 15], [20, 15, 23]]);
+  assert.equal(s.tokens, 25);
+  assert.equal(s.diario.revisadas, 25);
+  const dia2 = new Date(2026, 9, 14, 9).getTime();
+  assert.equal(store.contarRevision(s, dia2), null);
+  assert.equal(s.diario.revisadas, 1);
+  assert.equal(s.diario.premios, 0);
+});

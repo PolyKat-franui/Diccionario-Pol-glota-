@@ -7,6 +7,7 @@ import { armarSesion, practicaLibre, ordenar, grupoDificultad, bloques, bloqueAc
 import * as banco from './banco.js';
 import { hablar } from './voz.js';
 import { ICON } from './iconos.js';
+import { sonido, activarSonido } from './sonido.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -36,6 +37,7 @@ function aplicarAjustes() {
   if (a.tema === 'sistema') root.removeAttribute('data-theme');
   else root.dataset.theme = a.tema === 'oscuro' ? 'dark' : 'light';
   root.dataset.paleta = a.paleta;
+  activarSonido(a.sonido);
   root.style.setProperty('--escala', a.escala);
   $('#capa-brillo').style.opacity = String(Math.max(0, 1 - a.brillo));
   root.lang = a.nativo;
@@ -170,6 +172,8 @@ async function router() {
   if (r.nombre !== 'estudiar') scrollTo(0, 0);
 }
 addEventListener('hashchange', router);
+// Clic suave en botones y enlaces (los sonidos especiales se suman encima)
+document.addEventListener('pointerdown', (e) => { if (e.target.closest('button, a, [role="radio"], input[type="checkbox"], select')) sonido.toque(); }, { passive: true });
 
 /** Navega; si ya estamos en esa dirección, vuelve a dibujar la vista. */
 function ir(hash) {
@@ -486,6 +490,7 @@ async function vistaEstudiar(r) {
     </section>`;
   const feed = $('#feed');
   feed.addEventListener('click', clickFeed);
+  activarDeslizar(feed);
   sesion.observer = new IntersectionObserver(alVerSlide, { root: feed, threshold: 0.6 });
   $$('.slide', feed).forEach((s) => sesion.observer.observe(s));
   actualizarCuenta();
@@ -517,13 +522,15 @@ function htmlSlide(id, primera = false) {
         <div class="riel">
           <button class="riel-btn btn-fav" type="button" aria-pressed="${fav}" aria-label="${t(fav ? 'quitar_favorito' : 'favorito')}">${fav ? ICON.corazonLleno : ICON.corazon}</button>
           <button class="riel-btn btn-audio" type="button" aria-label="${t('escuchar')}">${ICON.audio}</button>
-          <button class="riel-btn btn-kitty" type="button" aria-label="${t('kitty_abrir')}"><img src="assets/caras/feliz.svg" alt="" width="40" height="32"></button>
         </div>
+        <button class="kitty-ayuda" type="button" aria-label="${t('kitty_abrir')}"><img src="assets/caras/feliz.svg" alt="" width="60" height="48"></button>
+        <span class="sello sello-no" aria-hidden="true">${ICON.repetir}${t('repasar')}</span>
+        <span class="sello sello-si" aria-hidden="true">${ICON.check}${t('lo_se')}</span>
         <div class="tarjeta-acciones">
-          <button class="btn btn-repasar" type="button">${ICON.repetir}<span>${t('repasar')}</span></button>
-          <button class="btn primario btn-sabe" type="button">${ICON.check}<span>${t('lo_se')}</span></button>
+          <button class="btn btn-repasar" type="button"><span aria-hidden="true">←</span>${ICON.repetir}<span>${t('repasar')}</span></button>
+          <button class="btn primario btn-sabe" type="button">${ICON.check}<span>${t('lo_se')}</span><span aria-hidden="true">→</span></button>
         </div>
-        ${primera ? `<p class="hint-deslizar" aria-hidden="true"><span>↑</span>${t('desliza')}</p>` : ''}
+        ${primera ? `<p class="hint-deslizar" aria-hidden="true">${t('desliza_lados')}</p>` : ''}
       </div>
     </article>`;
 }
@@ -544,9 +551,15 @@ function responderSlide(slide, sabia, auto = false) {
   slide.dataset.r = sabia ? 'si' : 'no';
   sesion.tokens += store.registrarRespuesta(S, meta, id, sabia);
   sabia ? sesion.sabias++ : sesion.repasar++;
+  if (!auto) {
+    sonido.moneda(0.05, sabia ? 2 : 0);
+    volarMonedas(slide, sabia ? 3 : 1);
+    const premio = store.contarRevision(S);
+    if (premio) { sesion.tokens += premio.monedas; setTimeout(() => mostrarPremio(premio), 700); }
+  }
   const niv = dificultad(store.progresoDe(S, meta)[id]);
   $('.nivel', slide).outerHTML = insignia(niv);
-  flotar(slide, '+1');
+  if (!auto) flotar(slide, '+1');
 
   if (!sabia) {
     sesion.reps[id] = (sesion.reps[id] ?? 0) + 1;
@@ -591,6 +604,7 @@ function terminar() {
   if (!sesion || sesion.terminada) return;
   sesion.terminada = true;
   sesion.tokens += store.terminarSesion(S);
+  sonido.fin();
   guardar();
   actualizarChips();
   const racha = store.rachaVigente(S.racha);
@@ -622,7 +636,156 @@ function flotar(slide, texto) {
   setTimeout(() => el.remove(), 900);
 }
 
+const sinMovimiento = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/** Responde con animación: la tarjeta sale volando a la derecha (Lo sé) o a la izquierda (Repasar). */
+function lanzarTarjeta(slide, sabia) {
+  if (!sesion || slide.dataset.r) return;
+  const tarj = $('.tarjeta', slide);
+  sonido.deslizar(sabia);
+  if (!sinMovimiento()) {
+    tarj.classList.add('volando');
+    tarj.style.setProperty('--sw', sabia ? 1 : -1);
+    tarj.style.transform = `translateX(${sabia ? 125 : -125}vw) rotate(${sabia ? 22 : -22}deg)`;
+    setTimeout(() => { tarj.classList.remove('volando', 'arrastrando'); tarj.style.transform = ''; tarj.style.removeProperty('--sw'); }, 1100);
+  }
+  responderSlide(slide, sabia);
+}
+
+/** Deslizar la tarjeta con el dedo o el mouse: → Lo sé, ← Repasar. El scroll vertical sigue pasando tarjetas. */
+let ignorarClick = false;
+function activarDeslizar(feed) {
+  let d = null;
+  const UMBRAL = 90;
+  feed.addEventListener('pointerdown', (e) => {
+    const tarj = e.target.closest('.tarjeta');
+    if (!tarj || e.button > 0 || e.target.closest('.riel, .kitty-ayuda, .tarjeta-acciones, a')) return;
+    const slide = tarj.closest('.slide');
+    if (!slide || slide.classList.contains('fin') || slide.dataset.r) return;
+    d = { tarj, slide, x0: e.clientX, y0: e.clientY, dx: 0, activo: false, id: e.pointerId };
+  });
+  feed.addEventListener('pointermove', (e) => {
+    if (!d || e.pointerId !== d.id) return;
+    const dx = e.clientX - d.x0, dy = e.clientY - d.y0;
+    if (!d.activo) {
+      if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+        d.activo = true;
+        d.tarj.setPointerCapture?.(d.id);
+        d.tarj.classList.add('arrastrando');
+      } else if (Math.abs(dy) > 12) { d = null; return; } else return;
+    }
+    d.dx = dx;
+    d.tarj.style.transform = `translateX(${dx}px) rotate(${dx / 20}deg)`;
+    d.tarj.style.setProperty('--sw', Math.max(-1, Math.min(1, dx / UMBRAL)).toFixed(2));
+  });
+  const soltar = () => {
+    if (!d) return;
+    const { tarj, slide, dx, activo } = d;
+    d = null;
+    if (!activo) return;
+    ignorarClick = true;
+    setTimeout(() => { ignorarClick = false; }, 60);
+    if (Math.abs(dx) >= UMBRAL) lanzarTarjeta(slide, dx > 0);
+    else {
+      tarj.classList.remove('arrastrando');
+      tarj.style.transform = '';
+      tarj.style.removeProperty('--sw');
+    }
+  };
+  feed.addEventListener('pointerup', soltar);
+  feed.addEventListener('pointercancel', soltar);
+}
+
+/** Monedas que vuelan de la tarjeta al contador de arriba. */
+function volarMonedas(origen, n = 1) {
+  const destino = $('#chip-tokens .moneda');
+  if (!destino || sinMovimiento()) return;
+  const a = $('.tarjeta', origen)?.getBoundingClientRect() ?? origen.getBoundingClientRect();
+  const b = destino.getBoundingClientRect();
+  for (let i = 0; i < n; i++) {
+    const m = document.createElement('img');
+    m.src = 'assets/moneda.svg'; m.alt = ''; m.width = 24; m.height = 24; m.className = 'moneda-vuela';
+    const x0 = a.left + a.width / 2 - 12 + (Math.random() - 0.5) * 80;
+    const y0 = a.top + a.height * 0.45 - 12 + (Math.random() - 0.5) * 50;
+    m.style.left = `${x0}px`; m.style.top = `${y0}px`;
+    document.body.append(m);
+    const dx = b.left - x0, dy = b.top - y0;
+    m.animate([
+      { transform: 'translate(0, 0) scale(.4) rotate(0)', opacity: 0 },
+      { transform: `translate(${dx * 0.25}px, ${dy * 0.25 - 60}px) scale(1.5) rotate(180deg)`, opacity: 1, offset: 0.35 },
+      { transform: `translate(${dx}px, ${dy}px) scale(.9) rotate(540deg)`, opacity: 1 },
+    ], { duration: 720, delay: i * 90, easing: 'cubic-bezier(.45, 0, .55, 1)', fill: 'forwards' })
+      .finished.then(() => { m.remove(); pulsoChip(); }).catch(() => m.remove());
+  }
+}
+function pulsoChip() {
+  const chip = $('#chip-tokens');
+  chip.classList.remove('cobra'); void chip.offsetWidth; chip.classList.add('cobra');
+}
+
+/** Corazones que saltan al marcar favorito. */
+function estallarCorazones(boton) {
+  if (sinMovimiento()) return;
+  for (let i = 0; i < 6; i++) {
+    const h = document.createElement('span');
+    h.className = 'chispa-corazon'; h.setAttribute('aria-hidden', 'true'); h.innerHTML = ICON.corazonLleno;
+    h.style.setProperty('--a', `${i * 60 + Math.random() * 20}deg`);
+    boton.append(h);
+    setTimeout(() => h.remove(), 700);
+  }
+}
+
+/** Ventana de premio estilo tragamonedas: 3 rodillos que se detienen en monedas y lluvia de monedas. */
+const SIMBOLOS = [['moneda', 48, 48], ['sakura', 46, 46], ['estrella', 42, 42], ['cerezas', 36, 34], ['corazon', 39, 36]];
+function mostrarPremio(p) {
+  document.querySelector('.premio-capa')?.remove();
+  const tira = () => {
+    const celdas = Array.from({ length: 14 }, () => SIMBOLOS[1 + Math.floor(Math.random() * 4)]);
+    celdas.push(SIMBOLOS[0]);
+    return celdas.map(([n, w, h]) => `<span class="celda-rodillo"><img src="assets/${n}.svg" alt="" width="${w}" height="${h}"></span>`).join('');
+  };
+  const capa = document.createElement('div');
+  capa.className = 'premio-capa';
+  capa.setAttribute('role', 'dialog');
+  capa.setAttribute('aria-modal', 'true');
+  capa.setAttribute('aria-labelledby', 'premio-titulo');
+  capa.innerHTML = `
+    <div class="premio-caja">
+      <p class="premio-titulo" id="premio-titulo">${t('premio_titulo')}</p>
+      <div class="rodillos" aria-hidden="true">${[0, 1, 2].map((i) => `<div class="rodillo"><div class="tira" style="--i:${i}">${tira()}</div></div>`).join('')}</div>
+      <p class="premio-monto"><img src="assets/moneda.svg" alt="" width="48" height="48"><span id="premio-num" aria-live="polite">+${p.monedas}</span></p>
+      <p class="premio-texto">${t('premio_texto', { n: p.revisadas })}</p>
+      <p class="suave">${t('premio_siguiente', { n: p.revisadas + store.PREMIO_CADA, m: p.siguiente })}</p>
+      <button class="btn primario grande" type="button" id="premio-ok">${t('premio_ok')}</button>
+    </div>
+    <div class="lluvia-monedas" aria-hidden="true"></div>`;
+  document.body.append(capa);
+  const cerrar = () => { capa.classList.add('saliendo'); setTimeout(() => capa.remove(), 300); actualizarChips(); pulsoChip(); };
+  $('#premio-ok', capa).addEventListener('click', () => { sonido.monedas(4); cerrar(); });
+  capa.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
+  $('#premio-ok', capa).focus({ preventScroll: true });
+  if (sinMovimiento()) { sonido.premio(); return; }
+  sonido.rodillos(1.5);
+  [0.9, 1.2, 1.5].forEach((t0) => sonido.tope(t0));
+  const num = $('#premio-num', capa);
+  num.textContent = '+0';
+  setTimeout(() => {
+    sonido.premio();
+    capa.classList.add('ganado');
+    const inicio = performance.now();
+    const contar = (ahora) => {
+      const k = Math.min(1, (ahora - inicio) / 900);
+      num.textContent = `+${Math.round(p.monedas * k)}`;
+      if (k < 1) requestAnimationFrame(contar);
+    };
+    requestAnimationFrame(contar);
+    $('.lluvia-monedas', capa).innerHTML = Array.from({ length: 28 }, (_, i) =>
+      `<img src="assets/moneda.svg" alt="" width="24" height="24" style="--x:${Math.random() * 100}%;--d:${(Math.random() * 0.9).toFixed(2)}s;--r:${Math.round(Math.random() * 720)}deg;--i:${i}">`).join('');
+  }, 1600);
+}
+
 function clickFeed(e) {
+  if (ignorarClick) return;
   const slide = e.target.closest('.slide');
   if (!slide || slide.classList.contains('fin')) return;
   const id = slide.dataset.id;
@@ -630,15 +793,17 @@ function clickFeed(e) {
     const b = e.target.closest('.revelar');
     b.setAttribute('aria-expanded', 'true');
     $('.traduccion', b).removeAttribute('aria-hidden');
+    if (!slide.classList.contains('revelada')) sonido.voltear();
     slide.classList.add('revelada');
-  } else if (e.target.closest('.btn-sabe')) responderSlide(slide, true);
-  else if (e.target.closest('.btn-repasar')) responderSlide(slide, false);
+  } else if (e.target.closest('.btn-sabe')) lanzarTarjeta(slide, true);
+  else if (e.target.closest('.btn-repasar')) lanzarTarjeta(slide, false);
   else if (e.target.closest('.btn-audio')) {
     if (!hablar(banco.texto(sesion.meta, id).texto, sesion.meta)) toast(t('sin_voz'));
-  } else if (e.target.closest('.btn-kitty')) kittyAbrir();
+  } else if (e.target.closest('.kitty-ayuda')) kittyAbrir();
   else if (e.target.closest('.btn-fav')) {
     const on = store.alternarFavorito(S, sesion.meta, id);
     guardar();
+    if (on) { sonido.like(); estallarCorazones(e.target.closest('.btn-fav')); } else sonido.quitar();
     $$(`#feed .slide[data-id="${id}"] .btn-fav`).forEach((b) => {
       b.setAttribute('aria-pressed', String(on));
       b.setAttribute('aria-label', t(on ? 'quitar_favorito' : 'favorito'));
@@ -653,6 +818,7 @@ document.addEventListener('keydown', (e) => {
   const slide = $$('#feed .slide')[sesion.actual];
   const accion = { ArrowDown: () => irA(1), j: () => irA(1), ArrowUp: () => irA(-1), k: () => irA(-1),
     1: () => slide && $('.btn-repasar', slide)?.click(), 2: () => slide && $('.btn-sabe', slide)?.click(),
+    ArrowLeft: () => slide && $('.btn-repasar', slide)?.click(), ArrowRight: () => slide && $('.btn-sabe', slide)?.click(),
     ' ': () => slide && $('.revelar', slide)?.click(), f: () => slide && $('.btn-fav', slide)?.click(),
     p: () => slide && $('.btn-audio', slide)?.click() }[e.key];
   if (accion) { e.preventDefault(); accion(); }
@@ -770,6 +936,7 @@ function vistaAjustes() {
         <label class="campo"><span>${t('aj_brillo')} · <output id="o-brillo">${Math.round(a.brillo * 100)}%</output></span>
           <input type="range" id="aj-brillo" min="0.5" max="1" step="0.05" value="${a.brillo}"></label>
         <label class="interruptor"><input type="checkbox" id="aj-ipa" ${a.ipa ? 'checked' : ''}><span>${t('aj_ipa')}</span></label>
+        <label class="interruptor"><input type="checkbox" id="aj-sonido" ${a.sonido ? 'checked' : ''}><span>${t('aj_sonido')}</span></label>
       </div>
 
       <div class="card">
@@ -813,6 +980,7 @@ function vistaAjustes() {
   $('#aj-escala').addEventListener('input', (e) => { a.escala = Number(e.target.value); $('#o-escala').textContent = `${Math.round(a.escala * 100)}%`; aplicarAjustes(); guardar(); });
   $('#aj-brillo').addEventListener('input', (e) => { a.brillo = Number(e.target.value); $('#o-brillo').textContent = `${Math.round(a.brillo * 100)}%`; aplicarAjustes(); guardar(); });
   $('#aj-ipa').addEventListener('change', (e) => { a.ipa = e.target.checked; guardar(); });
+  $('#aj-sonido').addEventListener('change', (e) => { a.sonido = e.target.checked; activarSonido(a.sonido); guardar(); if (a.sonido) sonido.moneda(); });
   $('#aj-nativo').addEventListener('change', (e) => cambiarNativo(e.target.value));
   $('#f-sug').addEventListener('submit', (e) => {
     e.preventDefault();

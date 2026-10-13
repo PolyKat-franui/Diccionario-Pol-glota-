@@ -497,3 +497,83 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 38%, trans
 .pestana-idioma small { color: var(--ink-soft); }
 .pestana-idioma[aria-current="page"] { border-color: var(--enfasis); background: color-mix(in srgb, var(--enfasis) 10%, var(--surface)); }
 @media (prefers-reduced-motion: reduce) { .impulso { display: none; } }
+
+/* ---------- Tarjeta dinámica: deslizar, sellos, Kitty ayudante ---------- */
+.tarjeta { touch-action: pan-y; transition: transform .45s cubic-bezier(.2, .9, .3, 1.2), box-shadow .3s; will-change: transform; user-select: none; -webkit-user-select: none; }
+.tarjeta.arrastrando { transition: none; cursor: grabbing; }
+.tarjeta.volando { transition: transform .42s cubic-bezier(.4, 0, .8, .6), opacity .42s; opacity: .2; }
+.tarjeta.arrastrando, .tarjeta.volando {
+  box-shadow: 0 24px 50px color-mix(in srgb, var(--sombra-color) 22%, transparent),
+    0 0 0 3px color-mix(in srgb, var(--d-facil) calc(max(0, var(--sw, 0)) * 100%), color-mix(in srgb, var(--d-dificil) calc(max(0, var(--sw, 0) * -1) * 100%), transparent));
+}
+.sello {
+  position: absolute; top: 64px; display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 14px;
+  font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--blanco); pointer-events: none; text-transform: uppercase; letter-spacing: .04em;
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--sombra-color) 25%, transparent);
+}
+.sello svg { width: 22px; height: 22px; }
+.sello-si { right: 22px; background: var(--d-facil); transform: rotate(12deg); opacity: max(0, var(--sw, 0)); }
+.sello-no { left: 22px; background: var(--d-dificil); transform: rotate(-12deg); opacity: max(0, calc(var(--sw, 0) * -1)); }
+.kitty-ayuda {
+  position: absolute; right: 10px; bottom: 96px; z-index: 2; width: 92px; height: 92px; display: grid; place-items: center; padding: 0; border: 0; cursor: pointer;
+  background: radial-gradient(circle closest-side, var(--surface-2) 99%, transparent 100%);
+  filter: drop-shadow(0 10px 18px color-mix(in srgb, var(--sombra-color) 20%, transparent));
+  transition: scale .3s cubic-bezier(.2, .9, .3, 1.4), rotate .3s; animation: flotar 4s ease-in-out infinite;
+}
+.kitty-ayuda img { width: 60px; height: 48px; image-rendering: pixelated; }
+.kitty-ayuda:hover { scale: 1.08; rotate: -6deg; }
+.kitty-ayuda:active { scale: .92; }
+.tarjeta-acciones .btn { gap: 6px; }
+.hint-deslizar { font-weight: 600; }
+
+/* ---------- Monedas que vuelan, corazones, contador que cobra ---------- */
+.moneda-vuela { position: fixed; z-index: 9000; pointer-events: none; image-rendering: pixelated; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .25)); }
+.chip-tokens.cobra { animation: cobrar .5s cubic-bezier(.2, .9, .3, 1.6); }
+.chip-tokens.cobra span:last-child { animation: rueda .35s var(--ease); }
+@keyframes cobrar { 0% { transform: scale(1); } 40% { transform: scale(1.22); box-shadow: 0 0 0 6px color-mix(in srgb, #F2BE4A 45%, transparent); } 100% { transform: scale(1); } }
+@keyframes rueda { from { transform: translateY(-70%); opacity: 0; } to { transform: none; opacity: 1; } }
+.btn-fav { position: relative; overflow: visible; }
+.chispa-corazon { position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; margin: -8px; color: var(--d-dificil); pointer-events: none; animation: chispa .7s var(--ease) forwards; }
+.chispa-corazon svg { width: 16px; height: 16px; }
+@keyframes chispa { from { transform: rotate(var(--a)) translateY(0) scale(.6); opacity: 1; } to { transform: rotate(var(--a)) translateY(-38px) scale(1.1); opacity: 0; } }
+.btn-fav.pop svg { animation: latido .45s cubic-bezier(.2, .9, .3, 1.6); }
+
+/* ---------- Premio estilo tragamonedas ---------- */
+.premio-capa { position: fixed; inset: 0; z-index: 9500; display: grid; place-items: center; padding: 16px; background: color-mix(in srgb, var(--sombra-color) 55%, transparent); backdrop-filter: blur(6px); animation: aparecer .3s var(--ease) both; overflow: hidden; }
+.premio-capa.saliendo { animation: desvanecer .3s var(--ease) forwards; }
+.premio-caja {
+  position: relative; z-index: 1; width: min(380px, 100%); display: grid; justify-items: center; gap: 12px; padding: 26px 22px 22px; text-align: center;
+  border-radius: 30px; background: var(--surface); box-shadow: 0 30px 80px rgba(0, 0, 0, .35); border: 3px solid #F2BE4A;
+  animation: entrarPremio .55s cubic-bezier(.2, .9, .3, 1.4) both;
+}
+.premio-titulo { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 34px; color: var(--enfasis); }
+.ganado .premio-titulo { animation: latido .6s cubic-bezier(.2, .9, .3, 1.6) 2; }
+.rodillos { display: grid; grid-template-columns: repeat(3, 72px); gap: 8px; padding: 10px; border-radius: 18px; background: var(--oscuro); box-shadow: inset 0 6px 14px rgba(0, 0, 0, .5); }
+.rodillo { height: 72px; overflow: hidden; border-radius: 12px; background: linear-gradient(#fff, #f1ede8 45%, #fff); box-shadow: inset 0 8px 10px -6px rgba(0, 0, 0, .35), inset 0 -8px 10px -6px rgba(0, 0, 0, .35); }
+.tira { display: grid; animation: girarRodillo calc(.9s + var(--i) * .3s) cubic-bezier(.3, .1, .2, 1.05) both; }
+.celda-rodillo { display: grid; place-items: center; height: 72px; }
+.celda-rodillo img { image-rendering: pixelated; }
+@keyframes girarRodillo { from { transform: translateY(0); } to { transform: translateY(-1008px); } } /* 14 celdas × 72 px: termina en la moneda */
+.premio-monto { margin: 0; display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 44px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.premio-monto img { image-rendering: pixelated; }
+.ganado .premio-monto img { animation: girarMoneda .7s var(--ease) 3; }
+.premio-texto { margin: 0; font-weight: 700; font-size: var(--fs-lg); }
+.lluvia-monedas { position: absolute; inset: 0; pointer-events: none; }
+.lluvia-monedas img { position: absolute; top: -40px; left: var(--x); image-rendering: pixelated; animation: lluviaMoneda 1.8s cubic-bezier(.4, 0, .9, .6) var(--d) forwards; }
+@keyframes lluviaMoneda { to { transform: translateY(110vh) rotate(var(--r)); } }
+@keyframes entrarPremio { from { transform: scale(.6) translateY(40px); opacity: 0; } }
+@keyframes desvanecer { to { opacity: 0; } }
+
+/* ---------- Movimiento general: entrar a cada vista, presionar botones ---------- */
+#vista > * { animation: entrarVista .45s var(--ease) both; }
+@keyframes entrarVista { from { opacity: 0; transform: translateY(18px) scale(.985); } }
+.btn, .chip, .icon-btn, .riel-btn, .seg button, .pestana-idioma { transition: transform .18s var(--ease), background .3s, box-shadow .3s; }
+.btn:active, .chip:active, .icon-btn:active, .riel-btn:active, .seg button:active, .pestana-idioma:active { transform: scale(.94); }
+.tabbar a[aria-current="page"] svg { animation: rebote .5s cubic-bezier(.2, .9, .3, 1.6); }
+@keyframes rebote { 40% { transform: translateY(-6px) scale(1.15); } }
+.revelada .traduccion { animation: voltearTarjeta .45s cubic-bezier(.2, .9, .3, 1.2); }
+@keyframes voltearTarjeta { from { transform: rotateX(90deg); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .tira { animation: none; transform: translateY(-1008px); }
+  .lluvia-monedas, .chispa-corazon { display: none; }
+}

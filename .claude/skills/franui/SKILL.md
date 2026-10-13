@@ -126,6 +126,19 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
 - Accesibilidad: contraste ≥ 4,5:1 (prueba automática), botones ≥ 44 px, nunca solo color.
 - Tres formatos: celular, tablet, computador. Modo claro y oscuro.
 
+## 9b. Dinámica y recompensas [DECIDIDO 2026-10-13]
+- Tarjeta: **deslizar → = Lo sé, ← = Repasar** (con sello de color y la tarjeta sale volando). Los botones
+  quedan como alternativa accesible (y teclado: ← →, 1, 2). El scroll vertical sigue pasando tarjetas.
+- Kitty grande abajo a la derecha de la tarjeta, solo como ayuda (abre el chat con «esta palabra»).
+- Sonidos sintetizados (`app/js/sonido.js`, sin archivos): clic suave en botones, moneda de tragamonedas al
+  responder (las monedas vuelan al contador), «me gusta», voltear, deslizar, rodillos y premio. Vibración
+  suave en celulares. Se apagan en Ajustes → «Sonidos y vibración».
+- **Premios incrementales**: cada 10 palabras revisadas en el día sale UN aviso de premio (tragamonedas con
+  3 rodillos que caen en monedas). Valor 10, 15, 23, 34, 51… (×1,5 cada vez). Se reinicia cada día.
+  Lógica en `store.contarRevision` / `premioDeNivel` (con pruebas). Solo cuentan respuestas explícitas.
+- Movimiento: cada vista entra con una transición; botones se hunden al tocar; íconos activos rebotan.
+  Todo respeta «reducir movimiento».
+
 ## 10. Pantallas de la app
 Inicio/cuenta (Entrar, Crear cuenta con usuario + contraseña ≥ 6, Google, Invitado) —
 [DECIDIDO 2026-10-09] se pide **antes de estudiar**, solo la primera vez; la sesión queda

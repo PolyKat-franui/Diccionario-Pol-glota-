@@ -12,12 +12,13 @@ export function estadoInicial() {
   return {
     version: 1,
     perfil: { nombre: '', cuenta: null, elegido: false }, // cuenta: null = sin cuenta (invitado)
-    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true },
+    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true, sonido: true },
     aprendiendo: null,
     tokens: 0,
     ejercicios: 0,
     sesiones: 0,
     racha: { actual: 0, mejor: 0, ultimoDia: null },
+    diario: { dia: null, revisadas: 0, premios: 0 }, // palabras revisadas hoy y premios cobrados
     progreso: {},   // { idioma: { idConcepto: estadoSRS } }
     favoritos: {},  // { idioma: [idConcepto, ...] }
     sugerencias: [], // { texto, fecha, enviada }
@@ -37,6 +38,7 @@ export function normalizar(data) {
     perfil: { ...base.perfil, ...data.perfil },
     ajustes,
     racha: { ...base.racha, ...data.racha },
+    diario: { ...base.diario, ...data.diario },
   };
 }
 
@@ -103,6 +105,26 @@ export function registrarRespuesta(estado, idioma, id, sabia, ahora = Date.now()
   estado.ejercicios += 1;
   marcarDiaEstudiado(estado.racha, ahora);
   return TOKENS_POR_TARJETA;
+}
+
+// ---------- Premios incrementales (estilo juego incremental) ----------
+// Cada PREMIO_CADA palabras revisadas en el día se cobra un premio; cada premio vale 1,5× el anterior:
+// 10, 15, 23, 34, 51, 76… monedas. El contador vuelve a cero al día siguiente.
+export const PREMIO_CADA = 10;
+export const premioDeNivel = (k) => Math.round(10 * 1.5 ** (k - 1));
+
+/** Suma una palabra revisada hoy. Si se completa un múltiplo de 10, cobra el premio y lo devuelve. */
+export function contarRevision(estado, ahora = Date.now()) {
+  const hoy = diaLocal(ahora);
+  if (estado.diario.dia !== hoy) estado.diario = { dia: hoy, revisadas: 0, premios: 0 };
+  const d = estado.diario;
+  d.revisadas += 1;
+  if (d.revisadas % PREMIO_CADA !== 0) return null;
+  const nivel = d.revisadas / PREMIO_CADA;
+  const monedas = premioDeNivel(nivel);
+  d.premios = nivel;
+  estado.tokens += monedas;
+  return { nivel, monedas, revisadas: d.revisadas, siguiente: premioDeNivel(nivel + 1) };
 }
 
 export function terminarSesion(estado) {
