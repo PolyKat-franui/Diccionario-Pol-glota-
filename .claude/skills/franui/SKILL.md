@@ -195,6 +195,11 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
   Pestañas Racha / Palabras / Jardín; la racha se «vence» si `dia` es anterior a ayer. Lo ve quien inició sesión.
   Interruptor «Aparecer en el ranking» en Ajustes (apagado = se borra la fila).
 
+## 9h. Pausa del sitio [DECIDIDO 2026-10-13]
+- Francisca pidió deshabilitar temporalmente app y web. `sitio.json` → `"pausado": true`: `npm run dist` publica
+  solo `pausa/index.html` (Kitty durmiendo, «Volvemos pronto») en `/` y `/app/`, y `pausa/sw.js` borra cachés y
+  se da de baja en celulares con la app instalada. El código no se toca. Reactivar: `"pausado": false`.
+
 ## 10. Pantallas de la app
 Inicio/cuenta (Entrar, Crear cuenta con usuario + contraseña ≥ 6, Google, Invitado) —
 [DECIDIDO 2026-10-09] se pide **antes de estudiar**, solo la primera vez; la sesión queda

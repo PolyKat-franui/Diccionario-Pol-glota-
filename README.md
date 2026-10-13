@@ -6,6 +6,9 @@
 **En línea:** https://franciscasanhueza.github.io/Diccionario-Pol-glota-/ (web) · https://franciscasanhueza.github.io/Diccionario-Pol-glota-/app/ (app).
 Se publica sola con cada cambio en `main` (`.github/workflows/publicar.yml`).
 
+> **⏸ Pausa (desde 2026-10-13):** `sitio.json` → `"pausado": true` publica solo la pantalla
+> «Volvemos pronto» (`pausa/`) en la web y en la app. Para reactivar: cambiar a `false` y unir a `main`.
+
 App para aprender el vocabulario y las frases cotidianas de varios idiomas a la vez,
 deslizando tarjetas como en TikTok o Reels. Método: recuerdo activo, repetición
 espaciada (SRS), Kaizen (sesiones de 1 a 5 minutos) y Kumon (bloques progresivos).
