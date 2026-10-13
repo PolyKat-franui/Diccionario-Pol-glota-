@@ -188,9 +188,18 @@ try {
   await foto(page, '07c-celular-menu');
   await imagenesCargadas(page, 'menú principal');
   await page.locator('#menu-kitty').click({ force: true });
+  await page.locator('.menu-instalar').click();
+  await page.locator('#modal .pasos-instalar li').first().waitFor();
+  assert.ok(await page.locator('#modal .pasos-instalar li').count() >= 2, 'pasos para instalar');
+  await page.waitForTimeout(300);
+  await foto(page, '07d-celular-instalar');
+  await page.locator('#modal-cerrar').click();
+  assert.ok(await page.evaluate(() => navigator.serviceWorker.ready.then((r) => !!r.active)), 'service worker activo');
+  const man = await page.evaluate(() => fetch('manifest.webmanifest').then((r) => r.json()));
+  assert.equal(man.short_name, 'Franui');
   await page.locator('#menu-temas').click();
   await page.waitForURL(/#\/aprender/);
-  paso('Tocar el logo abre el menú principal animado; sus botones llevan a cada sección');
+  paso('Tocar el logo abre el menú principal animado; «Descargar la app» muestra los pasos; service worker activo');
 
   await page.goto(`${URL_APP}#/favoritos`);
   await page.locator('.fila-fav').first().waitFor();

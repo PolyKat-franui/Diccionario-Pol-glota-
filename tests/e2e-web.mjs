@@ -112,6 +112,12 @@ try {
   await page.waitForURL(/\/app\/#\/inicio/);
   await page.getByRole('button', { name: 'Continuar sin cuenta' }).waitFor();
   paso('"Empezar ahora" abre la app');
+  await page.goto(URL_WEB);
+  await page.locator('.hero-cta .btn-descargar').click();
+  await page.waitForURL(/\/app\/#\/instalar/);
+  await page.locator('#modal .pasos-instalar li').first().waitFor();
+  await page.screenshot({ path: `${CAPTURAS}/web-descargar.png` });
+  paso('"Descargar la app" abre la app con los pasos para instalarla');
   await ctx.close();
 
   const { ctx: c2, page: p2 } = await pagina({ width: 390, height: 844 }, { colorScheme: 'dark' });

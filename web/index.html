@@ -9,7 +9,8 @@
   <meta name="theme-color" content="#211A18" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="Franui · Polycat — Diccionario políglota">
   <meta property="og:description" content="Vocabulario y frases de seis idiomas, un minuto a la vez.">
-  <link rel="icon" href="app/assets/corazon.svg" type="image/svg+xml">
+  <link rel="icon" href="app/assets/app/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="app/assets/app/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Special+Elite&display=swap">
@@ -46,6 +47,7 @@
     <a href="#creadora">Creadora</a>
     <a href="#novedades">Novedades</a>
     <a class="btn primario" href="app/">Abrir la app</a>
+    <a class="btn" href="app/#/instalar">Descargar la app</a>
   </nav>
 
   <main id="contenido" tabindex="-1">
@@ -61,7 +63,7 @@
         <p class="hero-sub revelar">Vocabulario y frases cotidianas de seis idiomas, en tarjetas que deslizas como un reel. Sin pasos obligados.</p>
         <div class="hero-cta revelar">
           <a class="btn primario grande" href="app/">Empezar ahora</a>
-          <a class="btn grande" href="#como">Cómo funciona</a>
+          <a class="btn grande btn-descargar" href="app/#/instalar"><span class="icono-app-mini" aria-hidden="true"><img src="app/assets/sakura.svg" alt="" width="23" height="23"></span>Descargar la app</a>
         </div>
       </div>
 
@@ -261,7 +263,7 @@
             <li>Traducción completa y revisada del banco en los seis idiomas.</li>
             <li>Cuentas en la nube: tu avance en todos tus dispositivos y ranking.</li>
             <li>Kitty con inteligencia artificial.</li>
-            <li>App instalable en el celular.</li>
+            <li>Recordatorios diarios con Kitty en el celular.</li>
             <li>Práctica de pronunciación en voz alta.</li>
           </ul>
         </div>
@@ -271,7 +273,11 @@
     <!-- Llamado final -->
     <section class="cta-final">
       <h2 class="display revelar">Tu primer minuto<br>empieza ahora.</h2>
-      <a class="btn primario grande revelar" href="app/">Abrir Franui Polycat</a>
+      <div class="cta-botones revelar">
+        <a class="btn primario grande" href="app/">Abrir Franui Polycat</a>
+        <a class="btn grande btn-descargar" href="app/#/instalar"><span class="icono-app-mini" aria-hidden="true"><img src="app/assets/sakura.svg" alt="" width="23" height="23"></span>Descargar la app</a>
+      </div>
+      <p class="cta-nota revelar">Android, iPhone y computador · gratis · funciona sin internet</p>
     </section>
   </main>
 

@@ -173,7 +173,7 @@ function actualizarChips() {
 }
 
 function pintarMarco(ruta) {
-  const enInicio = ruta === 'inicio' || ruta === 'menu'; // pantallas a pantalla completa, sin barra
+  const enInicio = ruta === 'inicio' || ruta === 'menu' || ruta === 'instalar'; // pantallas a pantalla completa, sin barra
   $('#barra').hidden = enInicio;
   $('#tabbar').hidden = enInicio;
   $('#kitty-fab').hidden = enInicio;
@@ -266,6 +266,7 @@ function leerRuta() {
 const RUTAS = {
   inicio: vistaInicio,
   menu: vistaMenu,
+  instalar: vistaInstalar,
   conservar: vistaConservar,
   idiomas: vistaIdiomas,
   aprender: vistaAprender,
@@ -279,7 +280,7 @@ const RUTAS = {
 
 async function router() {
   const r = leerRuta();
-  if (!S.perfil.elegido && r.nombre !== 'inicio' && r.nombre !== 'conservar') return void location.replace('#/inicio');
+  if (!S.perfil.elegido && !['inicio', 'conservar', 'instalar'].includes(r.nombre)) return void location.replace('#/inicio');
   if (!RUTAS[r.nombre]) return void location.replace('#/menu');
   cerrarSesion();
   document.body.dataset.ruta = r.nombre;
@@ -417,6 +418,7 @@ function vistaMenu() {
         ${boton('#/novedades', ICON.estrella, t('nav_novedades'), 'menu-novedades')}
         ${boton('#/ajustes', ICON.ajustes, t('nav_ajustes'), 'menu-ajustes')}
       </nav>
+      ${botonInstalar()}
     </section>`;
   marcarAvisoNovedades();
   // Tocar una letra de FRANUI: salta y suena una moneda (cada letra un poco más aguda)
@@ -438,6 +440,45 @@ function vistaMenu() {
     estallido(r.left + r.width / 2, r.top + r.height / 3, { cantidad: 12 });
   });
 }
+
+// ---------- Instalar la app en la pantalla de inicio ----------
+// Chrome/Edge/Android avisan con «beforeinstallprompt» y se instala con un toque.
+// iPhone/iPad (Safari) y otros navegadores no tienen ese aviso: se muestran los pasos.
+let avisoInstalar = null;
+const instalada = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); avisoInstalar = e; });
+addEventListener('appinstalled', () => { avisoInstalar = null; toast(t('inst_lista')); $$('.btn-instalar').forEach((b) => b.remove()); });
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+const iconoApp = () => '<span class="icono-app" aria-hidden="true"><img src="assets/sakura.svg" alt="" width="69" height="69"></span>';
+async function instalarApp() {
+  if (instalada()) return void toast(t('inst_ya'));
+  if (avisoInstalar) {
+    avisoInstalar.prompt();
+    const { outcome } = await avisoInstalar.userChoice.catch(() => ({}));
+    avisoInstalar = null;
+    if (outcome === 'accepted') { sonido.premio(); lluvia({ cantidad: 24 }); }
+    return;
+  }
+  const ua = navigator.userAgent;
+  const ios = /iphone|ipad|ipod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const android = /android/i.test(ua);
+  const pasos = ios ? ['inst_ios_1', 'inst_ios_2', 'inst_ios_3'] : android ? ['inst_and_1', 'inst_and_2', 'inst_and_3'] : ['inst_pc_1', 'inst_pc_2'];
+  modal(t('inst_titulo'), `
+    <div class="instalar">
+      ${iconoApp()}
+      <p class="suave">${t('inst_texto')}</p>
+      <ol class="pasos-instalar">${pasos.map((k) => `<li>${t(k)}</li>`).join('')}</ol>
+    </div>`);
+}
+function vistaInstalar(r) {
+  (S.perfil.elegido ? vistaMenu : vistaInicio)(r);
+  setTimeout(instalarApp, 700);
+}
+const botonInstalar = (clase = 'menu-instalar') => (instalada() ? '' :
+  `<button class="btn-instalar ${clase}" type="button">${ICON.descargar}<span>${t('inst_boton')}</span></button>`);
+document.addEventListener('click', (e) => { if (e.target.closest('.btn-instalar')) instalarApp(); });
 
 // ---------- ¿Qué avance conservo? ----------
 function cuentaDeMuestra() {
@@ -1280,6 +1321,12 @@ function vistaAjustes() {
           <input type="range" id="aj-brillo" min="0.5" max="1" step="0.05" value="${a.brillo}"></label>
         <label class="interruptor"><input type="checkbox" id="aj-ipa" ${a.ipa ? 'checked' : ''}><span>${t('aj_ipa')}</span></label>
         <label class="interruptor"><input type="checkbox" id="aj-sonido" ${a.sonido ? 'checked' : ''}><span>${t('aj_sonido')}</span></label>
+      </div>
+
+      <div class="card">
+        <h2>${t('aj_app')}</h2>
+        <div class="fila-app">${iconoApp()}<p class="suave">${instalada() ? t('inst_ya') : t('inst_texto')}</p></div>
+        ${botonInstalar('btn ancho')}
       </div>
 
       <div class="card">

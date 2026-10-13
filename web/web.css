@@ -426,3 +426,12 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, trans
 .kitty-seccion { overflow-x: clip; }
 .cifra.tintinea .flap { animation: tintinea .5s var(--ease); }
 @keyframes tintinea { 30% { transform: translateY(-6px) scale(1.06); } 60% { transform: translateY(1px); } }
+
+/* ---------- Descargar la app (ícono: sakura sobre carmesí) ---------- */
+.btn-descargar { gap: 10px; padding-left: 10px; }
+.icono-app-mini { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: radial-gradient(circle, var(--carmesi-luz) 0 55%, var(--carmesi) 56%); }
+.icono-app-mini img { image-rendering: pixelated; }
+.menu-movil .btn + .btn { margin-top: 10px; }
+.cta-botones { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.cta-final .btn-descargar { background: transparent; color: var(--blanco); border-color: color-mix(in srgb, var(--blanco) 60%, transparent); }
+.cta-nota { font-size: 14px; letter-spacing: .08em; opacity: .9; }

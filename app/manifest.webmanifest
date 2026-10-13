@@ -1,0 +1,19 @@
+{
+  "name": "Franui · Polycat",
+  "short_name": "Franui",
+  "description": "Aprende vocabulario y frases de varios idiomas deslizando tarjetas, con Kitty.",
+  "lang": "es",
+  "id": "./",
+  "start_url": "./#/menu",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#9E2A3A",
+  "theme_color": "#9E2A3A",
+  "categories": ["education", "games"],
+  "icons": [
+    { "src": "assets/app/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/app/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/app/icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

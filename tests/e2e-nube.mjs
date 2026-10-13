@@ -9,7 +9,7 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 const server = await servir(5198);
 const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
-const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, locale: 'es-CL' });
+const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, locale: 'es-CL', serviceWorkers: 'block' });
 // Nube simulada: los documentos viven en window.__docs (persisten en localStorage aparte)
 const FAKE = {
   'firebase-app.js': 'export const initializeApp = (c) => ({ c });',
@@ -53,7 +53,7 @@ console.log('✓ El avance se sube a la nube');
 // "otro celular": borrar avance local (pero no la nube) y entrar de nuevo
 const docs = await page.evaluate(() => localStorage.getItem('__sim_docs'));
 await page.close();
-const ctx2 = await browser.newContext({ viewport: { width: 390, height: 844 }, locale: 'es-CL' });
+const ctx2 = await browser.newContext({ viewport: { width: 390, height: 844 }, locale: 'es-CL', serviceWorkers: 'block' });
 await ctx2.addInitScript((d) => { if (!localStorage.getItem('__sim_docs')) localStorage.setItem('__sim_docs', d); }, docs);
 await ctx2.route('**/js/nube-config.js', (r) => r.fulfill({ contentType: 'text/javascript', body: "export const FIREBASE = { apiKey: 'x', projectId: 'sim' };" }));
 await ctx2.route('https://www.gstatic.com/firebasejs/**', (r) => r.fulfill({ contentType: 'text/javascript', body: FAKE[r.request().url().split('/').pop()] }));

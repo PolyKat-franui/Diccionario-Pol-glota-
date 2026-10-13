@@ -159,6 +159,20 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
   para el login con Google. Código en `nube.js`; config en `nube-config.js` (null = desactivada).
   Pasos y reglas de seguridad: `docs/NUBE.md`. Solo sube si hay cambios sin enviar.
 
+## 9e. Instalable, meta diaria, cofres y web jugable [DECIDIDO 2026-10-13]
+- **App instalable (PWA):** `app/manifest.webmanifest` + `app/sw.js` (primero la red, sin conexión usa lo guardado).
+  Ícono: la sakura pixel art al centro sobre carmesí `#9E2A3A` (tokens `--carmesi`, `--carmesi-luz`), generado por
+  `node scripts/iconos-app.mjs` (también en `npm run build`). «Descargar la app» en el menú, Ajustes y la web
+  (`app/#/instalar`); en iPhone y navegadores sin aviso se muestran los pasos. Al agregar archivos a la app,
+  sumarlos a `NUCLEO` en `sw.js` (lo revisa `tests/pwa.test.mjs`).
+- **Título del menú:** FRANUI en letras grandes (Special Elite), sin cajas; caen como teclas, ola de color
+  `--primary` y saltan al tocarlas; línea fina y «Polycat» que se escribe.
+- **Meta diaria** (5/10/20 palabras, Ajustes): sakura del día en 5 etapas (`flor-0…3` → `sakura`).
+- **Racha:** al subir caen sakuras; **cofre** cada 7 días (50, 75, 100… monedas), una vez por hito (`S.cofre`).
+- **Web:** teléfono con 3 pantallas tipo historias, cinta de saludos, demo jugable (mazo tipo Tinder),
+  frase en 6 idiomas tipo historias, Kitty interactiva, monedas que suenan en las cifras.
+- Ideas de TikTok / Instagram / Duolingo / Tinder y el patrón común: `docs/REFERENCIAS.md`.
+
 ## 10. Pantallas de la app
 Inicio/cuenta (Entrar, Crear cuenta con usuario + contraseña ≥ 6, Google, Invitado) —
 [DECIDIDO 2026-10-09] se pide **antes de estudiar**, solo la primera vez; la sesión queda
