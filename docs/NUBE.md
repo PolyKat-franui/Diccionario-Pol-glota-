@@ -1,8 +1,8 @@
 # Cuenta de Google y guardado en la nube (Firebase)
 
-El código ya está listo (`app/js/nube.js`). Solo falta crear el proyecto de Firebase
-y pegar su configuración en `app/js/nube-config.js`. Mientras no esté, la app guarda
-el avance solo en el navegador (como hasta ahora).
+**Activa desde el 2026-10-13:** proyecto `franui-polykat`, configuración en `app/js/nube-config.js`.
+Verificado: dominio `franciscasanhueza.github.io` autorizado, Google habilitado y reglas de Firestore
+que niegan leer sin sesión. Falta probar el login real en un celular.
 
 ## Cómo funciona
 

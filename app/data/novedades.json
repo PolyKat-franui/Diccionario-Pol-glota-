@@ -2,6 +2,16 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.9.1",
+      "fecha": "2026-10-13",
+      "titulo": "Entra con tu cuenta de Google",
+      "cambios": [
+        "Ya puedes entrar con Google: tu avance, tu jardín y tus monedas se guardan en la nube.",
+        "Si cambias de celular, entra con la misma cuenta y recuperas todo.",
+        "El nombre de la app ahora se escribe Polykat, con k."
+      ]
+    },
+    {
       "version": "0.9.0",
       "fecha": "2026-10-13",
       "titulo": "Jardín de Sakura y tienda de Kitty",
