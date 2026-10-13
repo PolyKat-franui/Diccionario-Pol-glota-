@@ -100,7 +100,7 @@ function actualizarChips() {
 }
 
 function pintarMarco(ruta) {
-  const enInicio = ruta === 'inicio';
+  const enInicio = ruta === 'inicio' || ruta === 'menu'; // pantallas a pantalla completa, sin barra
   $('#barra').hidden = enInicio;
   $('#tabbar').hidden = enInicio;
   $('#kitty-fab').hidden = enInicio;
@@ -192,6 +192,7 @@ function leerRuta() {
 
 const RUTAS = {
   inicio: vistaInicio,
+  menu: vistaMenu,
   conservar: vistaConservar,
   idiomas: vistaIdiomas,
   aprender: vistaAprender,
@@ -206,7 +207,7 @@ const RUTAS = {
 async function router() {
   const r = leerRuta();
   if (!S.perfil.elegido && r.nombre !== 'inicio' && r.nombre !== 'conservar') return void location.replace('#/inicio');
-  if (!RUTAS[r.nombre]) return void location.replace('#/aprender');
+  if (!RUTAS[r.nombre]) return void location.replace('#/menu');
   cerrarSesion();
   document.body.dataset.ruta = r.nombre;
   pintarMarco(r.nombre);
@@ -285,7 +286,7 @@ function vistaInicio() {
     S.perfil.elegido = true;
     if (nombre) S.perfil.nombre = nombre;
     guardar();
-    ir(S.aprendiendo ? '#/aprender' : '#/idiomas');
+    ir(S.aprendiendo ? '#/menu' : '#/idiomas');
   };
   $('#f-login').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -301,6 +302,59 @@ function vistaInicio() {
   });
   $('#btn-google').addEventListener('click', () => toast(t('login_pronto')));
   $('#btn-invitado').addEventListener('click', () => continuar());
+}
+
+// ---------- Menú principal (estilo juego) ----------
+function vistaMenu() {
+  const racha = store.rachaVigente(S.racha);
+  const hoy = S.diario?.dia === store.diaLocal(Date.now()) ? S.diario.revisadas : 0;
+  const enNivel = hoy % store.PREMIO_CADA;
+  const faltan = store.PREMIO_CADA - enNivel;
+  const letras = [...'POLYGLOK'].map((l, i) => `<span style="--i:${i}">${l}</span>`).join('');
+  const boton = (href, icon, texto, id) => `<a class="menu-btn" href="${href}" id="${id}">${icon}<span>${texto}</span></a>`;
+  vista.innerHTML = `
+    <section class="menu-juego">
+      <div class="menu-escena">
+        <h1 class="menu-logo" aria-label="Polyglok in progress">
+          <span class="menu-letras logo-a" aria-hidden="true">${letras}</span>
+          <span class="logo menu-sub" aria-hidden="true"><span class="logo-b"><span class="menu-tipeo">in progress</span></span></span>
+        </h1>
+        <p class="eslogan menu-eslogan">Be fluent in multiple languages</p>
+        <button class="menu-kitty" type="button" id="menu-kitty" aria-label="Kitty">
+          <img src="${cara(racha ? 'muy_feliz' : 'feliz')}" alt="" width="160" height="128">
+        </button>
+      </div>
+      <ul class="menu-stats">
+        <li><img src="assets/sakura.svg" alt="" width="23" height="23"><span>${tn('racha_n', racha)}</span></li>
+        <li><img src="assets/moneda.svg" alt="" width="24" height="24"><span>${t('tokens_n', { n: S.tokens })}</span></li>
+        <li class="menu-hoy">
+          <span>${t('menu_hoy', { n: hoy })}</span>
+          <span class="progreso" role="progressbar" aria-valuemin="0" aria-valuemax="${store.PREMIO_CADA}" aria-valuenow="${enNivel}" aria-label="${t('menu_premio', { n: faltan })}"><i style="width:${enNivel * 10}%"></i></span>
+          <small>${t('menu_premio', { n: faltan })}</small>
+        </li>
+      </ul>
+      <nav class="menu-botones" aria-label="${t('menu_titulo')}">
+        <a class="menu-jugar" id="menu-jugar" href="${S.aprendiendo ? '#/estudiar?dif=todas' : '#/idiomas'}">${ICON.jugar}<span>${t('menu_jugar')}</span></a>
+        ${boton('#/aprender', ICON.libro, t('menu_temas'), 'menu-temas')}
+        ${boton('#/favoritos', ICON.corazon, t('nav_favoritos'), 'menu-favoritos')}
+        ${boton('#/ranking', ICON.trofeo, t('nav_ranking'), 'menu-ranking')}
+        ${boton('#/idiomas', `<span class="monograma pequeno" aria-hidden="true">${esc((S.aprendiendo || '?').toUpperCase())}</span>`, t('menu_idioma'), 'menu-idioma')}
+        ${boton('#/novedades', ICON.estrella, t('nav_novedades'), 'menu-novedades')}
+        ${boton('#/ajustes', ICON.ajustes, t('nav_ajustes'), 'menu-ajustes')}
+      </nav>
+    </section>`;
+  marcarAvisoNovedades();
+  // Tocar a Kitty: salta, cambia de cara y suelta sakuras y monedas
+  const CARAS = ['celebrando', 'guino', 'enamorada', 'sorprendida', 'muy_feliz'];
+  let n = 0;
+  $('#menu-kitty').addEventListener('click', (e) => {
+    const b = e.currentTarget;
+    b.querySelector('img').src = cara(CARAS[n++ % CARAS.length]);
+    b.classList.remove('salta'); void b.offsetWidth; b.classList.add('salta');
+    sonido.moneda(0, n % 5);
+    const r = b.getBoundingClientRect();
+    estallido(r.left + r.width / 2, r.top + r.height / 3, { cantidad: 12 });
+  });
 }
 
 // ---------- ¿Qué avance conservo? ----------

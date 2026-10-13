@@ -679,3 +679,96 @@ body[data-ruta="estudiar"] .adornos { display: none; }
   100% { transform: translate(0, calc(100vh + 120px)) rotate(360deg); }
 }
 .chispa-adorno { position: fixed; z-index: 9000; pointer-events: none; image-rendering: pixelated; }
+
+/* ---------- Menú principal (estilo juego) ---------- */
+.menu-juego {
+  max-width: 560px; margin: 0 auto; min-height: 100dvh; box-sizing: border-box;
+  padding: max(24px, env(safe-area-inset-top)) 16px 32px; display: grid; align-content: start; gap: 22px;
+  background: radial-gradient(120% 60% at 50% 0%, var(--accent-soft), transparent 70%);
+}
+.menu-escena { display: grid; justify-items: center; gap: 10px; text-align: center; padding-top: 8px; }
+.menu-logo { margin: 0; display: grid; justify-items: center; gap: 10px; font-weight: 400; }
+/* Letras como fichas de colores que caen una por una y rebotan */
+.menu-letras { display: flex; gap: 5px; letter-spacing: 0; font-family: var(--font-logo); }
+.menu-letras span {
+  display: grid; place-items: center; width: clamp(34px, 10vw, 50px); aspect-ratio: 1; border-radius: var(--r-sm);
+  font-size: clamp(22px, 6.4vw, 32px); color: var(--blanco); background: var(--nodo-1);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--sombra-color) 35%, transparent);
+  animation: fichaCae .7s cubic-bezier(.3, 1.6, .5, 1) both, fichaOla 3.2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 90ms), calc(1.4s + var(--i) * 120ms);
+}
+.menu-letras span:nth-child(6n+2) { background: var(--nodo-2); }
+.menu-letras span:nth-child(6n+3) { background: var(--nodo-3); }
+.menu-letras span:nth-child(6n+4) { background: var(--nodo-4); }
+.menu-letras span:nth-child(6n+5) { background: var(--nodo-5); }
+.menu-letras span:nth-child(6n+6) { background: var(--nodo-6); }
+/* «in progress» se escribe como en máquina de escribir */
+.menu-sub { --logo-size: 20px; color: var(--ink); }
+.menu-tipeo { display: inline-block; clip-path: inset(0 100% 0 0); animation: tipear 1.1s steps(11) 1s forwards; }
+.menu-eslogan { opacity: 0; animation: aparecer .6s var(--ease) 2.1s forwards; }
+.menu-kitty {
+  position: relative; border: 0; padding: 22px; cursor: pointer; border-radius: 50%;
+  background: radial-gradient(circle closest-side, var(--surface-2) 99%, transparent 100%);
+  animation: kittySalta 1.6s ease-in-out infinite; -webkit-tap-highlight-color: transparent;
+}
+.menu-kitty img { display: block; image-rendering: pixelated; }
+.menu-kitty::after { /* sombra en el piso */
+  content: ''; position: absolute; left: 30%; right: 30%; bottom: -6px; height: 10px; border-radius: 50%;
+  background: color-mix(in srgb, var(--sombra-color) 22%, transparent); animation: sombraKitty 1.6s ease-in-out infinite;
+}
+.menu-kitty.salta { animation: kittyBrinco .6s cubic-bezier(.3, 1.6, .5, 1); }
+.menu-kitty:focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
+
+.menu-stats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.menu-stats li {
+  display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: var(--r-md);
+  background: var(--surface); border: 1px solid var(--line); color: var(--ink); font-weight: 700;
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--sombra-color) 10%, transparent);
+  animation: aparecer .5s var(--ease) both; animation-delay: 1.2s;
+}
+.menu-stats li img { image-rendering: pixelated; flex: none; }
+.menu-stats .menu-hoy { grid-column: 1 / -1; display: grid; gap: 6px; animation-delay: 1.35s; }
+.menu-hoy .progreso { height: 10px; }
+.menu-hoy small { color: var(--ink-soft); font-weight: 600; }
+
+.menu-botones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.menu-jugar {
+  grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 68px;
+  border-radius: var(--r-lg); background: var(--primary); color: var(--on-primary); text-decoration: none;
+  font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: .02em;
+  box-shadow: 0 6px 0 color-mix(in srgb, var(--primary) 55%, var(--sombra-color)), 0 14px 28px color-mix(in srgb, var(--primary) 30%, transparent);
+  animation: aparecer .5s var(--ease) 1.5s both, latidoSuave 1.8s ease-in-out 2.2s infinite;
+  transition: transform .15s var(--ease), box-shadow .15s;
+}
+.menu-jugar svg { width: 30px; height: 30px; }
+.menu-jugar:active { transform: translateY(5px); box-shadow: 0 1px 0 color-mix(in srgb, var(--primary) 55%, var(--sombra-color)); }
+.menu-btn {
+  --c: var(--nodo-1);
+  position: relative; display: grid; justify-items: center; align-content: center; gap: 8px; min-height: 96px; padding: 12px 6px;
+  border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); color: var(--ink);
+  text-decoration: none; font-weight: 700; font-size: var(--fs-sm); text-align: center;
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--c) 45%, transparent);
+  animation: aparecer .45s var(--ease) both; animation-delay: calc(1.6s + var(--k, 0) * 70ms);
+  transition: transform .15s var(--ease), box-shadow .15s;
+}
+.menu-btn > svg, .menu-btn > .monograma {
+  width: 44px; height: 44px; padding: 10px; box-sizing: border-box; border-radius: 50%; background: var(--c); color: var(--blanco);
+}
+.menu-btn > .monograma { padding: 0; font-size: 14px; }
+.menu-btn:active { transform: translateY(4px); box-shadow: 0 0 0 color-mix(in srgb, var(--c) 45%, transparent); }
+.menu-btn:nth-child(3) { --c: var(--nodo-2); --k: 1; }
+.menu-btn:nth-child(4) { --c: var(--nodo-3); --k: 2; }
+.menu-btn:nth-child(5) { --c: var(--nodo-4); --k: 3; }
+.menu-btn:nth-child(6) { --c: var(--nodo-5); --k: 4; }
+.menu-btn:nth-child(7) { --c: var(--nodo-6); --k: 5; }
+.menu-btn.con-aviso::after { content: ''; position: absolute; top: 10px; right: 12px; width: 10px; height: 10px; border-radius: 50%; background: var(--d-dificil); }
+.menu-jugar:focus-visible, .menu-btn:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+
+@keyframes fichaCae { from { transform: translateY(-140px) rotate(-12deg); opacity: 0; } 60% { opacity: 1; } }
+@keyframes fichaOla { 0%, 70%, 100% { transform: none; } 80% { transform: translateY(-7px) rotate(-4deg); } 90% { transform: translateY(0) rotate(2deg); } }
+@keyframes tipear { to { clip-path: inset(0 0 0 0); } }
+@keyframes kittySalta { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(-16px); } 55% { transform: translateY(-16px); } }
+@keyframes sombraKitty { 0%, 100% { transform: scaleX(1); opacity: 1; } 50% { transform: scaleX(.7); opacity: .5; } }
+@keyframes kittyBrinco { 30% { transform: translateY(-34px) scale(1.06, .94); } 60% { transform: translateY(0) scale(.94, 1.06); } }
+@media (prefers-reduced-motion: reduce) { .menu-tipeo { clip-path: none; } .menu-eslogan { opacity: 1; } }
+@media (max-width: 380px) { .menu-letras { gap: 3px; } .menu-btn { min-height: 88px; } }
