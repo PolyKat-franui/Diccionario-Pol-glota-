@@ -84,7 +84,7 @@ p { margin: 0; }
   color: var(--ink); font-weight: 500; transition: background .2s, box-shadow .2s;
 }
 .seg button small { color: var(--ink-soft); font-weight: 500; margin-left: 4px; }
-.seg [aria-selected="true"], .seg [aria-checked="true"] { background: var(--surface); box-shadow: 0 2px 10px rgba(42,31,45,.12); font-weight: 600; }
+.seg [aria-selected="true"], .seg [aria-checked="true"] { background: var(--surface); box-shadow: 0 2px 10px color-mix(in srgb, var(--sombra-color) 12%, transparent); font-weight: 600; }
 .seg [aria-disabled="true"] { color: var(--ink-soft); cursor: not-allowed; }
 
 .campo { display: grid; gap: 6px; font-size: var(--fs-sm); font-weight: 500; }
@@ -115,7 +115,7 @@ input[type=range] { accent-color: var(--enfasis); width: 100%; min-height: var(-
   backdrop-filter: saturate(1.4) blur(18px); -webkit-backdrop-filter: saturate(1.4) blur(18px);
   border-bottom: 1px solid color-mix(in srgb, var(--line) 35%, transparent);
 }
-.marca { display: flex; align-items: center; gap: 8px; text-decoration: none; font-family: var(--font-display); font-size: 24px; font-weight: 500; letter-spacing: .04em; min-height: var(--tap); }
+.marca { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); min-height: var(--tap); }
 .nav-sup { display: none; gap: 4px; margin: 0 auto; }
 .nav-sup a { display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 14px; text-decoration: none; font-size: var(--fs-xs); letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); position: relative; }
 .nav-sup a svg { display: none; }
@@ -152,8 +152,9 @@ main { outline: none; }
 /* ---------- Inicio ---------- */
 .inicio { max-width: 440px; margin: 0 auto; padding: 40px 16px 48px; display: grid; gap: 24px; }
 .inicio-hero { display: grid; justify-items: center; gap: 8px; text-align: center; animation: aparecer .8s var(--ease) both; }
-.inicio-hero .display { font-size: calc(64px * var(--escala)); }
-.inicio-kitty { border-radius: 50%; background: var(--surface-2); padding: 28px 22px; box-sizing: content-box; animation: flotar 4s ease-in-out infinite; filter: drop-shadow(0 16px 30px rgba(110,79,92,.18)); }
+.inicio-hero .marca-completa { margin: 8px 0 0; font-weight: 400; }
+.inicio-hero .logo { --logo-size: calc(22px * var(--escala)); }
+.inicio-kitty { border-radius: 50%; background: var(--surface-2); padding: 28px 22px; box-sizing: content-box; animation: flotar 4s ease-in-out infinite; filter: drop-shadow(0 16px 30px color-mix(in srgb, var(--sombra-color) 18%, transparent)); }
 .lema { color: var(--ink-soft); font-size: var(--fs-lg); font-family: var(--font-display); font-style: italic; }
 .inicio-card { animation: aparecer .8s .1s var(--ease) both; }
 .inicio-card .seg { display: flex; }
@@ -218,7 +219,7 @@ main { outline: none; }
 #temas-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
 .tema {
   position: relative; display: grid; gap: 2px; padding: 14px 16px 14px 48px; min-height: 64px; border-radius: var(--r-md);
-  background: var(--surface); border: 1px solid transparent; cursor: pointer; box-shadow: 0 1px 2px rgba(42,31,45,.06);
+  background: var(--surface); border: 1px solid transparent; cursor: pointer; box-shadow: 0 1px 2px color-mix(in srgb, var(--sombra-color) 6%, transparent);
 }
 .tema input { position: absolute; left: 16px; top: 18px; width: 20px; height: 20px; accent-color: var(--enfasis); }
 .tema-nombre { font-weight: 600; }
@@ -228,7 +229,7 @@ main { outline: none; }
 .cta-fija {
   position: sticky; bottom: calc(var(--tab-h) + 12px); display: flex; justify-content: center; padding-top: 12px;
 }
-.cta-fija .btn { box-shadow: 0 12px 30px rgba(110,79,92,.28); }
+.cta-fija .btn { box-shadow: 0 12px 30px color-mix(in srgb, var(--sombra-color) 28%, transparent); }
 
 /* ---------- Feed de tarjetas (estilo reels) ---------- */
 body[data-ruta="estudiar"] { overflow: hidden; }
@@ -275,7 +276,7 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 .riel-btn {
   width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
   border: 1px solid color-mix(in srgb, var(--line) 45%, transparent); background: var(--surface); color: var(--ink);
-  box-shadow: 0 4px 14px rgba(42,31,45,.10); transition: transform .2s var(--ease);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--sombra-color) 10%, transparent); transition: transform .2s var(--ease);
 }
 .riel-btn:hover { transform: scale(1.06); }
 .riel-btn svg { width: 24px; height: 24px; }
@@ -312,7 +313,7 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 
 /* ---------- Favoritos, ranking, novedades ---------- */
 .lista-fav, .ranking, .novedades { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-.fila-fav { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 10px; background: var(--surface); border-radius: var(--r-md); padding: 10px 8px 10px 10px; box-shadow: 0 1px 2px rgba(42,31,45,.06); }
+.fila-fav { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 10px; background: var(--surface); border-radius: var(--r-md); padding: 10px 8px 10px 10px; box-shadow: 0 1px 2px color-mix(in srgb, var(--sombra-color) 6%, transparent); }
 .fila-fav div { display: grid; min-width: 0; }
 .fila-fav strong { font-family: var(--font-display); font-size: var(--fs-lg); }
 .fila-fav div span { color: var(--ink-soft); font-size: var(--fs-sm); }
@@ -338,9 +339,7 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 }
 .paletas [aria-checked="true"] { border: 2px solid var(--enfasis); font-weight: 600; }
 .muestra { width: 28px; height: 28px; border-radius: 50%; }
-.muestra-creme { background: conic-gradient(#EEE4DA 0 33%, #C8A49F 0 66%, #4D0E13 0); }
-.muestra-taupe { background: conic-gradient(#C0B7B0 0 33%, #7E615F 0 66%, #493036 0); }
-.muestra-arena { background: conic-gradient(#EEE4DA 0 33%, #D8C4AC 0 66%, #6F5E53 0); }
+/* Colores de cada muestra: .muestra-higo/.muestra-piedra/.muestra-carbon en tokens.css */
 .lista-enlaces { padding: 6px 0; gap: 0; }
 .lista-enlaces > * {
   display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 54px; padding: 0 24px;
@@ -354,20 +353,20 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 .burbuja-texto {
   display: inline-block; border-style: solid; border-width: 16px 24px 24px 16px;
   border-image: url(../assets/burbuja.svg) 8 12 12 8 fill / 16px 24px 24px 16px stretch;
-  padding: 0 6px; color: #493036; font-size: var(--fs-md); line-height: 1.4;
+  padding: 0 6px; color: var(--oscuro); font-size: var(--fs-md); line-height: 1.4;
 }
 
 /* ---------- Kitty ---------- */
 .kitty-fab {
   position: fixed; z-index: 21; right: 16px; bottom: calc(var(--tab-h) + 16px);
   width: 64px; height: 64px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; background: var(--surface-2); display: grid; place-items: center;
-  box-shadow: 0 10px 30px rgba(110,79,92,.28); transition: transform .3s var(--ease);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--sombra-color) 28%, transparent); transition: transform .3s var(--ease);
 }
 .kitty-fab:hover { transform: translateY(-3px) rotate(-6deg); }
 .kitty-fab img { width: 56px; height: 48px; }
 body[data-ruta="estudiar"] .kitty-fab { display: none; }
 dialog { border: 0; padding: 0; color: var(--ink); background: var(--surface); box-shadow: var(--shadow); }
-dialog::backdrop { background: rgba(20, 16, 22, .38); backdrop-filter: blur(3px); }
+dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 38%, transparent); backdrop-filter: blur(3px); }
 .kitty-panel {
   width: 100%; max-width: 100%; margin: auto 0 0; border-radius: 28px 28px 0 0; max-height: 82dvh;
   display: none; grid-template-rows: auto 1fr auto auto; padding-bottom: env(safe-area-inset-bottom);
@@ -420,7 +419,8 @@ dialog::backdrop { background: rgba(20, 16, 22, .38); backdrop-filter: blur(3px)
 
 /* ---------- Celular angosto ---------- */
 @media (max-width: 479px) {
-  .marca span { display: none; }
+  .marca .logo { --logo-size: 11px; flex-direction: column; align-items: flex-start; row-gap: .25em; }
+  .marca .logo-a { font-size: 1.4em; }
   .avatar { display: none; }
   .barra { gap: 8px; padding: 0 10px; }
   .chip { padding: 0 10px; }

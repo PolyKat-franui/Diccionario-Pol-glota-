@@ -1,4 +1,10 @@
-# Franui — Diccionario Políglota
+# Polyglok — Diccionario Políglota
+
+> Nombre provisorio (en discusión). Antes se llamaba «Franui»; los nombres internos del código no cambian.
+> Logo: «Polyglot in progress» · Eslogan: «Be fluent in multiple languages».
+
+**En línea:** https://franciscasanhueza.github.io/Diccionario-Pol-glota-/ (web) · https://franciscasanhueza.github.io/Diccionario-Pol-glota-/app/ (app).
+Se publica sola con cada cambio en `main` (`.github/workflows/publicar.yml`).
 
 App para aprender el vocabulario y las frases cotidianas de varios idiomas a la vez,
 deslizando tarjetas como en TikTok o Reels. Método: recuerdo activo, repetición
@@ -29,7 +35,7 @@ NODE_PATH=$(npm root -g) npm run test:e2e  # recorrido completo de la app y la w
 - **Tarjetas:** palabra grande, traducción que se revela al tocar, tipo, IPA, audio, corazón (favoritos), ícono de dificultad (nueva, difícil, media, fácil, dominada).
 - **Kitty tokens**, **racha** (sakuras), **favoritos**, **ranking** (local por ahora), **novedades**.
 - **Kitty:** chat en modo diccionario (sin IA conectada todavía).
-- **Ajustes:** tema claro/oscuro, 3 paletas, tamaño de letra, brillo, IPA, perfil, sugerencias, tutorial, legal.
+- **Ajustes:** tema claro/oscuro, 5 paletas (Higo, Piedra, Carbón, Tamarindo, Medianoche), tamaño de letra, brillo, IPA, perfil, sugerencias, tutorial, legal.
 - Interfaz en 6 idiomas según el idioma nativo. Celular, tablet y computador.
 
 ## Estructura

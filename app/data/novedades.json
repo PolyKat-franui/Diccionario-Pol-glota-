@@ -2,6 +2,19 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.5.0",
+      "fecha": "2026-10-10",
+      "titulo": "Nuevo logo, paleta Higo y banco completo",
+      "cambios": [
+        "Nuevo logo «Polyglot in progress» y eslogan «Be fluent in multiple languages».",
+        "Nombre provisorio de la app: Polyglok.",
+        "Nueva paleta Higo: lino, gris piedra, taupe, higo y carbón, en la app y en la página web.",
+        "En Ajustes → Paleta eliges entre Higo, Piedra, Carbón, Tamarindo y Medianoche, en modo claro y oscuro.",
+        "Kitty y los íconos con los nuevos tonos.",
+        "Las 5.000 palabras y frases ya tienen traducción (borrador) en español, portugués, francés, italiano y alemán."
+      ]
+    },
+    {
       "version": "0.4.0",
       "fecha": "2026-10-10",
       "titulo": "Kitty, sakuras y nuevos íconos",

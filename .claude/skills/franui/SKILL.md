@@ -87,22 +87,37 @@ marca lo corregido, no mezcla pronunciaciones.
 [ABIERTO] Proveedor de IA. Nota técnica: una app no puede "usar la cuenta de Google"
 de alguien para hablar con Claude/ChatGPT/Gemini; se necesita una API con clave
 guardada en un servidor propio (nunca en el navegador). Ver `docs/RECOMENDACIONES.md`.
-Logo: la expresión **feliz** de Kitty (`app/assets/caras/feliz.svg`), decidido 2026-10-10.
+Nombre de la app [PROVISORIO 2026-10-10, en discusión]: **Polyglok** (antes «Franui»). Se usa en títulos y textos;
+los nombres internos (carpetas, `franui:v1`, esta skill) no cambian.
+Logo [DECIDIDO 2026-10-10, reemplaza a la cara de Kitty]: la frase **«Polyglot in progress»** en letra de
+máquina de escribir (Special Elite, `--font-logo`), con un cursor que parpadea después de «in progress».
+Eslogan (por ahora): **«Be fluent in multiple languages»**, en mayúsculas espaciadas bajo una línea.
+No se traducen. Estilos en `app/css/logo.css` (una línea, apilado y marca completa con eslogan).
+Kitty sigue siendo la mascota (y el ícono de la pestaña del navegador).
 
 ## 9. Estética [DECIDIDO 2026-10-09]
 Sensación limpia, simple, lujo "old money", estudio corto. Referencias: Apple, Dior, Chanel, Bvlgari.
 Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo ahí).
-- **Paleta de Francisca:** Creme `#EEE4DA` · Sand `#D8C4AC` · Dusty Pink `#C8A49F` ·
-  Burgundy `#4D0E13` · Deep Taupe `#7E615F` · Rose Ebony `#634649` · Old Burgundy `#493036` ·
-  Boy Red `#6F5E53` · Black Shadows `#C0B7B0`.
-  - Texto: Old Burgundy; texto secundario: Boy Red. **Texto siempre oscuro.**
-  - Botón principal: Burgundy con letras Creme. Fondos Creme; detalles Dusty Pink y Sand.
-  - Paletas en Ajustes: Crema (por defecto), Taupe, Arena. Modo oscuro con los mismos tonos.
-  - Descartados: rosados fuertes (#F0B6C6, #8E2F55) y la paleta rosa/lavanda anterior.
+- **Paleta "Higo" de Francisca [DECIDIDO 2026-10-10, reemplaza a la anterior]:**
+  Gris piedra `#B4B1AD` · Lino `#CFCDBF` · Higo `#602B27` · Taupe `#8A7C70` · Carbón `#211A18`.
+  Otros tonos (fondos, texto secundario) son mezclas más claras u oscuras de estos cinco.
+  - Texto: Carbón; texto secundario: Taupe oscurecido `#5C524B`. **Texto siempre oscuro** en modo claro.
+  - Botón principal: Higo con letras claras. Fondo Lino aclarado `#E4E2DA`; tarjetas `#F1F0EB`;
+    bordes y detalles Gris piedra y Taupe. Zonas oscuras (pie de la web): Carbón con letras Lino.
+  - Paletas en Ajustes: Higo (por defecto), Piedra, Carbón, **Tamarindo** y **Medianoche** (2026-10-10).
+    Cada una en claro y oscuro. Modo oscuro de Higo: fondo Carbón, texto Lino.
+    - Tamarindo: Mountain Boulder `#BFB8B4` · Warm Grey Flannel `#ADA39D` · Ardcoat `#E4DFDF` ·
+      Sassafras `#5B3A3E` · Tamarind `#34141A` · Prairie Dog `#936F6A`.
+    - Medianoche: Midnight Express `#202937` · Dance of the Goddesses `#E6D7CD` · New Wool `#D4C1B9` ·
+      Bluish Black `#423D42` · Trillium `#A99898` · Paradise Grape `#766664`.
+    - La página web usa siempre Higo; las paletas son para personalizar la app.
+  - Pixel art con los mismos tonos (contornos Carbón, corazones Higo). La sakura conserva su rosado
+    y la moneda/estrella su dorado, para que se reconozcan.
+  - Descartadas: la paleta Creme/Sand/Dusty Pink/Burgundy (2026-10-09), los rosados fuertes y la rosa/lavanda.
 - **Tipografía:** títulos y palabra de la tarjeta en **Bodoni Moda** (serif de alto contraste,
   estilo moda); texto en **Jost** (sans geométrica fina); IPA en Noto Sans. Etiquetas en
   mayúsculas con mucho espaciado.
-- Dificultad: nueva `#6F5E53`, difícil `#8E1B24`, media `#87561F`, fácil `#3F5B40`,
+- Dificultad: nueva `#5C524B`, difícil `#602B27`, media `#6B4E1C`, fácil `#3F5B40`,
   dominada `#4B3A6B` (oscuro: versiones más claras).
 - Accesibilidad: contraste ≥ 4,5:1 (prueba automática), botones ≥ 44 px, nunca solo color.
 - Tres formatos: celular, tablet, computador. Modo claro y oscuro.

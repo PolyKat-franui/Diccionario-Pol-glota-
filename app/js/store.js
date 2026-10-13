@@ -6,13 +6,13 @@ export const CLAVE = 'franui:v1';
 export const TOKENS_POR_TARJETA = 1;
 export const TOKENS_POR_SESION = 5;
 
-export const PALETAS = ['creme', 'taupe', 'arena'];
+export const PALETAS = ['higo', 'piedra', 'carbon', 'tamarindo', 'medianoche'];
 
 export function estadoInicial() {
   return {
     version: 1,
     perfil: { nombre: '', cuenta: null, elegido: false }, // cuenta: null = sin cuenta (invitado)
-    ajustes: { nativo: null, tema: 'sistema', paleta: 'creme', escala: 1, brillo: 1, ipa: true },
+    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true },
     aprendiendo: null,
     tokens: 0,
     ejercicios: 0,
@@ -40,19 +40,22 @@ export function normalizar(data) {
   };
 }
 
-export function cargar(storage = globalThis.localStorage) {
+// Leer localStorage puede lanzar un error (modo privado, vistas incrustadas): se lee dentro del try.
+const almacen = () => globalThis.localStorage;
+
+export function cargar(storage) {
   try {
-    const raw = storage?.getItem(CLAVE);
+    const raw = (storage ?? almacen())?.getItem(CLAVE);
     return normalizar(raw ? JSON.parse(raw) : null);
   } catch {
     return estadoInicial();
   }
 }
 
-export function guardar(estado, storage = globalThis.localStorage, ahora = Date.now()) {
+export function guardar(estado, storage, ahora = Date.now()) {
   estado.actualizado = ahora;
   try {
-    storage?.setItem(CLAVE, JSON.stringify(estado));
+    (storage ?? almacen())?.setItem(CLAVE, JSON.stringify(estado));
     return true;
   } catch {
     return false; // modo privado o almacenamiento lleno: la app sigue funcionando

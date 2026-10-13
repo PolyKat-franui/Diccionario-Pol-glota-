@@ -16,7 +16,7 @@ function sombra(g, c = 's', dx = 1, dy = 1) {
 }
 
 // ---------- Sakura (flor de cerezo: ícono de la racha) ----------
-const COLORES_SAKURA = { o: '#7A4A47', a: '#FBC4CD', b: '#F5A3AE', m: '#EC8893', c: '#DB6A72', n: '#C2545E', h: '#FFE6EA' };
+const COLORES_SAKURA = { o: '#602B27', a: '#FBC4CD', b: '#F5A3AE', m: '#EC8893', c: '#DB6A72', n: '#C2545E', h: '#FFE6EA' };
 
 /**
  * Sakura de 5 pétalos (como la referencia): cada pétalo es una forma propia con contorno,
@@ -136,7 +136,7 @@ export function cerezas() {
   ponTodos(g, [[5, 7], [6, 6], [7, 5], [8, 4], [9, 3], [11, 8], [11, 7], [10, 6], [10, 5], [10, 4], [9, 3], [9, 2]], 't');
   sello(g, 10, 0, ['.ttttt', 'tVVVVt', '.tVVt.', '..tt..']);
   sello(g, 3, 1, ['.ttt.', 'tVVVt', '.ttt.']);
-  return { filas: aTexto(g), colores: { o: '#4D0E13', R: '#A8323E', D: '#7E1F2B', h: '#E8707A', t: '#3F5B40', V: '#8FB06A' } };
+  return { filas: aTexto(g), colores: { o: '#211A18', R: '#8E3D36', D: '#602B27', h: '#C98A82', t: '#3F5B40', V: '#8FB06A' } };
 }
 
 // ---------- Mensaje (ícono de notificación: burbuja con corazón) ----------
@@ -171,7 +171,7 @@ export function mensaje() {
     '..RRR..',
     '...R...',
   ]);
-  return { filas: aTexto(g), colores: { o: '#7E615F', W: '#F6EEE6', S: '#E4D6CA', s: 'rgba(73,48,54,.18)', R: '#B54A55', h: '#E9A0A6' } };
+  return { filas: aTexto(g), colores: { o: '#5C524B', W: '#F1F0EB', S: '#CFCDBF', s: 'rgba(33,26,24,.18)', R: '#602B27', h: '#A86A63' } };
 }
 
 // ---------- Burbuja vacía (para poner texto encima; se estira con CSS border-image) ----------
@@ -201,7 +201,7 @@ export function burbuja() {
   sello(e, 1, 1, ['...Y...', '..YYY..', 'YYYYYYY', '.YYYYY.', '.YY.YY.']);
   contornear(e, 'o');
   sello(g, 0, 0, aTexto(e));
-  return { filas: aTexto(g), colores: { o: '#7E615F', W: '#FFFDF9', S: '#EAE0D6', Y: '#E4B95B' } };
+  return { filas: aTexto(g), colores: { o: '#5C524B', W: '#F7F6F2', S: '#DEDCD2', Y: '#E4B95B' } };
 }
 
 export const ICONOS = { sakura, moneda, estrella, cerezas, mensaje, burbuja };

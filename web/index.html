@@ -3,24 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Franui — Un idioma nuevo, un minuto a la vez</title>
-  <meta name="description" content="Franui: aprende el vocabulario y las frases cotidianas de seis idiomas a la vez, en tarjetas que deslizas como un reel.">
-  <meta name="theme-color" content="#F4EDE6" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#1E1416" media="(prefers-color-scheme: dark)">
-  <meta property="og:title" content="Franui — Diccionario políglota">
+  <title>Polyglok — Un idioma nuevo, un minuto a la vez</title>
+  <meta name="description" content="Polyglok: aprende el vocabulario y las frases cotidianas de seis idiomas a la vez, en tarjetas que deslizas como un reel.">
+  <meta name="theme-color" content="#E4E2DA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#211A18" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Polyglok — Diccionario políglota">
   <meta property="og:description" content="Vocabulario y frases de seis idiomas, un minuto a la vez.">
   <link rel="icon" href="app/assets/caras/feliz.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300;400;500;600&family=Special+Elite&display=swap">
   <link rel="stylesheet" href="app/css/tokens.css">
+  <link rel="stylesheet" href="app/css/logo.css">
   <link rel="stylesheet" href="web.css">
 </head>
 <body>
   <a class="saltar" href="#contenido">Ir al contenido</a>
 
   <header class="nav" id="nav">
-    <a class="marca" href="#inicio"><img src="app/assets/caras/feliz.svg" alt="" width="28" height="24"><span>Franui</span></a>
+    <a class="marca" href="#inicio" aria-label="Polyglot in progress"><span class="logo"><span class="logo-a">Polyglot</span> <span class="logo-b">in progress</span></span></a>
     <nav class="nav-links" aria-label="Secciones">
       <a href="#metodo">Método</a>
       <a href="#como">Cómo funciona</a>
@@ -48,7 +49,7 @@
     <!-- Portada -->
     <section class="hero" id="inicio">
       <div class="hero-texto">
-        <p class="sobretitulo revelar">Diccionario políglota</p>
+        <p class="sobretitulo eslogan-hero revelar">Be fluent in multiple languages</p>
         <h1 class="display hero-titulo revelar">Un idioma nuevo,<br><em>un minuto</em> a la vez.</h1>
         <p class="hero-rota revelar" aria-hidden="true">
           <span class="rota" id="rota">Hola</span>
@@ -78,7 +79,7 @@
     </section>
 
     <!-- Cifras (estilo tablero de aeropuerto) -->
-    <section class="cifras" aria-label="Franui en cifras">
+    <section class="cifras" aria-label="Polyglok en cifras">
       <div class="cifra revelar"><span class="flap" data-valor="5000">5000</span><span class="cifra-txt">palabras y frases en el banco</span></div>
       <div class="cifra revelar"><span class="flap" data-valor="6">6</span><span class="cifra-txt">idiomas para empezar</span></div>
       <div class="cifra revelar"><span class="flap" data-valor="13">13</span><span class="cifra-txt">grandes temas de la vida diaria</span></div>
@@ -169,14 +170,16 @@
 
     <!-- Creadora -->
     <section class="seccion creadora" id="creadora">
-      <!-- Para usar una foto: guarda web/img/francisca.jpg y reemplaza el monograma por
+      <!-- PENDIENTE (para después): foto de Francisca.
+           Para usar una foto: guarda web/img/francisca.jpg y reemplaza el monograma por
            <img class="retrato" src="img/francisca.jpg" alt="Francisca Sanhueza Flores"> -->
       <div class="retrato revelar" aria-hidden="true"><span>FS</span></div>
       <div class="revelar">
         <p class="sobretitulo">La creadora</p>
         <h2 class="display">Francisca Ignacia<br>Sanhueza Flores</h2>
-        <p class="creadora-rol">Creadora de Franui · Estudiante de la Universidad de Chile</p>
-        <p class="creadora-texto">Franui busca que aprender idiomas sea tan natural como deslizar la pantalla: un método simple, una estética cuidada y una compañera, Kitty, para volver cada día.</p>
+        <p class="creadora-rol">Creadora de Polyglok · Estudiante de la Universidad de Chile</p>
+        <!-- PENDIENTE (para después): biografía de Francisca. Reemplazar este párrafo cuando la envíe. -->
+        <p class="creadora-texto">Polyglok busca que aprender idiomas sea tan natural como deslizar la pantalla: un método simple, una estética cuidada y una compañera, Kitty, para volver cada día.</p>
       </div>
     </section>
 
@@ -205,12 +208,12 @@
     <!-- Llamado final -->
     <section class="cta-final">
       <h2 class="display revelar">Tu primer minuto<br>empieza ahora.</h2>
-      <a class="btn primario grande revelar" href="app/">Abrir Franui</a>
+      <a class="btn primario grande revelar" href="app/">Abrir Polyglok</a>
     </section>
   </main>
 
   <footer class="pie">
-    <div class="pie-marca"><img src="app/assets/caras/feliz.svg" alt="" width="28" height="24"><span>Franui</span></div>
+    <div class="pie-marca marca-completa"><span class="logo apilado"><span class="logo-a">Polyglot</span> <span class="logo-b">in progress</span></span><span class="marca-linea" aria-hidden="true"></span><span class="eslogan">Be fluent in multiple languages</span></div>
     <nav aria-label="Pie de página">
       <a href="#metodo">Método</a>
       <a href="#idiomas">Idiomas</a>

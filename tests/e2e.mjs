@@ -181,6 +181,26 @@ try {
   await foto(page, '11-celular-tarjeta-oscuro');
   paso('Modo oscuro');
 
+  // Paletas extra de Ajustes: Tamarindo y Medianoche, en claro y oscuro
+  for (const pal of ['tamarindo', 'medianoche']) {
+    for (const tema of ['claro', 'oscuro']) {
+      await page.goto(`${URL_APP}#/ajustes`);
+      await page.locator(`[data-tema=${tema}]`).click();
+      await page.locator(`.paletas [data-paleta=${pal}]`).click();
+      assert.equal(await page.evaluate(() => document.documentElement.dataset.paleta), pal);
+      assert.equal(await page.locator(`.paletas [data-paleta=${pal}]`).getAttribute('aria-checked'), 'true');
+      await foto(page, `16-ajustes-${pal}-${tema}`);
+      await page.goto(`${URL_APP}#/estudiar?mega=${encodeURIComponent('Conversación y vida social')}&dif=todas`);
+      await page.locator('#feed .slide .palabra').first().waitFor();
+      await foto(page, `16-tarjeta-${pal}-${tema}`);
+    }
+  }
+  await page.goto(`${URL_APP}#/ajustes`);
+  await page.locator('.paletas [data-paleta=higo]').click();
+  await page.locator('[data-tema=oscuro]').click();
+  await sinScrollHorizontal(page, 'ajustes con 5 paletas');
+  paso('Paletas Tamarindo y Medianoche (claro y oscuro) en Ajustes');
+
   await page.goto(`${URL_APP}#/ranking`);
   await page.locator('.ranking').waitFor();
   await foto(page, '12-celular-ranking');
@@ -198,6 +218,14 @@ try {
   await page.locator('.idioma[data-code=es]').click();
   await page.locator('.mega', { hasText: 'Conversation & social life' }).waitFor();
   paso('Idioma nativo inglés: interfaz en inglés y se aprende español');
+
+  // Borrar progreso: se confirma dentro de la app (no con confirm(), que algunos navegadores bloquean)
+  await page.goto(`${URL_APP}#/ajustes`);
+  assert.ok((await tokens(page)) > 0);
+  await page.locator('#aj-borrar').click();
+  await page.locator('#modal #aj-borrar-si').click();
+  await page.waitForFunction(() => document.querySelector('#chip-tokens span:last-child').innerText === '0');
+  paso('Borrar progreso con confirmación dentro de la app');
   await ctx.close();
 
   // ---------------- Tablet y computador ----------------

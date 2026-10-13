@@ -49,10 +49,10 @@ export function archivos() {
 function catalogo(lista) {
   const fila = (titulo, items) => `<h2>${titulo}</h2><div class="g">${items.join('')}</div>`;
   const img = (ruta, nombre, k = 3) => `<figure><img src="../app/assets/${ruta}" style="zoom:${k}" alt=""><figcaption>${nombre}</figcaption></figure>`;
-  return `<!doctype html><html lang="es"><meta charset="utf-8"><title>Franui — catálogo de pixel art</title>
-<style>body{font:15px system-ui;background:#F4EDE6;color:#493036;margin:24px}h1,h2{font-weight:500}.g{display:flex;flex-wrap:wrap;gap:20px;align-items:end}
+  return `<!doctype html><html lang="es"><meta charset="utf-8"><title>Polyglok — catálogo de pixel art</title>
+<style>body{font:15px system-ui;background:#E4E2DA;color:#211A18;margin:24px}h1,h2{font-weight:500}.g{display:flex;flex-wrap:wrap;gap:20px;align-items:end}
 figure{margin:0;display:grid;justify-items:center;gap:6px}img{image-rendering:pixelated}p{max-width:640px}</style>
-<h1>Franui — catálogo de pixel art</h1>
+<h1>Polyglok — catálogo de pixel art</h1>
 <p>Generado por <code>node scripts/kitty.mjs</code>. Mostrar siempre a escala entera (×1, ×2, ×3…).</p>
 ${fila('Íconos', Object.keys(ICONOS).map((id) => img(`${id}.svg`, TITULOS[id], 4)))}
 ${fila('Kitty (sus expresiones; «Feliz» es el logo)', lista.caras.map((c) => img(`caras/${c.id}.svg`, c.nombre)))}

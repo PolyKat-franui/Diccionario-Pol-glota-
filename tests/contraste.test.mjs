@@ -19,16 +19,20 @@ export const contraste = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q)
 const claro = bloque(':root {');
 const oscuro = { ...claro, ...bloque(':root[data-theme="dark"] {') };
 const paletas = {
-  taupe: { ...claro, ...bloque(':root[data-paleta="taupe"]') },
-  arena: { ...claro, ...bloque(':root[data-paleta="arena"]') },
-  'taupe oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="taupe"]') },
-  'arena oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="arena"]') },
+  piedra: { ...claro, ...bloque(':root[data-paleta="piedra"]') },
+  carbon: { ...claro, ...bloque(':root[data-paleta="carbon"]') },
+  'piedra oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="piedra"]') },
+  'carbon oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="carbon"]') },
+  tamarindo: { ...claro, ...bloque(':root[data-paleta="tamarindo"]') },
+  medianoche: { ...claro, ...bloque(':root[data-paleta="medianoche"]') },
+  'tamarindo oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="tamarindo"]') },
+  'medianoche oscuro': { ...oscuro, ...bloque(':root[data-theme="dark"][data-paleta="medianoche"]') },
 };
 
 for (const [nombre, p] of Object.entries({ claro, oscuro, ...paletas })) {
   test(`contraste ≥ 4,5:1 — ${nombre}`, () => {
     const pares = [['ink', 'bg'], ['ink', 'surface'], ['ink', 'surface-2'], ['ink-soft', 'bg'], ['ink-soft', 'surface'],
-      ['on-primary', 'primary'], ['enfasis', 'surface'], ['enfasis', 'bg'], ['ink', 'accent-soft'], ['gold', 'surface'], ['ink-soft', 'surface-2'],
+      ['on-primary', 'primary'], ['enfasis', 'surface'], ['enfasis', 'bg'], ['ink', 'accent-soft'], ['gold', 'surface'], ['ink-soft', 'surface-2'], ['sobre-oscuro', 'oscuro'], ['sobre-oscuro-suave', 'oscuro'],
       ...['d-nueva', 'd-dificil', 'd-media', 'd-facil', 'd-dominada'].map((d) => [d, 'surface'])];
     for (const [a, b] of pares) {
       const c = contraste(p[a], p[b]);

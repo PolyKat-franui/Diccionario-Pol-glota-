@@ -3,21 +3,21 @@
 // Para retocar: cambia coordenadas o colores aquí y corre `node scripts/kitty.mjs`.
 
 export const COLORES = {
-  O: '#493036', // contorno (Old Burgundy)
+  O: '#211A18', // contorno (Carbón)
   W: '#FFFFFF', // pelaje
-  S: '#EFE6E1', // sombra suave del pelaje
-  P: '#E3B9B3', // interior de las orejas (Dusty Pink suave)
-  B: '#EDBDB7', // mejillas
-  E: '#2B1418', // ojos
-  N: '#C48780', // nariz
-  M: '#493036', // boca
-  R: '#C9727C', // lengua, corazones, signos (rosa profundo)
-  L: '#F3E3CF', // perla
-  G: '#B9A79E', // perla en sombra
+  S: '#E4E2DA', // sombra suave del pelaje (Lino claro)
+  P: '#D9B8B2', // interior de las orejas (higo muy suave)
+  B: '#E2BDB7', // mejillas
+  E: '#211A18', // ojos
+  N: '#A86A63', // nariz
+  M: '#211A18', // boca
+  R: '#8E3D36', // lengua, corazones, signos (higo)
+  L: '#E9E7DF', // perla
+  G: '#B4B1AD', // perla en sombra (Gris piedra)
   Y: '#C9A063', // destellos y estrellas (dorado suave)
   T: '#9DB8D6', // lágrimas
-  Z: '#7E615F', // Zzz y burbujas (Deep Taupe)
-  K: '#2B1418', // lentes
+  Z: '#8A7C70', // Zzz y burbujas (Taupe)
+  K: '#211A18', // lentes
   H: '#FFFFFF', // brillo
 };
 
