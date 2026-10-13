@@ -12,7 +12,7 @@ export function estadoInicial() {
   return {
     version: 1,
     perfil: { nombre: '', cuenta: null, elegido: false }, // cuenta: null = sin cuenta (invitado)
-    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true, sonido: true },
+    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true, sonido: true, meta: 10 }, // meta: palabras al día
     aprendiendo: null,
     tokens: 0,
     ejercicios: 0,
@@ -22,6 +22,7 @@ export function estadoInicial() {
     progreso: {},   // { idioma: { idConcepto: estadoSRS } }
     favoritos: {},  // { idioma: [idConcepto, ...] }
     sugerencias: [], // { texto, fecha, enviada }
+    cofre: 0,             // último día de racha (7, 14, 21…) en que se abrió un cofre
     tutorialVisto: false, // tutorial guiado por Kitty (primera sesión)
     novedadVista: null,   // última versión de Novedades que se abrió
     actualizado: 0,
@@ -34,6 +35,7 @@ export function normalizar(data) {
   if (!data || typeof data !== 'object') return base;
   const ajustes = { ...base.ajustes, ...data.ajustes };
   if (!PALETAS.includes(ajustes.paleta)) ajustes.paleta = base.ajustes.paleta; // paletas antiguas → la actual
+  if (!METAS.includes(ajustes.meta)) ajustes.meta = base.ajustes.meta;
   return {
     ...base,
     ...data,
@@ -91,6 +93,25 @@ export function marcarDiaEstudiado(racha, ahora = Date.now()) {
 export function rachaVigente(racha, ahora = Date.now()) {
   if (!racha.ultimoDia) return 0;
   return racha.ultimoDia === diaLocal(ahora) || racha.ultimoDia === diaAnterior(ahora) ? racha.actual : 0;
+}
+
+// ---------- Meta diaria y cofres ----------
+export const METAS = [5, 10, 20];
+export const ETAPAS_FLOR = 4; // brote, capullo, abriendo, casi en flor → sakura (meta cumplida)
+/** Etapa de la sakura del día (0…4) según las palabras revisadas hoy y la meta. */
+export function etapaFlor(revisadas, meta) {
+  return Math.min(ETAPAS_FLOR, Math.floor((Math.max(0, revisadas) / Math.max(1, meta)) * ETAPAS_FLOR));
+}
+export const COFRE_CADA = 7;
+export const monedasCofre = (n) => 50 + 25 * (n - 1); // 1.er cofre 50, 2.º 75, 3.º 100…
+/** Cada 7 días de racha se abre un cofre (una sola vez por hito). Devuelve { dias, monedas } o null. */
+export function abrirCofre(estado) {
+  const dias = estado.racha.actual;
+  if (!dias || dias % COFRE_CADA !== 0 || estado.cofre === dias) return null;
+  const monedas = monedasCofre(dias / COFRE_CADA);
+  estado.cofre = dias;
+  estado.tokens += monedas;
+  return { dias, monedas };
 }
 
 // ---------- Estudio ----------

@@ -2,6 +2,18 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.8.0",
+      "fecha": "2026-10-13",
+      "titulo": "Nuevo nombre: Franui · Polycat. ¡Y ya se puede instalar!",
+      "cambios": [
+        "La app ahora se llama Franui · Polycat, con su título FRANUI en letras grandes que caen como teclas.",
+        "Descarga la app: queda en tu pantalla de inicio con una sakura sobre carmesí y funciona sin internet.",
+        "Meta diaria (5, 10 o 20 palabras): tu sakura crece desde un brote hasta florecer.",
+        "Cuando sube tu racha caen sakuras, y cada 7 días abres un cofre de monedas.",
+        "En la página web ahora puedes probar tarjetas, ver una frase en 6 idiomas y jugar con las caras de Kitty."
+      ]
+    },
+    {
       "version": "0.7.0",
       "fecha": "2026-10-13",
       "titulo": "Menú principal, colores claros y cuenta de Google",

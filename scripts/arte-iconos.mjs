@@ -223,4 +223,82 @@ function corazon() {
   return { filas, colores: { o: '#4A1F24', R: '#C0405A', D: '#8E2840', h: '#F4A0B2' } };
 }
 
-export const ICONOS = { sakura, moneda, estrella, cerezas, mensaje, burbuja, corazon };
+
+// ---------- Sakura que florece (meta diaria): brote → capullo → flor chica → flor mediana → sakura ----------
+// Mismo lienzo de 23×23 y mismos colores que la sakura, más tallo y hojas.
+const COLORES_FLOR = { ...COLORES_SAKURA, t: '#3F5B40', V: '#8FB06A', W: '#B9D48E' };
+function tallo(g, desde) {
+  for (let y = Math.ceil(desde); y < 23; y++) { pon(g, 11, y, 't'); }
+  sello(g, 12, 17, ['.ttt.', 'tVVWt', '.tVVt', '..tt.']);
+  sello(g, 6, 19, ['.ttt.', 'tWVVt', 'tVVt.', '.tt..']);
+}
+export function flor0() { // brote: tallo corto con dos hojas
+  const g = lienzo(23, 23);
+  for (let y = 15; y < 23; y++) pon(g, 11, y, 't');
+  sello(g, 12, 12, ['.ttt..', 'tVVWt.', 'tVVVVt', '.tttt.']);
+  sello(g, 5, 13, ['..ttt.', '.tWVVt', 'tVVVVt', '.tttt.']);
+  return { filas: aTexto(g), colores: COLORES_FLOR };
+}
+export function flor1() { // capullo cerrado
+  const g = lienzo(23, 23);
+  tallo(g, 15);
+  for (let y = 0; y < 23; y++) for (let x = 0; x < 23; x++) {
+    const dy = y - 10.5, dx = x - 11;
+    const rx = 3.4 * Math.min(1, (y - 4.5) / 4.5);   // punta arriba
+    if (y >= 5 && y <= 15 && (dx / Math.max(rx, .5)) ** 2 + (dy / 5) ** 2 <= 1) g[y][x] = dx > 0.5 || dy > 2.5 ? 'm' : 'a';
+  }
+  contornear(g, 'o');
+  ponTodos(g, [[10, 8], [10, 9]], 'h');
+  sello(g, 8, 14, ['tV.Vt', '.tVt.']);
+  return { filas: aTexto(g), colores: COLORES_FLOR };
+}
+function florChica(R) {
+  const g = dibujarSakura(23, R);
+  const cy = 11 + R * 0.04;
+  const base = lienzo(23, 23);
+  tallo(base, cy + R * 0.5);
+  for (let y = 0; y < 23; y++) for (let x = 0; x < 23; x++) if (g[y][x] === '.' && base[y][x] !== '.') g[y][x] = base[y][x];
+  return { filas: aTexto(g), colores: COLORES_FLOR };
+}
+export const flor2 = () => florChica(6.4);
+export const flor3 = () => florChica(8.8);
+
+// ---------- Cofre de monedas (premio cada 7 días de racha) ----------
+const COLORES_COFRE = { o: '#3A2414', w: '#9A5B2E', W: '#C27C43', d: '#6E3E1E', g: '#F2BE4A', G: '#C98A2E', h: '#FFF6D8', k: '#3A2414', f: '#FCDB7E', s: '#FFFFFF' };
+function cuerpoCofre(g, y0) {
+  for (let y = y0; y < y0 + 9; y++) for (let x = 2; x < 22; x++) g[y][x] = y === y0 ? 'G' : (y - y0) % 4 === 0 ? 'd' : 'w';
+  for (let y = y0; y < y0 + 9; y++) { g[y][4] = 'g'; g[y][19] = 'g'; }
+  for (let x = 2; x < 22; x++) g[y0 + 8][x] = 'd';
+}
+export function cofre() {
+  const g = lienzo(24, 20);
+  // tapa redondeada
+  const anchos = [16, 18, 20, 20, 20, 20];
+  anchos.forEach((w, i) => { for (let x = 12 - w / 2; x < 12 + w / 2; x++) g[3 + i][x] = i === 0 ? 'W' : i === 5 ? 'G' : i < 2 ? 'W' : 'w'; });
+  for (let y = 3; y < 9; y++) { g[y][4] = 'g'; g[y][19] = 'g'; }
+  cuerpoCofre(g, 9);
+  // cerradura
+  sello(g, 10, 7, ['gggg', 'gGGg', 'gkkg', 'gGGg', 'gggg']);
+  contornear(g, 'o');
+  ponTodos(g, [[6, 4], [7, 4], [8, 4]], 'h');
+  return { filas: aTexto(g), colores: COLORES_COFRE };
+}
+export function cofreAbierto() {
+  const g = lienzo(24, 20);
+  // tapa abierta (vista por dentro, detrás)
+  for (let y = 1; y < 6; y++) for (let x = 3; x < 21; x++) g[y][x] = y === 1 ? 'W' : 'd';
+  for (let y = 1; y < 6; y++) { g[y][4] = 'g'; g[y][19] = 'g'; }
+  // monedas asomando
+  const monedas = [[6, 7], [9, 6], [12, 7], [15, 6], [18, 7], [7.5, 8], [11, 8.4], [14.5, 8], [17, 8.5]];
+  for (const [cx, cy] of monedas) for (let y = 0; y < 20; y++) for (let x = 0; x < 24; x++) if (Math.hypot(x - cx, y - cy) <= 1.6) g[y][x] = 'g';
+  ponTodos(g, [[6, 6], [9, 5], [12, 6], [15, 5], [18, 6]], 'f');
+  cuerpoCofre(g, 9);
+  sello(g, 10, 10, ['gggg', 'gkkg', 'gggg']);
+  contornear(g, 'o');
+  // destellos
+  sello(g, 0, 0, ['.s.', 'sss', '.s.']);
+  sello(g, 21, 2, ['.s.', 'sss', '.s.']);
+  return { filas: aTexto(g), colores: COLORES_COFRE };
+}
+
+export const ICONOS = { sakura, moneda, estrella, cerezas, mensaje, burbuja, corazon, 'flor-0': flor0, 'flor-1': flor1, 'flor-2': flor2, 'flor-3': flor3, cofre, 'cofre-abierto': cofreAbierto };

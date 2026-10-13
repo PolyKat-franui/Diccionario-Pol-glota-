@@ -10,7 +10,7 @@ const WEB = join(RAIZ, 'web');
 const APP = join(RAIZ, 'app');
 const TIPOS = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8',
   '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg',
-  '.webp': 'image/webp', '.ico': 'image/x-icon' };
+  '.webp': 'image/webp', '.ico': 'image/x-icon', '.webmanifest': 'application/manifest+json' };
 
 /** "/app/x" → app/x ; "/x" → web/x. Devuelve null si intenta salir de la carpeta. */
 export function resolver(ruta) {

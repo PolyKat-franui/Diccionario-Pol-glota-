@@ -16,7 +16,7 @@ el avance solo en el navegador (como hasta ahora).
 ## Pasos (una sola vez, ~10 minutos)
 
 1. Entra a https://console.firebase.google.com con tu cuenta de Google → **Agregar proyecto**
-   (nombre: `polyglok`; Google Analytics no es necesario).
+   (nombre: `franui-polycat`; Google Analytics no es necesario).
 2. **Authentication** → Comenzar → pestaña *Sign-in method* → **Google** → Habilitar → Guardar.
 3. **Authentication → Configuración → Dominios autorizados** → Agregar dominio:
    `franciscasanhueza.github.io`
@@ -35,7 +35,7 @@ el avance solo en el navegador (como hasta ahora).
    }
    ```
 
-6. ⚙️ **Configuración del proyecto** → *Tus apps* → ícono web `</>` → nombre `polyglok` → Registrar.
+6. ⚙️ **Configuración del proyecto** → *Tus apps* → ícono web `</>` → nombre `franui-polycat` → Registrar.
    Copia el objeto `firebaseConfig` que aparece.
 7. Pégalo en `app/js/nube-config.js` (o mándamelo y lo pego yo):
 

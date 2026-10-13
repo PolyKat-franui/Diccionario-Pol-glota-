@@ -113,3 +113,26 @@ test('cada 10 palabras revisadas en el día se cobra un premio, y al día siguie
   assert.equal(s.diario.revisadas, 1);
   assert.equal(s.diario.premios, 0);
 });
+
+test('la sakura del día florece por etapas hasta cumplir la meta', () => {
+  assert.equal(store.etapaFlor(0, 10), 0);
+  assert.equal(store.etapaFlor(3, 10), 1);
+  assert.equal(store.etapaFlor(5, 10), 2);
+  assert.equal(store.etapaFlor(9, 10), 3);
+  assert.equal(store.etapaFlor(10, 10), 4);
+  assert.equal(store.etapaFlor(40, 10), 4);
+  assert.equal(store.etapaFlor(5, 5), 4);
+  assert.equal(store.normalizar({ ajustes: { meta: 7 } }).ajustes.meta, 10); // meta inválida → 10
+});
+
+test('cofre de monedas cada 7 días de racha, una sola vez por hito', () => {
+  const s = store.estadoInicial();
+  s.racha.actual = 6;
+  assert.equal(store.abrirCofre(s), null);
+  s.racha.actual = 7;
+  assert.deepEqual(store.abrirCofre(s), { dias: 7, monedas: 50 });
+  assert.equal(s.tokens, 50);
+  assert.equal(store.abrirCofre(s), null); // ya se abrió hoy
+  s.racha.actual = 14;
+  assert.deepEqual(store.abrirCofre(s), { dias: 14, monedas: 75 });
+});

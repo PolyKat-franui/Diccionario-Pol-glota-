@@ -40,3 +40,24 @@ export function estallido(x, y, { base = 'assets/', cantidad = 10 } = {}) {
       .finished.then(() => img.remove()).catch(() => img.remove());
   }
 }
+
+/** Lluvia de sakuras (y algunas monedas) que cae por toda la pantalla: racha del día, meta cumplida… */
+export function lluvia({ base = 'assets/', cantidad = 26, monedas = 0.2, dur = 2600 } = {}) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  for (let i = 0; i < cantidad; i++) {
+    const moneda = Math.random() < monedas;
+    const [n, w, h] = moneda ? ['moneda', 24, 24] : ['sakura', 23, 23];
+    const k = Math.random() < 0.35 ? 2 : 1; // escala entera
+    const img = document.createElement('img');
+    img.src = `${base}${n}.svg`; img.alt = ''; img.width = w * k; img.height = h * k; img.className = 'chispa-adorno';
+    img.style.left = `${Math.random() * 100}vw`; img.style.top = `${-60 - Math.random() * 80}px`;
+    document.body.append(img);
+    const vaiven = (Math.random() - 0.5) * 160;
+    img.animate([
+      { transform: 'translate(0, 0) rotate(0)', opacity: 1 },
+      { transform: `translate(${vaiven}px, 55vh) rotate(${180 + Math.random() * 180}deg)`, opacity: 1, offset: 0.6 },
+      { transform: `translate(${-vaiven / 2}px, calc(100vh + 160px)) rotate(540deg)`, opacity: 0.9 },
+    ], { duration: dur * (0.7 + Math.random() * 0.6), delay: Math.random() * 700, easing: 'cubic-bezier(.3, .2, .6, 1)', fill: 'backwards' })
+      .finished.then(() => img.remove()).catch(() => img.remove());
+  }
+}

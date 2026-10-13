@@ -40,6 +40,7 @@
 
   /* Dificultad: insignias de color con ícono y texto en blanco (iguales en claro y oscuro) */
   --blanco: #FFFFFF;
+  --carmesi: #9E2A3A; --carmesi-luz: #B8384A; /* ícono de la app (fijo, igual en todas las paletas) */
   --d-nueva: #0369A1;     /* destello */
   --d-dificil: #B91C1C;   /* llama */
   --d-media: #B45309;     /* medio círculo */

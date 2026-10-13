@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Polyglok — Un idioma nuevo, un minuto a la vez</title>
-  <meta name="description" content="Polyglok: aprende el vocabulario y las frases cotidianas de seis idiomas a la vez, en tarjetas que deslizas como un reel.">
+  <title>Franui · Polycat — Un idioma nuevo, un minuto a la vez</title>
+  <meta name="description" content="Franui Polycat: aprende el vocabulario y las frases cotidianas de seis idiomas a la vez, en tarjetas que deslizas como un reel.">
   <meta name="theme-color" content="#E4E2DA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#211A18" media="(prefers-color-scheme: dark)">
-  <meta property="og:title" content="Polyglok — Diccionario políglota">
+  <meta property="og:title" content="Franui · Polycat — Diccionario políglota">
   <meta property="og:description" content="Vocabulario y frases de seis idiomas, un minuto a la vez.">
-  <link rel="icon" href="app/assets/corazon.svg" type="image/svg+xml">
+  <link rel="icon" href="app/assets/app/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="app/assets/app/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Special+Elite&display=swap">
@@ -22,10 +23,11 @@
   <a class="saltar" href="#contenido">Ir al contenido</a>
 
   <header class="nav" id="nav">
-    <a class="marca" href="#inicio" aria-label="Polyglok"><span class="logo"><span class="logo-a">Polyglok</span> <span class="logo-b">in progress</span></span></a>
+    <a class="marca" href="#inicio" aria-label="Franui Polycat"><span class="logo"><span class="logo-a">Franui</span> <span class="logo-b">Polycat</span></span></a>
     <nav class="nav-links" aria-label="Secciones">
       <a href="#metodo">Método</a>
       <a href="#como">Cómo funciona</a>
+      <a href="#prueba">Pruébalo</a>
       <a href="#idiomas">Idiomas</a>
       <a href="#kitty">Kitty</a>
       <a href="#creadora">Creadora</a>
@@ -39,11 +41,13 @@
   <nav class="menu-movil" id="menu-movil" aria-label="Secciones" hidden>
     <a href="#metodo">Método</a>
     <a href="#como">Cómo funciona</a>
+    <a href="#prueba">Pruébalo</a>
     <a href="#idiomas">Idiomas</a>
     <a href="#kitty">Kitty</a>
     <a href="#creadora">Creadora</a>
     <a href="#novedades">Novedades</a>
     <a class="btn primario" href="app/">Abrir la app</a>
+    <a class="btn" href="app/#/instalar">Descargar la app</a>
   </nav>
 
   <main id="contenido" tabindex="-1">
@@ -59,28 +63,53 @@
         <p class="hero-sub revelar">Vocabulario y frases cotidianas de seis idiomas, en tarjetas que deslizas como un reel. Sin pasos obligados.</p>
         <div class="hero-cta revelar">
           <a class="btn primario grande" href="app/">Empezar ahora</a>
-          <a class="btn grande" href="#como">Cómo funciona</a>
+          <a class="btn grande btn-descargar" href="app/#/instalar"><span class="icono-app-mini" aria-hidden="true"><img src="app/assets/sakura.svg" alt="" width="23" height="23"></span>Descargar la app</a>
         </div>
       </div>
 
       <div class="hero-visual revelar" aria-hidden="true">
         <div class="telefono" id="telefono">
           <div class="telefono-isla"></div>
-          <div class="demo-progreso"><i></i></div>
-          <div class="demo-tarjeta" id="demo-tarjeta">
-            <div class="demo-top"><span class="demo-nivel"><i></i>Nueva</span><span class="demo-tipo" id="demo-idioma">Francés</span></div>
-            <p class="demo-palabra" id="demo-palabra">Enchanté.</p>
-            <p class="demo-trad" id="demo-trad">Mucho gusto.</p>
-            <div class="demo-acciones"><span>Repasar</span><span class="demo-sabe">✓ Lo sé</span></div>
+          <div class="historias" id="historias"><i></i><i></i><i></i></div>
+          <div class="pantallas">
+            <!-- Pantalla 1: menú principal -->
+            <div class="pantalla p-menu activa" data-dur="5200">
+              <div class="mini-fichas"><span>F</span><span>R</span><span>A</span><span>N</span><span>U</span><span>I</span></div>
+              <p class="mini-sub">Polycat</p>
+              <img class="mini-kitty" src="app/assets/caras/muy_feliz.svg" alt="" width="60" height="48">
+              <div class="mini-stats"><span><img src="app/assets/sakura.svg" alt="" width="23" height="23">7</span><span><img src="app/assets/moneda.svg" alt="" width="24" height="24">240</span></div>
+              <span class="mini-jugar">▶ ¡Jugar!</span>
+              <div class="mini-botones"><i></i><i></i><i></i></div>
+            </div>
+            <!-- Pantalla 2: tarjeta que se desliza -->
+            <div class="pantalla p-tarjeta" data-dur="10800">
+              <div class="demo-tarjeta" id="demo-tarjeta">
+                <div class="demo-top"><span class="demo-nivel"><i></i>Nueva</span><span class="demo-tipo" id="demo-idioma">Francés</span></div>
+                <p class="demo-palabra" id="demo-palabra">Enchanté.</p>
+                <p class="demo-trad" id="demo-trad">Mucho gusto.</p>
+                <div class="demo-acciones"><span>Repasar</span><span class="demo-sabe">✓ Lo sé</span></div>
+              </div>
+              <div class="demo-riel"><span>♡</span><span>◁)</span><img src="app/assets/caras/feliz.svg" alt="" width="20" height="16"></div>
+            </div>
+            <!-- Pantalla 3: premio de tragamonedas -->
+            <div class="pantalla p-premio" data-dur="5200">
+              <p class="mini-titulo">¡Premio!</p>
+              <div class="mini-rodillos"><span><i></i></span><span><i></i></span><span><i></i></span></div>
+              <p class="mini-num">+15</p>
+              <p class="mini-txt">10 palabras hoy</p>
+              <img class="mini-kitty" src="app/assets/caras/celebrando.svg" alt="" width="60" height="48">
+            </div>
           </div>
-          <div class="demo-riel"><span>♡</span><span>◁)</span><img src="app/assets/caras/feliz.svg" alt="" width="20" height="16"></div>
         </div>
         <img class="hero-kitty" src="app/assets/caras/feliz.svg" alt="" width="80" height="64">
       </div>
     </section>
 
+    <!-- Cinta de saludos en todos los idiomas (los próximos, marcados) -->
+    <div class="cinta" aria-hidden="true"><div class="cinta-pista" id="cinta"></div></div>
+
     <!-- Cifras (estilo tablero de aeropuerto) -->
-    <section class="cifras" aria-label="Polyglok en cifras">
+    <section class="cifras" aria-label="Franui Polycat en cifras">
       <div class="cifra revelar"><span class="flap" data-valor="5000">5000</span><span class="cifra-txt">palabras y frases en el banco</span></div>
       <div class="cifra revelar"><span class="flap" data-valor="6">6</span><span class="cifra-txt">idiomas para empezar</span></div>
       <div class="cifra revelar"><span class="flap" data-valor="13">13</span><span class="cifra-txt">grandes temas de la vida diaria</span></div>
@@ -139,6 +168,38 @@
       </div>
     </section>
 
+    <!-- Pruébalo aquí: tarjetas jugables como en la app -->
+    <section class="seccion prueba" id="prueba">
+      <header class="seccion-cabeza revelar">
+        <p class="sobretitulo">Pruébalo aquí</p>
+        <h2 class="display">Desliza y gana<br>tus primeras <em>monedas</em>.</h2>
+        <p class="suave">Toca la tarjeta para ver la traducción. Desliza a la derecha si la sabías, a la izquierda para repasarla.</p>
+      </header>
+      <div class="prueba-juego revelar">
+        <div class="prueba-idiomas" role="radiogroup" aria-label="Idioma para probar" id="prueba-idiomas"></div>
+        <div class="prueba-marcador" aria-live="polite"><img class="moneda" src="app/assets/moneda.svg" alt="" width="24" height="24"><span id="prueba-monedas">0</span> <span class="suave">Kitty tokens</span></div>
+        <div class="mazo" id="mazo"></div>
+        <div class="prueba-botones">
+          <button type="button" class="redondo no" id="prueba-no" aria-label="Repasar">✕</button>
+          <button type="button" class="redondo si" id="prueba-si" aria-label="Lo sé">✓</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Una frase, seis idiomas (como historias: toca para avanzar) -->
+    <section class="seccion frase" id="frase">
+      <header class="seccion-cabeza revelar">
+        <p class="sobretitulo">Una frase, seis idiomas</p>
+        <h2 class="display">Lo mismo, dicho<br>de <em>seis</em> maneras.</h2>
+      </header>
+      <button type="button" class="frase-tarjeta revelar" id="frase-tarjeta" aria-label="Siguiente idioma">
+        <span class="frase-barras" id="frase-barras"></span>
+        <span class="frase-idioma"><span class="monograma" id="frase-mono">ES</span><span id="frase-nombre">Español</span></span>
+        <span class="frase-texto" id="frase-texto" aria-live="polite">¿Cómo estás?</span>
+        <span class="frase-pista">Toca para avanzar</span>
+      </button>
+    </section>
+
     <!-- Idiomas -->
     <section class="seccion" id="idiomas">
       <header class="seccion-cabeza revelar">
@@ -151,7 +212,10 @@
 
     <!-- Kitty -->
     <section class="seccion kitty-seccion" id="kitty">
-      <div class="kitty-arte revelar"><img src="app/assets/caras/feliz.svg" alt="Kitty feliz, en pixel art" width="160" height="128"></div>
+      <div class="kitty-arte revelar">
+        <p class="kitty-dice" id="kitty-dice" aria-live="polite">¡Miau! Toca una de mis caras.</p>
+        <img id="kitty-grande" src="app/assets/caras/feliz.svg" alt="Kitty feliz, en pixel art" width="160" height="128">
+      </div>
       <div class="revelar">
         <p class="sobretitulo">Conoce a Kitty</p>
         <h2 class="display">Tu compañera de estudio.</h2>
@@ -164,7 +228,7 @@
         <p class="nota">Hoy Kitty busca en el diccionario. La conversación con inteligencia artificial llega en una próxima versión.</p>
       </div>
       <div class="caras revelar">
-        <p class="sobretitulo">Sus expresiones</p>
+        <p class="sobretitulo">Sus expresiones · toca una</p>
         <ul class="caras-galeria" id="caras-galeria"></ul>
       </div>
     </section>
@@ -178,9 +242,9 @@
       <div class="revelar">
         <p class="sobretitulo">La creadora</p>
         <h2 class="display">Francisca Ignacia<br>Sanhueza Flores</h2>
-        <p class="creadora-rol">Creadora de Polyglok · Estudiante de la Universidad de Chile</p>
+        <p class="creadora-rol">Creadora de Franui Polycat · Estudiante de la Universidad de Chile</p>
         <!-- PENDIENTE (para después): biografía de Francisca. Reemplazar este párrafo cuando la envíe. -->
-        <p class="creadora-texto">Polyglok busca que aprender idiomas sea tan natural como deslizar la pantalla: un método simple, una estética cuidada y una compañera, Kitty, para volver cada día.</p>
+        <p class="creadora-texto">Franui Polycat busca que aprender idiomas sea tan natural como deslizar la pantalla: un método simple, una estética cuidada y una compañera, Kitty, para volver cada día.</p>
       </div>
     </section>
 
@@ -199,7 +263,7 @@
             <li>Traducción completa y revisada del banco en los seis idiomas.</li>
             <li>Cuentas en la nube: tu avance en todos tus dispositivos y ranking.</li>
             <li>Kitty con inteligencia artificial.</li>
-            <li>App instalable en el celular.</li>
+            <li>Recordatorios diarios con Kitty en el celular.</li>
             <li>Práctica de pronunciación en voz alta.</li>
           </ul>
         </div>
@@ -209,12 +273,16 @@
     <!-- Llamado final -->
     <section class="cta-final">
       <h2 class="display revelar">Tu primer minuto<br>empieza ahora.</h2>
-      <a class="btn primario grande revelar" href="app/">Abrir Polyglok</a>
+      <div class="cta-botones revelar">
+        <a class="btn primario grande" href="app/">Abrir Franui Polycat</a>
+        <a class="btn grande btn-descargar" href="app/#/instalar"><span class="icono-app-mini" aria-hidden="true"><img src="app/assets/sakura.svg" alt="" width="23" height="23"></span>Descargar la app</a>
+      </div>
+      <p class="cta-nota revelar">Android, iPhone y computador · gratis · funciona sin internet</p>
     </section>
   </main>
 
   <footer class="pie">
-    <div class="pie-marca marca-completa"><span class="logo apilado"><span class="logo-a">Polyglok</span> <span class="logo-b">in progress</span></span><span class="marca-linea" aria-hidden="true"></span><span class="eslogan">Be fluent in multiple languages</span></div>
+    <div class="pie-marca marca-completa"><span class="logo apilado"><span class="logo-a">Franui</span> <span class="logo-b">Polycat</span></span><span class="marca-linea" aria-hidden="true"></span><span class="eslogan">Be fluent in multiple languages</span></div>
     <nav aria-label="Pie de página">
       <a href="#metodo">Método</a>
       <a href="#idiomas">Idiomas</a>

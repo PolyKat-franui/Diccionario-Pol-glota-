@@ -8,7 +8,7 @@ import * as banco from './banco.js';
 import { hablar } from './voz.js';
 import { ICON } from './iconos.js';
 import { sonido, activarSonido } from './sonido.js';
-import { sembrarAdornos, estallido } from './adornos.js';
+import { sembrarAdornos, estallido, lluvia } from './adornos.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
 import * as nube from './nube.js';
 
@@ -173,7 +173,7 @@ function actualizarChips() {
 }
 
 function pintarMarco(ruta) {
-  const enInicio = ruta === 'inicio' || ruta === 'menu'; // pantallas a pantalla completa, sin barra
+  const enInicio = ruta === 'inicio' || ruta === 'menu' || ruta === 'instalar'; // pantallas a pantalla completa, sin barra
   $('#barra').hidden = enInicio;
   $('#tabbar').hidden = enInicio;
   $('#kitty-fab').hidden = enInicio;
@@ -266,6 +266,7 @@ function leerRuta() {
 const RUTAS = {
   inicio: vistaInicio,
   menu: vistaMenu,
+  instalar: vistaInstalar,
   conservar: vistaConservar,
   idiomas: vistaIdiomas,
   aprender: vistaAprender,
@@ -279,7 +280,7 @@ const RUTAS = {
 
 async function router() {
   const r = leerRuta();
-  if (!S.perfil.elegido && r.nombre !== 'inicio' && r.nombre !== 'conservar') return void location.replace('#/inicio');
+  if (!S.perfil.elegido && !['inicio', 'conservar', 'instalar'].includes(r.nombre)) return void location.replace('#/inicio');
   if (!RUTAS[r.nombre]) return void location.replace('#/menu');
   cerrarSesion();
   document.body.dataset.ruta = r.nombre;
@@ -321,7 +322,7 @@ function vistaInicio() {
     <section class="inicio">
       <div class="inicio-hero">
         <img class="inicio-kitty" src="assets/caras/feliz.svg" alt="Kitty" width="80" height="64">
-        <h1 class="marca-completa"><span class="logo apilado"><span class="logo-a">Polyglok</span> <span class="logo-b">in progress</span></span><span class="marca-linea" aria-hidden="true"></span><span class="eslogan">Be fluent in multiple languages</span></h1>
+        <h1 class="marca-completa"><span class="logo apilado"><span class="logo-a">Franui</span> <span class="logo-b">Polycat</span></span><span class="marca-linea" aria-hidden="true"></span><span class="eslogan">Be fluent in multiple languages</span></h1>
       </div>
       <div class="card inicio-card">
         <div class="seg" role="tablist">
@@ -380,17 +381,18 @@ function vistaInicio() {
 // ---------- Menú principal (estilo juego) ----------
 function vistaMenu() {
   const racha = store.rachaVigente(S.racha);
-  const hoy = S.diario?.dia === store.diaLocal(Date.now()) ? S.diario.revisadas : 0;
-  const enNivel = hoy % store.PREMIO_CADA;
-  const faltan = store.PREMIO_CADA - enNivel;
-  const letras = [...'POLYGLOK'].map((l, i) => `<span style="--i:${i}">${l}</span>`).join('');
+  const hoy = hoyRevisadas();
+  const meta = S.ajustes.meta;
+  const faltan = store.PREMIO_CADA - (hoy % store.PREMIO_CADA);
+  const letras = [...'FRANUI'].map((l, i) => `<span style="--i:${i}">${l}</span>`).join('');
   const boton = (href, icon, texto, id) => `<a class="menu-btn" href="${href}" id="${id}">${icon}<span>${texto}</span></a>`;
   vista.innerHTML = `
     <section class="menu-juego">
       <div class="menu-escena">
-        <h1 class="menu-logo" aria-label="Polyglok in progress">
-          <span class="menu-letras logo-a" aria-hidden="true">${letras}</span>
-          <span class="logo menu-sub" aria-hidden="true"><span class="logo-b"><span class="menu-tipeo">in progress</span></span></span>
+        <h1 class="menu-logo" aria-label="Franui Polycat">
+          <span class="menu-letras" aria-hidden="true">${letras}</span>
+          <span class="menu-linea" aria-hidden="true"></span>
+          <span class="logo menu-sub" aria-hidden="true"><span class="logo-b"><span class="menu-tipeo">Polycat</span></span></span>
         </h1>
         <p class="eslogan menu-eslogan">Be fluent in multiple languages</p>
         <button class="menu-kitty" type="button" id="menu-kitty" aria-label="Kitty">
@@ -401,9 +403,10 @@ function vistaMenu() {
         <li><img src="assets/sakura.svg" alt="" width="23" height="23"><span>${tn('racha_n', racha)}</span></li>
         <li><img src="assets/moneda.svg" alt="" width="24" height="24"><span>${t('tokens_n', { n: S.tokens })}</span></li>
         <li class="menu-hoy">
+          <img class="menu-flor" src="${srcFlor(etapaHoy())}" alt="" width="46" height="46">
           <span>${t('menu_hoy', { n: hoy })}</span>
-          <span class="progreso" role="progressbar" aria-valuemin="0" aria-valuemax="${store.PREMIO_CADA}" aria-valuenow="${enNivel}" aria-label="${t('menu_premio', { n: faltan })}"><i style="width:${enNivel * 10}%"></i></span>
-          <small>${t('menu_premio', { n: faltan })}</small>
+          <span class="progreso" role="progressbar" aria-valuemin="0" aria-valuemax="${meta}" aria-valuenow="${Math.min(hoy, meta)}" aria-label="${t('meta_progreso', { n: Math.min(hoy, meta), m: meta })}"><i style="width:${Math.min(100, (hoy / meta) * 100)}%"></i></span>
+          <small>${hoy >= meta ? t('meta_lista') : t('meta_progreso', { n: hoy, m: meta })} · ${t('menu_premio', { n: faltan })}</small>
         </li>
       </ul>
       <nav class="menu-botones" aria-label="${t('menu_titulo')}">
@@ -415,8 +418,16 @@ function vistaMenu() {
         ${boton('#/novedades', ICON.estrella, t('nav_novedades'), 'menu-novedades')}
         ${boton('#/ajustes', ICON.ajustes, t('nav_ajustes'), 'menu-ajustes')}
       </nav>
+      ${botonInstalar()}
     </section>`;
   marcarAvisoNovedades();
+  // Tocar una letra de FRANUI: salta y suena una moneda (cada letra un poco más aguda)
+  $('.menu-letras').addEventListener('click', (e) => {
+    const l = e.target.closest('span[style]');
+    if (!l) return;
+    l.classList.remove('salta'); void l.offsetWidth; l.classList.add('salta');
+    sonido.moneda(0, Number(l.style.getPropertyValue('--i')) * 2);
+  });
   // Tocar a Kitty: salta, cambia de cara y suelta sakuras y monedas
   const CARAS = ['celebrando', 'guino', 'enamorada', 'sorprendida', 'muy_feliz'];
   let n = 0;
@@ -429,6 +440,45 @@ function vistaMenu() {
     estallido(r.left + r.width / 2, r.top + r.height / 3, { cantidad: 12 });
   });
 }
+
+// ---------- Instalar la app en la pantalla de inicio ----------
+// Chrome/Edge/Android avisan con «beforeinstallprompt» y se instala con un toque.
+// iPhone/iPad (Safari) y otros navegadores no tienen ese aviso: se muestran los pasos.
+let avisoInstalar = null;
+const instalada = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); avisoInstalar = e; });
+addEventListener('appinstalled', () => { avisoInstalar = null; toast(t('inst_lista')); $$('.btn-instalar').forEach((b) => b.remove()); });
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+const iconoApp = () => '<span class="icono-app" aria-hidden="true"><img src="assets/sakura.svg" alt="" width="69" height="69"></span>';
+async function instalarApp() {
+  if (instalada()) return void toast(t('inst_ya'));
+  if (avisoInstalar) {
+    avisoInstalar.prompt();
+    const { outcome } = await avisoInstalar.userChoice.catch(() => ({}));
+    avisoInstalar = null;
+    if (outcome === 'accepted') { sonido.premio(); lluvia({ cantidad: 24 }); }
+    return;
+  }
+  const ua = navigator.userAgent;
+  const ios = /iphone|ipad|ipod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const android = /android/i.test(ua);
+  const pasos = ios ? ['inst_ios_1', 'inst_ios_2', 'inst_ios_3'] : android ? ['inst_and_1', 'inst_and_2', 'inst_and_3'] : ['inst_pc_1', 'inst_pc_2'];
+  modal(t('inst_titulo'), `
+    <div class="instalar">
+      ${iconoApp()}
+      <p class="suave">${t('inst_texto')}</p>
+      <ol class="pasos-instalar">${pasos.map((k) => `<li>${t(k)}</li>`).join('')}</ol>
+    </div>`);
+}
+function vistaInstalar(r) {
+  (S.perfil.elegido ? vistaMenu : vistaInicio)(r);
+  setTimeout(instalarApp, 700);
+}
+const botonInstalar = (clase = 'menu-instalar') => (instalada() ? '' :
+  `<button class="btn-instalar ${clase}" type="button">${ICON.descargar}<span>${t('inst_boton')}</span></button>`);
+document.addEventListener('click', (e) => { if (e.target.closest('.btn-instalar')) instalarApp(); });
 
 // ---------- ¿Qué avance conservo? ----------
 function cuentaDeMuestra() {
@@ -675,7 +725,7 @@ async function vistaEstudiar(r) {
   sesion = { meta, nativo, sabias: 0, repasar: 0, tokens: 0, reps: {}, actual: 0, k: 0, terminada: false, ruta: location.hash, volverA };
   vista.innerHTML = `
     <section class="feed" id="feed" aria-label="${t('nav_aprender')}">
-      <div class="feed-progreso" aria-hidden="true"><span class="progreso"><i id="feed-barra"></i></span><span id="feed-cuenta"></span></div>
+      <div class="feed-progreso" aria-hidden="true"><span class="progreso"><i id="feed-barra"></i></span><span id="feed-cuenta"></span><img class="feed-flor" id="feed-flor" src="assets/flor-0.svg" alt="" width="23" height="23"></div>
       ${plan.cola.map((id, i) => htmlSlide(id, i === 0)).join('')}
       <article class="slide fin" id="slide-fin" aria-live="polite"></article>
     </section>`;
@@ -686,6 +736,7 @@ async function vistaEstudiar(r) {
   sesion.observer = new IntersectionObserver(alVerSlide, { root: feed, threshold: 0.6 });
   $$('.slide', feed).forEach((s) => sesion.observer.observe(s));
   actualizarCuenta();
+  pintarFlor();
 }
 
 function htmlSlide(id, primera = false) {
@@ -736,18 +787,90 @@ function actualizarCuenta() {
   $('#feed-barra').style.width = `${(hechas / slides.length) * 100}%`;
 }
 
+// ---------- Sakura del día, racha y cofres ----------
+const hoyRevisadas = () => (S.diario?.dia === store.diaLocal(Date.now()) ? S.diario.revisadas : 0);
+const etapaHoy = () => store.etapaFlor(hoyRevisadas(), S.ajustes.meta);
+const srcFlor = (e) => (e >= store.ETAPAS_FLOR ? 'assets/sakura.svg' : `assets/flor-${e}.svg`);
+/** Sakura chica junto a la barra de la sesión: crece con cada palabra hasta la meta. */
+function pintarFlor(crece = false) {
+  const img = $('#feed-flor');
+  if (!img) return;
+  img.src = srcFlor(etapaHoy());
+  img.title = t('meta_progreso', { n: Math.min(hoyRevisadas(), S.ajustes.meta), m: S.ajustes.meta });
+  img.setAttribute('aria-label', img.title);
+  if (crece) { img.classList.remove('crece'); void img.offsetWidth; img.classList.add('crece'); }
+}
+/** Primer estudio del día: la racha sube con una lluvia de sakuras; cada 7 días, un cofre. */
+function celebrarRacha() {
+  const n = store.rachaVigente(S.racha);
+  lluvia({ cantidad: 22 });
+  toast(tn('racha_sube_n', n));
+  pulsoChip();
+  const cofre = store.abrirCofre(S);
+  if (cofre) { guardar(); setTimeout(() => mostrarCofre(cofre), 1400); }
+}
+function metaCumplida() {
+  lluvia({ cantidad: 40, monedas: 0.3, dur: 3200 });
+  sonido.fin();
+  setTimeout(() => toast(t('meta_cumplida')), 300);
+}
+/** Cofre: se sacude, se abre al tocarlo y suelta monedas. */
+function mostrarCofre({ dias, monedas }) {
+  document.querySelector('.cofre-capa')?.remove();
+  const capa = document.createElement('div');
+  capa.className = 'premio-capa cofre-capa';
+  capa.setAttribute('role', 'dialog');
+  capa.setAttribute('aria-modal', 'true');
+  capa.setAttribute('aria-labelledby', 'cofre-titulo');
+  capa.innerHTML = `
+    <div class="premio-caja">
+      <p class="premio-titulo" id="cofre-titulo">${t('cofre_titulo')}</p>
+      <p class="premio-texto">${t('cofre_texto', { n: dias })}</p>
+      <button class="cofre-boton" type="button" id="cofre-abrir" aria-label="${t('cofre_abrir')}">
+        <img src="assets/cofre.svg" alt="" width="120" height="100">
+      </button>
+      <p class="premio-monto" hidden id="cofre-monto"><img src="assets/moneda.svg" alt="" width="48" height="48"><span>+${monedas}</span></p>
+      <button class="btn primario grande" type="button" id="cofre-ok">${t('cofre_abrir')}</button>
+    </div>`;
+  document.body.append(capa);
+  let abierto = false;
+  const cerrar = () => { capa.classList.add('saliendo'); setTimeout(() => capa.remove(), 300); actualizarChips(); pulsoChip(); };
+  const abrir = () => {
+    if (abierto) return cerrar();
+    abierto = true;
+    const b = $('#cofre-abrir', capa);
+    b.classList.add('abierto');
+    $('img', b).src = 'assets/cofre-abierto.svg';
+    $('#cofre-monto', capa).hidden = false;
+    $('#cofre-ok', capa).textContent = t('premio_ok');
+    sonido.premio();
+    const r = b.getBoundingClientRect();
+    estallido(r.left + r.width / 2, r.top + r.height / 3, { cantidad: 16 });
+    lluvia({ cantidad: 24, monedas: 0.8 });
+  };
+  $('#cofre-abrir', capa).addEventListener('click', abrir);
+  $('#cofre-ok', capa).addEventListener('click', abrir);
+  capa.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
+  $('#cofre-ok', capa).focus({ preventScroll: true });
+}
+
 function responderSlide(slide, sabia, auto = false) {
   if (!sesion || slide.dataset.r) return;
   const { meta } = sesion;
   const id = slide.dataset.id;
   slide.dataset.r = sabia ? 'si' : 'no';
+  const diaAntes = S.racha.ultimoDia;
   sesion.tokens += store.registrarRespuesta(S, meta, id, sabia);
+  if (S.racha.ultimoDia !== diaAntes) celebrarRacha();
   sabia ? sesion.sabias++ : sesion.repasar++;
   if (!auto) {
     sonido.moneda(0.05, sabia ? 2 : 0);
     volarMonedas(slide, sabia ? 3 : 1);
+    const etapa = etapaHoy();
     const premio = store.contarRevision(S);
     if (premio) { sesion.tokens += premio.monedas; setTimeout(() => mostrarPremio(premio), 700); }
+    if (etapaHoy() !== etapa) pintarFlor(true);
+    if (S.diario.revisadas === S.ajustes.meta) metaCumplida();
   }
   const niv = dificultad(store.progresoDe(S, meta)[id]);
   $('.nivel', slide).outerHTML = insignia(niv);
@@ -773,6 +896,7 @@ function responderSlide(slide, sabia, auto = false) {
 }
 
 function irA(delta) {
+  if (!sesion) return; // se salió de la sesión antes de que avanzara
   const todas = $$('#feed .slide');
   const destino = todas[Math.min(Math.max(sesion.actual + delta, 0), todas.length - 1)];
   destino?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
@@ -1200,6 +1324,21 @@ function vistaAjustes() {
       </div>
 
       <div class="card">
+        <h2>${t('aj_app')}</h2>
+        <div class="fila-app">${iconoApp()}<p class="suave">${instalada() ? t('inst_ya') : t('inst_texto')}</p></div>
+        ${botonInstalar('btn ancho')}
+      </div>
+
+      <div class="card">
+        <h2>${t('aj_meta')}</h2>
+        <p class="suave pequeno">${t('aj_meta_nota')}</p>
+        <div class="seg" role="radiogroup" aria-label="${t('aj_meta')}">
+          ${store.METAS.map((m) => opcion('meta', m, t('meta_n', { n: m }), a.meta)).join('')}
+        </div>
+        <p class="flores-meta" aria-hidden="true">${[0, 1, 2, 3, 4].map((e) => `<img src="${srcFlor(e)}" alt="" width="23" height="23">`).join('<span>›</span>')}</p>
+      </div>
+
+      <div class="card">
         <h2>${t('idioma_nativo')}</h2>
         <label class="campo"><span class="sr-only">${t('idioma_nativo')}</span>
           <select id="aj-nativo">${IDIOMAS_UI.map((c) => `<option value="${c}" ${c === a.nativo ? 'selected' : ''}>${esc(nombreIdioma(c, c))}</option>`).join('')}</select></label>
@@ -1237,6 +1376,7 @@ function vistaAjustes() {
   $('#aj-google')?.addEventListener('click', conectarGoogle);
   $('#aj-salir')?.addEventListener('click', salirDeGoogle);
   $$('[data-tema]').forEach((b) => b.addEventListener('click', () => { a.tema = b.dataset.tema; guardar(); aplicarAjustes(); vistaAjustes(); }));
+  $$('[data-meta]').forEach((b) => b.addEventListener('click', () => { a.meta = Number(b.dataset.meta); guardar(); vistaAjustes(); }));
   $$('.paletas [data-paleta]').forEach((b) => b.addEventListener('click', () => { a.paleta = b.dataset.paleta; guardar(); aplicarAjustes(); vistaAjustes(); }));
   $('#aj-escala').addEventListener('input', (e) => { a.escala = Number(e.target.value); $('#o-escala').textContent = `${Math.round(a.escala * 100)}%`; aplicarAjustes(); guardar(); });
   $('#aj-brillo').addEventListener('input', (e) => { a.brillo = Number(e.target.value); $('#o-brillo').textContent = `${Math.round(a.brillo * 100)}%`; aplicarAjustes(); guardar(); });

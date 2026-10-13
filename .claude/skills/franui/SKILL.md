@@ -87,10 +87,11 @@ marca lo corregido, no mezcla pronunciaciones.
 [ABIERTO] Proveedor de IA. Nota técnica: una app no puede "usar la cuenta de Google"
 de alguien para hablar con Claude/ChatGPT/Gemini; se necesita una API con clave
 guardada en un servidor propio (nunca en el navegador). Ver `docs/RECOMENDACIONES.md`.
-Nombre de la app [PROVISORIO 2026-10-10, en discusión]: **Polyglok** (antes «Franui»). Se usa en títulos y textos;
-los nombres internos (carpetas, `franui:v1`, esta skill) no cambian.
-Logo [DECIDIDO 2026-10-10, ajustado 2026-10-13]: **«POLYGLOK in progress»** (antes decía «Polyglot») en letra de
-máquina de escribir (Special Elite, `--font-logo`), con un cursor que parpadea después de «in progress».
+Nombre de la app [DECIDIDO 2026-10-13]: **Franui · Polycat** (antes «Franui» y luego «Polyglok» provisorio).
+En títulos: «Franui · Polycat»; dentro de frases: «Franui Polycat». Los nombres internos (carpetas, `franui:v1`,
+esta skill) no cambian.
+Logo [DECIDIDO 2026-10-13]: **«FRANUI Polycat»** (FRANUI en mayúsculas espaciadas + Polycat) en letra de
+máquina de escribir (Special Elite, `--font-logo`), con un cursor que parpadea después de «Polycat».
 Eslogan (por ahora): **«Be fluent in multiple languages»**, en mayúsculas espaciadas bajo una línea.
 No se traducen. Estilos en `app/css/logo.css` (una línea, apilado y marca completa con eslogan).
 Ícono de la app (pestaña del navegador, pantalla de carga): **un corazón** pixel art, provisorio hasta
@@ -149,7 +150,7 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
 
 ## 9d. Menú principal y cuenta de Google [DECIDIDO 2026-10-13]
 - El logo de la barra abre `#/menu`: menú tipo juego a pantalla completa (sin barra). Es también
-  la pantalla al abrir la app. Fichas POLYGLOK que caen (colores `--nodo-*`), «in progress» que
+  la pantalla al abrir la app. Fichas FRANUI que caen (colores `--nodo-*`), «Polycat» que
   se escribe, Kitty saltando (tocarla cambia su cara y suelta sakuras), racha, monedas, palabras
   de hoy con barra al próximo premio, botón grande «¡Jugar!» (mezcla de todos los temas) y 6 botones.
 - Paletas claras con 6 colores `--nodo-1…6` por paleta (texto blanco ≥ 4,5:1). Adornos de sakuras
@@ -157,6 +158,20 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
 - Cuenta de Google con **Firebase** (Auth + Firestore `progreso/{uid}`), más simple que Supabase
   para el login con Google. Código en `nube.js`; config en `nube-config.js` (null = desactivada).
   Pasos y reglas de seguridad: `docs/NUBE.md`. Solo sube si hay cambios sin enviar.
+
+## 9e. Instalable, meta diaria, cofres y web jugable [DECIDIDO 2026-10-13]
+- **App instalable (PWA):** `app/manifest.webmanifest` + `app/sw.js` (primero la red, sin conexión usa lo guardado).
+  Ícono: la sakura pixel art al centro sobre carmesí `#9E2A3A` (tokens `--carmesi`, `--carmesi-luz`), generado por
+  `node scripts/iconos-app.mjs` (también en `npm run build`). «Descargar la app» en el menú, Ajustes y la web
+  (`app/#/instalar`); en iPhone y navegadores sin aviso se muestran los pasos. Al agregar archivos a la app,
+  sumarlos a `NUCLEO` en `sw.js` (lo revisa `tests/pwa.test.mjs`).
+- **Título del menú:** FRANUI en letras grandes (Special Elite), sin cajas; caen como teclas, ola de color
+  `--primary` y saltan al tocarlas; línea fina y «Polycat» que se escribe.
+- **Meta diaria** (5/10/20 palabras, Ajustes): sakura del día en 5 etapas (`flor-0…3` → `sakura`).
+- **Racha:** al subir caen sakuras; **cofre** cada 7 días (50, 75, 100… monedas), una vez por hito (`S.cofre`).
+- **Web:** teléfono con 3 pantallas tipo historias, cinta de saludos, demo jugable (mazo tipo Tinder),
+  frase en 6 idiomas tipo historias, Kitty interactiva, monedas que suenan en las cifras.
+- Ideas de TikTok / Instagram / Duolingo / Tinder y el patrón común: `docs/REFERENCIAS.md`.
 
 ## 10. Pantallas de la app
 Inicio/cuenta (Entrar, Crear cuenta con usuario + contraseña ≥ 6, Google, Invitado) —

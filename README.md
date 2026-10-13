@@ -1,7 +1,7 @@
-# Polyglok — Diccionario Políglota
+# Franui · Polycat — Diccionario Políglota
 
-> Nombre provisorio (en discusión). Antes se llamaba «Franui»; los nombres internos del código no cambian.
-> Logo: «Polyglot in progress» · Eslogan: «Be fluent in multiple languages».
+> Nombre decidido el 2026-10-13 (antes: «Franui» y luego «Franui Polycat» provisorio).
+> Logo: «FRANUI Polycat» · Eslogan: «Be fluent in multiple languages».
 
 **En línea:** https://franciscasanhueza.github.io/Diccionario-Pol-glota-/ (web) · https://franciscasanhueza.github.io/Diccionario-Pol-glota-/app/ (app).
 Se publica sola con cada cambio en `main` (`.github/workflows/publicar.yml`).
