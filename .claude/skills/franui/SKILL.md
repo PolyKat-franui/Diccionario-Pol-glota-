@@ -89,11 +89,13 @@ de alguien para hablar con Claude/ChatGPT/Gemini; se necesita una API con clave
 guardada en un servidor propio (nunca en el navegador). Ver `docs/RECOMENDACIONES.md`.
 Nombre de la app [PROVISORIO 2026-10-10, en discusión]: **Polyglok** (antes «Franui»). Se usa en títulos y textos;
 los nombres internos (carpetas, `franui:v1`, esta skill) no cambian.
-Logo [DECIDIDO 2026-10-10, reemplaza a la cara de Kitty]: la frase **«Polyglot in progress»** en letra de
+Logo [DECIDIDO 2026-10-10, ajustado 2026-10-13]: **«POLYGLOK in progress»** (antes decía «Polyglot») en letra de
 máquina de escribir (Special Elite, `--font-logo`), con un cursor que parpadea después de «in progress».
 Eslogan (por ahora): **«Be fluent in multiple languages»**, en mayúsculas espaciadas bajo una línea.
 No se traducen. Estilos en `app/css/logo.css` (una línea, apilado y marca completa con eslogan).
-Kitty sigue siendo la mascota (y el ícono de la pestaña del navegador).
+Ícono de la app (pestaña del navegador, pantalla de carga): **un corazón** pixel art, provisorio hasta
+encontrar uno definitivo. Kitty: el ícono de cuerpo entero que dibujó Francisca (gato blanco sentado,
+collar morado y cascabel), 20×16, en 14 expresiones.
 
 ## 9. Estética [DECIDIDO 2026-10-09]
 Sensación limpia, simple, lujo "old money", estudio corto. Referencias: Apple, Dior, Chanel, Bvlgari.
@@ -114,13 +116,36 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
   - Pixel art con los mismos tonos (contornos Carbón, corazones Higo). La sakura conserva su rosado
     y la moneda/estrella su dorado, para que se reconozcan.
   - Descartadas: la paleta Creme/Sand/Dusty Pink/Burgundy (2026-10-09), los rosados fuertes y la rosa/lavanda.
-- **Tipografía:** títulos y palabra de la tarjeta en **Bodoni Moda** (serif de alto contraste,
-  estilo moda); texto en **Jost** (sans geométrica fina); IPA en Noto Sans. Etiquetas en
-  mayúsculas con mucho espaciado.
-- Dificultad: nueva `#5C524B`, difícil `#602B27`, media `#6B4E1C`, fácil `#3F5B40`,
-  dominada `#4B3A6B` (oscuro: versiones más claras).
+- **Tipografía [CAMBIADA 2026-10-13]:** títulos y palabra de la tarjeta en **Fredoka** (redonda, gruesa,
+  alegre); texto en **Nunito** (muy legible). Logo en Special Elite. Descartadas por finas: Bodoni Moda y Jost.
+- Dificultad [2026-10-13]: insignia de color con **ícono** y texto blanco: nueva (destello, `#0369A1`),
+  difícil (llama, `#B91C1C`), media (medio círculo, `#B45309`), fácil (hoja, `#047857`), dominada (corona, `#6D28D9`).
+- Temas [2026-10-13]: **sin subtemas**, solo los 13 mega temas, dibujados como **red de neuronas** (el idioma es
+  el núcleo; cada tema, una neurona de su color con anillo de % de avance; impulsos recorren las conexiones).
+  Colores `--tema-1…13` en tokens.css. Favoritos separados por idioma (pestañas).
 - Accesibilidad: contraste ≥ 4,5:1 (prueba automática), botones ≥ 44 px, nunca solo color.
 - Tres formatos: celular, tablet, computador. Modo claro y oscuro.
+
+## 9b. Dinámica y recompensas [DECIDIDO 2026-10-13]
+- Tarjeta: **deslizar → = Lo sé, ← = Repasar** (con sello de color y la tarjeta sale volando). Los botones
+  quedan como alternativa accesible (y teclado: ← →, 1, 2). El scroll vertical sigue pasando tarjetas.
+- Kitty grande abajo a la derecha de la tarjeta, solo como ayuda (abre el chat con «esta palabra»).
+- Sonidos sintetizados (`app/js/sonido.js`, sin archivos): clic suave en botones, moneda de tragamonedas al
+  responder (las monedas vuelan al contador), «me gusta», voltear, deslizar, rodillos y premio. Vibración
+  suave en celulares. Se apagan en Ajustes → «Sonidos y vibración».
+- **Premios incrementales**: cada 10 palabras revisadas en el día sale UN aviso de premio (tragamonedas con
+  3 rodillos que caen en monedas). Valor 10, 15, 23, 34, 51… (×1,5 cada vez). Se reinicia cada día.
+  Lógica en `store.contarRevision` / `premioDeNivel` (con pruebas). Solo cuentan respuestas explícitas.
+- Movimiento: cada vista entra con una transición; botones se hunden al tocar; íconos activos rebotan.
+  Todo respeta «reducir movimiento».
+
+## 9c. Idiomas, novedades y tutorial [DECIDIDO 2026-10-13]
+- Elegir idioma (a aprender, y el idioma de la app desde el botón «ES» de arriba) en una **araña a pantalla
+  completa**: el idioma propio al centro, hilos y tela hacia cada idioma de color.
+- Novedades: la última versión en una tarjeta grande y colorida («¡Nueva actualización!»), con confeti de
+  pixel art; versiones anteriores plegadas. Punto rojo en la pestaña hasta que se abre.
+- Tutorial: ya no es texto. **Kitty guía la primera sesión** en 4 pasos (tocar la tarjeta, deslizar, monedas y
+  premios, pedirle ayuda) resaltando cada parte. Se puede repetir desde Ajustes → «Ver el tutorial con Kitty».
 
 ## 10. Pantallas de la app
 Inicio/cuenta (Entrar, Crear cuenta con usuario + contraseña ≥ 6, Google, Invitado) —

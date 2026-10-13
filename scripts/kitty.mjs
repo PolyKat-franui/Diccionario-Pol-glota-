@@ -1,6 +1,6 @@
 // Genera todo el pixel art de Franui como SVG (tamaño exacto, sin deformar).
-//   app/assets/caras/<id>.svg      14 expresiones de Kitty, 28×24 (+ caras.json). Logo = caras/feliz.svg
-//   app/assets/sakura.svg · moneda.svg · estrella.svg · cerezas.svg · mensaje.svg · burbuja.svg
+//   app/assets/caras/<id>.svg      14 expresiones de Kitty, 20×16 (+ caras.json)
+//   app/assets/sakura.svg · moneda.svg · estrella.svg · cerezas.svg · mensaje.svg · burbuja.svg · corazon.svg (logo)
 //   docs/arte.html                 catálogo visual de todo lo anterior
 // Regla: mostrar siempre a escala entera (ancho × 1, 2, 3…) para que los pixeles no se deformen.
 // Uso: node scripts/kitty.mjs
@@ -32,7 +32,7 @@ export function toSvg(filas, { titulo, colores = COLORES } = {}) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" shape-rendering="crispEdges" role="img" aria-label="${titulo}"><title>${titulo}</title>${rects.join('')}</svg>\n`;
 }
 
-const TITULOS = { sakura: 'Racha', moneda: 'Kitty token', estrella: 'Estrella', cerezas: 'Cerezas', mensaje: 'Mensaje', burbuja: 'Burbuja de texto' };
+const TITULOS = { sakura: 'Racha', moneda: 'Kitty token', estrella: 'Estrella', cerezas: 'Cerezas', mensaje: 'Mensaje', burbuja: 'Burbuja de texto', corazon: 'Polyglok' };
 
 /** Todos los archivos que se generan: { ruta relativa a app/assets: svg }. */
 export function archivos() {
@@ -55,7 +55,7 @@ figure{margin:0;display:grid;justify-items:center;gap:6px}img{image-rendering:pi
 <h1>Polyglok — catálogo de pixel art</h1>
 <p>Generado por <code>node scripts/kitty.mjs</code>. Mostrar siempre a escala entera (×1, ×2, ×3…).</p>
 ${fila('Íconos', Object.keys(ICONOS).map((id) => img(`${id}.svg`, TITULOS[id], 4)))}
-${fila('Kitty (sus expresiones; «Feliz» es el logo)', lista.caras.map((c) => img(`caras/${c.id}.svg`, c.nombre)))}
+${fila('Kitty (sus expresiones)', lista.caras.map((c) => img(`caras/${c.id}.svg`, c.nombre)))}
 <h2>Burbuja con texto</h2>
 <link rel="stylesheet" href="../app/css/app.css">
 <p><span class="burbuja-texto">¡Hola! Soy Kitty.</span></p>

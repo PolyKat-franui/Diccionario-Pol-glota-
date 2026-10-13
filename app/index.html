@@ -7,10 +7,10 @@
   <meta name="description" content="Aprende el vocabulario y las frases cotidianas de varios idiomas a la vez, deslizando tarjetas.">
   <meta name="theme-color" content="#E4E2DA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#211A18" media="(prefers-color-scheme: dark)">
-  <link rel="icon" href="assets/caras/feliz.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/corazon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300;400;500;600&family=Noto+Sans:wght@400&family=Special+Elite&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Noto+Sans:wght@400&family=Special+Elite&display=swap">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/logo.css">
   <link rel="stylesheet" href="css/app.css">
@@ -19,17 +19,14 @@
   <a class="saltar" href="#vista">Ir al contenido</a>
 
   <header class="barra" id="barra" hidden>
-    <a class="marca" href="#/aprender" aria-label="Polyglot in progress">
-      <span class="logo"><span class="logo-a">Polyglot</span> <span class="logo-b">in progress</span></span>
+    <a class="marca" href="#/aprender" aria-label="Polyglok">
+      <span class="logo"><span class="logo-a">Polyglok</span> <span class="logo-b">in progress</span></span>
     </a>
     <nav class="nav-sup" id="nav-sup" aria-label="Secciones"></nav>
     <div class="barra-der">
       <a class="chip chip-racha" href="#/ranking" id="chip-racha"><img src="assets/sakura.svg" alt="" width="23" height="23"><span></span></a>
       <span class="chip chip-tokens" id="chip-tokens"><img class="moneda" src="assets/moneda.svg" alt="" width="24" height="24"><span></span></span>
-      <label class="sel-nativo">
-        <span class="sr-only" id="lbl-nativo"></span>
-        <select id="sel-nativo" aria-labelledby="lbl-nativo"></select>
-      </label>
+      <button class="chip chip-nativo" type="button" id="btn-nativo" aria-haspopup="dialog"></button>
       <a class="avatar" href="#/ajustes" id="avatar"></a>
       <a class="icon-btn" href="#/ajustes" id="btn-ajustes"></a>
     </div>
@@ -40,12 +37,12 @@
   <nav class="tabbar" id="tabbar" aria-label="Secciones" hidden></nav>
 
   <button class="kitty-fab" id="kitty-fab" type="button" hidden>
-    <img src="assets/caras/feliz.svg" alt="" width="56" height="48">
+    <img src="assets/caras/feliz.svg" alt="" width="60" height="48">
   </button>
 
   <dialog class="kitty-panel" id="kitty-panel" aria-labelledby="kitty-titulo">
     <header>
-      <img class="kitty-cara" id="kitty-cara" src="assets/caras/feliz.svg" alt="" width="28" height="24">
+      <img class="kitty-cara" id="kitty-cara" src="assets/caras/feliz.svg" alt="" width="40" height="32">
       <div><h2 id="kitty-titulo">Kitty</h2><p class="suave" id="kitty-modo"></p></div>
       <button class="icon-btn" type="button" id="kitty-cerrar"></button>
     </header>
@@ -65,6 +62,8 @@
 
   <div class="brillo" id="capa-brillo" aria-hidden="true"></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="arana-capa" id="capa-idiomas" role="dialog" aria-modal="true" aria-labelledby="capa-idiomas-titulo" hidden></div>
+  <div class="tutorial-capa" id="tutorial" hidden></div>
 
   <noscript>Polyglok necesita JavaScript.</noscript>
   <script type="module" src="js/main.js"></script>

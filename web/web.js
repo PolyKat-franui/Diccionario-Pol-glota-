@@ -167,7 +167,7 @@ fetch('app/data/novedades.json').then((r) => r.json()).then(({ novedades }) => {
 // ---------- Expresiones de Kitty (mismo archivo que genera scripts/kitty.mjs) ----------
 fetch('app/assets/caras/caras.json').then((r) => r.json()).then((caras) => {
   $('#caras-galeria').innerHTML = caras.map((c) => `
-    <li><img src="app/assets/caras/${c.id}.svg" alt="Kitty ${esc(c.nombre.toLowerCase())}" width="84" height="72" loading="lazy"><span>${esc(c.nombre)}</span></li>`).join('');
+    <li><img src="app/assets/caras/${c.id}.svg" alt="Kitty ${esc(c.nombre.toLowerCase())}" width="80" height="64" loading="lazy"><span>${esc(c.nombre)}</span></li>`).join('');
 }).catch(() => {});
 
 // ---------- Kitty: preguntas frecuentes ----------

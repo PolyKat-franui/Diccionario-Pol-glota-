@@ -2,6 +2,13 @@
 const s = (d, extra = '') => `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${d}</svg>`;
 
 export const ICON = {
+  // Dificultad (cada nivel con su ícono; el color lo pone la insignia)
+  nueva: s('<path fill="currentColor" stroke="none" d="M12 2.5l2.4 7.1 7.1 2.4-7.1 2.4L12 21.5l-2.4-7.1L2.5 12l7.1-2.4z"/>'),
+  dificil: s('<path fill="currentColor" stroke="none" d="M12.6 2c.6 3.6 5.4 5.9 5.4 11a6 6 0 0 1-12 0c0-2.6 1.4-4.5 3-5.9.2 1.8 1 3 2.2 3.5-.3-3.4.4-6.3 1.4-8.6Z"/>'),
+  media: s('<circle cx="12" cy="12" r="8.5"/><path fill="currentColor" stroke="none" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"/>'),
+  facil: s('<path d="M5 19.5C4.5 10 10 4.5 20 4.5c0 10-5.5 15.5-15 15Z"/><path d="M5 19.5 13 11.5"/>'),
+  dominada: s('<path fill="currentColor" stroke="none" d="M3 7.5l4.8 4.3L12 4.5l4.2 7.3L21 7.5l-2.1 11.5H5.1Z"/>'),
+  todas: s('<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>'),
   corazon: s('<path d="M12 20s-7.5-4.6-9.2-9.3C1.7 7.6 3.6 4.5 6.9 4.5c2 0 3.6 1.1 5.1 3 1.5-1.9 3.1-3 5.1-3 3.3 0 5.2 3.1 4.1 6.2C19.5 15.4 12 20 12 20Z"/>'),
   corazonLleno: s('<path fill="currentColor" d="M12 20s-7.5-4.6-9.2-9.3C1.7 7.6 3.6 4.5 6.9 4.5c2 0 3.6 1.1 5.1 3 1.5-1.9 3.1-3 5.1-3 3.3 0 5.2 3.1 4.1 6.2C19.5 15.4 12 20 12 20Z"/>'),
   audio: s('<path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>'),

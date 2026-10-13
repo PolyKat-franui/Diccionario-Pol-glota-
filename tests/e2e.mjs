@@ -70,23 +70,25 @@ try {
 
   await page.locator('.idioma[data-code=en]').click();
   await page.waitForURL(/#\/aprender/);
-  await page.locator('.mega').first().waitFor();
-  assert.equal(await page.locator('.mega').count(), 13);
-  const conv = page.locator('.mega', { hasText: 'Conversación y vida social' });
+  await page.locator('.nodo:not(.raiz) .neurona').first().waitFor();
+  assert.equal(await page.locator('.nodo:not(.raiz) .neurona').count(), 13);
+  const conv = page.locator('.nodo:not(.raiz) .neurona', { hasText: 'Conversación y vida social' });
   assert.match(await conv.innerText(), /269 tarjetas/);
   await page.waitForTimeout(1200); // termina la animación de entrada
   await foto(page, '03-celular-temas');
   await sinScrollHorizontal(page, 'temas');
-  paso('13 mega temas; Conversación y vida social con 269 tarjetas');
+  assert.ok((await page.locator('#red .axon').count()) >= 13, 'la red dibuja sus conexiones');
+  paso('13 mega temas en red de neuronas; Conversación y vida social con 269 tarjetas');
 
   await conv.click();
   await page.waitForURL(/#\/tema\//);
-  await page.locator('.tema').first().waitFor();
+  await page.locator('#difs .dif-opcion').first().waitFor();
+  assert.equal(await page.locator('.tema').count(), 0, 'sin subtemas');
   await page.locator('#difs [data-dif=facil]').click();
   assert.equal(await page.locator('#difs [data-dif=facil]').getAttribute('aria-checked'), 'true');
   await page.locator('#difs [data-dif=todas]').click();
   await foto(page, '04-celular-tema');
-  paso('Tema: dificultad y bloques');
+  paso('Tema: dificultad con íconos, sin subtemas');
 
   await page.locator('#btn-empezar').click();
   await page.waitForURL(/#\/estudiar/);
@@ -99,9 +101,17 @@ try {
   await sinScrollHorizontal(page, 'tarjeta');
   paso('Sesión de 10 tarjetas, ícono "Nueva" con texto');
 
+  // Tutorial guiado por Kitty en la primera sesión: tocar la tarjeta lo hace avanzar
+  await page.locator('#tutorial .tut-burbuja').waitFor();
+  assert.match(await page.locator('#tutorial').innerText(), /Toca la tarjeta/);
+  await foto(page, '05b-celular-tutorial');
   await primera.locator('.revelar').click();
   await page.waitForTimeout(500);
   assert.ok(await primera.evaluate((el) => el.classList.contains('revelada')));
+  assert.match(await page.locator('#tutorial').innerText(), /Desliza/);
+  for (let i = 0; i < 3; i++) await page.locator('#tut-avanzar').click();
+  assert.equal(await page.locator('#tutorial').isHidden(), true);
+  paso('Tutorial de Kitty: 4 pasos, avanza al tocar la tarjeta y se cierra con «¡Entendido!»');
   await primera.locator('.btn-fav').click();
   assert.equal(await primera.locator('.btn-fav').getAttribute('aria-pressed'), 'true');
   await foto(page, '06-celular-tarjeta-revelada');
@@ -144,6 +154,29 @@ try {
   await page.goto(URL_APP);
   await page.waitForURL(/#\/aprender/);
   paso('Recargar la página: el progreso no se pierde y no se vuelve a pedir la cuenta');
+
+  // Deslizar a la derecha = «Lo sé»; al completar 10 palabras en el día sale el premio de tragamonedas
+  await page.goto(`${URL_APP}#/estudiar?mega=${encodeURIComponent('Conversación y vida social')}&dif=todas`);
+  const tarjeta1 = page.locator('#feed .slide').first();
+  await tarjeta1.locator('.palabra').waitFor();
+  await page.waitForTimeout(500);
+  const caja = await tarjeta1.locator('.palabra').boundingBox();
+  await page.mouse.move(caja.x + caja.width / 2, caja.y + caja.height / 2);
+  await page.mouse.down();
+  for (let dx = 0; dx <= 180; dx += 30) await page.mouse.move(caja.x + caja.width / 2 + dx, caja.y + caja.height / 2 + 4);
+  await page.mouse.up();
+  await page.waitForFunction(() => document.querySelector('#feed .slide')?.dataset.r === 'si');
+  for (let i = 0; i < 12 && !(await page.locator('.premio-capa').count()); i++) {
+    await page.waitForTimeout(650);
+    await page.keyboard.press('ArrowRight');
+  }
+  await page.locator('.premio-capa').waitFor();
+  await page.waitForFunction(() => document.querySelector('#premio-num')?.textContent === '+10', null, { timeout: 5000 });
+  await page.waitForTimeout(400);
+  await foto(page, '07b-celular-premio');
+  await page.locator('#premio-ok').click();
+  await page.locator('.premio-capa').waitFor({ state: 'detached' });
+  paso('Deslizar → «Lo sé»; a las 10 palabras del día sale el premio (+10 monedas)');
 
   await page.goto(`${URL_APP}#/favoritos`);
   await page.locator('.fila-fav').first().waitFor();
@@ -201,6 +234,15 @@ try {
   await sinScrollHorizontal(page, 'ajustes con 5 paletas');
   paso('Paletas Tamarindo y Medianoche (claro y oscuro) en Ajustes');
 
+  assert.ok(await page.locator('.tabbar a[href="#/novedades"]').evaluate((a) => a.classList.contains('con-aviso')), 'aviso de novedad sin ver');
+  await page.locator('.tabbar a[href="#/novedades"]').click();
+  await page.locator('.nov-hero').waitFor();
+  assert.match(await page.locator('.nov-version').innerText(), /^v\d/);
+  await page.waitForTimeout(900);
+  await foto(page, '12b-celular-novedades');
+  assert.ok(!(await page.locator('.tabbar a[href="#/novedades"]').evaluate((a) => a.classList.contains('con-aviso'))), 'el aviso se apaga al verla');
+  paso('Novedades: aviso en la pestaña, tarjeta de nueva versión y el aviso se apaga');
+
   await page.goto(`${URL_APP}#/ranking`);
   await page.locator('.ranking').waitFor();
   await foto(page, '12-celular-ranking');
@@ -211,12 +253,15 @@ try {
   paso('Ranking y "¿Qué avance conservo?" (demo)');
 
   await page.goto(`${URL_APP}#/ajustes`);
-  await page.locator('#sel-nativo').selectOption('en');
+  await page.locator('#btn-nativo').click();
+  await page.locator('#capa-idiomas .arana').waitFor();
+  await foto(page, '17-celular-idioma-app');
+  await page.locator('#capa-idiomas [data-nativo=en]').click();
   await page.locator('.tabbar a', { hasText: 'Learn' }).waitFor();
   await page.goto(`${URL_APP}#/aprender`);
   await page.getByRole('heading', { name: 'What do you want to learn?' }).waitFor(); // inglés ya no puede ser el idioma a aprender
   await page.locator('.idioma[data-code=es]').click();
-  await page.locator('.mega', { hasText: 'Conversation & social life' }).waitFor();
+  await page.locator('.nodo:not(.raiz) .neurona', { hasText: 'Conversation & social life' }).waitFor();
   paso('Idioma nativo inglés: interfaz en inglés y se aprende español');
 
   // Borrar progreso: se confirma dentro de la app (no con confirm(), que algunos navegadores bloquean)
@@ -234,7 +279,7 @@ try {
     await p.goto(URL_APP);
     await p.getByRole('button', { name: 'Continuar sin cuenta' }).click();
     await p.locator('.idioma[data-code=fr]').click();
-    await p.locator('.mega').first().waitFor();
+    await p.locator('.nodo:not(.raiz) .neurona').first().waitFor();
     await sinScrollHorizontal(p, nombre);
     await p.waitForTimeout(1200);
     await foto(p, `14-${nombre}-temas`);
