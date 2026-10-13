@@ -1,5 +1,5 @@
 // Estado y progreso de la persona. Se guarda solo (autoguardado) en el navegador.
-// La capa "nube" (cuenta) se conecta aquí más adelante: ver docs/RECOMENDACIONES.md.
+// Con cuenta de Google, además se sube a la nube (ver nube.js y docs/NUBE.md).
 import { responder } from './srs.js';
 
 export const CLAVE = 'franui:v1';
@@ -168,6 +168,20 @@ export function hayConflicto(cuenta, navegador) {
 }
 
 /** Se conserva uno; el otro se reemplaza (como pide la especificación). */
+/**
+ * Al entrar con una cuenta: qué hacer con el avance de la nube (`remota`) y el de este navegador.
+ * 'subir' = la nube toma el del navegador · 'bajar' = el navegador toma el de la nube
+ * 'preguntar' = los dos tienen avance distinto → pantalla «¿Qué avance conservo?»
+ */
+export function decidirAlEntrar(remota, local) {
+  if (!remota) return 'subir';
+  const r = normalizar(remota);
+  const vacio = (e) => e.ejercicios === 0 && e.tokens === 0;
+  if (hayConflicto(r, local)) return 'preguntar';
+  if (vacio(local)) return vacio(r) ? 'subir' : 'bajar';
+  if (vacio(r)) return 'subir';
+  return (r.actualizado || 0) > (local.actualizado || 0) ? 'bajar' : 'subir';
+}
 export function elegirAvance(cuenta, navegador, eleccion) {
   const elegido = eleccion === 'cuenta' ? cuenta : navegador;
   return normalizar(JSON.parse(JSON.stringify(elegido)));

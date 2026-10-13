@@ -2,6 +2,17 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.7.0",
+      "fecha": "2026-10-13",
+      "titulo": "Menú principal, colores claros y cuenta de Google",
+      "cambios": [
+        "Toca el logo para abrir el menú principal: letras que caen, Kitty que salta y tus números del día.",
+        "Colores más claros y vivos en las 5 paletas; los círculos toman los colores de tu paleta.",
+        "Sakuras y monedas flotan de adorno en la app y en la página web.",
+        "Entra con tu cuenta de Google para guardar tu avance en la nube (se activa muy pronto)."
+      ]
+    },
+    {
       "version": "0.6.0",
       "fecha": "2026-10-13",
       "titulo": "Kitty nueva, red de neuronas, sonidos y premios",

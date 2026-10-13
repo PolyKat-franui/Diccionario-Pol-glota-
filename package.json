@@ -8,7 +8,7 @@
     "start": "node scripts/servir.mjs",
     "build": "node scripts/build-banco.mjs && node scripts/kitty.mjs",
     "test": "node --test tests/*.test.mjs",
-    "test:e2e": "node tests/e2e.mjs && node tests/e2e-web.mjs",
+    "test:e2e": "node tests/e2e.mjs && node tests/e2e-web.mjs && node tests/e2e-nube.mjs",
     "dist": "node scripts/dist.mjs"
   },
   "engines": {

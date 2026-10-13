@@ -147,6 +147,17 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
 - Tutorial: ya no es texto. **Kitty guía la primera sesión** en 4 pasos (tocar la tarjeta, deslizar, monedas y
   premios, pedirle ayuda) resaltando cada parte. Se puede repetir desde Ajustes → «Ver el tutorial con Kitty».
 
+## 9d. Menú principal y cuenta de Google [DECIDIDO 2026-10-13]
+- El logo de la barra abre `#/menu`: menú tipo juego a pantalla completa (sin barra). Es también
+  la pantalla al abrir la app. Fichas POLYGLOK que caen (colores `--nodo-*`), «in progress» que
+  se escribe, Kitty saltando (tocarla cambia su cara y suelta sakuras), racha, monedas, palabras
+  de hoy con barra al próximo premio, botón grande «¡Jugar!» (mezcla de todos los temas) y 6 botones.
+- Paletas claras con 6 colores `--nodo-1…6` por paleta (texto blanco ≥ 4,5:1). Adornos de sakuras
+  y monedas (`adornos.js`) detrás del contenido en app y web.
+- Cuenta de Google con **Firebase** (Auth + Firestore `progreso/{uid}`), más simple que Supabase
+  para el login con Google. Código en `nube.js`; config en `nube-config.js` (null = desactivada).
+  Pasos y reglas de seguridad: `docs/NUBE.md`. Solo sube si hay cambios sin enviar.
+
 ## 10. Pantallas de la app
 Inicio/cuenta (Entrar, Crear cuenta con usuario + contraseña ≥ 6, Google, Invitado) —
 [DECIDIDO 2026-10-09] se pide **antes de estudiar**, solo la primera vez; la sesión queda

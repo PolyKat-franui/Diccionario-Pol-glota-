@@ -1,4 +1,5 @@
 // Franui — página web. Animaciones suaves (respetan "reducir movimiento") y datos compartidos con la app.
+import { sembrarAdornos } from './app/js/adornos.js';
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -199,3 +200,6 @@ $('#kitty-fab').addEventListener('click', () => {
 });
 $('#kitty-cerrar').addEventListener('click', () => $('#kitty-panel').close());
 $('#kitty-panel').addEventListener('click', (e) => { if (e.target.id === 'kitty-panel') e.target.close(); });
+
+// Sakuras y monedas que caen despacio por toda la página
+sembrarAdornos(document.getElementById('adornos'), { cantidad: 12, base: 'app/assets/' });

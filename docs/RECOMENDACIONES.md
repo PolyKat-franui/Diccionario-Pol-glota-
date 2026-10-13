@@ -11,7 +11,10 @@ Lo marcado **(verificar)** no lo pude comprobar desde aquí: revísalo antes de 
 que respondes una tarjeta. Probado: recargar la página no lo borra.
 Límite: si cambias de celular o borras los datos del navegador, se pierde.
 
-**Siguiente paso recomendado: Supabase** (gratis al inicio).
+**Decidido (2026-10-13): Firebase** — el login con Google es más simple de activar.
+Código listo en `app/js/nube.js`; pasos en `docs/NUBE.md`. Lo de abajo era la propuesta anterior.
+
+**Propuesta anterior: Supabase** (gratis al inicio).
 - Cuentas con usuario + contraseña y con Google (ya trae ambos).
 - Base de datos Postgres: una fila de progreso por persona.
 - "Row Level Security": cada persona solo ve su progreso.

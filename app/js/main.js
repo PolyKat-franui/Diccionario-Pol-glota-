@@ -8,7 +8,9 @@ import * as banco from './banco.js';
 import { hablar } from './voz.js';
 import { ICON } from './iconos.js';
 import { sonido, activarSonido } from './sonido.js';
+import { sembrarAdornos, estallido } from './adornos.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
+import * as nube from './nube.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -26,9 +28,81 @@ let tutorialAlRevelar = null;  // el tutorial avanza cuando se revela la primera
 let timerGuardar = null;
 function guardar() {
   clearTimeout(timerGuardar);
-  timerGuardar = setTimeout(() => store.guardar(S), 150);
+  timerGuardar = setTimeout(() => { store.guardar(S); subirPronto(); }, 150);
 }
-const guardarYa = () => { clearTimeout(timerGuardar); store.guardar(S); };
+const guardarYa = () => { clearTimeout(timerGuardar); store.guardar(S); subirYa(); };
+
+// ---------- Nube (cuenta de Google) ----------
+// Con cuenta, cada cambio se sube unos segundos después (y al cerrar o esconder la app).
+// Solo se sube si hay cambios sin enviar: así un celular olvidado abierto no pisa lo estudiado en otro.
+let timerNube = null;
+let sinSubir = false;
+let cuentaPendiente = null; // avance de la nube que espera la pantalla «¿Qué avance conservo?»
+const conCuenta = () => S.perfil.cuenta?.tipo === 'google' && nube.nubeLista();
+function subirYa(forzar = false) {
+  clearTimeout(timerNube);
+  if (!conCuenta() || (!sinSubir && !forzar)) return;
+  sinSubir = false;
+  nube.guardarAvance(S.perfil.cuenta.uid, S).catch(() => { sinSubir = true; });
+}
+function subirPronto() {
+  if (!conCuenta() || cuentaPendiente) return;
+  sinSubir = true;
+  clearTimeout(timerNube);
+  timerNube = setTimeout(subirYa, 4000);
+}
+/** Une el avance de la nube con el del navegador según store.decidirAlEntrar. Devuelve la acción. */
+function sincronizar(remota, cuenta) {
+  const accion = store.decidirAlEntrar(remota, S);
+  if (accion === 'bajar') {
+    const perfil = { ...S.perfil }, nativo = S.ajustes.nativo;
+    S = store.normalizar(remota);
+    S.perfil = { ...S.perfil, ...perfil, cuenta };
+    S.ajustes.nativo ||= nativo;
+    aplicarAjustes();
+  } else if (accion === 'preguntar') {
+    cuentaPendiente = store.normalizar(remota);
+  }
+  S.perfil.cuenta = cuenta;
+  store.guardar(S);
+  if (accion === 'subir') subirYa(true);
+  return accion;
+}
+/** Botón «Entrar con Google» (portada y Ajustes). */
+async function conectarGoogle() {
+  if (!nube.nubeLista()) return void toast(t('login_pronto'));
+  try {
+    const cuenta = await nube.entrarConGoogle();
+    const remota = await nube.leerAvance(cuenta.uid);
+    S.perfil.elegido = true;
+    if (!S.perfil.nombre && cuenta.nombre) S.perfil.nombre = cuenta.nombre.split(' ')[0];
+    const accion = sincronizar(remota, cuenta);
+    toast(t('nube_conectada', { email: cuenta.email }));
+    if (accion === 'preguntar') return void ir('#/conservar');
+    ir(S.aprendiendo ? '#/menu' : '#/idiomas');
+  } catch (e) {
+    if (e?.code === 'auth/popup-closed-by-user' || e?.code === 'auth/cancelled-popup-request') return;
+    toast(t('nube_error'));
+  }
+}
+async function salirDeGoogle() {
+  try { subirYa(); await nube.salir(); } catch { /* sin conexión: igual se cierra aquí */ }
+  S.perfil.cuenta = null;
+  guardar();
+  toast(t('nube_salio'));
+  router();
+}
+/** Al abrir la app con cuenta: trae lo más nuevo de la nube (p. ej. lo que estudiaste en otro celular). */
+async function sincronizarAlAbrir() {
+  if (!conCuenta()) return;
+  try {
+    const cuenta = await nube.sesionActual();
+    if (!cuenta) { S.perfil.cuenta = null; guardar(); return; }
+    const accion = sincronizar(await nube.leerAvance(cuenta.uid), cuenta);
+    if (accion === 'preguntar') ir('#/conservar');
+    else if (accion === 'bajar') router();
+  } catch { /* sin conexión: se sigue con el avance de este navegador */ }
+}
 addEventListener('pagehide', guardarYa);
 document.addEventListener('visibilitychange', () => { if (document.hidden) guardarYa(); });
 
@@ -99,7 +173,7 @@ function actualizarChips() {
 }
 
 function pintarMarco(ruta) {
-  const enInicio = ruta === 'inicio';
+  const enInicio = ruta === 'inicio' || ruta === 'menu'; // pantallas a pantalla completa, sin barra
   $('#barra').hidden = enInicio;
   $('#tabbar').hidden = enInicio;
   $('#kitty-fab').hidden = enInicio;
@@ -158,7 +232,7 @@ function htmlArana(centro, nodos) {
         ${pos.map(([x, y], i) => `<line class="hilo" x1="50" y1="50" x2="${x.toFixed(2)}" y2="${y.toFixed(2)}" pathLength="100" style="--i:${i}"/>`).join('')}
       </svg>
       <div class="arana-centro">${centro}</div>
-      ${nodos.map((html, i) => `<div class="arana-nodo" style="left:${pos[i][0].toFixed(2)}%;top:${pos[i][1].toFixed(2)}%;--i:${i};--c:var(--tema-${(i % 13) + 1})">${html}</div>`).join('')}
+      ${nodos.map((html, i) => `<div class="arana-nodo" style="left:${pos[i][0].toFixed(2)}%;top:${pos[i][1].toFixed(2)}%;--i:${i};--c:var(--nodo-${(i % 6) + 1})">${html}</div>`).join('')}
     </div>`;
 }
 
@@ -191,6 +265,7 @@ function leerRuta() {
 
 const RUTAS = {
   inicio: vistaInicio,
+  menu: vistaMenu,
   conservar: vistaConservar,
   idiomas: vistaIdiomas,
   aprender: vistaAprender,
@@ -205,7 +280,7 @@ const RUTAS = {
 async function router() {
   const r = leerRuta();
   if (!S.perfil.elegido && r.nombre !== 'inicio' && r.nombre !== 'conservar') return void location.replace('#/inicio');
-  if (!RUTAS[r.nombre]) return void location.replace('#/aprender');
+  if (!RUTAS[r.nombre]) return void location.replace('#/menu');
   cerrarSesion();
   document.body.dataset.ruta = r.nombre;
   pintarMarco(r.nombre);
@@ -215,6 +290,11 @@ async function router() {
   if (r.nombre !== 'estudiar') scrollTo(0, 0);
 }
 addEventListener('hashchange', router);
+sembrarAdornos($('#adornos'), { cantidad: 10 });
+// Estallido de sakuras y monedas al elegir un tema o un idioma
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.neurona:not(.vacio), .nodo-idioma:not([aria-disabled="true"])')) estallido(e.clientX, e.clientY);
+});
 
 function marcarAvisoNovedades() {
   const hay = ultimaVersion && S.novedadVista !== ultimaVersion;
@@ -279,7 +359,7 @@ function vistaInicio() {
     S.perfil.elegido = true;
     if (nombre) S.perfil.nombre = nombre;
     guardar();
-    ir(S.aprendiendo ? '#/aprender' : '#/idiomas');
+    ir(S.aprendiendo ? '#/menu' : '#/idiomas');
   };
   $('#f-login').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -293,8 +373,61 @@ function vistaInicio() {
     toast(t('login_pronto'));
     continuar(usuario);
   });
-  $('#btn-google').addEventListener('click', () => toast(t('login_pronto')));
+  $('#btn-google').addEventListener('click', conectarGoogle);
   $('#btn-invitado').addEventListener('click', () => continuar());
+}
+
+// ---------- Menú principal (estilo juego) ----------
+function vistaMenu() {
+  const racha = store.rachaVigente(S.racha);
+  const hoy = S.diario?.dia === store.diaLocal(Date.now()) ? S.diario.revisadas : 0;
+  const enNivel = hoy % store.PREMIO_CADA;
+  const faltan = store.PREMIO_CADA - enNivel;
+  const letras = [...'POLYGLOK'].map((l, i) => `<span style="--i:${i}">${l}</span>`).join('');
+  const boton = (href, icon, texto, id) => `<a class="menu-btn" href="${href}" id="${id}">${icon}<span>${texto}</span></a>`;
+  vista.innerHTML = `
+    <section class="menu-juego">
+      <div class="menu-escena">
+        <h1 class="menu-logo" aria-label="Polyglok in progress">
+          <span class="menu-letras logo-a" aria-hidden="true">${letras}</span>
+          <span class="logo menu-sub" aria-hidden="true"><span class="logo-b"><span class="menu-tipeo">in progress</span></span></span>
+        </h1>
+        <p class="eslogan menu-eslogan">Be fluent in multiple languages</p>
+        <button class="menu-kitty" type="button" id="menu-kitty" aria-label="Kitty">
+          <img src="${cara(racha ? 'muy_feliz' : 'feliz')}" alt="" width="160" height="128">
+        </button>
+      </div>
+      <ul class="menu-stats">
+        <li><img src="assets/sakura.svg" alt="" width="23" height="23"><span>${tn('racha_n', racha)}</span></li>
+        <li><img src="assets/moneda.svg" alt="" width="24" height="24"><span>${t('tokens_n', { n: S.tokens })}</span></li>
+        <li class="menu-hoy">
+          <span>${t('menu_hoy', { n: hoy })}</span>
+          <span class="progreso" role="progressbar" aria-valuemin="0" aria-valuemax="${store.PREMIO_CADA}" aria-valuenow="${enNivel}" aria-label="${t('menu_premio', { n: faltan })}"><i style="width:${enNivel * 10}%"></i></span>
+          <small>${t('menu_premio', { n: faltan })}</small>
+        </li>
+      </ul>
+      <nav class="menu-botones" aria-label="${t('menu_titulo')}">
+        <a class="menu-jugar" id="menu-jugar" href="${S.aprendiendo ? '#/estudiar?dif=todas' : '#/idiomas'}">${ICON.jugar}<span>${t('menu_jugar')}</span></a>
+        ${boton('#/aprender', ICON.libro, t('menu_temas'), 'menu-temas')}
+        ${boton('#/favoritos', ICON.corazon, t('nav_favoritos'), 'menu-favoritos')}
+        ${boton('#/ranking', ICON.trofeo, t('nav_ranking'), 'menu-ranking')}
+        ${boton('#/idiomas', `<span class="monograma pequeno" aria-hidden="true">${esc((S.aprendiendo || '?').toUpperCase())}</span>`, t('menu_idioma'), 'menu-idioma')}
+        ${boton('#/novedades', ICON.estrella, t('nav_novedades'), 'menu-novedades')}
+        ${boton('#/ajustes', ICON.ajustes, t('nav_ajustes'), 'menu-ajustes')}
+      </nav>
+    </section>`;
+  marcarAvisoNovedades();
+  // Tocar a Kitty: salta, cambia de cara y suelta sakuras y monedas
+  const CARAS = ['celebrando', 'guino', 'enamorada', 'sorprendida', 'muy_feliz'];
+  let n = 0;
+  $('#menu-kitty').addEventListener('click', (e) => {
+    const b = e.currentTarget;
+    b.querySelector('img').src = cara(CARAS[n++ % CARAS.length]);
+    b.classList.remove('salta'); void b.offsetWidth; b.classList.add('salta');
+    sonido.moneda(0, n % 5);
+    const r = b.getBoundingClientRect();
+    estallido(r.left + r.width / 2, r.top + r.height / 3, { cantidad: 12 });
+  });
 }
 
 // ---------- ¿Qué avance conservo? ----------
@@ -308,7 +441,7 @@ function cuentaDeMuestra() {
 
 function vistaConservar(r) {
   const demo = r.q.get('demo') === '1';
-  const cuenta = demo ? cuentaDeMuestra() : null; // con cuentas reales: vendrá del servidor
+  const cuenta = demo ? cuentaDeMuestra() : cuentaPendiente; // avance de la cuenta de Google
   if (!cuenta || (!demo && !store.hayConflicto(cuenta, S))) return void (location.hash = '#/aprender');
   const linea = (est) => t('cons_linea', store.resumen(est));
   vista.innerHTML = `
@@ -322,7 +455,13 @@ function vistaConservar(r) {
       </div>
     </section>`;
   $$('.opcion').forEach((b) => b.addEventListener('click', () => {
-    if (!demo) { S = store.elegirAvance(cuenta, S, b.dataset.eleccion); guardar(); }
+    if (!demo) {
+      const perfil = { ...S.perfil };
+      S = store.elegirAvance(cuenta, S, b.dataset.eleccion);
+      S.perfil = { ...S.perfil, cuenta: perfil.cuenta, elegido: true };
+      cuentaPendiente = null;
+      aplicarAjustes(); store.guardar(S); subirYa(true);
+    }
     else toast(`✓ ${b.querySelector('strong').textContent}`);
     ir('#/aprender');
   }));
@@ -369,7 +508,8 @@ const ICON_NIVEL = { nueva: ICON.nueva, dificil: ICON.dificil, media: ICON.media
 const ICON_DIF = { todas: ICON.todas, facil: ICON.facil, medio: ICON.media, dificil: ICON.dificil };
 /** Insignia de dificultad: ícono + texto, en el color de su nivel. */
 const insignia = (niv) => `<span class="nivel" data-nivel="${niv}">${ICON_NIVEL[niv]}<span>${t('niv_' + niv)}</span></span>`;
-const colorTema = (mega) => `var(--tema-${MEGA_TEMAS.indexOf(mega) + 1})`;
+/** Cada tema toma uno de los 6 colores de la paleta elegida (--nodo-1…6). */
+const colorTema = (mega) => `var(--nodo-${(MEGA_TEMAS.indexOf(mega) % 6) + 1})`;
 const CARRILES = [0, 1, 2, 1]; // zigzag de la red: izquierda, centro, derecha, centro…
 
 function resumenMega(lista, mega, prog) {
@@ -1031,12 +1171,13 @@ function vistaAjustes() {
         <h2>${t('perfil')}</h2>
         <label class="campo"><span>${t('aj_nombre')}</span><input id="aj-nombre" maxlength="30" value="${esc(S.perfil.nombre)}" autocomplete="nickname"></label>
         <dl class="datos">
-          <div><dt>${t('aj_cuenta')}</dt><dd>${t('aj_invitado')}</dd></div>
+          <div><dt>${t('aj_cuenta')}</dt><dd>${S.perfil.cuenta ? `${esc(S.perfil.cuenta.email)}<br><small class="suave">${t('nube_guardando')}</small>` : t('aj_invitado')}</dd></div>
           <div><dt>${t('rank_racha')}</dt><dd>${store.rachaVigente(S.racha)}</dd></div>
           <div><dt>${t('aj_mejor_racha')}</dt><dd>${S.racha.mejor}</dd></div>
           <div><dt>Kitty tokens</dt><dd>${S.tokens}</dd></div>
         </dl>
-        <button class="btn ancho" type="button" id="aj-google">${ICON.google}<span>${t('aj_google')}</span></button>
+        ${S.perfil.cuenta ? `<button class="btn fantasma ancho" type="button" id="aj-salir">${t('aj_salir')}</button>`
+          : `<button class="btn ancho" type="button" id="aj-google">${ICON.google}<span>${t('aj_google')}</span></button>`}
         <a class="enlace pequeno" href="#/conservar?demo=1">${t('cons_titulo')} (demo)</a>
       </div>
 
@@ -1093,7 +1234,8 @@ function vistaAjustes() {
     </section>`;
 
   $('#aj-nombre').addEventListener('input', (e) => { S.perfil.nombre = e.target.value.trim(); guardar(); pintarMarco('ajustes'); });
-  $('#aj-google').addEventListener('click', () => toast(t('login_pronto')));
+  $('#aj-google')?.addEventListener('click', conectarGoogle);
+  $('#aj-salir')?.addEventListener('click', salirDeGoogle);
   $$('[data-tema]').forEach((b) => b.addEventListener('click', () => { a.tema = b.dataset.tema; guardar(); aplicarAjustes(); vistaAjustes(); }));
   $$('.paletas [data-paleta]').forEach((b) => b.addEventListener('click', () => { a.paleta = b.dataset.paleta; guardar(); aplicarAjustes(); vistaAjustes(); }));
   $('#aj-escala').addEventListener('input', (e) => { a.escala = Number(e.target.value); $('#o-escala').textContent = `${Math.round(a.escala * 100)}%`; aplicarAjustes(); guardar(); });
@@ -1221,3 +1363,4 @@ S.ajustes.nativo ??= nativoInicial();
 aplicarAjustes();
 matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', aplicarAjustes);
 router();
+sincronizarAlAbrir();

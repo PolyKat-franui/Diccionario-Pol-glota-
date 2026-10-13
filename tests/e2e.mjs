@@ -152,7 +152,7 @@ try {
   await page.waitForFunction((n) => document.querySelector('#chip-tokens span:last-child')?.textContent === String(n), finTokens);
   assert.ok(!page.url().includes('#/inicio'), 'la cuenta solo se pide la primera vez');
   await page.goto(URL_APP);
-  await page.waitForURL(/#\/aprender/);
+  await page.waitForURL(/#\/menu/);
   paso('Recargar la página: el progreso no se pierde y no se vuelve a pedir la cuenta');
 
   // Deslizar a la derecha = «Lo sé»; al completar 10 palabras en el día sale el premio de tragamonedas
@@ -177,6 +177,20 @@ try {
   await page.locator('#premio-ok').click();
   await page.locator('.premio-capa').waitFor({ state: 'detached' });
   paso('Deslizar → «Lo sé»; a las 10 palabras del día sale el premio (+10 monedas)');
+
+  await page.goto(`${URL_APP}#/aprender`);
+  await page.locator('.barra .marca').click();
+  await page.waitForURL(/#\/menu/);
+  await page.locator('#menu-jugar').waitFor();
+  assert.ok(await page.locator('#barra').isHidden(), 'el menú va a pantalla completa');
+  assert.match(await page.locator('.menu-hoy').textContent(), /1\d palabras/);
+  await page.waitForTimeout(2600);
+  await foto(page, '07c-celular-menu');
+  await imagenesCargadas(page, 'menú principal');
+  await page.locator('#menu-kitty').click({ force: true });
+  await page.locator('#menu-temas').click();
+  await page.waitForURL(/#\/aprender/);
+  paso('Tocar el logo abre el menú principal animado; sus botones llevan a cada sección');
 
   await page.goto(`${URL_APP}#/favoritos`);
   await page.locator('.fila-fav').first().waitFor();

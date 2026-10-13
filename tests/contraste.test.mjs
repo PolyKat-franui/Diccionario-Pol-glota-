@@ -36,7 +36,7 @@ for (const [nombre, p] of Object.entries({ claro, oscuro, ...paletas })) {
       ['peligro', 'surface'], ['peligro', 'bg'],
       // insignias de dificultad y nodos de tema: texto blanco sobre el color
       ...['d-nueva', 'd-dificil', 'd-media', 'd-facil', 'd-dominada'].map((d) => ['blanco', d]),
-      ...Array.from({ length: 13 }, (_, i) => ['blanco', `tema-${i + 1}`])];
+      ...Array.from({ length: 6 }, (_, i) => ['blanco', `nodo-${i + 1}`])];
     for (const [a, b] of pares) {
       const c = contraste(p[a], p[b]);
       assert.ok(c >= 4.5, `${a} sobre ${b}: ${c.toFixed(2)}:1`);

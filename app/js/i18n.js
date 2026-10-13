@@ -6,6 +6,8 @@ const T = {
   es: {
     racha_1: '1 día de racha', tarjetas_1: '1 tarjeta', cambiar_idioma: 'Cambiar idioma',
     lema: 'Aprende idiomas en minutos, deslizando.',
+    menu_titulo: 'Menú principal', menu_jugar: '¡Jugar!', menu_temas: 'Temas', menu_idioma: 'Idioma', menu_hoy: 'Hoy: {n} palabras', menu_premio: 'Faltan {n} para tu próximo premio',
+    nube_conectada: 'Conectada con Google ({email}). Tu avance se guarda en la nube.', nube_error: 'No se pudo entrar con Google. Revisa tu conexión e intenta de nuevo.', nube_salio: 'Sesión cerrada. Tu avance sigue en este navegador.', nube_guardando: 'Avance guardado en la nube', aj_salir: 'Cerrar sesión de Google',
     nav_aprender: 'Aprender', nav_favoritos: 'Favoritos', nav_ranking: 'Ranking', nav_novedades: 'Novedades', nav_ajustes: 'Ajustes',
     racha_n: '{n} días de racha', tokens_n: '{n} Kitty tokens', idioma_nativo: 'Idioma nativo', perfil: 'Perfil',
     login_entrar: 'Entrar', login_crear: 'Crear cuenta', login_usuario: 'Nombre de usuario', login_clave: 'Contraseña',
@@ -61,6 +63,8 @@ const T = {
   en: {
     racha_1: '1-day streak', tarjetas_1: '1 card', cambiar_idioma: 'Change language',
     lema: 'Learn languages in minutes, one swipe at a time.',
+    menu_titulo: 'Main menu', menu_jugar: 'Play!', menu_temas: 'Topics', menu_idioma: 'Language', menu_hoy: 'Today: {n} words', menu_premio: '{n} more to your next prize',
+    nube_conectada: 'Signed in with Google ({email}). Your progress is saved in the cloud.', nube_error: 'Couldn’t sign in with Google. Check your connection and try again.', nube_salio: 'Signed out. Your progress stays in this browser.', nube_guardando: 'Progress saved in the cloud', aj_salir: 'Sign out of Google',
     nav_aprender: 'Learn', nav_favoritos: 'Favorites', nav_ranking: 'Ranking', nav_novedades: 'What’s new', nav_ajustes: 'Settings',
     racha_n: '{n}-day streak', tokens_n: '{n} Kitty tokens', idioma_nativo: 'Native language', perfil: 'Profile',
     login_entrar: 'Log in', login_crear: 'Create account', login_usuario: 'Username', login_clave: 'Password',
@@ -116,6 +120,8 @@ const T = {
   pt: {
     racha_1: '1 dia de sequência', tarjetas_1: '1 cartão', cambiar_idioma: 'Mudar idioma',
     lema: 'Aprenda idiomas em minutos, deslizando.',
+    menu_titulo: 'Menu principal', menu_jugar: 'Jogar!', menu_temas: 'Temas', menu_idioma: 'Idioma', menu_hoy: 'Hoje: {n} palavras', menu_premio: 'Faltam {n} para o próximo prêmio',
+    nube_conectada: 'Conectada com o Google ({email}). Seu progresso fica salvo na nuvem.', nube_error: 'Não foi possível entrar com o Google. Verifique a conexão e tente de novo.', nube_salio: 'Sessão encerrada. Seu progresso continua neste navegador.', nube_guardando: 'Progresso salvo na nuvem', aj_salir: 'Sair da conta Google',
     nav_aprender: 'Aprender', nav_favoritos: 'Favoritos', nav_ranking: 'Ranking', nav_novedades: 'Novidades', nav_ajustes: 'Ajustes',
     racha_n: '{n} dias de sequência', tokens_n: '{n} Kitty tokens', idioma_nativo: 'Idioma nativo', perfil: 'Perfil',
     login_entrar: 'Entrar', login_crear: 'Criar conta', login_usuario: 'Nome de usuário', login_clave: 'Senha',
@@ -171,6 +177,8 @@ const T = {
   fr: {
     racha_1: '1 jour de série', tarjetas_1: '1 carte', cambiar_idioma: 'Changer de langue',
     lema: 'Apprenez les langues en quelques minutes, en faisant défiler.',
+    menu_titulo: 'Menu principal', menu_jugar: 'Jouer !', menu_temas: 'Thèmes', menu_idioma: 'Langue', menu_hoy: 'Aujourd’hui : {n} mots', menu_premio: 'Encore {n} avant ta prochaine récompense',
+    nube_conectada: 'Connectée avec Google ({email}). Ta progression est enregistrée en ligne.', nube_error: 'Connexion Google impossible. Vérifie ta connexion et réessaie.', nube_salio: 'Déconnectée. Ta progression reste dans ce navigateur.', nube_guardando: 'Progression enregistrée en ligne', aj_salir: 'Se déconnecter de Google',
     nav_aprender: 'Apprendre', nav_favoritos: 'Favoris', nav_ranking: 'Classement', nav_novedades: 'Nouveautés', nav_ajustes: 'Réglages',
     racha_n: '{n} jours de série', tokens_n: '{n} Kitty tokens', idioma_nativo: 'Langue maternelle', perfil: 'Profil',
     login_entrar: 'Se connecter', login_crear: 'Créer un compte', login_usuario: 'Nom d’utilisateur', login_clave: 'Mot de passe',
@@ -226,6 +234,8 @@ const T = {
   it: {
     racha_1: '1 giorno di serie', tarjetas_1: '1 carta', cambiar_idioma: 'Cambia lingua',
     lema: 'Impara le lingue in pochi minuti, scorrendo.',
+    menu_titulo: 'Menu principale', menu_jugar: 'Gioca!', menu_temas: 'Temi', menu_idioma: 'Lingua', menu_hoy: 'Oggi: {n} parole', menu_premio: 'Ancora {n} per il prossimo premio',
+    nube_conectada: 'Accesso con Google ({email}). I tuoi progressi sono salvati nel cloud.', nube_error: 'Impossibile accedere con Google. Controlla la connessione e riprova.', nube_salio: 'Disconnessa. I tuoi progressi restano in questo browser.', nube_guardando: 'Progressi salvati nel cloud', aj_salir: 'Esci da Google',
     nav_aprender: 'Impara', nav_favoritos: 'Preferiti', nav_ranking: 'Classifica', nav_novedades: 'Novità', nav_ajustes: 'Impostazioni',
     racha_n: '{n} giorni di serie', tokens_n: '{n} Kitty token', idioma_nativo: 'Lingua madre', perfil: 'Profilo',
     login_entrar: 'Accedi', login_crear: 'Crea account', login_usuario: 'Nome utente', login_clave: 'Password',
@@ -281,6 +291,8 @@ const T = {
   de: {
     racha_1: '1 Tag Serie', tarjetas_1: '1 Karte', cambiar_idioma: 'Sprache wechseln',
     lema: 'Lerne Sprachen in wenigen Minuten – einfach wischen.',
+    menu_titulo: 'Hauptmenü', menu_jugar: 'Spielen!', menu_temas: 'Themen', menu_idioma: 'Sprache', menu_hoy: 'Heute: {n} Wörter', menu_premio: 'Noch {n} bis zur nächsten Belohnung',
+    nube_conectada: 'Mit Google angemeldet ({email}). Dein Fortschritt wird in der Cloud gespeichert.', nube_error: 'Anmeldung mit Google fehlgeschlagen. Prüfe deine Verbindung und versuch es erneut.', nube_salio: 'Abgemeldet. Dein Fortschritt bleibt in diesem Browser.', nube_guardando: 'Fortschritt in der Cloud gespeichert', aj_salir: 'Von Google abmelden',
     nav_aprender: 'Lernen', nav_favoritos: 'Favoriten', nav_ranking: 'Rangliste', nav_novedades: 'Neuigkeiten', nav_ajustes: 'Einstellungen',
     racha_n: '{n} Tage Serie', tokens_n: '{n} Kitty-Tokens', idioma_nativo: 'Muttersprache', perfil: 'Profil',
     login_entrar: 'Anmelden', login_crear: 'Konto erstellen', login_usuario: 'Benutzername', login_clave: 'Passwort',
