@@ -16,8 +16,8 @@ h1, h2, h3, p { margin: 0; }
 main { outline: none; }
 
 /* ---------- Tipografía ---------- */
-.display { font-family: var(--font-display); font-weight: 400; line-height: 1.04; letter-spacing: -0.02em; font-size: clamp(38px, 6.4vw, 84px); font-optical-sizing: auto; }
-.display em { font-style: italic; }
+.display { font-family: var(--font-display); font-weight: 600; line-height: 1.04; letter-spacing: -0.02em; font-size: clamp(38px, 6.4vw, 84px); font-optical-sizing: auto; }
+.display em { font-style: normal; color: var(--enfasis); }
 .sobretitulo { font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
 .suave { color: var(--ink-soft); }
 .nota { color: var(--ink-soft); font-size: 15px; font-style: italic; }
@@ -79,14 +79,14 @@ main { outline: none; }
 }
 .hero-texto { display: grid; gap: 22px; max-width: 720px; }
 .hero-titulo { font-size: clamp(44px, 5.4vw, 82px); }
-.hero-rota { display: flex; align-items: baseline; gap: 14px; min-height: 1.2em; font-family: var(--font-display); font-size: clamp(30px, 4vw, 52px); font-style: italic; color: var(--enfasis); }
+.hero-rota { display: flex; align-items: baseline; gap: 14px; min-height: 1.2em; font-family: var(--font-display); font-size: clamp(30px, 4vw, 52px); font-style: normal; color: var(--enfasis); }
 .rota { display: inline-block; transition: opacity .42s var(--ease), transform .42s var(--ease), filter .42s; }
 .rota.saliendo { opacity: 0; transform: translateY(-14px); filter: blur(6px); }
 .rota-idioma { font-family: var(--font-body); font-style: normal; font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-soft); }
-.hero-sub { font-size: clamp(17px, 1.6vw, 20px); color: var(--ink-soft); max-width: 520px; font-weight: 300; }
+.hero-sub { font-size: clamp(17px, 1.6vw, 20px); color: var(--ink-soft); max-width: 520px; font-weight: 400; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero-visual { position: relative; justify-self: center; }
-.hero-kitty { position: absolute; left: -48px; bottom: -24px; width: 84px; height: 72px; border-radius: 50%; background: var(--surface-2); padding: 28px 22px; box-sizing: content-box; animation: flotar 5s ease-in-out infinite; filter: drop-shadow(0 18px 30px color-mix(in srgb, var(--sombra-color) 20%, transparent)); }
+.hero-kitty { position: absolute; left: -48px; bottom: -24px; width: 80px; height: 64px; background: radial-gradient(circle closest-side, var(--surface-2) 99%, transparent 100%); padding: 32px; box-sizing: content-box; animation: flotar 5s ease-in-out infinite; filter: drop-shadow(0 18px 30px color-mix(in srgb, var(--sombra-color) 20%, transparent)); }
 
 /* Teléfono de muestra */
 .telefono {
@@ -113,7 +113,7 @@ main { outline: none; }
 .demo-acciones { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 13px; font-weight: 500; }
 .demo-acciones span { border: 1px solid var(--line); border-radius: 999px; padding: 10px 4px; }
 .demo-acciones .demo-sabe { background: var(--primary); color: var(--on-primary); border-color: transparent; }
-.demo-riel img { width: 28px; height: 24px; padding: 4px 2px; border-radius: 50%; background: var(--surface-2); }
+.demo-riel img { width: 20px; height: 16px; padding: 8px 6px; background: radial-gradient(circle closest-side, var(--surface-2) 99%, transparent 100%); }
 .demo-riel { position: absolute; right: 22px; top: 50%; display: grid; gap: 10px; transform: translateY(-30%); }
 .demo-riel span { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 1px solid color-mix(in srgb, var(--line) 60%, transparent); font-size: 13px; }
 
@@ -145,8 +145,8 @@ main { outline: none; }
 .grid-3 { display: grid; gap: 1px; background: color-mix(in srgb, var(--line) 55%, transparent); border: 1px solid color-mix(in srgb, var(--line) 55%, transparent); border-radius: 28px; overflow: hidden; }
 .pieza { background: var(--surface); padding: 40px 32px; display: grid; gap: 14px; align-content: start; transition: background .5s var(--ease); }
 .pieza:hover { background: var(--surface-2); }
-.pieza-num { font-family: var(--font-display); font-style: italic; font-size: 28px; color: var(--gold); }
-.pieza h3, .paso h3, .ruta h3, .hito h3 { font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1.1; }
+.pieza-num { font-family: var(--font-display); font-style: normal; font-size: 28px; color: var(--gold); }
+.pieza h3, .paso h3, .ruta h3, .hito h3 { font-family: var(--font-display); font-weight: 600; font-size: 30px; line-height: 1.1; }
 .pieza p, .paso p { color: var(--ink-soft); }
 
 .como { background: transparent; }
@@ -166,7 +166,7 @@ main { outline: none; }
 .lista-idiomas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 12px; }
 .idioma { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 16px; border-radius: 20px; background: var(--surface); box-shadow: var(--shadow); min-height: 84px; }
 .idioma-txt { display: grid; flex: 1; min-width: 0; }
-.idioma-txt strong { font-family: var(--font-display); font-weight: 400; font-size: 22px; }
+.idioma-txt strong { font-family: var(--font-display); font-weight: 600; font-size: 22px; }
 .idioma-txt small { color: var(--ink-soft); }
 .monograma { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; flex: none; background: var(--surface-2); font-family: var(--font-display); font-size: 18px; letter-spacing: .06em; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold) 45%, transparent); }
 .idioma.nuevo { box-shadow: var(--shadow), inset 0 0 0 1.5px var(--accent); }
@@ -179,7 +179,7 @@ main { outline: none; }
 .kitty-seccion { grid-template-columns: 1fr; align-items: center; }
 .kitty-arte { justify-self: center; position: relative; }
 .kitty-arte::before { content: ''; position: absolute; inset: -12%; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--gold) 50%, transparent); animation: girar 40s linear infinite; border-style: dashed; }
-.kitty-arte img { width: 168px; height: 144px; border-radius: 50%; background: var(--surface-2); padding: 56px 44px; box-sizing: content-box; animation: flotar 6s ease-in-out infinite; filter: drop-shadow(0 30px 40px color-mix(in srgb, var(--sombra-color) 18%, transparent)); }
+.kitty-arte img { width: 160px; height: 128px; background: radial-gradient(circle closest-side, var(--surface-2) 99%, transparent 100%); padding: 60px; box-sizing: content-box; animation: flotar 6s ease-in-out infinite; filter: drop-shadow(0 30px 40px color-mix(in srgb, var(--sombra-color) 18%, transparent)); }
 .kitty-lista { padding: 0; margin: 24px 0; list-style: none; display: grid; gap: 12px; }
 .kitty-lista li { padding-left: 28px; position: relative; font-size: 18px; }
 .kitty-lista li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); }
@@ -189,9 +189,9 @@ main { outline: none; }
 .caras-galeria { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 12px; }
 .caras-galeria li { display: grid; justify-items: center; gap: 8px; padding: 14px 6px 12px; border-radius: 20px; background: var(--surface); box-shadow: var(--shadow); font-size: 14px; color: var(--ink-soft); transition: transform .4s var(--ease); }
 .caras-galeria li:hover { transform: translateY(-4px) rotate(-2deg); }
-.caras-galeria img { width: 84px; height: 72px; }
+.caras-galeria img { width: 80px; height: 64px; }
 .icono-pixel { display: inline-block; vertical-align: middle; margin-left: 4px; }
-.kitty-cara { width: 28px; height: 24px; flex: none; border-radius: 50%; background: var(--surface-2); padding: 8px 6px; box-sizing: content-box; }
+.kitty-cara { width: 40px; height: 32px; flex: none; background: radial-gradient(circle closest-side, var(--surface-2) 99%, transparent 100%); padding: 6px; box-sizing: content-box; }
 
 /* Creadora */
 .creadora { grid-template-columns: 1fr; align-items: center; }
@@ -200,10 +200,10 @@ main { outline: none; }
   background: linear-gradient(160deg, var(--surface-2), var(--accent)); display: grid; place-items: center;
   box-shadow: var(--shadow), 0 0 0 1px color-mix(in srgb, var(--gold) 40%, transparent), 0 0 0 10px var(--bg), 0 0 0 11px color-mix(in srgb, var(--gold) 35%, transparent);
 }
-.retrato span { font-family: var(--font-display); font-size: 96px; font-style: italic; color: var(--ink); opacity: .85; }
+.retrato span { font-family: var(--font-display); font-size: 96px; font-style: normal; color: var(--ink); opacity: .85; }
 .creadora .display { font-size: clamp(36px, 4.6vw, 64px); margin: 14px 0 10px; }
 .creadora-rol { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
-.creadora-texto { margin-top: 22px; font-size: 19px; font-weight: 300; max-width: 560px; }
+.creadora-texto { margin-top: 22px; font-size: 19px; font-weight: 400; max-width: 560px; }
 
 /* Novedades */
 .novedades-grid { display: grid; gap: 32px; }
@@ -236,13 +236,13 @@ main { outline: none; }
   background: var(--surface); box-shadow: 0 12px 30px color-mix(in srgb, var(--sombra-color) 28%, transparent); cursor: pointer; transition: transform .4s var(--ease);
 }
 .kitty-fab:hover { transform: translateY(-3px) rotate(-6deg); }
-.kitty-fab img { width: 56px; height: 48px; }
+.kitty-fab img { width: 60px; height: 48px; }
 dialog { border: 0; padding: 0; background: var(--surface); color: var(--ink); }
 dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, transparent); backdrop-filter: blur(3px); }
 .kitty-panel { width: min(420px, calc(100% - 24px)); max-height: min(620px, 86svh); border-radius: 28px; box-shadow: var(--shadow); margin: auto 12px 12px auto; }
 .kitty-panel[open] { display: grid; grid-template-rows: auto 1fr auto; animation: aparecer .4s var(--ease); }
 .kitty-panel header { display: flex; align-items: center; gap: 12px; padding: 16px 16px 12px 20px; border-bottom: 1px solid color-mix(in srgb, var(--line) 40%, transparent); }
-.kitty-panel h2 { font-family: var(--font-display); font-weight: 400; font-size: 26px; flex: 1; }
+.kitty-panel h2 { font-family: var(--font-display); font-weight: 600; font-size: 26px; flex: 1; }
 .cerrar { width: 44px; height: 44px; border: 0; background: transparent; color: var(--ink); font-size: 18px; cursor: pointer; border-radius: 50%; }
 .kitty-msgs { overflow-y: auto; padding: 16px; display: grid; gap: 10px; align-content: start; min-height: 120px; }
 .msg { max-width: 88%; padding: 10px 14px; border-radius: 18px; }

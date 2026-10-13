@@ -89,11 +89,13 @@ de alguien para hablar con Claude/ChatGPT/Gemini; se necesita una API con clave
 guardada en un servidor propio (nunca en el navegador). Ver `docs/RECOMENDACIONES.md`.
 Nombre de la app [PROVISORIO 2026-10-10, en discusión]: **Polyglok** (antes «Franui»). Se usa en títulos y textos;
 los nombres internos (carpetas, `franui:v1`, esta skill) no cambian.
-Logo [DECIDIDO 2026-10-10, reemplaza a la cara de Kitty]: la frase **«Polyglot in progress»** en letra de
+Logo [DECIDIDO 2026-10-10, ajustado 2026-10-13]: **«POLYGLOK in progress»** (antes decía «Polyglot») en letra de
 máquina de escribir (Special Elite, `--font-logo`), con un cursor que parpadea después de «in progress».
 Eslogan (por ahora): **«Be fluent in multiple languages»**, en mayúsculas espaciadas bajo una línea.
 No se traducen. Estilos en `app/css/logo.css` (una línea, apilado y marca completa con eslogan).
-Kitty sigue siendo la mascota (y el ícono de la pestaña del navegador).
+Ícono de la app (pestaña del navegador, pantalla de carga): **un corazón** pixel art, provisorio hasta
+encontrar uno definitivo. Kitty: el ícono de cuerpo entero que dibujó Francisca (gato blanco sentado,
+collar morado y cascabel), 20×16, en 14 expresiones.
 
 ## 9. Estética [DECIDIDO 2026-10-09]
 Sensación limpia, simple, lujo "old money", estudio corto. Referencias: Apple, Dior, Chanel, Bvlgari.
@@ -114,9 +116,8 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
   - Pixel art con los mismos tonos (contornos Carbón, corazones Higo). La sakura conserva su rosado
     y la moneda/estrella su dorado, para que se reconozcan.
   - Descartadas: la paleta Creme/Sand/Dusty Pink/Burgundy (2026-10-09), los rosados fuertes y la rosa/lavanda.
-- **Tipografía:** títulos y palabra de la tarjeta en **Bodoni Moda** (serif de alto contraste,
-  estilo moda); texto en **Jost** (sans geométrica fina); IPA en Noto Sans. Etiquetas en
-  mayúsculas con mucho espaciado.
+- **Tipografía [CAMBIADA 2026-10-13]:** títulos y palabra de la tarjeta en **Fredoka** (redonda, gruesa,
+  alegre); texto en **Nunito** (muy legible). Logo en Special Elite. Descartadas por finas: Bodoni Moda y Jost.
 - Dificultad: nueva `#5C524B`, difícil `#602B27`, media `#6B4E1C`, fácil `#3F5B40`,
   dominada `#4B3A6B` (oscuro: versiones más claras).
 - Accesibilidad: contraste ≥ 4,5:1 (prueba automática), botones ≥ 44 px, nunca solo color.

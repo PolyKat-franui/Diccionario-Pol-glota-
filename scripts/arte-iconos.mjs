@@ -204,4 +204,23 @@ export function burbuja() {
   return { filas: aTexto(g), colores: { o: '#5C524B', W: '#F7F6F2', S: '#DEDCD2', Y: '#E4B95B' } };
 }
 
-export const ICONOS = { sakura, moneda, estrella, cerezas, mensaje, burbuja };
+/** Corazón: ícono (logo) provisorio de la app, 13×12. Simétrico, con brillo arriba a la izquierda. */
+function corazon() {
+  const filas = [
+    '..ooo...ooo..',
+    '.oRRRo.oRRRo.',
+    'oRhhRRoRRRRDo',
+    'oRhRRRRRRRRDo',
+    'oRRRRRRRRRRDo',
+    'oRRRRRRRRRRDo',
+    '.oRRRRRRRRDo.',
+    '..oRRRRRRDo..',
+    '...oRRRRDo...',
+    '....oRRDo....',
+    '.....oDo.....',
+    '......o......',
+  ];
+  return { filas, colores: { o: '#4A1F24', R: '#C0405A', D: '#8E2840', h: '#F4A0B2' } };
+}
+
+export const ICONOS = { sakura, moneda, estrella, cerezas, mensaje, burbuja, corazon };
