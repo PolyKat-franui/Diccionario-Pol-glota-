@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Franui · Polykat — Volvemos pronto</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#9E2A3A">
+  <link rel="icon" href="assets/app/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Cormorant+Garamond:ital,wght@0,600;1,500&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/logo.css">
+  <style>
+    /* Pantalla de pausa: colores y fuentes de tokens.css */
+    body { margin: 0; min-height: 100dvh; display: grid; place-items: center; padding: 24px 16px; box-sizing: border-box;
+      background: radial-gradient(120% 70% at 50% 0%, var(--accent-soft), var(--bg) 70%); color: var(--ink); font-family: var(--font-body); text-align: center; }
+    main { display: grid; justify-items: center; gap: 18px; max-width: 420px; }
+    .marca-completa .logo { --logo-size: 22px; }
+    .kitty { width: 160px; height: 128px; padding: 28px; box-sizing: content-box; image-rendering: pixelated;
+      background: radial-gradient(circle closest-side, var(--surface-2) 99%, transparent 100%); animation: respira 3.2s ease-in-out infinite; transform-origin: 50% 90%; }
+    h1 { margin: 0; font-family: var(--font-logo); font-weight: 600; font-size: 34px; line-height: 1.1; }
+    p { margin: 0; font-size: 17px; line-height: 1.55; color: var(--ink-soft); }
+    .en { font-size: 14px; font-style: italic; }
+    @keyframes respira { 50% { transform: scaleY(.96); } }
+    @media (prefers-reduced-motion: reduce) { .kitty { animation: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="marca-completa"><span class="logo apilado"><span class="logo-b">Polykat</span> <span class="logo-a">Franui</span></span></div>
+    <img class="kitty" src="assets/caras/con_sueno.svg" alt="Kitty durmiendo" width="160" height="128">
+    <h1>Estamos haciendo una pausa</h1>
+    <p>Franui Polykat vuelve pronto. Tu avance está a salvo: queda guardado en tu navegador y en tu cuenta de Google.</p>
+    <p class="en" lang="en">We’re taking a short break. Back soon — your progress is safe.</p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Avance de cada persona: solo ella lo lee y lo escribe.
+    match /progreso/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+    // Ranking: lo ve quien inició sesión; cada persona escribe solo su fila,
+    // y solo con nombre y números (nunca el correo).
+    match /ranking/{uid} {
+      allow read: if request.auth != null;
+      allow delete: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['nombre', 'racha', 'dia', 'palabras', 'nivel', 'actualizado'])
+        && request.resource.data.nombre is string && request.resource.data.nombre.size() <= 30
+        && request.resource.data.racha is int && request.resource.data.racha >= 0 && request.resource.data.racha < 100000
+        && request.resource.data.dia is string && request.resource.data.dia.size() <= 10
+        && request.resource.data.palabras is int && request.resource.data.palabras >= 0 && request.resource.data.palabras < 1000000
+        && request.resource.data.nivel is int && request.resource.data.nivel >= 0 && request.resource.data.nivel < 1000
+        && request.resource.data.actualizado is int;
+    }
+  }
+}

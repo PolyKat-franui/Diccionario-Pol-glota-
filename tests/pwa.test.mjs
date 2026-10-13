@@ -36,3 +36,11 @@ test('service worker: guarda todos los archivos de la app para usarla sin intern
   for (const f of necesarios) assert.ok(nucleo.includes(f), `falta en NUCLEO de sw.js: ${f}`);
   for (const f of nucleo.filter((x) => x.includes('.'))) assert.ok(existsSync(join(APP, f)), `NUCLEO nombra un archivo que no existe: ${f}`);
 });
+
+test('reglas de Firestore: el ranking solo acepta nombre y números (sin correo)', () => {
+  const reglas = readFileSync(new URL('../firestore.rules', import.meta.url), 'utf8');
+  assert.match(reglas, /match \/progreso\/\{uid\}/);
+  assert.match(reglas, /match \/ranking\/\{uid\}/);
+  assert.match(reglas, /hasOnly\(\['nombre', 'racha', 'dia', 'palabras', 'nivel', 'actualizado'\]\)/);
+  assert.doesNotMatch(reglas, /email/);
+});

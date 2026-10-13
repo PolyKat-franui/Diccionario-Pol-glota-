@@ -25,7 +25,18 @@ const FAKE = {
     export const getFirestore = () => ({});
     export const doc = (db, col, id) => col + '/' + id;
     export const getDoc = async (k) => { const d = leer()[k]; return { exists: () => !!d, data: () => d }; };
-    export const setDoc = async (k, v) => { const d = leer(); d[k] = v; localStorage.setItem('__sim_docs', JSON.stringify(d)); };`,
+    export const setDoc = async (k, v) => { const d = leer(); d[k] = v; localStorage.setItem('__sim_docs', JSON.stringify(d)); };
+    export const deleteDoc = async (k) => { const d = leer(); delete d[k]; localStorage.setItem('__sim_docs', JSON.stringify(d)); };
+    export const collection = (db, col) => col;
+    export const orderBy = (campo) => ({ campo });
+    export const limit = (n) => ({ n });
+    export const query = (col, ...ops) => ({ col, ops });
+    export const getDocs = async ({ col, ops }) => {
+      const campo = ops.find((o) => o.campo)?.campo, n = ops.find((o) => o.n)?.n ?? 99;
+      const filas = Object.entries(leer()).filter(([k]) => k.startsWith(col + '/')).map(([k, v]) => ({ id: k.slice(col.length + 1), data: () => v }));
+      filas.sort((a, b) => (b.data()[campo] ?? 0) - (a.data()[campo] ?? 0));
+      return { docs: filas.slice(0, n) };
+    };`,
 };
 await ctx.route('**/js/nube-config.js', (r) => r.fulfill({ contentType: 'text/javascript', body: "export const FIREBASE = { apiKey: 'x', projectId: 'sim' };" }));
 await ctx.route('https://www.gstatic.com/firebasejs/**', (r) => r.fulfill({ contentType: 'text/javascript', headers: { 'access-control-allow-origin': '*' }, body: FAKE[r.request().url().split('/').pop()] }));
@@ -72,7 +83,30 @@ await page.locator('[data-eleccion=cuenta]').click();
 await page.waitForFunction(() => JSON.parse(localStorage.getItem('franui:v1')).tokens === 500);
 assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).perfil.cuenta.email), 'fran@example.com');
 console.log('✓ Avances distintos → «¿Qué avance conservo?» y se queda con el de la cuenta');
+// Ranking real: mi fila se publica sin el correo, aparecen otras personas ordenadas y se puede ocultar
+await page.evaluate(() => {
+  const d = JSON.parse(localStorage.getItem('__sim_docs'));
+  const hoy = new Date(); const pad = (n) => String(n).padStart(2, '0');
+  const dia = `${hoy.getFullYear()}-${pad(hoy.getMonth() + 1)}-${pad(hoy.getDate())}`;
+  d['ranking/ana'] = { nombre: 'Ana', racha: 9, dia, palabras: 3, nivel: 4, actualizado: 1 };
+  d['ranking/beto'] = { nombre: 'Beto', racha: 30, dia: '2020-01-01', palabras: 900, nivel: 1, actualizado: 1 }; // racha vencida
+  localStorage.setItem('__sim_docs', JSON.stringify(d));
+});
+await page.goto(`${U}#/ranking`);
+await page.locator('.ranking li.yo').waitFor();
+const nombres = await page.locator('.ranking li strong').allInnerTexts();
+assert.equal(nombres[0], 'Ana', `la racha vencida de Beto cuenta 0 (${nombres})`);
+const miFila = await page.evaluate(() => JSON.parse(localStorage.getItem('__sim_docs'))['ranking/u1']);
+assert.ok(miFila && miFila.nombre && !JSON.stringify(miFila).includes('@'), 'mi fila se publica sin el correo');
+await page.locator('[data-campo=palabras]').click();
+await page.waitForFunction(() => document.querySelector('.ranking li strong')?.textContent === 'Beto');
+await page.locator('[data-campo=nivel]').click();
+await page.waitForFunction(() => document.querySelector('.ranking li strong')?.textContent === 'Ana');
+console.log('✓ Ranking real: racha, palabras y jardín, con otras personas y sin el correo');
 await page.goto(`${U}#/ajustes`);
+await page.locator('#aj-ranking').uncheck();
+await page.waitForFunction(() => !JSON.parse(localStorage.getItem('__sim_docs'))['ranking/u1']);
+console.log('✓ Se puede salir del ranking desde Ajustes');
 await page.locator('#aj-salir').click();
 await page.locator('#aj-google').waitFor();
 console.log('✓ Cerrar sesión');
