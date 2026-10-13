@@ -1,7 +1,7 @@
-# Ideas de TikTok, Instagram, Duolingo y Tinder para Franui · Polycat
+# Ideas de TikTok, Instagram, Duolingo y Tinder para Franui · Polykat
 
 Fecha: 2026-10-13. Lista corta de lo llamativo de cada app y cómo usarlo aquí.
-✅ = ya está en Franui · Polycat · 🔜 = propuesta
+✅ = ya está en Franui · Polykat · 🔜 = propuesta
 
 ---
 

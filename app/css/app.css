@@ -698,7 +698,7 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 }
 .menu-letras span.salta { animation: letraSalta .55s cubic-bezier(.3, 1.6, .5, 1); color: var(--primary); }
 .menu-linea { width: min(70%, 320px); height: 1px; margin-top: 4px; background: var(--ink); transform-origin: center; transform: scaleX(0); animation: trazar .8s var(--ease) 1.3s forwards; }
-/* «Polycat» se escribe como en máquina de escribir */
+/* «Polykat» se escribe como en máquina de escribir */
 .menu-sub { font-family: var(--font-logo); font-style: italic; font-weight: 500; font-size: clamp(26px, 8vw, 36px); line-height: 1; color: var(--primary); letter-spacing: .02em; }
 .menu-tipeo { display: inline-block; clip-path: inset(0 100% 0 0); animation: tipear .9s var(--ease) .1s forwards; padding-right: .1em; }
 .menu-eslogan { opacity: 0; animation: aparecer .6s var(--ease) 2.1s forwards; }
