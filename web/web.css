@@ -105,7 +105,7 @@ main { outline: none; }
 .demo-tarjeta.sube { transform: translateY(-110%); opacity: 0; }
 .demo-tarjeta.entra { animation: entraAbajo .6s var(--ease); }
 .demo-top { display: flex; justify-content: space-between; align-items: center; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); }
-.demo-nivel { display: inline-flex; align-items: center; gap: 5px; border: 1.5px solid var(--d-nueva); color: var(--d-nueva); border-radius: 999px; padding: 2px 9px 2px 6px; letter-spacing: .04em; text-transform: none; font-weight: 600; font-size: 11px; }
+.demo-nivel { display: inline-flex; align-items: center; gap: 5px; border: 1.5px solid var(--d-nueva); background: var(--d-nueva); color: var(--blanco); border-radius: 999px; padding: 2px 9px 2px 6px; letter-spacing: .04em; text-transform: none; font-weight: 600; font-size: 11px; }
 .demo-nivel i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
 .demo-palabra { margin-top: auto; font-family: var(--font-display); font-size: 36px; line-height: 1.05; padding-right: 30px; }
 .demo-trad { margin-right: 30px; padding: 10px; border-radius: 14px; border: 1px dashed var(--line); filter: blur(7px); transition: filter .5s var(--ease), background .5s; font-size: 16px; }
@@ -154,13 +154,13 @@ main { outline: none; }
 .paso { padding: 28px; border-radius: 24px; background: var(--surface); box-shadow: var(--shadow); display: grid; gap: 10px; align-content: start; }
 .paso-num { font-size: 12px; letter-spacing: .3em; color: var(--gold); font-weight: 600; }
 .niveles { display: flex; flex-wrap: wrap; gap: 10px; }
-.nivel { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 16px 0 10px; border-radius: 999px; border: 1.5px solid currentColor; background: var(--surface); font-weight: 600; font-size: 14px; }
+.nivel { --n: var(--d-nueva); display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 16px 0 10px; border-radius: 999px; background: var(--n); color: var(--blanco); font-weight: 700; font-size: 14px; box-shadow: 0 6px 16px color-mix(in srgb, var(--n) 35%, transparent); }
 .nivel i { width: 12px; height: 12px; border-radius: 50%; background: currentColor; }
-.nivel[data-nivel="nueva"] { color: var(--d-nueva); }
-.nivel[data-nivel="dificil"] { color: var(--d-dificil); }
-.nivel[data-nivel="media"] { color: var(--d-media); }
-.nivel[data-nivel="facil"] { color: var(--d-facil); }
-.nivel[data-nivel="dominada"] { color: var(--d-dominada); }
+.nivel[data-nivel="nueva"] { --n: var(--d-nueva); }
+.nivel[data-nivel="dificil"] { --n: var(--d-dificil); }
+.nivel[data-nivel="media"] { --n: var(--d-media); }
+.nivel[data-nivel="facil"] { --n: var(--d-facil); }
+.nivel[data-nivel="dominada"] { --n: var(--d-dominada); }
 
 /* Idiomas */
 .lista-idiomas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 12px; }
