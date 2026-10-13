@@ -70,23 +70,25 @@ try {
 
   await page.locator('.idioma[data-code=en]').click();
   await page.waitForURL(/#\/aprender/);
-  await page.locator('.mega').first().waitFor();
-  assert.equal(await page.locator('.mega').count(), 13);
-  const conv = page.locator('.mega', { hasText: 'Conversación y vida social' });
+  await page.locator('.nodo:not(.raiz) .neurona').first().waitFor();
+  assert.equal(await page.locator('.nodo:not(.raiz) .neurona').count(), 13);
+  const conv = page.locator('.nodo:not(.raiz) .neurona', { hasText: 'Conversación y vida social' });
   assert.match(await conv.innerText(), /269 tarjetas/);
   await page.waitForTimeout(1200); // termina la animación de entrada
   await foto(page, '03-celular-temas');
   await sinScrollHorizontal(page, 'temas');
-  paso('13 mega temas; Conversación y vida social con 269 tarjetas');
+  assert.ok((await page.locator('#red .axon').count()) >= 13, 'la red dibuja sus conexiones');
+  paso('13 mega temas en red de neuronas; Conversación y vida social con 269 tarjetas');
 
   await conv.click();
   await page.waitForURL(/#\/tema\//);
-  await page.locator('.tema').first().waitFor();
+  await page.locator('#difs .dif-opcion').first().waitFor();
+  assert.equal(await page.locator('.tema').count(), 0, 'sin subtemas');
   await page.locator('#difs [data-dif=facil]').click();
   assert.equal(await page.locator('#difs [data-dif=facil]').getAttribute('aria-checked'), 'true');
   await page.locator('#difs [data-dif=todas]').click();
   await foto(page, '04-celular-tema');
-  paso('Tema: dificultad y bloques');
+  paso('Tema: dificultad con íconos, sin subtemas');
 
   await page.locator('#btn-empezar').click();
   await page.waitForURL(/#\/estudiar/);
@@ -216,7 +218,7 @@ try {
   await page.goto(`${URL_APP}#/aprender`);
   await page.getByRole('heading', { name: 'What do you want to learn?' }).waitFor(); // inglés ya no puede ser el idioma a aprender
   await page.locator('.idioma[data-code=es]').click();
-  await page.locator('.mega', { hasText: 'Conversation & social life' }).waitFor();
+  await page.locator('.nodo:not(.raiz) .neurona', { hasText: 'Conversation & social life' }).waitFor();
   paso('Idioma nativo inglés: interfaz en inglés y se aprende español');
 
   // Borrar progreso: se confirma dentro de la app (no con confirm(), que algunos navegadores bloquean)
@@ -234,7 +236,7 @@ try {
     await p.goto(URL_APP);
     await p.getByRole('button', { name: 'Continuar sin cuenta' }).click();
     await p.locator('.idioma[data-code=fr]').click();
-    await p.locator('.mega').first().waitFor();
+    await p.locator('.nodo:not(.raiz) .neurona').first().waitFor();
     await sinScrollHorizontal(p, nombre);
     await p.waitForTimeout(1200);
     await foto(p, `14-${nombre}-temas`);

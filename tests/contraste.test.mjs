@@ -33,7 +33,10 @@ for (const [nombre, p] of Object.entries({ claro, oscuro, ...paletas })) {
   test(`contraste ≥ 4,5:1 — ${nombre}`, () => {
     const pares = [['ink', 'bg'], ['ink', 'surface'], ['ink', 'surface-2'], ['ink-soft', 'bg'], ['ink-soft', 'surface'],
       ['on-primary', 'primary'], ['enfasis', 'surface'], ['enfasis', 'bg'], ['ink', 'accent-soft'], ['gold', 'surface'], ['ink-soft', 'surface-2'], ['sobre-oscuro', 'oscuro'], ['sobre-oscuro-suave', 'oscuro'],
-      ...['d-nueva', 'd-dificil', 'd-media', 'd-facil', 'd-dominada'].map((d) => [d, 'surface'])];
+      ['peligro', 'surface'], ['peligro', 'bg'],
+      // insignias de dificultad y nodos de tema: texto blanco sobre el color
+      ...['d-nueva', 'd-dificil', 'd-media', 'd-facil', 'd-dominada'].map((d) => ['blanco', d]),
+      ...Array.from({ length: 13 }, (_, i) => ['blanco', `tema-${i + 1}`])];
     for (const [a, b] of pares) {
       const c = contraste(p[a], p[b]);
       assert.ok(c >= 4.5, `${a} sobre ${b}: ${c.toFixed(2)}:1`);

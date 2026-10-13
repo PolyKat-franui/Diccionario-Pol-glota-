@@ -54,12 +54,20 @@
   --sobre-oscuro-suave: #B4B1AD;
   --sombra-color: #211A18;
 
-  /* Dificultad (siempre con texto, nunca solo color) */
-  --d-nueva: #5C524B;
-  --d-dificil: #602B27;
-  --d-media: #6B4E1C;
-  --d-facil: #3F5B40;
-  --d-dominada: #4B3A6B;
+  /* Dificultad: insignias de color con ícono y texto en blanco (iguales en claro y oscuro) */
+  --blanco: #FFFFFF;
+  --d-nueva: #0369A1;     /* destello */
+  --d-dificil: #B91C1C;   /* llama */
+  --d-media: #B45309;     /* medio círculo */
+  --d-facil: #047857;     /* hoja */
+  --d-dominada: #6D28D9;  /* corona */
+  --peligro: #B91C1C;     /* textos de error y «Borrar» */
+
+  /* Un color por mega tema (texto blanco encima, contraste ≥ 4,5:1) */
+  --tema-1: #C2185B;  --tema-2: #1D4ED8;  --tema-3: #C2410C;  --tema-4: #BE123C;
+  --tema-5: #B45309;  --tema-6: #0F766E;  --tema-7: #A21CAF;  --tema-8: #0369A1;
+  --tema-9: #4D7C0F;  --tema-10: #854D0E; --tema-11: #047857; --tema-12: #6D28D9;
+  --tema-13: #9D174D;
 }
 
 /* Muestras de cada paleta (Ajustes → Paleta) */
@@ -99,7 +107,7 @@
     --accent-soft: #3A302C; --line: #5C524B; --ink: #CFCDBF; --ink-soft: #B4B1AD;
     --primary: #CDA39C; --on-primary: #211A18; --enfasis: #CDA39C; --gold: #C2B5A9; --sand: #8A7C70;
     --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 14px 40px rgba(0, 0, 0, .45);
-    --d-nueva: #B4B1AD; --d-dificil: #E0A39C; --d-media: #E3B77E; --d-facil: #A8C49A; --d-dominada: #C3B3E3;
+    --peligro: #F0A0A0;
     color-scheme: dark;
   }
 }
@@ -108,7 +116,7 @@
   --accent-soft: #3A302C; --line: #5C524B; --ink: #CFCDBF; --ink-soft: #B4B1AD;
   --primary: #CDA39C; --on-primary: #211A18; --enfasis: #CDA39C; --gold: #C2B5A9; --sand: #8A7C70;
   --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 14px 40px rgba(0, 0, 0, .45);
-  --d-nueva: #B4B1AD; --d-dificil: #E0A39C; --d-media: #E3B77E; --d-facil: #A8C49A; --d-dominada: #C3B3E3;
+  --peligro: #F0A0A0;
   color-scheme: dark;
 }
 :root[data-theme="dark"][data-paleta="piedra"] { --primary: #B4B1AD; --enfasis: #CFCDBF; --surface-2: #34302D; --accent: #B4B1AD; }

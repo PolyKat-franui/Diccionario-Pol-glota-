@@ -118,8 +118,11 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
   - Descartadas: la paleta Creme/Sand/Dusty Pink/Burgundy (2026-10-09), los rosados fuertes y la rosa/lavanda.
 - **Tipografía [CAMBIADA 2026-10-13]:** títulos y palabra de la tarjeta en **Fredoka** (redonda, gruesa,
   alegre); texto en **Nunito** (muy legible). Logo en Special Elite. Descartadas por finas: Bodoni Moda y Jost.
-- Dificultad: nueva `#5C524B`, difícil `#602B27`, media `#6B4E1C`, fácil `#3F5B40`,
-  dominada `#4B3A6B` (oscuro: versiones más claras).
+- Dificultad [2026-10-13]: insignia de color con **ícono** y texto blanco: nueva (destello, `#0369A1`),
+  difícil (llama, `#B91C1C`), media (medio círculo, `#B45309`), fácil (hoja, `#047857`), dominada (corona, `#6D28D9`).
+- Temas [2026-10-13]: **sin subtemas**, solo los 13 mega temas, dibujados como **red de neuronas** (el idioma es
+  el núcleo; cada tema, una neurona de su color con anillo de % de avance; impulsos recorren las conexiones).
+  Colores `--tema-1…13` en tokens.css. Favoritos separados por idioma (pestañas).
 - Accesibilidad: contraste ≥ 4,5:1 (prueba automática), botones ≥ 44 px, nunca solo color.
 - Tres formatos: celular, tablet, computador. Modo claro y oscuro.
 

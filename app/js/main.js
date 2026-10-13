@@ -310,7 +310,20 @@ async function vistaIdiomas() {
   }));
 }
 
-// ---------- Temas (13 mega temas) ----------
+// ---------- Temas (13 mega temas) como red de neuronas ----------
+const ICON_NIVEL = { nueva: ICON.nueva, dificil: ICON.dificil, media: ICON.media, facil: ICON.facil, dominada: ICON.dominada };
+const ICON_DIF = { todas: ICON.todas, facil: ICON.facil, medio: ICON.media, dificil: ICON.dificil };
+/** Insignia de dificultad: ícono + texto, en el color de su nivel. */
+const insignia = (niv) => `<span class="nivel" data-nivel="${niv}">${ICON_NIVEL[niv]}<span>${t('niv_' + niv)}</span></span>`;
+const colorTema = (mega) => `var(--tema-${MEGA_TEMAS.indexOf(mega) + 1})`;
+const CARRILES = [0, 1, 2, 1]; // zigzag de la red: izquierda, centro, derecha, centro…
+
+function resumenMega(lista, mega, prog) {
+  const ids = lista.filter((c) => c.megas.includes(mega)).map((c) => c.id);
+  const vistas = ids.filter((id) => (prog[id]?.c ?? 0) >= 1).length;
+  return { ids, pct: ids.length ? Math.round((vistas / ids.length) * 100) : 0 };
+}
+
 async function vistaAprender() {
   if (!S.aprendiendo) return vistaIdiomas();
   const meta = S.aprendiendo, nativo = S.ajustes.nativo;
@@ -318,17 +331,15 @@ async function vistaAprender() {
   await banco.prepararPar(meta, nativo);
   const lista = banco.disponibles(meta, nativo);
   const prog = store.progresoDe(S, meta);
-  const tarjetas = MEGA_TEMAS.map((m, i) => {
-    const ids = lista.filter((c) => c.megas.includes(m)).map((c) => c.id);
-    const vistas = ids.filter((id) => (prog[id]?.c ?? 0) >= 1).length;
-    const pct = ids.length ? Math.round((vistas / ids.length) * 100) : 0;
+  const nodos = MEGA_TEMAS.map((m, i) => {
+    const { ids, pct } = resumenMega(lista, m, prog);
     const vacio = !ids.length;
-    return `<a class="mega ${vacio ? 'vacio' : ''}" href="#/tema/${encodeURIComponent(m)}" ${vacio ? 'aria-disabled="true" tabindex="-1"' : ''} style="--i:${i}">
-        <span class="mega-num">${String(i + 1).padStart(2, '0')}</span>
-        <span class="mega-nombre">${esc(tMega(m))}</span>
-        <span class="mega-meta">${vacio ? t('traduccion_en_camino') : `${tn('tarjetas_n', ids.length)} · ${pct}%`}</span>
-        ${vacio ? '' : `<span class="progreso" role="progressbar" aria-label="${esc(tMega(m))}" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></span>`}
-      </a>`;
+    return `<li class="nodo carril-${CARRILES[i % 4]}" style="--c:${colorTema(m)};--i:${i + 1}">
+        <a class="neurona ${vacio ? 'vacio' : ''}" href="#/tema/${encodeURIComponent(m)}" ${vacio ? 'aria-disabled="true" tabindex="-1"' : ''}>
+          <span class="neurona-soma" role="progressbar" aria-label="${esc(tMega(m))}" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" style="--p:${pct}"><span class="neurona-pct">${pct}%</span></span>
+          <span class="neurona-txt"><strong>${esc(tMega(m))}</strong><small>${vacio ? t('traduccion_en_camino') : tn('tarjetas_n', ids.length)}</small></span>
+        </a>
+      </li>`;
   }).join('');
   vista.innerHTML = `
     <section class="pagina">
@@ -338,65 +349,87 @@ async function vistaAprender() {
           <h1 class="display">${t('temas_titulo')}</h1>
           <p class="suave">${t('temas_sub')}</p>
         </div>
-        <a class="btn fantasma" href="#/idiomas"><span class="monograma pequeno" aria-hidden="true">${meta.toUpperCase()}</span>${t('cambiar_idioma')}</a>
       </div>
-      <div class="grid-megas">${tarjetas}</div>
+      <div class="red" id="red">
+        <svg class="red-sinapsis" aria-hidden="true"></svg>
+        <ol class="red-nodos">
+          <li class="nodo carril-1 raiz" style="--c:var(--primary);--i:0">
+            <a class="neurona" href="#/idiomas" aria-label="${t('cambiar_idioma')}">
+              <span class="neurona-soma"><span class="neurona-pct">${meta.toUpperCase()}</span></span>
+              <span class="neurona-txt"><strong lang="${meta}">${esc(nombreIdioma(meta))}</strong><small>${t('cambiar_idioma')}</small></span>
+            </a>
+          </li>
+          ${nodos}
+        </ol>
+      </div>
     </section>`;
-  $$('.mega.vacio').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); toast(t('traduccion_en_camino')); }));
+  $$('.neurona.vacio').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); toast(t('traduccion_en_camino')); }));
+  dibujarSinapsis();
 }
 
-// ---------- Un mega tema: temas + dificultad ----------
+/** Une las neuronas con curvas (axones) y líneas finas (dendritas); un impulso recorre cada axón. */
+function dibujarSinapsis() {
+  const red = $('#red');
+  if (!red) return;
+  const svg = $('.red-sinapsis', red);
+  const caja = red.getBoundingClientRect();
+  const nodos = $$('.nodo', red);
+  const pts = nodos.map((n) => { const r = $('.neurona-soma', n).getBoundingClientRect(); return [r.left - caja.left + r.width / 2, r.top - caja.top + r.height / 2]; });
+  const curva = ([x1, y1], [x2, y2]) => { const my = (y1 + y2) / 2; return `M${x1.toFixed(1)} ${y1.toFixed(1)}C${x1.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`; };
+  let html = '';
+  for (let i = 0; i + 2 < pts.length; i++) html += `<path class="dendrita" d="${curva(pts[i], pts[i + 2])}"/>`;
+  for (let i = 0; i + 1 < pts.length; i++) {
+    const c = nodos[i + 1].style.getPropertyValue('--c');
+    html += `<path class="axon" style="--c:${c}" d="${curva(pts[i], pts[i + 1])}"/><path class="impulso" style="--c:${c};--i:${i}" pathLength="100" d="${curva(pts[i], pts[i + 1])}"/>`;
+  }
+  svg.setAttribute('viewBox', `0 0 ${caja.width.toFixed(0)} ${caja.height.toFixed(0)}`);
+  svg.innerHTML = html;
+}
+let timerRed = 0;
+addEventListener('resize', () => { clearTimeout(timerRed); timerRed = setTimeout(dibujarSinapsis, 120); });
+
+// ---------- Un mega tema: dificultad y empezar (sin subtemas, decisión 2026-10-13) ----------
 async function vistaTema(r) {
   const mega = r.args[0];
   if (!S.aprendiendo || !MEGA_TEMAS.includes(mega)) return void (location.hash = '#/aprender');
   const meta = S.aprendiendo, nativo = S.ajustes.nativo;
   cargando();
   await banco.prepararPar(meta, nativo);
-  const base = banco.disponibles(meta, nativo).filter((c) => c.megas.includes(mega));
+  const lista = banco.disponibles(meta, nativo);
+  const base = lista.filter((c) => c.megas.includes(mega));
   const prog = store.progresoDe(S, meta);
-  const temas = [...new Set(base.flatMap((c) => c.temas))].sort((a, b) => a.localeCompare(b, 'es'));
+  const { pct } = resumenMega(lista, mega, prog);
   let dif = 'todas';
-  let tema = '';
 
-  const filtrar = (lista) => (dif === 'todas' ? lista : lista.filter((c) => grupoDificultad(c) === dif));
   const pintar = () => {
-    const opciones = [['', t('todo_el_tema'), base], ...temas.map((tm) => [tm, tm, base.filter((c) => c.temas.includes(tm))])];
-    const items = opciones.map(([valor, nombre, lista]) => {
-      const ids = ordenar(filtrar(lista)).map((c) => c.id);
-      const bl = bloques(ids);
-      const dominadas = ids.filter((id) => dificultad(prog[id]) === 'dominada').length;
-      const info = ids.length ? `${tn('tarjetas_n', ids.length)} · ${t('bloque_n', { n: bloqueActual(bl, prog) + 1, total: bl.length })}${dominadas ? ' · ' + t('dominadas_n', { n: dominadas }) : ''}` : '—';
-      return `<label class="tema ${ids.length ? '' : 'vacio'}">
-          <input type="radio" name="tema" value="${esc(valor)}" ${valor === tema ? 'checked' : ''} ${ids.length ? '' : 'disabled'}>
-          <span class="tema-nombre" ${valor && S.ajustes.nativo !== 'es' ? 'lang="es"' : ''}>${esc(nombre)}</span>
-          <span class="tema-info">${info}</span>
-        </label>`;
-    }).join('');
+    const sel = dif === 'todas' ? base : base.filter((c) => grupoDificultad(c) === dif);
+    const ids = ordenar(sel).map((c) => c.id);
+    const bl = bloques(ids);
+    const dominadas = ids.filter((id) => dificultad(prog[id]) === 'dominada').length;
+    $('#tema-info').textContent = ids.length
+      ? `${tn('tarjetas_n', ids.length)} · ${t('bloque_n', { n: bloqueActual(bl, prog) + 1, total: bl.length })}${dominadas ? ' · ' + t('dominadas_n', { n: dominadas }) : ''}`
+      : '—';
     const cuenta = (d) => (d === 'todas' ? base.length : base.filter((c) => grupoDificultad(c) === d).length);
-    $('#temas-lista').innerHTML = items;
     $('#difs').innerHTML = ['todas', 'facil', 'medio', 'dificil'].map((d) =>
-      `<button type="button" role="radio" aria-checked="${d === dif}" data-dif="${d}"><span>${t('dif_' + d)}</span> <small>${cuenta(d)}</small></button>`).join('');
+      `<button type="button" class="dif-opcion" role="radio" aria-checked="${d === dif}" data-dif="${d}" ${cuenta(d) ? '' : 'disabled'}>
+        ${ICON_DIF[d]}<span>${t('dif_' + d)}</span><small>${cuenta(d)}</small></button>`).join('');
     $$('#difs button').forEach((b) => b.addEventListener('click', () => { dif = b.dataset.dif; pintar(); }));
-    $$('#temas-lista input').forEach((i) => i.addEventListener('change', () => { tema = i.value; }));
+    $('#btn-empezar').disabled = !ids.length;
   };
 
   vista.innerHTML = `
-    <section class="pagina">
+    <section class="pagina angosta tema-pagina" style="--c:${colorTema(mega)}">
       <a class="volver" href="#/aprender">${ICON.atras}<span>${t('volver')}</span></a>
-      <h1 class="display">${esc(tMega(mega))}</h1>
-      <div class="bloque-dif">
-        <p class="sobretitulo" id="lbl-dif">${t('dificultad')}</p>
-        <div class="seg" id="difs" role="radiogroup" aria-labelledby="lbl-dif"></div>
+      <div class="tema-cabeza">
+        <span class="neurona-soma grande" role="progressbar" aria-label="${esc(tMega(mega))}" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" style="--p:${pct}"><span class="neurona-pct">${pct}%</span></span>
+        <div><h1 class="display">${esc(tMega(mega))}</h1><p class="suave" id="tema-info"></p></div>
       </div>
-      <fieldset class="temas"><legend class="sr-only">${t('temas_titulo')}</legend><div id="temas-lista"></div></fieldset>
+      <p class="sobretitulo" id="lbl-dif">${t('dificultad')}</p>
+      <div class="difs" id="difs" role="radiogroup" aria-labelledby="lbl-dif"></div>
       <div class="cta-fija"><button class="btn primario grande" id="btn-empezar">${t('empezar')}</button></div>
     </section>`;
   pintar();
-  $('#btn-empezar').addEventListener('click', () => {
-    const q = new URLSearchParams({ mega, dif });
-    if (tema) q.set('tema', tema);
-    location.hash = `#/estudiar?${q}`;
-  });
+  $('#btn-empezar').addEventListener('click', () => { location.hash = `#/estudiar?${new URLSearchParams({ mega, dif })}`; });
 }
 
 // ---------- Estudiar: feed de tarjetas que se deslizan ----------
@@ -469,7 +502,7 @@ function htmlSlide(id, primera = false) {
     <article class="slide" data-id="${id}" data-k="${k}">
       <div class="tarjeta">
         <div class="tarjeta-top">
-          <span class="nivel" data-nivel="${niv}"><i aria-hidden="true"></i>${t('niv_' + niv)}</span>
+          ${insignia(niv)}
           <span class="tipo">${c.tipos.map((x) => esc(tTipo(x))).join(' · ')}</span>
         </div>
         <div class="tarjeta-centro">
@@ -512,9 +545,7 @@ function responderSlide(slide, sabia, auto = false) {
   sesion.tokens += store.registrarRespuesta(S, meta, id, sabia);
   sabia ? sesion.sabias++ : sesion.repasar++;
   const niv = dificultad(store.progresoDe(S, meta)[id]);
-  const badge = $('.nivel', slide);
-  badge.dataset.nivel = niv;
-  badge.lastChild.textContent = t('niv_' + niv);
+  $('.nivel', slide).outerHTML = insignia(niv);
   flotar(slide, '+1');
 
   if (!sabia) {
@@ -627,33 +658,46 @@ document.addEventListener('keydown', (e) => {
   if (accion) { e.preventDefault(); accion(); }
 });
 
-// ---------- Favoritos ----------
-async function vistaFavoritos() {
-  if (!S.aprendiendo) return vistaIdiomas();
-  const meta = S.aprendiendo, nativo = S.ajustes.nativo;
+// ---------- Favoritos (separados por idioma) ----------
+async function vistaFavoritos(r) {
+  const nativo = S.ajustes.nativo;
+  const conFavs = Object.keys(S.favoritos).filter((l) => l !== nativo && (S.favoritos[l] ?? []).length);
+  const pedido = r?.q?.get('l');
+  const meta = conFavs.includes(pedido) ? pedido : conFavs.includes(S.aprendiendo) ? S.aprendiendo : conFavs[0];
+  if (!meta) {
+    vista.innerHTML = `
+      <section class="pagina angosta">
+        <h1 class="display">${t('fav_titulo')}</h1>
+        <div class="vacio-estado centro"><img class="cara-grande" src="${cara('enamorada')}" alt="" width="80" height="64"><p class="suave">${t('fav_vacio')}</p></div>
+      </section>`;
+    return;
+  }
   cargando();
   await banco.prepararPar(meta, nativo);
   const ids = (S.favoritos[meta] ?? []).filter((id) => banco.texto(meta, id) && banco.texto(nativo, id));
   const prog = store.progresoDe(S, meta);
-  const filas = ids.map((id) => {
-    const niv = dificultad(prog[id]);
-    return `<li class="fila-fav" data-id="${id}">
+  const pestanas = conFavs.map((l) => `<a class="pestana-idioma" href="#/favoritos?l=${l}" ${l === meta ? 'aria-current="page"' : ''}>
+      <span class="monograma pequeno" aria-hidden="true">${l.toUpperCase()}</span><span lang="${l}">${esc(nombreIdioma(l))}</span><small>${S.favoritos[l].length}</small></a>`).join('');
+  const filas = ids.map((id) => `<li class="fila-fav" data-id="${id}">
         <button class="icon-btn btn-audio" type="button" aria-label="${t('escuchar')}">${ICON.audio}</button>
         <div><strong lang="${meta}">${esc(banco.texto(meta, id).texto)}</strong><span lang="${nativo}">${esc(banco.texto(nativo, id).texto)}</span></div>
-        <span class="nivel" data-nivel="${niv}"><i aria-hidden="true"></i>${t('niv_' + niv)}</span>
+        ${insignia(dificultad(prog[id]))}
         <button class="icon-btn btn-quitar" type="button" aria-label="${t('quitar_favorito')}">${ICON.corazonLleno}</button>
-      </li>`;
-  }).join('');
+      </li>`).join('');
   vista.innerHTML = `
     <section class="pagina angosta">
-      <p class="sobretitulo" lang="${meta}">${esc(nombreIdioma(meta))}</p>
       <h1 class="display">${t('fav_titulo')}</h1>
-      ${ids.length ? `<a class="btn primario" href="#/estudiar?fav=1">${t('fav_estudiar')}</a><ul class="lista-fav">${filas}</ul>`
-        : `<div class="vacio-estado centro"><img class="cara-grande" src="${cara('enamorada')}" alt="" width="80" height="64"><p class="suave">${t('fav_vacio')}</p></div>`}
+      <nav class="pestanas-idioma" aria-label="${t('fav_titulo')}">${pestanas}</nav>
+      <button class="btn primario" type="button" id="btn-fav-estudiar">${t('fav_estudiar')}</button>
+      <ul class="lista-fav">${filas}</ul>
     </section>`;
+  $('#btn-fav-estudiar').addEventListener('click', () => { S.aprendiendo = meta; guardar(); location.hash = '#/estudiar?fav=1'; });
   $$('.fila-fav').forEach((li) => {
     $('.btn-audio', li).addEventListener('click', () => { if (!hablar(banco.texto(meta, li.dataset.id).texto, meta)) toast(t('sin_voz')); });
-    $('.btn-quitar', li).addEventListener('click', () => { store.alternarFavorito(S, meta, li.dataset.id); guardar(); vistaFavoritos(); });
+    $('.btn-quitar', li).addEventListener('click', () => {
+      store.alternarFavorito(S, meta, li.dataset.id); guardar();
+      vistaFavoritos({ q: new URLSearchParams({ l: meta }) });
+    });
   });
 }
 
