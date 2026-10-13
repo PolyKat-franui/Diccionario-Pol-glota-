@@ -772,3 +772,18 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 @keyframes kittyBrinco { 30% { transform: translateY(-34px) scale(1.06, .94); } 60% { transform: translateY(0) scale(.94, 1.06); } }
 @media (prefers-reduced-motion: reduce) { .menu-tipeo { clip-path: none; } .menu-eslogan { opacity: 1; } }
 @media (max-width: 380px) { .menu-letras { gap: 3px; } .menu-btn { min-height: 88px; } }
+
+/* ---------- Sakura del día (meta), cofre de racha ---------- */
+.feed-flor { flex: none; image-rendering: pixelated; filter: drop-shadow(0 2px 4px color-mix(in srgb, var(--sombra-color) 25%, transparent)); }
+.feed-flor.crece, .menu-flor.crece { animation: florCrece .7s cubic-bezier(.3, 1.6, .5, 1); }
+.menu-stats .menu-hoy { grid-template-columns: auto 1fr; column-gap: 12px; align-items: center; }
+.menu-hoy .menu-flor { grid-row: 1 / span 3; image-rendering: pixelated; animation: florCrece .8s cubic-bezier(.3, 1.6, .5, 1) 1.5s both; }
+.menu-hoy > span, .menu-hoy > small { grid-column: 2; }
+.flores-meta { display: flex; align-items: center; gap: 6px; margin: 4px 0 0; color: var(--ink-soft); }
+.flores-meta img { image-rendering: pixelated; }
+.cofre-boton { border: 0; background: radial-gradient(circle closest-side, var(--surface-2) 99%, transparent 100%); padding: 22px; border-radius: 50%; cursor: pointer; justify-self: center; animation: cofreSacude 1.1s ease-in-out infinite; }
+.cofre-boton img { display: block; image-rendering: pixelated; }
+.cofre-boton.abierto { animation: florCrece .6s cubic-bezier(.3, 1.6, .5, 1); }
+.cofre-boton:focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
+@keyframes florCrece { 0% { transform: scale(.4); } 60% { transform: scale(1.25); } 100% { transform: scale(1); } }
+@keyframes cofreSacude { 0%, 60%, 100% { transform: rotate(0); } 70% { transform: rotate(-6deg); } 80% { transform: rotate(6deg); } 90% { transform: rotate(-3deg); } }

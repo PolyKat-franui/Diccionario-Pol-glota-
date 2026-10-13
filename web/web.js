@@ -145,6 +145,16 @@ const obsFlap = new IntersectionObserver((es) => es.forEach((e) => {
   if (e.isIntersecting) { animarFlap(e.target); obsFlap.unobserve(e.target); }
 }), { threshold: 0.6 });
 $$('.flap').forEach((f) => obsFlap.observe(f));
+// Al pasar el mouse (o tocar) una cifra: suena una moneda y saltan chispas (como en la app)
+let ultimaMoneda = 0;
+$$('.cifra').forEach((c, i) => c.addEventListener('pointerenter', (e) => {
+  if (performance.now() - ultimaMoneda < 250) return;
+  ultimaMoneda = performance.now();
+  sonido.moneda(0, i * 2);
+  const r = c.querySelector('.flap').getBoundingClientRect();
+  estallido(r.left + r.width / 2, r.top + r.height / 2, { base: 'app/assets/', cantidad: 5 });
+  c.classList.remove('tintinea'); void c.offsetWidth; c.classList.add('tintinea');
+}));
 
 // ---------- Manifiesto: las palabras se encienden al hacer scroll ----------
 const manifiesto = $('#manifiesto');

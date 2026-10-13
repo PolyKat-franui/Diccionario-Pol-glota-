@@ -428,3 +428,5 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, trans
 /* El círculo punteado rodea solo a Kitty (no a la burbuja) */
 .kitty-arte::before { inset: auto; left: 50%; bottom: -34px; width: min(348px, 88vw); aspect-ratio: 1; margin-left: calc(min(348px, 88vw) / -2); }
 .kitty-seccion { overflow-x: clip; }
+.cifra.tintinea .flap { animation: tintinea .5s var(--ease); }
+@keyframes tintinea { 30% { transform: translateY(-6px) scale(1.06); } 60% { transform: translateY(1px); } }

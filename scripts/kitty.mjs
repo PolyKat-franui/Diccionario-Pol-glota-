@@ -32,7 +32,7 @@ export function toSvg(filas, { titulo, colores = COLORES } = {}) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" shape-rendering="crispEdges" role="img" aria-label="${titulo}"><title>${titulo}</title>${rects.join('')}</svg>\n`;
 }
 
-const TITULOS = { sakura: 'Racha', moneda: 'Kitty token', estrella: 'Estrella', cerezas: 'Cerezas', mensaje: 'Mensaje', burbuja: 'Burbuja de texto', corazon: 'Franui Polycat' };
+const TITULOS = { sakura: 'Racha', moneda: 'Kitty token', estrella: 'Estrella', cerezas: 'Cerezas', mensaje: 'Mensaje', burbuja: 'Burbuja de texto', corazon: 'Franui Polycat', 'flor-0': 'Sakura: brote', 'flor-1': 'Sakura: capullo', 'flor-2': 'Sakura: abriendo', 'flor-3': 'Sakura: casi en flor', cofre: 'Cofre', 'cofre-abierto': 'Cofre abierto' };
 
 /** Todos los archivos que se generan: { ruta relativa a app/assets: svg }. */
 export function archivos() {

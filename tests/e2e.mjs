@@ -266,6 +266,50 @@ try {
   await foto(page, '13-celular-conservar');
   paso('Ranking y "¿Qué avance conservo?" (demo)');
 
+  // Meta diaria de 5 palabras en Ajustes
+  await page.goto(`${URL_APP}#/ajustes`);
+  await page.locator('[data-meta="5"]').click();
+  await page.locator('[data-meta="5"][aria-checked="true"]').waitFor();
+  // Racha de 6 días que viene de ayer (se escribe con la app cerrada para que no la pise el autoguardado)
+  await page.goto('about:blank');
+  const editor = await ctx.newPage();
+  await editor.goto(URL_APP.replace('/app/', '/'));
+  await editor.evaluate(() => {
+    const s = JSON.parse(localStorage.getItem('franui:v1'));
+    const ayer = new Date(Date.now() - 864e5);
+    const pad = (n) => String(n).padStart(2, '0');
+    s.racha = { actual: 6, mejor: 6, ultimoDia: `${ayer.getFullYear()}-${pad(ayer.getMonth() + 1)}-${pad(ayer.getDate())}` };
+    s.diario = { dia: null, revisadas: 0, premios: 0 };
+    s.cofre = 0;
+    localStorage.setItem('franui:v1', JSON.stringify(s));
+  });
+  await editor.close();
+  await page.goto(`${URL_APP}#/menu`);
+  assert.match(await page.locator('.menu-flor').getAttribute('src'), /flor-0\.svg/);
+  const antesCofre = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).tokens);
+  await page.goto(`${URL_APP}#/estudiar?mega=${encodeURIComponent('Conversación y vida social')}&dif=todas`);
+  await page.locator('#feed .slide .palabra').first().waitFor();
+  await page.waitForTimeout(500);
+  await page.keyboard.press('ArrowRight');
+  await page.locator('#toast', { hasText: '7 días' }).waitFor();
+  await page.locator('.cofre-capa').waitFor({ timeout: 5000 });
+  await page.waitForTimeout(400);
+  await foto(page, '13b-celular-cofre');
+  await page.locator('#cofre-abrir').click();
+  await page.locator('#cofre-monto:not([hidden])').waitFor();
+  assert.match(await page.locator('#cofre-abrir img').getAttribute('src'), /cofre-abierto/);
+  await page.waitForTimeout(500);
+  await foto(page, '13c-celular-cofre-abierto');
+  await page.locator('#cofre-ok').click();
+  await page.locator('.cofre-capa').waitFor({ state: 'detached' });
+  const revisadasHoy = () => page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).diario.revisadas);
+  for (let i = 0; i < 14 && (await revisadasHoy()) < 5; i++) { await page.waitForTimeout(650); await page.keyboard.press('ArrowRight'); }
+  await page.locator('#toast', { hasText: 'Meta del día cumplida' }).waitFor({ timeout: 5000 });
+  assert.match(await page.locator('#feed-flor').getAttribute('src'), /sakura\.svg/);
+  const despuesCofre = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).tokens);
+  assert.ok(despuesCofre - antesCofre >= 50 + 5, `el cofre da 50 monedas (${despuesCofre - antesCofre})`);
+  paso('Racha 7 → lluvia de sakuras y cofre (+50); meta de 5 palabras → la sakura florece');
+
   await page.goto(`${URL_APP}#/ajustes`);
   await page.locator('#btn-nativo').click();
   await page.locator('#capa-idiomas .arana').waitFor();
