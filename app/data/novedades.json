@@ -2,6 +2,20 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.6.0",
+      "fecha": "2026-10-13",
+      "titulo": "Kitty nueva, red de neuronas, sonidos y premios",
+      "cambios": [
+        "Kitty estrena su nuevo dibujo de cuerpo entero y te ayuda desde la esquina de cada tarjeta.",
+        "Desliza la tarjeta a la derecha si la sabías y a la izquierda para repasarla.",
+        "Sonidos y monedas de tragamonedas: cada 10 palabras del día ganas un premio que crece (10, 15, 23…).",
+        "Los temas ahora son una red de neuronas de colores con tu porcentaje de avance.",
+        "Elige idioma en una araña a pantalla completa.",
+        "Letra nueva, más gruesa y fácil de leer; dificultad con íconos y colores.",
+        "Favoritos separados por idioma y tutorial guiado por Kitty."
+      ]
+    },
+    {
       "version": "0.5.0",
       "fecha": "2026-10-10",
       "titulo": "Nuevo logo, paleta Higo y banco completo",

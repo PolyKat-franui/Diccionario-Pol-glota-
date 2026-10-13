@@ -22,6 +22,8 @@ export function estadoInicial() {
     progreso: {},   // { idioma: { idConcepto: estadoSRS } }
     favoritos: {},  // { idioma: [idConcepto, ...] }
     sugerencias: [], // { texto, fecha, enviada }
+    tutorialVisto: false, // tutorial guiado por Kitty (primera sesión)
+    novedadVista: null,   // última versión de Novedades que se abrió
     actualizado: 0,
   };
 }

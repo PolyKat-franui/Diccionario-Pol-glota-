@@ -139,6 +139,14 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
 - Movimiento: cada vista entra con una transición; botones se hunden al tocar; íconos activos rebotan.
   Todo respeta «reducir movimiento».
 
+## 9c. Idiomas, novedades y tutorial [DECIDIDO 2026-10-13]
+- Elegir idioma (a aprender, y el idioma de la app desde el botón «ES» de arriba) en una **araña a pantalla
+  completa**: el idioma propio al centro, hilos y tela hacia cada idioma de color.
+- Novedades: la última versión en una tarjeta grande y colorida («¡Nueva actualización!»), con confeti de
+  pixel art; versiones anteriores plegadas. Punto rojo en la pestaña hasta que se abre.
+- Tutorial: ya no es texto. **Kitty guía la primera sesión** en 4 pasos (tocar la tarjeta, deslizar, monedas y
+  premios, pedirle ayuda) resaltando cada parte. Se puede repetir desde Ajustes → «Ver el tutorial con Kitty».
+
 ## 10. Pantallas de la app
 Inicio/cuenta (Entrar, Crear cuenta con usuario + contraseña ≥ 6, Google, Invitado) —
 [DECIDIDO 2026-10-09] se pide **antes de estudiar**, solo la primera vez; la sesión queda

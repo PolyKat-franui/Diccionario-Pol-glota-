@@ -101,9 +101,17 @@ try {
   await sinScrollHorizontal(page, 'tarjeta');
   paso('Sesión de 10 tarjetas, ícono "Nueva" con texto');
 
+  // Tutorial guiado por Kitty en la primera sesión: tocar la tarjeta lo hace avanzar
+  await page.locator('#tutorial .tut-burbuja').waitFor();
+  assert.match(await page.locator('#tutorial').innerText(), /Toca la tarjeta/);
+  await foto(page, '05b-celular-tutorial');
   await primera.locator('.revelar').click();
   await page.waitForTimeout(500);
   assert.ok(await primera.evaluate((el) => el.classList.contains('revelada')));
+  assert.match(await page.locator('#tutorial').innerText(), /Desliza/);
+  for (let i = 0; i < 3; i++) await page.locator('#tut-avanzar').click();
+  assert.equal(await page.locator('#tutorial').isHidden(), true);
+  paso('Tutorial de Kitty: 4 pasos, avanza al tocar la tarjeta y se cierra con «¡Entendido!»');
   await primera.locator('.btn-fav').click();
   assert.equal(await primera.locator('.btn-fav').getAttribute('aria-pressed'), 'true');
   await foto(page, '06-celular-tarjeta-revelada');
@@ -226,6 +234,15 @@ try {
   await sinScrollHorizontal(page, 'ajustes con 5 paletas');
   paso('Paletas Tamarindo y Medianoche (claro y oscuro) en Ajustes');
 
+  assert.ok(await page.locator('.tabbar a[href="#/novedades"]').evaluate((a) => a.classList.contains('con-aviso')), 'aviso de novedad sin ver');
+  await page.locator('.tabbar a[href="#/novedades"]').click();
+  await page.locator('.nov-hero').waitFor();
+  assert.match(await page.locator('.nov-version').innerText(), /^v\d/);
+  await page.waitForTimeout(900);
+  await foto(page, '12b-celular-novedades');
+  assert.ok(!(await page.locator('.tabbar a[href="#/novedades"]').evaluate((a) => a.classList.contains('con-aviso'))), 'el aviso se apaga al verla');
+  paso('Novedades: aviso en la pestaña, tarjeta de nueva versión y el aviso se apaga');
+
   await page.goto(`${URL_APP}#/ranking`);
   await page.locator('.ranking').waitFor();
   await foto(page, '12-celular-ranking');
@@ -236,7 +253,10 @@ try {
   paso('Ranking y "¿Qué avance conservo?" (demo)');
 
   await page.goto(`${URL_APP}#/ajustes`);
-  await page.locator('#sel-nativo').selectOption('en');
+  await page.locator('#btn-nativo').click();
+  await page.locator('#capa-idiomas .arana').waitFor();
+  await foto(page, '17-celular-idioma-app');
+  await page.locator('#capa-idiomas [data-nativo=en]').click();
   await page.locator('.tabbar a', { hasText: 'Learn' }).waitFor();
   await page.goto(`${URL_APP}#/aprender`);
   await page.getByRole('heading', { name: 'What do you want to learn?' }).waitFor(); // inglés ya no puede ser el idioma a aprender

@@ -19,6 +19,8 @@ let S = store.cargar();
 let idiomas = [];
 let sesion = null;
 let primeraCarga = true;
+let ultimaVersion = null;      // versión más nueva de Novedades (para el aviso en la pestaña)
+let tutorialAlRevelar = null;  // el tutorial avanza cuando se revela la primera tarjeta
 
 // ---------- Guardado automático ----------
 let timerGuardar = null;
@@ -106,10 +108,12 @@ function pintarMarco(ruta) {
     `<a href="#/${k}" ${k === activa ? 'aria-current="page"' : ''}>${icon}<span>${t('nav_' + k)}</span></a>`).join('');
   $('#nav-sup').innerHTML = links;
   $('#tabbar').innerHTML = links;
+  marcarAvisoNovedades();
   actualizarChips();
-  $('#lbl-nativo').textContent = t('idioma_nativo');
-  $('#sel-nativo').innerHTML = IDIOMAS_UI.map((c) =>
-    `<option value="${c}" ${c === S.ajustes.nativo ? 'selected' : ''} title="${esc(nombreIdioma(c, c))}">${c.toUpperCase()}</option>`).join('');
+  const bn = $('#btn-nativo');
+  bn.innerHTML = `<span class="monograma pequeno" aria-hidden="true">${S.ajustes.nativo.toUpperCase()}</span>`;
+  bn.setAttribute('aria-label', `${t('idioma_nativo')}: ${nombreIdioma(S.ajustes.nativo)}`);
+  bn.title = t('idioma_nativo');
   const inicial = (S.perfil.nombre || '').trim().charAt(0).toUpperCase();
   const avatar = $('#avatar');
   avatar.innerHTML = inicial ? esc(inicial) : ICON.usuario;
@@ -136,7 +140,46 @@ function cambiarNativo(code) {
   kittyEntradas = null;
   router();
 }
-$('#sel-nativo').addEventListener('change', (e) => cambiarNativo(e.target.value));
+$('#btn-nativo').addEventListener('click', abrirRedNativo);
+
+// ---------- Red de idiomas en forma de araña (pantalla completa) ----------
+/** Dibuja una araña: un idioma al centro y los demás alrededor, unidos por hilos y una tela. */
+function htmlArana(centro, nodos) {
+  const n = nodos.length;
+  const pos = nodos.map((_, i) => {
+    const a = (-90 + (360 * i) / n) * (Math.PI / 180);
+    return [50 + 39 * Math.cos(a), 50 + 40 * Math.sin(a)];
+  });
+  const anillo = (k) => pos.map(([x, y]) => `${(50 + (x - 50) * k).toFixed(2)},${(50 + (y - 50) * k).toFixed(2)}`).join(' ');
+  return `
+    <div class="arana" style="--n:${n}">
+      <svg class="arana-hilos" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <polygon class="tela" points="${anillo(1)}"/><polygon class="tela" points="${anillo(0.66)}"/><polygon class="tela" points="${anillo(0.33)}"/>
+        ${pos.map(([x, y], i) => `<line class="hilo" x1="50" y1="50" x2="${x.toFixed(2)}" y2="${y.toFixed(2)}" pathLength="100" style="--i:${i}"/>`).join('')}
+      </svg>
+      <div class="arana-centro">${centro}</div>
+      ${nodos.map((html, i) => `<div class="arana-nodo" style="left:${pos[i][0].toFixed(2)}%;top:${pos[i][1].toFixed(2)}%;--i:${i};--c:var(--tema-${(i % 13) + 1})">${html}</div>`).join('')}
+    </div>`;
+}
+
+function abrirRedNativo() {
+  const capa = $('#capa-idiomas');
+  const actual = S.ajustes.nativo;
+  const nodos = IDIOMAS_UI.filter((c) => c !== actual).map((c) =>
+    `<button type="button" class="nodo-idioma" data-nativo="${c}"><span class="monograma" aria-hidden="true">${c.toUpperCase()}</span><span class="nodo-nombre" lang="${c}">${esc(nombreIdioma(c, c))}</span></button>`);
+  capa.innerHTML = `
+    <div class="arana-cabeza">
+      <h2 id="capa-idiomas-titulo">${t('idioma_nativo')}</h2>
+      <button class="icon-btn" type="button" id="capa-idiomas-cerrar" aria-label="${t('cerrar')}">${ICON.cerrar}</button>
+    </div>
+    ${htmlArana(`<span class="monograma grande" aria-hidden="true">${actual.toUpperCase()}</span><strong lang="${actual}">${esc(nombreIdioma(actual, actual))}</strong>`, nodos)}`;
+  capa.hidden = false;
+  const cerrar = () => { capa.hidden = true; $('#btn-nativo').focus(); };
+  $('#capa-idiomas-cerrar').addEventListener('click', cerrar);
+  capa.onkeydown = (e) => { if (e.key === 'Escape') cerrar(); };
+  $$('[data-nativo]', capa).forEach((b) => b.addEventListener('click', () => { capa.hidden = true; cambiarNativo(b.dataset.nativo); }));
+  $('[data-nativo]', capa)?.focus();
+}
 
 // ---------- Router ----------
 function leerRuta() {
@@ -172,6 +215,12 @@ async function router() {
   if (r.nombre !== 'estudiar') scrollTo(0, 0);
 }
 addEventListener('hashchange', router);
+
+function marcarAvisoNovedades() {
+  const hay = ultimaVersion && S.novedadVista !== ultimaVersion;
+  $$('a[href="#/novedades"]').forEach((a) => a.classList.toggle('con-aviso', !!hay));
+}
+fetch('data/novedades.json').then((r) => r.json()).then((d) => { ultimaVersion = d.novedades[0]?.version ?? null; marcarAvisoNovedades(); }).catch(() => {});
 // Clic suave en botones y enlaces (los sonidos especiales se suman encima)
 document.addEventListener('pointerdown', (e) => { if (e.target.closest('button, a, [role="radio"], input[type="checkbox"], select')) sonido.toque(); }, { passive: true });
 
@@ -288,26 +337,27 @@ async function cargarIdiomas() {
 async function vistaIdiomas() {
   await cargarIdiomas();
   const nativo = S.ajustes.nativo;
-  const tarjetas = idiomas.filter((i) => i.code !== nativo).map((i) => {
+  const nodos = idiomas.filter((i) => i.code !== nativo).map((i) => {
     const pronto = i.estado === 'proximamente';
     const etiqueta = i.code === S.aprendiendo ? `<span class="tag tag-activo">${t('aprendiendo')}</span>`
       : i.estado === 'nuevo' ? `<span class="tag tag-nuevo">${t('estado_nuevo')}</span>`
         : pronto ? `<span class="tag tag-pronto">${t('estado_pronto')}</span>` : '';
-    return `<button class="idioma ${pronto ? 'pronto' : ''} ${i.estado === 'nuevo' ? 'nuevo' : ''}" data-code="${i.code}" ${pronto ? 'aria-disabled="true"' : ''}>
+    return `<button type="button" class="nodo-idioma idioma ${pronto ? 'pronto' : ''} ${i.estado === 'nuevo' ? 'nuevo' : ''} ${i.code === S.aprendiendo ? 'activo' : ''}" data-code="${i.code}" ${pronto ? 'aria-disabled="true"' : ''}>
         <span class="monograma" aria-hidden="true">${i.code.toUpperCase()}</span>
-        <span class="idioma-txt"><strong>${esc(nombreIdioma(i.code))}</strong><small lang="${i.code}">${esc(nombreIdioma(i.code, i.code))}</small></span>
-        ${etiqueta}
+        <span class="nodo-nombre">${esc(nombreIdioma(i.code))}</span>${etiqueta}
       </button>`;
-  }).join('');
+  });
+  const centro = `<span class="monograma grande" aria-hidden="true">${nativo.toUpperCase()}</span><strong>${esc(nombreIdioma(nativo))}</strong><small>${t('idioma_nativo')}</small>`;
   vista.innerHTML = `
-    <section class="pagina">
+    <section class="pagina pagina-arana">
       <p class="sobretitulo">${t('nav_aprender')}</p>
       <h1 class="display">${t('idiomas_titulo')}</h1>
       <p class="suave">${t('idiomas_sub')}</p>
-      <div class="grid-idiomas">${tarjetas}</div>
+      ${htmlArana(centro, nodos)}
     </section>`;
-  $$('.idioma').forEach((b) => b.addEventListener('click', () => {
+  $$('.nodo-idioma').forEach((b) => b.addEventListener('click', () => {
     if (b.getAttribute('aria-disabled') === 'true') return toast(t('estado_pronto'));
+    sonido.moneda();
     S.aprendiendo = b.dataset.code;
     guardar();
     ir('#/aprender');
@@ -438,6 +488,7 @@ async function vistaTema(r) {
 
 // ---------- Estudiar: feed de tarjetas que se deslizan ----------
 function cerrarSesion() {
+  ocultarTutorial();
   if (!sesion) return;
   sesion.observer?.disconnect();
   sesion = null;
@@ -491,6 +542,7 @@ async function vistaEstudiar(r) {
   const feed = $('#feed');
   feed.addEventListener('click', clickFeed);
   activarDeslizar(feed);
+  if (!S.tutorialVisto) setTimeout(iniciarTutorial, 500);
   sesion.observer = new IntersectionObserver(alVerSlide, { root: feed, threshold: 0.6 });
   $$('.slide', feed).forEach((s) => sesion.observer.observe(s));
   actualizarCuenta();
@@ -784,6 +836,51 @@ function mostrarPremio(p) {
   }, 1600);
 }
 
+// ---------- Tutorial guiado por Kitty (en la primera sesión) ----------
+const PASOS_TUT = [
+  { texto: 'tut_k1', cara: 'muy_feliz', objetivo: (sl) => sl && $('.revelar', sl) },
+  { texto: 'tut_k2', cara: 'guino', objetivo: (sl) => sl && $('.tarjeta', sl) },
+  { texto: 'tut_k3', cara: 'celebrando', objetivo: () => $('#chip-tokens') },
+  { texto: 'tut_k4', cara: 'enamorada', objetivo: (sl) => sl && $('.kitty-ayuda', sl) },
+];
+function ocultarTutorial() {
+  const capa = $('#tutorial');
+  if (capa) { capa.hidden = true; capa.innerHTML = ''; }
+  $$('.tut-foco').forEach((e) => e.classList.remove('tut-foco'));
+  tutorialAlRevelar = null;
+}
+function iniciarTutorial() {
+  if (!sesion || S.tutorialVisto) return;
+  const capa = $('#tutorial');
+  let i = 0;
+  const terminar = () => { ocultarTutorial(); S.tutorialVisto = true; guardar(); };
+  const avanzar = () => { i += 1; if (i >= PASOS_TUT.length) terminar(); else pintar(); };
+  const pintar = () => {
+    const paso = PASOS_TUT[i];
+    const slide = $$('#feed .slide')[sesion?.actual ?? 0];
+    $$('.tut-foco').forEach((e) => e.classList.remove('tut-foco'));
+    paso.objetivo(slide)?.classList.add('tut-foco');
+    const ultimo = i === PASOS_TUT.length - 1;
+    capa.innerHTML = `
+      <div class="tut-burbuja" role="dialog" aria-label="Kitty" aria-live="polite">
+        <img src="${cara(paso.cara)}" alt="" width="60" height="48">
+        <div class="tut-cuerpo">
+          <p>${t(paso.texto)}</p>
+          <div class="tut-acciones">
+            <span class="tut-pasos" aria-hidden="true">${PASOS_TUT.map((_, k) => `<i class="${k === i ? 'on' : ''}"></i>`).join('')}</span>
+            ${ultimo ? '' : `<button class="btn pequeno" type="button" id="tut-saltar">${t('tut_saltar')}</button>`}
+            <button class="btn primario pequeno" type="button" id="tut-avanzar">${t(ultimo ? 'tut_listo' : 'tut_siguiente')}</button>
+          </div>
+        </div>
+      </div>`;
+    capa.hidden = false;
+    $('#tut-avanzar').addEventListener('click', avanzar);
+    $('#tut-saltar')?.addEventListener('click', terminar);
+  };
+  tutorialAlRevelar = () => { if (i === 0) avanzar(); };
+  pintar();
+}
+
 function clickFeed(e) {
   if (ignorarClick) return;
   const slide = e.target.closest('.slide');
@@ -795,6 +892,7 @@ function clickFeed(e) {
     $('.traduccion', b).removeAttribute('aria-hidden');
     if (!slide.classList.contains('revelada')) sonido.voltear();
     slide.classList.add('revelada');
+    tutorialAlRevelar?.();
   } else if (e.target.closest('.btn-sabe')) lanzarTarjeta(slide, true);
   else if (e.target.closest('.btn-repasar')) lanzarTarjeta(slide, false);
   else if (e.target.closest('.btn-audio')) {
@@ -890,13 +988,34 @@ function vistaRanking() {
 // ---------- Novedades ----------
 async function vistaNovedades() {
   const data = await (await fetch('data/novedades.json')).json();
-  const items = data.novedades.map((n) => `
+  const [ultima, ...resto] = data.novedades;
+  const fecha = (f) => new Date(f + 'T12:00').toLocaleDateString(S.ajustes.nativo, { day: 'numeric', month: 'long', year: 'numeric' });
+  ultimaVersion = ultima.version;
+  if (S.novedadVista !== ultima.version) { S.novedadVista = ultima.version; guardar(); }
+  marcarAvisoNovedades();
+  const confeti = [['sakura', 23, 23], ['estrella', 21, 21], ['moneda', 24, 24], ['corazon', 26, 24], ['sakura', 23, 23], ['estrella', 21, 21], ['moneda', 24, 24], ['cerezas', 18, 17]]
+    .map(([n, w, h], i) => `<img src="assets/${n}.svg" alt="" width="${w}" height="${h}" style="--i:${i}">`).join('');
+  const anteriores = resto.map((n) => `
     <li class="novedad">
-      <p class="sobretitulo"><time datetime="${n.fecha}">${new Date(n.fecha + 'T12:00').toLocaleDateString(S.ajustes.nativo, { day: 'numeric', month: 'long', year: 'numeric' })}</time> · v${esc(n.version)}</p>
-      <h2 lang="es">${esc(n.titulo)}</h2>
-      <ul lang="es">${n.cambios.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>
+      <details>
+        <summary><span class="nov-pill">v${esc(n.version)}</span><span lang="es">${esc(n.titulo)}</span><time datetime="${n.fecha}">${fecha(n.fecha)}</time></summary>
+        <ul lang="es">${n.cambios.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>
+      </details>
     </li>`).join('');
-  vista.innerHTML = `<section class="pagina angosta"><h1 class="display">${t('nov_titulo')}</h1><ol class="novedades">${items}</ol></section>`;
+  vista.innerHTML = `
+    <section class="pagina angosta">
+      <h1 class="display">${t('nov_titulo')}</h1>
+      <article class="nov-hero">
+        <div class="nov-confeti" aria-hidden="true">${confeti}</div>
+        <p class="nov-etiqueta">${ICON.brillo}<span>${t('nov_nueva')}</span></p>
+        <p class="nov-version">v${esc(ultima.version)}</p>
+        <h2 lang="es">${esc(ultima.titulo)}</h2>
+        <p class="nov-fecha"><time datetime="${ultima.fecha}">${fecha(ultima.fecha)}</time></p>
+        <ul class="nov-cambios" lang="es">${ultima.cambios.map((c, i) => `<li style="--i:${i}">${ICON.check}<span>${esc(c)}</span></li>`).join('')}</ul>
+      </article>
+      ${resto.length ? `<h2 class="nov-sub">${t('nov_anteriores')}</h2><ol class="novedades">${anteriores}</ol>` : ''}
+    </section>`;
+  sonido.fin();
 }
 
 // ---------- Ajustes ----------
@@ -961,7 +1080,7 @@ function vistaAjustes() {
       </div>
 
       <div class="card lista-enlaces">
-        <button type="button" data-modal="tutorial">${t('aj_tutorial')}${ICON.flecha}</button>
+        <button type="button" id="aj-tutorial">${t('tut_ver')}${ICON.flecha}</button>
         <a href="#/favoritos">${t('fav_titulo')}${ICON.flecha}</a>
         <a href="#/novedades">${t('nov_titulo')}${ICON.flecha}</a>
         <button type="button" data-modal="cosmeticos">${t('aj_cosmeticos')} <span class="tag tag-pronto">${t('pronto')}</span>${ICON.flecha}</button>
@@ -988,7 +1107,6 @@ function vistaAjustes() {
   });
   $$('[data-modal]').forEach((b) => b.addEventListener('click', () => {
     const m = b.dataset.modal;
-    if (m === 'tutorial') modal(t('aj_tutorial'), `<ol class="tutorial">${[1, 2, 3, 4, 5].map((n) => `<li>${t('tut_' + n)}</li>`).join('')}</ol>`);
     if (m === 'cosmeticos') abrirCosmeticos();
     if (m === 'apoyar') modal(t('aj_apoyar'), `<p>${t('aj_apoyar_texto')}</p>`);
     if (m === 'legal') modal(t('aj_legal'), `<p>${t('legal_texto')}</p>`);
@@ -997,6 +1115,10 @@ function vistaAjustes() {
     modal(t('aj_cosmeticos'), `<p>${t('aj_cos_texto')}</p><p class="chip"><img class="moneda" src="assets/moneda.svg" alt="" width="24" height="24">${S.tokens}</p>`);
   }
   // Confirmación dentro de la app (sin confirm(): no funciona en todos los navegadores ni en vistas incrustadas)
+  $('#aj-tutorial').addEventListener('click', () => {
+    S.tutorialVisto = false; guardar();
+    location.hash = S.aprendiendo ? `#/estudiar?${new URLSearchParams({ mega: MEGA_TEMAS[0], dif: 'todas' })}` : '#/idiomas';
+  });
   $('#aj-borrar').addEventListener('click', () => {
     modal(t('aj_borrar'), `<p>${t('aj_borrar_confirmar')}</p><button class="btn peligro ancho" type="button" id="aj-borrar-si">${t('aj_borrar')}</button>`);
     $('#aj-borrar-si').addEventListener('click', () => {
