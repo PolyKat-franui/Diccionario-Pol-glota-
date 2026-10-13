@@ -1,7 +1,7 @@
-# Franui · Polycat — Diccionario Políglota
+# Franui · Polykat — Diccionario Políglota
 
-> Nombre decidido el 2026-10-13 (antes: «Franui» y luego «Franui Polycat» provisorio).
-> Logo: «Polycat» (cursiva) sobre «FRANUI», en Cormorant Garamond · Eslogan: «Be fluent in multiple languages».
+> Nombre decidido el 2026-10-13 (antes: «Franui» y luego «Franui Polykat» provisorio).
+> Logo: «Polykat» (cursiva) sobre «FRANUI», en Cormorant Garamond · Eslogan: «Be fluent in multiple languages».
 
 **En línea:** https://franciscasanhueza.github.io/Diccionario-Pol-glota-/ (web) · https://franciscasanhueza.github.io/Diccionario-Pol-glota-/app/ (app).
 Se publica sola con cada cambio en `main` (`.github/workflows/publicar.yml`).

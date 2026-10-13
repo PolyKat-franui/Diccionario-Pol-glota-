@@ -87,11 +87,11 @@ marca lo corregido, no mezcla pronunciaciones.
 [ABIERTO] Proveedor de IA. Nota técnica: una app no puede "usar la cuenta de Google"
 de alguien para hablar con Claude/ChatGPT/Gemini; se necesita una API con clave
 guardada en un servidor propio (nunca en el navegador). Ver `docs/RECOMENDACIONES.md`.
-Nombre de la app [DECIDIDO 2026-10-13]: **Franui · Polycat** (antes «Franui» y luego «Polyglok» provisorio).
-En títulos: «Franui · Polycat»; dentro de frases: «Franui Polycat». Los nombres internos (carpetas, `franui:v1`,
+Nombre de la app [DECIDIDO 2026-10-13]: **Franui · Polykat** — Polykat se escribe **con k** (antes «Franui», «Polyglok» provisorio y «Polycat»).
+En títulos: «Franui · Polykat»; dentro de frases: «Franui Polykat». Los nombres internos (carpetas, `franui:v1`,
 esta skill) no cambian.
-Logo [DECIDIDO 2026-10-13, ajustado]: **«Polycat» arriba (cursiva) y «FRANUI» abajo (mayúsculas espaciadas)**,
-en serif elegante **Cormorant Garamond** (`--font-logo`). En la barra va en una línea: «Polycat FRANUI».
+Logo [DECIDIDO 2026-10-13, ajustado]: **«Polykat» arriba (cursiva) y «FRANUI» abajo (mayúsculas espaciadas)**,
+en serif elegante **Cormorant Garamond** (`--font-logo`). En la barra va en una línea: «Polykat FRANUI».
 (Antes: máquina de escribir Special Elite con cursor; Francisca pidió algo más elegante.)
 Eslogan (por ahora): **«Be fluent in multiple languages»**, en mayúsculas espaciadas bajo una línea.
 No se traducen. Estilos en `app/css/logo.css` (una línea, apilado y marca completa con eslogan).
@@ -151,7 +151,7 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
 
 ## 9d. Menú principal y cuenta de Google [DECIDIDO 2026-10-13]
 - El logo de la barra abre `#/menu`: menú tipo juego a pantalla completa (sin barra). Es también
-  la pantalla al abrir la app. Fichas FRANUI que caen (colores `--nodo-*`), «Polycat» que
+  la pantalla al abrir la app. Fichas FRANUI que caen (colores `--nodo-*`), «Polykat» que
   se escribe, Kitty saltando (tocarla cambia su cara y suelta sakuras), racha, monedas, palabras
   de hoy con barra al próximo premio, botón grande «¡Jugar!» (mezcla de todos los temas) y 6 botones.
 - Paletas claras con 6 colores `--nodo-1…6` por paleta (texto blanco ≥ 4,5:1). Adornos de sakuras
@@ -166,7 +166,7 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
   `node scripts/iconos-app.mjs` (también en `npm run build`). «Descargar la app» en el menú, Ajustes y la web
   (`app/#/instalar`); en iPhone y navegadores sin aviso se muestran los pasos. Al agregar archivos a la app,
   sumarlos a `NUCLEO` en `sw.js` (lo revisa `tests/pwa.test.mjs`).
-- **Título del menú:** «Polycat» en cursiva color `--primary` que se escribe, y debajo FRANUI en letras grandes
+- **Título del menú:** «Polykat» en cursiva color `--primary` que se escribe, y debajo FRANUI en letras grandes
   (Cormorant Garamond 600, sin cajas) que aparecen una por una desenfocándose; ola de color `--primary` y saltan
   al tocarlas (con moneda); línea fina debajo.
 - **Meta diaria** (5/10/20 palabras, Ajustes): sakura del día en 5 etapas (`flor-0…3` → `sakura`).

@@ -1,8 +1,8 @@
 # Cuenta de Google y guardado en la nube (Firebase)
 
-El código ya está listo (`app/js/nube.js`). Solo falta crear el proyecto de Firebase
-y pegar su configuración en `app/js/nube-config.js`. Mientras no esté, la app guarda
-el avance solo en el navegador (como hasta ahora).
+**Activa desde el 2026-10-13:** proyecto `franui-polykat`, configuración en `app/js/nube-config.js`.
+Verificado: dominio `franciscasanhueza.github.io` autorizado, Google habilitado y reglas de Firestore
+que niegan leer sin sesión. Falta probar el login real en un celular.
 
 ## Cómo funciona
 
@@ -16,7 +16,7 @@ el avance solo en el navegador (como hasta ahora).
 ## Pasos (una sola vez, ~10 minutos)
 
 1. Entra a https://console.firebase.google.com con tu cuenta de Google → **Agregar proyecto**
-   (nombre: `franui-polycat`; Google Analytics no es necesario).
+   (nombre: `franui-polykat`; Google Analytics no es necesario).
 2. **Authentication** → Comenzar → pestaña *Sign-in method* → **Google** → Habilitar → Guardar.
 3. **Authentication → Configuración → Dominios autorizados** → Agregar dominio:
    `franciscasanhueza.github.io`
@@ -35,7 +35,7 @@ el avance solo en el navegador (como hasta ahora).
    }
    ```
 
-6. ⚙️ **Configuración del proyecto** → *Tus apps* → ícono web `</>` → nombre `franui-polycat` → Registrar.
+6. ⚙️ **Configuración del proyecto** → *Tus apps* → ícono web `</>` → nombre `franui-polykat` → Registrar.
    Copia el objeto `firebaseConfig` que aparece.
 7. Pégalo en `app/js/nube-config.js` (o mándamelo y lo pego yo):
 

@@ -1,11 +1,11 @@
 /* ==========================================================
-   Logo de Franui · Polycat: «Polycat» en cursiva sobre «FRANUI» en mayúsculas espaciadas,
+   Logo de Franui · Polykat: «Polykat» en cursiva sobre «FRANUI» en mayúsculas espaciadas,
    en serif elegante (Cormorant Garamond, --font-logo).
    Eslogan (por ahora): «Be fluent in multiple languages».
    Lo usan la app y la página web. Colores y fuentes vienen de tokens.css.
    Variantes:
-     .logo               una línea (barra superior): Polycat FRANUI
-     .logo.apilado       dos líneas: Polycat / FRANUI (portada, pie de página)
+     .logo               una línea (barra superior): Polykat FRANUI
+     .logo.apilado       dos líneas: Polykat / FRANUI (portada, pie de página)
      .marca-completa     logo + línea + eslogan
    ========================================================== */
 .logo {

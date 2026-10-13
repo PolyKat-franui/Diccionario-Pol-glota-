@@ -11,7 +11,7 @@ const archivos = (dir) => readdirSync(join(APP, dir)).flatMap((f) => (statSync(j
 
 test('manifest: nombre, colores carmesí e íconos con su tamaño real', () => {
   const m = JSON.parse(leer('manifest.webmanifest'));
-  assert.equal(m.name, 'Franui · Polycat');
+  assert.equal(m.name, 'Franui · Polykat');
   assert.equal(m.display, 'standalone');
   assert.equal(m.background_color, '#9E2A3A');
   assert.ok(m.icons.some((i) => i.purpose === 'maskable'));
