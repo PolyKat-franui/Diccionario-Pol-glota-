@@ -613,6 +613,7 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 38%, trans
 .arana-capa { position: fixed; inset: 0; z-index: 9200; display: grid; grid-template-rows: auto 1fr; padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 16px; background: var(--bg); animation: aparecer .3s var(--ease) both; overflow: auto; }
 .arana-capa[hidden] { display: none; }
 .arana-cabeza { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.arana-cabeza .icon-btn { background: var(--surface); box-shadow: var(--shadow); }
 .arana-cabeza h2 { margin: 0; font-family: var(--font-display); font-size: var(--fs-xl); }
 .arana-capa .arana { height: auto; min-height: 460px; max-width: 640px; margin: 0 auto; align-self: stretch; }
 @media (prefers-reduced-motion: reduce) { .hilo { opacity: .45; } }
@@ -644,8 +645,8 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 38%, trans
 .con-aviso::after { content: ''; position: absolute; top: 6px; right: calc(50% - 18px); width: 10px; height: 10px; border-radius: 50%; background: var(--d-dificil); box-shadow: 0 0 0 2px var(--surface); animation: latido 1.4s ease-in-out infinite; }
 .nov-hero {
   position: relative; overflow: hidden; display: grid; gap: 10px; padding: 24px 20px 22px; border-radius: 28px; color: var(--blanco);
-  background: linear-gradient(135deg, var(--tema-1), var(--tema-12) 55%, var(--tema-2));
-  box-shadow: 0 20px 50px color-mix(in srgb, var(--tema-12) 40%, transparent);
+  background: linear-gradient(135deg, var(--nodo-1), var(--nodo-2) 55%, var(--nodo-6));
+  box-shadow: 0 20px 50px color-mix(in srgb, var(--nodo-2) 40%, transparent);
   animation: entrarPremio .6s cubic-bezier(.2, .9, .3, 1.3) both;
 }
 .nov-hero h2 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: calc(28px * var(--escala)); line-height: 1.1; position: relative; }
@@ -664,3 +665,17 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 38%, trans
 .novedad details ul { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 4px; color: var(--ink-soft); }
 .nov-pill { display: inline-flex; padding: 2px 10px; border-radius: var(--r-pill); background: var(--primary); color: var(--on-primary); font-size: var(--fs-xs); }
 @media (prefers-reduced-motion: reduce) { .nov-confeti { display: none; } }
+
+/* ---------- Adornos: sakuras y monedas que caen despacio detrás del contenido ---------- */
+.adornos { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+body[data-ruta="estudiar"] .adornos { display: none; }
+.adorno { position: absolute; top: -60px; left: var(--x); opacity: .32; image-rendering: pixelated; animation: caerAdorno var(--dur) linear var(--retraso) infinite; }
+.adorno-moneda, .adorno-estrella { opacity: .26; }
+@keyframes caerAdorno {
+  0% { transform: translate(0, 0) rotate(0); }
+  25% { transform: translate(var(--vaiven), 28vh) rotate(90deg); }
+  50% { transform: translate(0, 56vh) rotate(180deg); }
+  75% { transform: translate(calc(var(--vaiven) * -1), 84vh) rotate(270deg); }
+  100% { transform: translate(0, calc(100vh + 120px)) rotate(360deg); }
+}
+.chispa-adorno { position: fixed; z-index: 9000; pointer-events: none; image-rendering: pixelated; }

@@ -282,3 +282,27 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, trans
   .pie nav { justify-content: flex-end; }
   .pie-legal { grid-column: 1 / -1; }
 }
+
+/* ---------- Adornos: sakuras y monedas (mismos dibujos de la app) ---------- */
+.adornos { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.adorno { position: absolute; top: -60px; left: var(--x); opacity: .35; image-rendering: pixelated; animation: caerAdorno var(--dur) linear var(--retraso) infinite; }
+.adorno-moneda, .adorno-estrella { opacity: .28; }
+@keyframes caerAdorno {
+  0% { transform: translate(0, 0) rotate(0); }
+  25% { transform: translate(var(--vaiven), 28vh) rotate(90deg); }
+  50% { transform: translate(0, 56vh) rotate(180deg); }
+  75% { transform: translate(calc(var(--vaiven) * -1), 84vh) rotate(270deg); }
+  100% { transform: translate(0, calc(100vh + 120px)) rotate(360deg); }
+}
+
+/* ---------- Más color: cada pieza del método con su color ---------- */
+.pieza:nth-child(1) { --c: var(--nodo-1); }
+.pieza:nth-child(2) { --c: var(--nodo-2); }
+.pieza:nth-child(3) { --c: var(--nodo-3); }
+.pieza { border-top: 5px solid var(--c, var(--primary)); }
+.pieza-num { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--c, var(--primary)); color: var(--blanco); font-family: var(--font-display); font-size: 22px; box-shadow: 0 10px 22px color-mix(in srgb, var(--c, var(--primary)) 35%, transparent); }
+
+/* ---------- Menos oscuro: llamado final con degradado de la paleta y pie claro ---------- */
+.cta-final { background: linear-gradient(135deg, var(--nodo-1), var(--nodo-2) 60%, var(--nodo-6)); color: var(--blanco); }
+.cta-final .btn.primario { background: var(--blanco); color: var(--nodo-1); }
+.pie { --oscuro: var(--surface-2); --sobre-oscuro: var(--ink); --sobre-oscuro-suave: var(--ink-soft); }

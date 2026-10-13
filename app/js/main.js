@@ -8,6 +8,7 @@ import * as banco from './banco.js';
 import { hablar } from './voz.js';
 import { ICON } from './iconos.js';
 import { sonido, activarSonido } from './sonido.js';
+import { sembrarAdornos, estallido } from './adornos.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -158,7 +159,7 @@ function htmlArana(centro, nodos) {
         ${pos.map(([x, y], i) => `<line class="hilo" x1="50" y1="50" x2="${x.toFixed(2)}" y2="${y.toFixed(2)}" pathLength="100" style="--i:${i}"/>`).join('')}
       </svg>
       <div class="arana-centro">${centro}</div>
-      ${nodos.map((html, i) => `<div class="arana-nodo" style="left:${pos[i][0].toFixed(2)}%;top:${pos[i][1].toFixed(2)}%;--i:${i};--c:var(--tema-${(i % 13) + 1})">${html}</div>`).join('')}
+      ${nodos.map((html, i) => `<div class="arana-nodo" style="left:${pos[i][0].toFixed(2)}%;top:${pos[i][1].toFixed(2)}%;--i:${i};--c:var(--nodo-${(i % 6) + 1})">${html}</div>`).join('')}
     </div>`;
 }
 
@@ -215,6 +216,11 @@ async function router() {
   if (r.nombre !== 'estudiar') scrollTo(0, 0);
 }
 addEventListener('hashchange', router);
+sembrarAdornos($('#adornos'), { cantidad: 10 });
+// Estallido de sakuras y monedas al elegir un tema o un idioma
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.neurona:not(.vacio), .nodo-idioma:not([aria-disabled="true"])')) estallido(e.clientX, e.clientY);
+});
 
 function marcarAvisoNovedades() {
   const hay = ultimaVersion && S.novedadVista !== ultimaVersion;
@@ -369,7 +375,8 @@ const ICON_NIVEL = { nueva: ICON.nueva, dificil: ICON.dificil, media: ICON.media
 const ICON_DIF = { todas: ICON.todas, facil: ICON.facil, medio: ICON.media, dificil: ICON.dificil };
 /** Insignia de dificultad: ícono + texto, en el color de su nivel. */
 const insignia = (niv) => `<span class="nivel" data-nivel="${niv}">${ICON_NIVEL[niv]}<span>${t('niv_' + niv)}</span></span>`;
-const colorTema = (mega) => `var(--tema-${MEGA_TEMAS.indexOf(mega) + 1})`;
+/** Cada tema toma uno de los 6 colores de la paleta elegida (--nodo-1…6). */
+const colorTema = (mega) => `var(--nodo-${(MEGA_TEMAS.indexOf(mega) % 6) + 1})`;
 const CARRILES = [0, 1, 2, 1]; // zigzag de la red: izquierda, centro, derecha, centro…
 
 function resumenMega(lista, mega, prog) {
