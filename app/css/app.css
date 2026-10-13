@@ -702,9 +702,9 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .menu-letras span:nth-child(6n+4) { background: var(--nodo-4); }
 .menu-letras span:nth-child(6n+5) { background: var(--nodo-5); }
 .menu-letras span:nth-child(6n+6) { background: var(--nodo-6); }
-/* «in progress» se escribe como en máquina de escribir */
+/* «Polycat» se escribe como en máquina de escribir */
 .menu-sub { --logo-size: 20px; color: var(--ink); }
-.menu-tipeo { display: inline-block; clip-path: inset(0 100% 0 0); animation: tipear 1.1s steps(11) 1s forwards; }
+.menu-tipeo { display: inline-block; clip-path: inset(0 100% 0 0); animation: tipear .8s steps(7) 1s forwards; }
 .menu-eslogan { opacity: 0; animation: aparecer .6s var(--ease) 2.1s forwards; }
 .menu-kitty {
   position: relative; border: 0; padding: 22px; cursor: pointer; border-radius: 50%;

@@ -87,10 +87,11 @@ marca lo corregido, no mezcla pronunciaciones.
 [ABIERTO] Proveedor de IA. Nota técnica: una app no puede "usar la cuenta de Google"
 de alguien para hablar con Claude/ChatGPT/Gemini; se necesita una API con clave
 guardada en un servidor propio (nunca en el navegador). Ver `docs/RECOMENDACIONES.md`.
-Nombre de la app [PROVISORIO 2026-10-10, en discusión]: **Polyglok** (antes «Franui»). Se usa en títulos y textos;
-los nombres internos (carpetas, `franui:v1`, esta skill) no cambian.
-Logo [DECIDIDO 2026-10-10, ajustado 2026-10-13]: **«POLYGLOK in progress»** (antes decía «Polyglot») en letra de
-máquina de escribir (Special Elite, `--font-logo`), con un cursor que parpadea después de «in progress».
+Nombre de la app [DECIDIDO 2026-10-13]: **Franui · Polycat** (antes «Franui» y luego «Polyglok» provisorio).
+En títulos: «Franui · Polycat»; dentro de frases: «Franui Polycat». Los nombres internos (carpetas, `franui:v1`,
+esta skill) no cambian.
+Logo [DECIDIDO 2026-10-13]: **«FRANUI Polycat»** (FRANUI en mayúsculas espaciadas + Polycat) en letra de
+máquina de escribir (Special Elite, `--font-logo`), con un cursor que parpadea después de «Polycat».
 Eslogan (por ahora): **«Be fluent in multiple languages»**, en mayúsculas espaciadas bajo una línea.
 No se traducen. Estilos en `app/css/logo.css` (una línea, apilado y marca completa con eslogan).
 Ícono de la app (pestaña del navegador, pantalla de carga): **un corazón** pixel art, provisorio hasta
@@ -149,7 +150,7 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
 
 ## 9d. Menú principal y cuenta de Google [DECIDIDO 2026-10-13]
 - El logo de la barra abre `#/menu`: menú tipo juego a pantalla completa (sin barra). Es también
-  la pantalla al abrir la app. Fichas POLYGLOK que caen (colores `--nodo-*`), «in progress» que
+  la pantalla al abrir la app. Fichas FRANUI que caen (colores `--nodo-*`), «Polycat» que
   se escribe, Kitty saltando (tocarla cambia su cara y suelta sakuras), racha, monedas, palabras
   de hoy con barra al próximo premio, botón grande «¡Jugar!» (mezcla de todos los temas) y 6 botones.
 - Paletas claras con 6 colores `--nodo-1…6` por paleta (texto blanco ≥ 4,5:1). Adornos de sakuras

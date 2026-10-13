@@ -32,7 +32,7 @@ export function toSvg(filas, { titulo, colores = COLORES } = {}) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" shape-rendering="crispEdges" role="img" aria-label="${titulo}"><title>${titulo}</title>${rects.join('')}</svg>\n`;
 }
 
-const TITULOS = { sakura: 'Racha', moneda: 'Kitty token', estrella: 'Estrella', cerezas: 'Cerezas', mensaje: 'Mensaje', burbuja: 'Burbuja de texto', corazon: 'Polyglok' };
+const TITULOS = { sakura: 'Racha', moneda: 'Kitty token', estrella: 'Estrella', cerezas: 'Cerezas', mensaje: 'Mensaje', burbuja: 'Burbuja de texto', corazon: 'Franui Polycat' };
 
 /** Todos los archivos que se generan: { ruta relativa a app/assets: svg }. */
 export function archivos() {
@@ -49,10 +49,10 @@ export function archivos() {
 function catalogo(lista) {
   const fila = (titulo, items) => `<h2>${titulo}</h2><div class="g">${items.join('')}</div>`;
   const img = (ruta, nombre, k = 3) => `<figure><img src="../app/assets/${ruta}" style="zoom:${k}" alt=""><figcaption>${nombre}</figcaption></figure>`;
-  return `<!doctype html><html lang="es"><meta charset="utf-8"><title>Polyglok — catálogo de pixel art</title>
+  return `<!doctype html><html lang="es"><meta charset="utf-8"><title>Franui · Polycat — catálogo de pixel art</title>
 <style>body{font:15px system-ui;background:#E4E2DA;color:#211A18;margin:24px}h1,h2{font-weight:500}.g{display:flex;flex-wrap:wrap;gap:20px;align-items:end}
 figure{margin:0;display:grid;justify-items:center;gap:6px}img{image-rendering:pixelated}p{max-width:640px}</style>
-<h1>Polyglok — catálogo de pixel art</h1>
+<h1>Franui · Polycat — catálogo de pixel art</h1>
 <p>Generado por <code>node scripts/kitty.mjs</code>. Mostrar siempre a escala entera (×1, ×2, ×3…).</p>
 ${fila('Íconos', Object.keys(ICONOS).map((id) => img(`${id}.svg`, TITULOS[id], 4)))}
 ${fila('Kitty (sus expresiones)', lista.caras.map((c) => img(`caras/${c.id}.svg`, c.nombre)))}

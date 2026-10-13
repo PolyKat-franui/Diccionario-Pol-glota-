@@ -321,7 +321,7 @@ function vistaInicio() {
     <section class="inicio">
       <div class="inicio-hero">
         <img class="inicio-kitty" src="assets/caras/feliz.svg" alt="Kitty" width="80" height="64">
-        <h1 class="marca-completa"><span class="logo apilado"><span class="logo-a">Polyglok</span> <span class="logo-b">in progress</span></span><span class="marca-linea" aria-hidden="true"></span><span class="eslogan">Be fluent in multiple languages</span></h1>
+        <h1 class="marca-completa"><span class="logo apilado"><span class="logo-a">Franui</span> <span class="logo-b">Polycat</span></span><span class="marca-linea" aria-hidden="true"></span><span class="eslogan">Be fluent in multiple languages</span></h1>
       </div>
       <div class="card inicio-card">
         <div class="seg" role="tablist">
@@ -383,14 +383,14 @@ function vistaMenu() {
   const hoy = S.diario?.dia === store.diaLocal(Date.now()) ? S.diario.revisadas : 0;
   const enNivel = hoy % store.PREMIO_CADA;
   const faltan = store.PREMIO_CADA - enNivel;
-  const letras = [...'POLYGLOK'].map((l, i) => `<span style="--i:${i}">${l}</span>`).join('');
+  const letras = [...'FRANUI'].map((l, i) => `<span style="--i:${i}">${l}</span>`).join('');
   const boton = (href, icon, texto, id) => `<a class="menu-btn" href="${href}" id="${id}">${icon}<span>${texto}</span></a>`;
   vista.innerHTML = `
     <section class="menu-juego">
       <div class="menu-escena">
-        <h1 class="menu-logo" aria-label="Polyglok in progress">
+        <h1 class="menu-logo" aria-label="Franui Polycat">
           <span class="menu-letras logo-a" aria-hidden="true">${letras}</span>
-          <span class="logo menu-sub" aria-hidden="true"><span class="logo-b"><span class="menu-tipeo">in progress</span></span></span>
+          <span class="logo menu-sub" aria-hidden="true"><span class="logo-b"><span class="menu-tipeo">Polycat</span></span></span>
         </h1>
         <p class="eslogan menu-eslogan">Be fluent in multiple languages</p>
         <button class="menu-kitty" type="button" id="menu-kitty" aria-label="Kitty">
