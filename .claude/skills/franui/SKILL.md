@@ -90,8 +90,9 @@ guardada en un servidor propio (nunca en el navegador). Ver `docs/RECOMENDACIONE
 Nombre de la app [DECIDIDO 2026-10-13]: **Franui · Polycat** (antes «Franui» y luego «Polyglok» provisorio).
 En títulos: «Franui · Polycat»; dentro de frases: «Franui Polycat». Los nombres internos (carpetas, `franui:v1`,
 esta skill) no cambian.
-Logo [DECIDIDO 2026-10-13]: **«FRANUI Polycat»** (FRANUI en mayúsculas espaciadas + Polycat) en letra de
-máquina de escribir (Special Elite, `--font-logo`), con un cursor que parpadea después de «Polycat».
+Logo [DECIDIDO 2026-10-13, ajustado]: **«Polycat» arriba (cursiva) y «FRANUI» abajo (mayúsculas espaciadas)**,
+en serif elegante **Cormorant Garamond** (`--font-logo`). En la barra va en una línea: «Polycat FRANUI».
+(Antes: máquina de escribir Special Elite con cursor; Francisca pidió algo más elegante.)
 Eslogan (por ahora): **«Be fluent in multiple languages»**, en mayúsculas espaciadas bajo una línea.
 No se traducen. Estilos en `app/css/logo.css` (una línea, apilado y marca completa con eslogan).
 Ícono de la app (pestaña del navegador, pantalla de carga): **un corazón** pixel art, provisorio hasta
@@ -165,8 +166,9 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
   `node scripts/iconos-app.mjs` (también en `npm run build`). «Descargar la app» en el menú, Ajustes y la web
   (`app/#/instalar`); en iPhone y navegadores sin aviso se muestran los pasos. Al agregar archivos a la app,
   sumarlos a `NUCLEO` en `sw.js` (lo revisa `tests/pwa.test.mjs`).
-- **Título del menú:** FRANUI en letras grandes (Special Elite), sin cajas; caen como teclas, ola de color
-  `--primary` y saltan al tocarlas; línea fina y «Polycat» que se escribe.
+- **Título del menú:** «Polycat» en cursiva color `--primary` que se escribe, y debajo FRANUI en letras grandes
+  (Cormorant Garamond 600, sin cajas) que aparecen una por una desenfocándose; ola de color `--primary` y saltan
+  al tocarlas (con moneda); línea fina debajo.
 - **Meta diaria** (5/10/20 palabras, Ajustes): sakura del día en 5 etapas (`flor-0…3` → `sakura`).
 - **Racha:** al subir caen sakuras; **cofre** cada 7 días (50, 75, 100… monedas), una vez por hito (`S.cofre`).
 - **Web:** teléfono con 3 pantallas tipo historias, cinta de saludos, demo jugable (mazo tipo Tinder),
