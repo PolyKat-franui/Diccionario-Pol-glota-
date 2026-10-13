@@ -1,6 +1,7 @@
 // Estado y progreso de la persona. Se guarda solo (autoguardado) en el navegador.
 // Con cuenta de Google, además se sube a la nube (ver nube.js y docs/NUBE.md).
 import { responder } from './srs.js';
+import { jardinInicial } from './jardin.js';
 
 export const CLAVE = 'franui:v1';
 export const TOKENS_POR_TARJETA = 1;
@@ -22,6 +23,7 @@ export function estadoInicial() {
     progreso: {},   // { idioma: { idConcepto: estadoSRS } }
     favoritos: {},  // { idioma: [idConcepto, ...] }
     sugerencias: [], // { texto, fecha, enviada }
+    jardin: jardinInicial(), // Jardín de Sakura (ver jardin.js)
     cofre: 0,             // último día de racha (7, 14, 21…) en que se abrió un cofre
     tutorialVisto: false, // tutorial guiado por Kitty (primera sesión)
     novedadVista: null,   // última versión de Novedades que se abrió
@@ -43,6 +45,7 @@ export function normalizar(data) {
     ajustes,
     racha: { ...base.racha, ...data.racha },
     diario: { ...base.diario, ...data.diario },
+    jardin: { ...base.jardin, ...data.jardin },
   };
 }
 
@@ -89,6 +92,25 @@ export function marcarDiaEstudiado(racha, ahora = Date.now()) {
   return racha;
 }
 
+/**
+ * Sakura de reserva (tienda de Kitty): si no estudiaste ayer (o varios días), cada una cubre un día perdido
+ * y la racha sigue. Se usa al abrir la app y al estudiar. Devuelve cuántas se usaron.
+ */
+export function usarProtectores(estado, ahora = Date.now()) {
+  const r = estado.racha;
+  const j = estado.jardin;
+  if (!r.ultimoDia || !r.actual || !j?.protectores) return 0;
+  const ayer = diaAnterior(ahora);
+  if (r.ultimoDia >= ayer) return 0; // estudió ayer u hoy: nada que cubrir
+  const [a, m, d] = r.ultimoDia.split('-').map(Number);
+  let perdidos = 0;
+  for (let k = 1; diaLocal(new Date(a, m - 1, d + k).getTime()) <= ayer; k++) perdidos++;
+  if (perdidos > j.protectores) return 0; // no alcanzan: la racha se pierde y las reservas se guardan
+  j.protectores -= perdidos;
+  r.ultimoDia = ayer;
+  return perdidos;
+}
+
 /** Racha que se muestra: si pasó más de un día sin estudiar, ya se perdió. */
 export function rachaVigente(racha, ahora = Date.now()) {
   if (!racha.ultimoDia) return 0;
@@ -126,6 +148,7 @@ export function registrarRespuesta(estado, idioma, id, sabia, ahora = Date.now()
   prog[id] = responder(prog[id], sabia, ahora);
   estado.tokens += TOKENS_POR_TARJETA;
   estado.ejercicios += 1;
+  usarProtectores(estado, ahora);
   marcarDiaEstudiado(estado.racha, ahora);
   return TOKENS_POR_TARJETA;
 }

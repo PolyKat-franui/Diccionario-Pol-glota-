@@ -83,3 +83,33 @@ y parte de 4 (racha, meta diaria). **Lo que más falta es lo social (5).**
 
 Cuidado con el exceso: mantener la estética elegante (pocos colores a la vez, mucho aire,
 animaciones cortas) y que todo se pueda apagar en Ajustes (sonido, movimiento).
+
+---
+
+## Estética del juego (referencias de Francisca, 2026-10-13)
+
+Imágenes: separadores japoneses (washi crema, Fuji con sol rojo, furin, maneki-neko, teru teru bozu),
+hoja de stickers kawaii, centro de mesa con ramas de cerezo y abanico, y paisajes pixel art de sakuras
+(Fuji al atardecer, calles con pétalos, casita junto al agua, túnel de cerezos con faroles, estilo Minecraft).
+
+Lo que tomamos:
+- **Monte Fuji con sol** (rojo de día, durazno grande al atardecer, luna de noche) en los fondos del jardín. ✅
+- **Cielos durazno-rosa** con nubes alargadas; fila de cerezos lejanos; pétalos en el pasto. ✅
+- **Árbol en racimos** con ramas oscuras que asoman y **flores colgantes** (etapas 6 y 7). ✅
+- **Estilo sticker**: borde blanco recortado alrededor de los objetos (tienda, menú). ✅
+- **Objetos japoneses** en la tienda: gato de la suerte, teru teru bozu, daruma, koinobori, torii, tanzaku. ✅
+- 🔜 Papel washi de fondo en algunas pantallas; separadores verticales (tanzaku) con frases de ánimo diarias.
+- 🔜 Faroles que se encienden de noche; reflejos de pétalos en el agua.
+
+## Idea para el futuro: un mundo de sakuras para recorrer (Francisca, 2026-10-13)
+
+Que el campo de sakuras sea **mucho más grande**, ocupe casi toda la pantalla y sea **interactivo**:
+recorrer varios espacios (deslizando de lado o con un mapa), por ejemplo:
+1. **Jardín del té** (el actual).
+2. **Estanque y puente**: koi que nadan cuando los tocas, reflejos de pétalos.
+3. **Calle de faroles**: túnel de cerezos que se ilumina de noche.
+4. **Mirador del Fuji**: el paisaje del atardecer.
+5. **Casita junto al agua**: muelle con faroles.
+Cada espacio se desbloquea con niveles del sakura o con tokens; Kitty camina por ellos.
+Técnica: escenas más anchas (por ejemplo 192×96 pixeles lógicos) que se desplazan con el dedo,
+a escala entera, y objetos que reaccionan al tocarlos.

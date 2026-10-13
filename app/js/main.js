@@ -11,6 +11,7 @@ import { sonido, activarSonido } from './sonido.js';
 import { sembrarAdornos, estallido, lluvia } from './adornos.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
 import * as nube from './nube.js';
+import * as J from './jardin.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -145,6 +146,7 @@ function modal(titulo, html) {
 // ---------- Marco: barra superior, pestañas, Kitty ----------
 const NAV = [
   ['aprender', ICON.libro],
+  ['jardin', ICON.arbol],
   ['favoritos', ICON.corazon],
   ['ranking', ICON.trofeo],
   ['novedades', ICON.brillo],
@@ -267,6 +269,7 @@ const RUTAS = {
   inicio: vistaInicio,
   menu: vistaMenu,
   instalar: vistaInstalar,
+  jardin: vistaJardin,
   conservar: vistaConservar,
   idiomas: vistaIdiomas,
   aprender: vistaAprender,
@@ -399,6 +402,12 @@ function vistaMenu() {
           <img src="${cara(racha ? 'muy_feliz' : 'feliz')}" alt="" width="160" height="128">
         </button>
       </div>
+      <a class="menu-jardin" href="#/jardin" id="menu-jardin">
+        <span class="menu-jardin-arbol"><img src="${srcArbol(J.nivelDe(S.jardin.crecimiento))}" alt="" width="64" height="64"></span>
+        <span class="menu-jardin-txt"><small>${t('jar_titulo')}</small><strong>${esc(nombreEtapa(J.nivelDe(S.jardin.crecimiento)))} · ${t('jar_nivel', { n: J.nivelDe(S.jardin.crecimiento) })}</strong>
+          <span>${J.pendiente(S.jardin) ? t('jar_listos', { n: J.pendiente(S.jardin) }) : t('jar_ir')}</span></span>
+        ${ICON.flecha}
+      </a>
       <ul class="menu-stats">
         <li><img src="assets/sakura.svg" alt="" width="23" height="23"><span>${tn('racha_n', racha)}</span></li>
         <li><img src="assets/moneda.svg" alt="" width="24" height="24"><span>${t('tokens_n', { n: S.tokens })}</span></li>
@@ -440,6 +449,221 @@ function vistaMenu() {
     estallido(r.left + r.width / 2, r.top + r.height / 3, { cantidad: 12 });
   });
 }
+
+// ---------- Jardín de Sakura y tienda de Kitty ----------
+const nombreEtapa = (nivel) => t(`etapa_${J.etapaDe(nivel)}`);
+const srcArbol = (nivel) => `assets/jardin/arbol-${J.etapaDe(nivel)}.svg`;
+const nombreObjeto = (id) => t(`it_${id.replace(/-/g, '_')}`);
+/** Estudiar riega el sakura; si sube de nivel durante la sesión, solo un aviso (sin interrumpir). */
+function regarJardin(n) {
+  const { antes, despues } = J.crecer(S, n);
+  if (despues > antes) setTimeout(() => toast(t('jar_sube_toast', { n: despues })), 1200);
+}
+function celebrarNivel(nivel) {
+  document.querySelector('.premio-capa')?.remove();
+  const capa = document.createElement('div');
+  capa.className = 'premio-capa jardin-sube';
+  capa.setAttribute('role', 'dialog');
+  capa.setAttribute('aria-modal', 'true');
+  capa.setAttribute('aria-labelledby', 'sube-titulo');
+  capa.innerHTML = `
+    <div class="premio-caja">
+      <p class="premio-titulo" id="sube-titulo">${t('jar_sube_titulo')}</p>
+      <img class="sube-arbol" src="${srcArbol(nivel)}" alt="" width="192" height="192">
+      <p class="premio-texto">${t('jar_sube_texto', { n: nivel, nombre: nombreEtapa(nivel), p: J.produccionPorHora(S.jardin) })}</p>
+      <button class="btn primario grande" type="button" id="sube-ok">${t('premio_ok')}</button>
+    </div>`;
+  document.body.append(capa);
+  sonido.premio();
+  lluvia({ cantidad: 30, monedas: 0.15 });
+  const cerrar = () => { capa.classList.add('saliendo'); setTimeout(() => capa.remove(), 300); };
+  $('#sube-ok', capa).addEventListener('click', cerrar);
+  capa.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
+  $('#sube-ok', capa).focus({ preventScroll: true });
+}
+
+let modoDecorar = false;
+function vistaJardin(r) {
+  J.iniciar(S);
+  guardar();
+  const tab = r.q.get('t') === 'tienda' ? 'tienda' : 'jardin';
+  const j = S.jardin;
+  const nivel = J.nivelDe(j.crecimiento);
+  const desde = J.umbral(nivel), hasta = J.umbral(nivel + 1);
+  vista.innerHTML = `
+    <section class="pagina jardin">
+      <header class="jardin-cabeza">
+        <p class="sobretitulo">${t('jar_titulo')}</p>
+        <h1 class="display">${esc(nombreEtapa(nivel))}</h1>
+        <p class="jardin-datos"><span class="tag">${t('jar_nivel', { n: nivel })}</span> <span>${t('jar_prod', { n: J.produccionPorHora(j) })}</span></p>
+      </header>
+      <div class="seg jardin-tabs" role="tablist">
+        <a role="tab" href="#/jardin" aria-selected="${tab === 'jardin'}">${ICON.arbol}<span>${t('jar_tab_jardin')}</span></a>
+        <a role="tab" href="#/jardin?t=tienda" aria-selected="${tab === 'tienda'}">${ICON.tienda}<span>${t('jar_tab_tienda')}</span></a>
+      </div>
+      ${tab === 'tienda' ? htmlTienda() : `
+        <div class="escena-marco" id="escena-marco"><div class="escena" id="escena"></div></div>
+        <div class="jardin-crece">
+          <span>${t('jar_crece', { n: j.crecimiento - desde, m: hasta - desde })}</span>
+          <span class="progreso"><i style="width:${Math.min(100, ((j.crecimiento - desde) / (hasta - desde)) * 100)}%"></i></span>
+        </div>
+        <div class="jardin-acciones">
+          <button class="btn primario grande" type="button" id="j-recoger"></button>
+          <button class="btn" type="button" id="j-decorar" aria-pressed="${modoDecorar}">${modoDecorar ? t('jar_listo') : t('jar_decorar')}</button>
+        </div>
+        <div class="jardin-decorar" id="j-panel" ${modoDecorar ? '' : 'hidden'}></div>
+        <p class="suave pequeno jardin-como">${t('jar_como')}</p>`}
+    </section>`;
+  if (tab === 'tienda') return activarTienda();
+  dibujarEscena();
+  pintarRecoger();
+  pintarPanelDecorar();
+  $('#j-recoger').addEventListener('click', () => {
+    const n = J.recoger(S);
+    if (!n) return;
+    guardar();
+    sonido.monedas(Math.min(6, 2 + Math.floor(n / 5)));
+    const r0 = $('#j-recoger').getBoundingClientRect();
+    estallido(r0.left + r0.width / 2, r0.top, { cantidad: 12 });
+    actualizarChips(); pulsoChip();
+    pintarRecoger();
+  });
+  $('#j-decorar').addEventListener('click', () => { modoDecorar = !modoDecorar; vistaJardin(r); });
+  clearInterval(vistaJardin.timer);
+  vistaJardin.timer = setInterval(() => { if (!$('#j-recoger')) return clearInterval(vistaJardin.timer); pintarRecoger(); }, 30000);
+}
+function pintarRecoger() {
+  const b = $('#j-recoger');
+  if (!b) return;
+  const n = J.pendiente(S.jardin);
+  const lleno = S.jardin.cosecha && Date.now() - S.jardin.cosecha >= J.MAX_HORAS * 3.6e6;
+  b.disabled = n === 0;
+  b.innerHTML = n ? `<img src="assets/moneda.svg" alt="" width="24" height="24"><span>${t('jar_recoger', { n })}</span>` : `<span>${t('jar_nada')}</span>`;
+  b.classList.toggle('lleno', !!lleno && n > 0);
+  b.title = lleno ? t('jar_lleno') : '';
+}
+
+/** Escena a escala entera: 96×96 pixeles lógicos × k (3 en celular, 4 en computador). */
+function dibujarEscena() {
+  const marco = $('#escena-marco');
+  const esc0 = $('#escena');
+  if (!marco || !esc0) return;
+  const j = S.jardin;
+  const k = Math.max(2, Math.min(5, Math.floor(marco.clientWidth / J.ESCENA.w)));
+  esc0.style.setProperty('--k', k);
+  esc0.style.width = esc0.style.height = `${J.ESCENA.w * k}px`;
+  esc0.classList.toggle('decorando', modoDecorar);
+  const nivel = J.nivelDe(j.crecimiento);
+  const img = (src, x, y, w, h, extra = '') => `<img src="${src}" alt="" width="${w * k}" height="${h * k}" style="left:${x * k}px;top:${y * k}px;${extra}"`;
+  const decor = J.CATALOGO.filter((o) => o.tipo === 'decor' && j.tiene[o.id] && !j.ocultos[o.id]);
+  const colgantes = ['chochin', 'furin', 'columpio', 'teru'];
+  const petalos = Math.min(18, 2 + nivel + (j.tiene.petalos ? 10 : 0));
+  const azar = (i, s) => { const v = Math.sin(i * 91.7 + s * 13.1) * 9999; return v - Math.floor(v); };
+  esc0.innerHTML = `
+    ${img(`assets/jardin/fondo-${j.fondo}.svg`, 0, 0, 96, 96)} class="escena-fondo">
+    ${img(srcArbol(nivel), 16, 8, 64, 64, 'z-index:70')} class="escena-arbol" id="escena-arbol">
+    ${decor.map((o) => { const [x, y] = J.posicion(j, o.id); return `${img(`assets/jardin/${o.id}.svg`, x, y, o.w, o.h, `z-index:${colgantes.includes(o.id) ? 150 : y + o.h}`)} class="escena-decor ${['furin', 'teru', 'koinobori'].includes(o.id) ? 'meciendo' : ''}" data-id="${o.id}" draggable="false">`; }).join('')}
+    ${img('assets/caras/feliz.svg', 54, 68, 20, 16, 'z-index:84')} class="escena-kitty" id="escena-kitty">
+    ${Array.from({ length: petalos }, (_, i) => img('assets/jardin/petalo.svg', Math.round(6 + azar(i, 1) * 80), -4, 4, 3,
+      `--dur:${(7 + azar(i, 2) * 7).toFixed(1)}s;--retraso:-${(azar(i, 3) * 14).toFixed(1)}s;--vaiven:${Math.round(8 + azar(i, 4) * 16) * k}px;--caida:${100 * k}px;z-index:160`) + ' class="escena-petalo">').join('')}
+    ${j.tiene.mariposas ? [0, 1].map((i) => img('assets/jardin/mariposas.svg', 20 + i * 40, 30 + i * 12, 9, 7, `--retraso:-${i * 3}s;z-index:170`) + ' class="escena-mariposa">').join('') : ''}
+    ${j.tiene.luciernagas ? Array.from({ length: 7 }, (_, i) => img('assets/jardin/luciernagas.svg', Math.round(8 + azar(i, 5) * 80), Math.round(30 + azar(i, 6) * 50), 5, 5,
+      `--retraso:-${(azar(i, 7) * 4).toFixed(1)}s;z-index:165`) + ' class="escena-luciernaga">').join('') : ''}`;
+  // Tocar el árbol: se mece y suelta pétalos · tocar a Kitty: dice algo
+  $('#escena-arbol').addEventListener('click', (e) => {
+    const a = e.currentTarget; a.classList.remove('mece'); void a.offsetWidth; a.classList.add('mece');
+    sonido.toque(); estallido(e.clientX, e.clientY, { cantidad: 6 });
+  });
+  let iK = 0;
+  $('#escena-kitty').addEventListener('click', (e) => {
+    const frases = ['jar_k1', 'jar_k2', 'jar_k3'];
+    toast(t(frases[iK++ % frases.length]));
+    e.currentTarget.src = cara(['muy_feliz', 'guino', 'enamorada'][iK % 3]);
+  });
+  if (modoDecorar) $$('.escena-decor', esc0).forEach((el) => activarArrastre(el, k));
+}
+function activarArrastre(el, k) {
+  let x0 = 0, y0 = 0, px = 0, py = 0, activo = false;
+  el.addEventListener('pointerdown', (e) => {
+    activo = true; el.setPointerCapture(e.pointerId); el.classList.add('arrastrando');
+    x0 = e.clientX; y0 = e.clientY; px = parseInt(el.style.left, 10) / k; py = parseInt(el.style.top, 10) / k;
+  });
+  el.addEventListener('pointermove', (e) => {
+    if (!activo) return;
+    const o = J.objeto(el.dataset.id);
+    const x = Math.max(0, Math.min(J.ESCENA.w - o.w, Math.round(px + (e.clientX - x0) / k)));
+    const y = Math.max(0, Math.min(J.ESCENA.h - o.h, Math.round(py + (e.clientY - y0) / k)));
+    el.style.left = `${x * k}px`; el.style.top = `${y * k}px`;
+  });
+  const soltar = () => {
+    if (!activo) return;
+    activo = false; el.classList.remove('arrastrando');
+    J.mover(S.jardin, el.dataset.id, parseInt(el.style.left, 10) / k, parseInt(el.style.top, 10) / k);
+    guardar(); sonido.toque();
+    dibujarEscena();
+  };
+  el.addEventListener('pointerup', soltar);
+  el.addEventListener('pointercancel', soltar);
+}
+function pintarPanelDecorar() {
+  const p = $('#j-panel');
+  if (!p || !modoDecorar) return;
+  const j = S.jardin;
+  const decor = J.CATALOGO.filter((o) => o.tipo === 'decor' && j.tiene[o.id]);
+  const fondos = J.FONDOS.filter((f) => f === 'dia' || j.tiene[f]);
+  p.innerHTML = `
+    <p class="suave pequeno">${t('jar_arrastra')}</p>
+    ${fondos.length > 1 ? `<p class="etiqueta">${t('jar_fondo')}</p><div class="seg" role="radiogroup" aria-label="${t('jar_fondo')}">
+      ${fondos.map((f) => `<button type="button" role="radio" aria-checked="${j.fondo === f}" data-fondo="${f}">${f === 'dia' ? t('jar_fondo_dia') : nombreObjeto(f)}</button>`).join('')}</div>` : ''}
+    ${decor.length ? `<div class="decor-lista">${decor.map((o) => `<button type="button" class="decor-chip" data-ver="${o.id}" aria-pressed="${!j.ocultos[o.id]}">
+      <img src="assets/jardin/${o.id}.svg" alt="" width="${o.w * (o.h > 14 ? 1 : 2)}" height="${o.h * (o.h > 14 ? 1 : 2)}"><span>${esc(nombreObjeto(o.id))}</span></button>`).join('')}</div>`
+      : `<p>${t('jar_sin_decor')} <a href="#/jardin?t=tienda">${t('jar_tab_tienda')}</a></p>`}`;
+  $$('[data-fondo]', p).forEach((b) => b.addEventListener('click', () => { j.fondo = b.dataset.fondo; guardar(); dibujarEscena(); pintarPanelDecorar(); }));
+  $$('[data-ver]', p).forEach((b) => b.addEventListener('click', () => { J.alternarVisible(j, b.dataset.ver); guardar(); dibujarEscena(); pintarPanelDecorar(); }));
+}
+
+const SECCIONES_TIENDA = ['abono', 'decor', 'ambiente', 'fondo', 'especial'];
+function htmlTienda() {
+  const j = S.jardin;
+  const tarjeta = (o) => {
+    const motivo = J.motivoNoCompra(S, o.id);
+    const k = o.w <= 9 ? 4 : o.w <= 16 ? 3 : 2;
+    const boton = motivo === 'tienes' ? `<span class="tienda-tienes">${ICON.check}${t('tienda_tienes')}</span>`
+      : motivo === 'max' ? `<span class="tienda-tienes">${t('tienda_max')}</span>`
+        : `<button class="btn ${motivo ? '' : 'primario'} tienda-comprar" type="button" data-comprar="${o.id}" ${motivo ? 'aria-disabled="true"' : ''}>
+            <img src="assets/moneda.svg" alt="" width="24" height="24"><span>${o.precio}</span></button>
+           ${motivo === 'monedas' ? `<small class="suave">${t('tienda_faltan', { n: o.precio - S.tokens })}</small>` : ''}`;
+    return `<li class="tienda-item ${motivo === 'tienes' ? 'tenido' : ''}">
+      <span class="tienda-icono"><img src="assets/jardin/${o.id}.svg" alt="" width="${o.w * k}" height="${o.h * k}"></span>
+      <span class="tienda-txt"><strong>${esc(nombreObjeto(o.id))}</strong><small>${esc(t(`itd_${o.id.replace(/-/g, '_')}`))}</small>
+        ${o.tipo === 'especial' ? `<small class="tag">${t('tienda_reservas', { n: j.protectores })}</small>` : ''}</span>
+      <span class="tienda-precio">${boton}</span>
+    </li>`;
+  };
+  return `<div class="tienda">
+    <p class="tienda-saldo"><img src="assets/moneda.svg" alt="" width="24" height="24"><strong>${S.tokens}</strong> <span class="suave">Kitty tokens</span></p>
+    ${SECCIONES_TIENDA.map((sec) => `<h2 class="tienda-seccion">${t(`tienda_${sec}`)}</h2>
+      <ul class="tienda-lista">${J.CATALOGO.filter((o) => o.tipo === sec).map(tarjeta).join('')}</ul>`).join('')}
+  </div>`;
+}
+function activarTienda() {
+  $$('[data-comprar]').forEach((b) => b.addEventListener('click', () => {
+    const id = b.dataset.comprar;
+    const res = J.comprar(S, id);
+    if (!res.ok) { sonido.quitar(); b.classList.remove('niega'); void b.offsetWidth; b.classList.add('niega'); return; }
+    guardar();
+    sonido.monedas(3);
+    const r0 = b.getBoundingClientRect();
+    estallido(r0.left + r0.width / 2, r0.top + r0.height / 2, { cantidad: 10 });
+    toast(t('tienda_comprado', { nombre: nombreObjeto(id) }));
+    actualizarChips();
+    const y = scrollY;
+    vistaJardin({ q: new URLSearchParams('t=tienda') });
+    scrollTo(0, y);
+    if (res.despues > res.antes) setTimeout(() => celebrarNivel(res.despues), 350);
+  }));
+}
+addEventListener('resize', () => { if (document.body.dataset.ruta === 'jardin') dibujarEscena(); });
 
 // ---------- Instalar la app en la pantalla de inicio ----------
 // Chrome/Edge/Android avisan con «beforeinstallprompt» y se instala con un toque.
@@ -870,7 +1094,8 @@ function responderSlide(slide, sabia, auto = false) {
     const premio = store.contarRevision(S);
     if (premio) { sesion.tokens += premio.monedas; setTimeout(() => mostrarPremio(premio), 700); }
     if (etapaHoy() !== etapa) pintarFlor(true);
-    if (S.diario.revisadas === S.ajustes.meta) metaCumplida();
+    regarJardin(J.CRECE_POR_PALABRA);
+    if (S.diario.revisadas === S.ajustes.meta) { metaCumplida(); regarJardin(J.CRECE_POR_META); }
   }
   const niv = dificultad(store.progresoDe(S, meta)[id]);
   $('.nivel', slide).outerHTML = insignia(niv);
@@ -1501,6 +1726,7 @@ $('#kitty-form').addEventListener('submit', (e) => {
 // ---------- Arranque ----------
 S.ajustes.nativo ??= nativoInicial();
 aplicarAjustes();
+if (store.usarProtectores(S)) { store.guardar(S); setTimeout(() => toast(t('protector_usado')), 1500); }
 matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', aplicarAjustes);
 router();
 sincronizarAlAbrir();

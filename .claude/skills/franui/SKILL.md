@@ -175,6 +175,19 @@ Todos los valores viven como variables en `app/css/tokens.css` (cambiarlos solo 
   frase en 6 idiomas tipo historias, Kitty interactiva, monedas que suenan en las cifras.
 - Ideas de TikTok / Instagram / Duolingo / Tinder y el patrón común: `docs/REFERENCIAS.md`.
 
+## 9f. Jardín de Sakura y tienda de Kitty [DECIDIDO 2026-10-13]
+- Pestaña **Jardín** (`#/jardin`, también en la barra inferior y como tarjeta en el menú). Lógica pura en `app/js/jardin.js`.
+- Ciclo incremental: estudiar riega (+1 por palabra, +10 meta) → tokens → **abono** (+10/+35/+110) → nivel del árbol
+  (umbral(n) = 10·(1,8ⁿ−1)/0,8; 8 dibujos, después sigue el nivel) → **producción pasiva** = nivel × (1 + 10 % por objeto),
+  se junta hasta 8 h y se recoge con un botón.
+- Tienda: abono, decoraciones (rincón del té, faroles, estanque, columpio, gato de la suerte, teru teru bozu, daruma,
+  koinobori, torii, tanzaku), ambientes (pétalos, mariposas, luciérnagas), cielos (atardecer, noche) y **sakura de reserva**
+  (protege la racha, máx. 2; `store.usarProtectores`).
+- Modo **Decorar**: arrastrar adornos (posición en pixeles lógicos de la escena 96×96), mostrar/ocultar y cambiar el cielo.
+- Estética según referencias de Francisca (`docs/REFERENCIAS.md`): Fuji con sol, cielos durazno, árbol en racimos con
+  flores colgantes, borde blanco tipo sticker. Arte en `scripts/arte-jardin.mjs` → `app/assets/jardin/`.
+- Futuro: mundo grande para recorrer con varios espacios (ver `docs/REFERENCIAS.md`).
+
 ## 10. Pantallas de la app
 Inicio/cuenta (Entrar, Crear cuenta con usuario + contraseña ≥ 6, Google, Invitado) —
 [DECIDIDO 2026-10-09] se pide **antes de estudiar**, solo la primera vez; la sesión queda

@@ -10,10 +10,54 @@
   "orientation": "portrait",
   "background_color": "#9E2A3A",
   "theme_color": "#9E2A3A",
-  "categories": ["education", "games"],
+  "categories": [
+    "education",
+    "games"
+  ],
   "icons": [
-    { "src": "assets/app/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "assets/app/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "assets/app/icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "assets/app/icono-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/app/icono-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/app/icono-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Jardín de Sakura",
+      "short_name": "Jardín",
+      "url": "./#/jardin",
+      "icons": [
+        {
+          "src": "assets/app/icono-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "¡Jugar!",
+      "short_name": "Jugar",
+      "url": "./#/estudiar?dif=todas",
+      "icons": [
+        {
+          "src": "assets/app/icono-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
   ]
 }

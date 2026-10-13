@@ -319,6 +319,37 @@ try {
   assert.ok(despuesCofre - antesCofre >= 50 + 5, `el cofre da 50 monedas (${despuesCofre - antesCofre})`);
   paso('Racha 7 → lluvia de sakuras y cofre (+50); meta de 5 palabras → la sakura florece');
 
+  // Jardín de Sakura: pestaña propia, tienda de Kitty, abono que lo hace crecer, decorar arrastrando
+  await page.locator('.tabbar a[href="#/jardin"]').click();
+  await page.waitForURL(/#\/jardin/);
+  await page.locator('#escena .escena-arbol').waitFor();
+  const crecInicial = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).jardin.crecimiento);
+  assert.ok(crecInicial >= 5, `estudiar riega el sakura (${crecInicial})`);
+  await page.locator('.jardin-tabs a', { hasText: 'Tienda de Kitty' }).click();
+  await page.locator('[data-comprar="abono"]').waitFor();
+  const crecAntes = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).jardin.crecimiento);
+  await page.locator('[data-comprar="abono"]').click();
+  await page.locator('[data-comprar="mantel"]').click();
+  await page.locator('#toast', { hasText: 'Mantel de picnic' }).waitFor();
+  await page.waitForFunction(() => JSON.parse(localStorage.getItem('franui:v1')).jardin.tiene.mantel === true); // guardado automático
+  const jar = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).jardin);
+  assert.equal(jar.crecimiento, crecAntes + 10);
+  assert.equal(jar.tiene.mantel, true);
+  if (await page.locator('#sube-ok').count()) await page.locator('#sube-ok').click();
+  await foto(page, '13d-celular-tienda');
+  await page.locator('.jardin-tabs a', { hasText: 'Mi jardín' }).click();
+  await page.locator('.escena-decor[data-id=mantel]').waitFor();
+  await page.locator('#j-decorar').click();
+  const m0 = await page.locator('.escena-decor[data-id=mantel]').boundingBox();
+  await page.mouse.move(m0.x + 10, m0.y + 5); await page.mouse.down();
+  await page.mouse.move(m0.x + 40, m0.y - 30, { steps: 5 }); await page.mouse.up();
+  await page.waitForTimeout(500);
+  const pos = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).jardin.pos.mantel);
+  assert.ok(pos && pos[1] < 80, `el mantel se movió (${pos})`);
+  await foto(page, '13e-celular-jardin');
+  await imagenesCargadas(page, 'jardín');
+  paso('Jardín de Sakura: estudiar lo riega, la tienda vende abono y adornos, y se decora arrastrando');
+
   await page.goto(`${URL_APP}#/ajustes`);
   await page.locator('#btn-nativo').click();
   await page.locator('#capa-idiomas .arana').waitFor();

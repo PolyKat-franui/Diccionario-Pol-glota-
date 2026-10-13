@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node scripts/servir.mjs",
-    "build": "node scripts/build-banco.mjs && node scripts/kitty.mjs && node scripts/iconos-app.mjs",
+    "build": "node scripts/build-banco.mjs && node scripts/kitty.mjs && node scripts/iconos-app.mjs && node scripts/arte-jardin.mjs",
     "test": "node --test tests/*.test.mjs",
     "test:e2e": "node tests/e2e.mjs && node tests/e2e-web.mjs && node tests/e2e-nube.mjs",
     "dist": "node scripts/dist.mjs"

@@ -2,6 +2,18 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.9.0",
+      "fecha": "2026-10-13",
+      "titulo": "Jardín de Sakura y tienda de Kitty",
+      "cambios": [
+        "Nueva pestaña Jardín: tu sakura crece desde una semilla hasta un gran árbol con cada palabra que estudias.",
+        "Tienda de Kitty: compra abono, un rincón para el té (mantel, set de té, dango, cojín…), faroles, torii, koinobori y más.",
+        "Tu árbol produce Kitty tokens solo: vuelve cada día a recogerlos.",
+        "Decora a tu gusto: arrastra los adornos y cambia el cielo (día, atardecer o noche con el monte Fuji).",
+        "Sakura de reserva: protege tu racha si un día no alcanzas a estudiar."
+      ]
+    },
+    {
       "version": "0.8.0",
       "fecha": "2026-10-13",
       "titulo": "Nuevo nombre: Franui · Polycat. ¡Y ya se puede instalar!",
