@@ -322,7 +322,7 @@ function vistaInicio() {
     <section class="inicio">
       <div class="inicio-hero">
         <img class="inicio-kitty" src="assets/caras/feliz.svg" alt="Kitty" width="80" height="64">
-        <h1 class="marca-completa"><span class="logo apilado"><span class="logo-a">Franui</span> <span class="logo-b">Polycat</span></span><span class="marca-linea" aria-hidden="true"></span><span class="eslogan">Be fluent in multiple languages</span></h1>
+        <h1 class="marca-completa"><span class="logo apilado"><span class="logo-b">Polycat</span> <span class="logo-a">Franui</span></span><span class="marca-linea" aria-hidden="true"></span><span class="eslogan">Be fluent in multiple languages</span></h1>
       </div>
       <div class="card inicio-card">
         <div class="seg" role="tablist">
@@ -390,9 +390,9 @@ function vistaMenu() {
     <section class="menu-juego">
       <div class="menu-escena">
         <h1 class="menu-logo" aria-label="Franui Polycat">
+          <span class="menu-sub" aria-hidden="true"><span class="menu-tipeo">Polycat</span></span>
           <span class="menu-letras" aria-hidden="true">${letras}</span>
           <span class="menu-linea" aria-hidden="true"></span>
-          <span class="logo menu-sub" aria-hidden="true"><span class="logo-b"><span class="menu-tipeo">Polycat</span></span></span>
         </h1>
         <p class="eslogan menu-eslogan">Be fluent in multiple languages</p>
         <button class="menu-kitty" type="button" id="menu-kitty" aria-label="Kitty">

@@ -12,7 +12,7 @@
   --font-display: 'Fredoka', 'Nunito', 'Arial Rounded MT Bold', system-ui, sans-serif;
   --font-body: 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-ipa: 'Noto Sans', 'Segoe UI', system-ui, sans-serif; /* símbolos de pronunciación */
-  --font-logo: 'Special Elite', 'Courier Prime', 'Courier New', ui-monospace, monospace; /* logo y eslogan: máquina de escribir */
+  --font-logo: 'Cormorant Garamond', 'Cormorant', Garamond, 'Times New Roman', serif; /* logo y eslogan: serif elegante */
   --escala: 1;              /* ajuste "tamaño de letra" */
   --fs-xs: calc(13px * var(--escala));
   --fs-sm: calc(14px * var(--escala));

@@ -687,21 +687,20 @@ body[data-ruta="estudiar"] .adornos { display: none; }
   background: radial-gradient(120% 60% at 50% 0%, var(--accent-soft), transparent 70%);
 }
 .menu-escena { display: grid; justify-items: center; gap: 10px; text-align: center; padding-top: 8px; }
-.menu-logo { margin: 0; display: grid; justify-items: center; gap: 10px; font-weight: 400; }
+.menu-logo { margin: 0; display: grid; justify-items: center; gap: 2px; font-weight: 400; }
 /* FRANUI en letras grandes de máquina de escribir: cada letra cae como una tecla sobre el papel,
    luego una ola lenta levanta una letra a la vez y la tiñe con el color de la paleta. Tocar una letra la hace saltar. */
-.menu-letras { display: flex; justify-content: center; font-family: var(--font-logo); font-size: clamp(54px, 17vw, 88px); line-height: 1; letter-spacing: .1em; padding-left: .1em; color: var(--ink); }
+.menu-letras { display: flex; justify-content: center; font-family: var(--font-logo); font-weight: 600; font-size: clamp(60px, 19vw, 100px); line-height: .95; letter-spacing: .12em; padding-left: .12em; color: var(--ink); }
 .menu-letras span {
   display: inline-block; cursor: pointer; -webkit-tap-highlight-color: transparent;
-  text-shadow: 0 .06em 0 color-mix(in srgb, var(--primary) 22%, transparent);
-  animation: teclaCae .55s cubic-bezier(.25, 1.5, .5, 1) both, letraOla 6s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 110ms), calc(1.6s + var(--i) * 260ms);
+  animation: letraAparece .9s var(--ease) both, letraOla 6s ease-in-out infinite;
+  animation-delay: calc(.5s + var(--i) * 120ms), calc(2.2s + var(--i) * 260ms);
 }
 .menu-letras span.salta { animation: letraSalta .55s cubic-bezier(.3, 1.6, .5, 1); color: var(--primary); }
-.menu-linea { width: min(78%, 360px); height: 1.5px; background: var(--ink); transform-origin: left; transform: scaleX(0); animation: trazar .7s var(--ease) .8s forwards; }
+.menu-linea { width: min(70%, 320px); height: 1px; margin-top: 4px; background: var(--ink); transform-origin: center; transform: scaleX(0); animation: trazar .8s var(--ease) 1.3s forwards; }
 /* «Polycat» se escribe como en máquina de escribir */
-.menu-sub { --logo-size: 20px; color: var(--ink); }
-.menu-tipeo { display: inline-block; clip-path: inset(0 100% 0 0); animation: tipear .8s steps(7) 1s forwards; }
+.menu-sub { font-family: var(--font-logo); font-style: italic; font-weight: 500; font-size: clamp(26px, 8vw, 36px); line-height: 1; color: var(--primary); letter-spacing: .02em; }
+.menu-tipeo { display: inline-block; clip-path: inset(0 100% 0 0); animation: tipear .9s var(--ease) .1s forwards; padding-right: .1em; }
 .menu-eslogan { opacity: 0; animation: aparecer .6s var(--ease) 2.1s forwards; }
 .menu-kitty {
   position: relative; border: 0; padding: 22px; cursor: pointer; border-radius: 50%;
@@ -761,7 +760,7 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .menu-btn.con-aviso::after { content: ''; position: absolute; top: 10px; right: 12px; width: 10px; height: 10px; border-radius: 50%; background: var(--d-dificil); }
 .menu-jugar:focus-visible, .menu-btn:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
 
-@keyframes teclaCae { 0% { transform: translateY(-.5em) scale(1.25); opacity: 0; } 60% { opacity: 1; transform: translateY(.04em) scale(.96); } 100% { transform: none; } }
+@keyframes letraAparece { from { transform: translateY(.35em); opacity: 0; filter: blur(8px); } to { transform: none; opacity: 1; filter: none; } }
 @keyframes letraOla { 0%, 86%, 100% { transform: none; color: var(--ink); } 91% { transform: translateY(-.14em); color: var(--primary); } }
 @keyframes letraSalta { 40% { transform: translateY(-.3em) rotate(-6deg); } 70% { transform: translateY(.02em) rotate(2deg); } }
 @keyframes trazar { to { transform: scaleX(1); } }
@@ -802,3 +801,4 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 }
 .menu-instalar svg { width: 22px; height: 22px; }
 .btn-instalar.btn svg { width: 20px; height: 20px; }
+.menu-eslogan { font-size: clamp(10px, 3vw, 13px); letter-spacing: .2em; white-space: nowrap; }
