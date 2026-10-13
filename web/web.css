@@ -318,17 +318,13 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, trans
 .pantalla.activa { opacity: 1; transform: none; }
 .pantalla.p-tarjeta .demo-tarjeta { flex: 1; }
 .p-menu, .p-premio { align-items: center; justify-content: center; gap: 10px; text-align: center; border-radius: 26px; background: radial-gradient(120% 60% at 50% 0%, var(--accent-soft), transparent 70%); }
-.mini-fichas { display: flex; gap: 2px; }
-.mini-fichas span { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; font-family: var(--font-logo); font-size: 15px; color: var(--blanco); background: var(--nodo-1); box-shadow: 0 2px 0 color-mix(in srgb, var(--sombra-color) 30%, transparent); }
-.mini-fichas span:nth-child(6n+2) { background: var(--nodo-2); } .mini-fichas span:nth-child(6n+3) { background: var(--nodo-3); }
-.mini-fichas span:nth-child(6n+4) { background: var(--nodo-4); } .mini-fichas span:nth-child(6n+5) { background: var(--nodo-5); }
-.mini-fichas span:nth-child(6n+6) { background: var(--nodo-6); }
-.p-menu.activa .mini-fichas span { animation: fichaCae .6s cubic-bezier(.3, 1.6, .5, 1) both; }
-.mini-fichas span:nth-child(2) { animation-delay: 70ms !important; } .mini-fichas span:nth-child(3) { animation-delay: 140ms !important; }
-.mini-fichas span:nth-child(4) { animation-delay: 210ms !important; } .mini-fichas span:nth-child(5) { animation-delay: 280ms !important; }
-.mini-fichas span:nth-child(6) { animation-delay: 350ms !important; } .mini-fichas span:nth-child(7) { animation-delay: 420ms !important; }
-.mini-fichas span:nth-child(8) { animation-delay: 490ms !important; }
-.mini-sub { font-family: var(--font-logo); font-size: 13px; letter-spacing: .04em; }
+.mini-fichas { display: flex; font-family: var(--font-logo); font-size: 38px; line-height: 1; letter-spacing: .08em; padding-left: .08em; color: var(--ink); }
+.mini-fichas span { display: inline-block; }
+.p-menu.activa .mini-fichas span { animation: teclaCae .5s cubic-bezier(.25, 1.5, .5, 1) both; }
+.mini-fichas span:nth-child(2) { animation-delay: 100ms !important; } .mini-fichas span:nth-child(3) { animation-delay: 200ms !important; }
+.mini-fichas span:nth-child(4) { animation-delay: 300ms !important; } .mini-fichas span:nth-child(5) { animation-delay: 400ms !important; }
+.mini-fichas span:nth-child(6) { animation-delay: 500ms !important; }
+.mini-sub { font-family: var(--font-logo); font-size: 14px; letter-spacing: .04em; padding-top: 6px; border-top: 1.5px solid var(--ink); min-width: 62%; }
 .mini-kitty { width: 60px; height: 48px; padding: 14px; box-sizing: content-box; image-rendering: pixelated; background: radial-gradient(circle closest-side, var(--surface-2) 99%, transparent 100%); animation: kittySalta 1.6s ease-in-out infinite; }
 .mini-stats { display: flex; gap: 6px; }
 .mini-stats span { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px 4px 6px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-weight: 700; font-size: 13px; }
@@ -417,7 +413,7 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, trans
 
 @keyframes llenarBarra { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes cinta { to { transform: translateX(-50%); } }
-@keyframes fichaCae { from { transform: translateY(-80px) rotate(-12deg); opacity: 0; } 60% { opacity: 1; } }
+@keyframes teclaCae { 0% { transform: translateY(-.5em) scale(1.25); opacity: 0; } 60% { opacity: 1; transform: translateY(.04em) scale(.96); } 100% { transform: none; } }
 @keyframes kittySalta { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @keyframes kittyBrinco { 30% { transform: translateY(-30px) scale(1.06, .94); } 60% { transform: translateY(0) scale(.94, 1.06); } }
 @keyframes latidoSuave { 50% { transform: scale(1.04); } }

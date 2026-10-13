@@ -389,7 +389,8 @@ function vistaMenu() {
     <section class="menu-juego">
       <div class="menu-escena">
         <h1 class="menu-logo" aria-label="Franui Polycat">
-          <span class="menu-letras logo-a" aria-hidden="true">${letras}</span>
+          <span class="menu-letras" aria-hidden="true">${letras}</span>
+          <span class="menu-linea" aria-hidden="true"></span>
           <span class="logo menu-sub" aria-hidden="true"><span class="logo-b"><span class="menu-tipeo">Polycat</span></span></span>
         </h1>
         <p class="eslogan menu-eslogan">Be fluent in multiple languages</p>
@@ -418,6 +419,13 @@ function vistaMenu() {
       </nav>
     </section>`;
   marcarAvisoNovedades();
+  // Tocar una letra de FRANUI: salta y suena una moneda (cada letra un poco más aguda)
+  $('.menu-letras').addEventListener('click', (e) => {
+    const l = e.target.closest('span[style]');
+    if (!l) return;
+    l.classList.remove('salta'); void l.offsetWidth; l.classList.add('salta');
+    sonido.moneda(0, Number(l.style.getPropertyValue('--i')) * 2);
+  });
   // Tocar a Kitty: salta, cambia de cara y suelta sakuras y monedas
   const CARAS = ['celebrando', 'guino', 'enamorada', 'sorprendida', 'muy_feliz'];
   let n = 0;
