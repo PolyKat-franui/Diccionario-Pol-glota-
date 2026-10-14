@@ -1138,3 +1138,20 @@ body[data-ruta="estudiar"] .adornos { display: none; }
   75%, 100% { transform: translate(115vw, 0) scaleX(-1); }
 }
 @media (prefers-reduced-motion: reduce) { .visitante { display: none; } }
+
+/* Prueba de Kitty (al final de la sesión) */
+.prueba, .modal form.prueba { display: grid; gap: 12px; justify-content: stretch; text-align: center; }
+.prueba-paso { font-size: var(--fs-xs); letter-spacing: .12em; text-transform: uppercase; }
+.prueba-palabra { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-xl); }
+.prueba-ejemplo { color: var(--ink-soft); }
+.prueba-ejemplo mark { background: none; color: var(--enfasis); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.prueba .campo { text-align: left; }
+.prueba .campo input { min-height: var(--tap); font-size: var(--fs-md); }
+.prueba-feedback { display: none; align-items: center; gap: 10px; justify-content: center; padding: 10px; border-radius: var(--r-md); }
+.prueba-feedback.bien, .prueba-feedback.mal { display: flex; animation: aparecer .4s var(--ease) both; }
+.prueba-feedback.bien { background: color-mix(in srgb, var(--d-facil) 14%, var(--surface)); }
+.prueba-feedback.mal { background: color-mix(in srgb, var(--d-dificil) 12%, var(--surface)); }
+.prueba-feedback p { display: grid; gap: 2px; text-align: left; color: var(--ink); }
+.prueba .acciones { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.prueba .acciones .btn { min-height: var(--tap); }
+.prueba-final { justify-items: center; }

@@ -316,6 +316,15 @@ export function sumarXP(estado, ahora = Date.now()) {
  * Respuesta en estudio libre: suma tokens, XP y la cuenta del día, pero NO mueve el calendario de repasos.
  * Si fallas una palabra que ya habías visto, queda para repasar pronto (vence ahora, sin perder su caja).
  */
+// Prueba de Kitty (al final de la sesión): acertar da monedas; fallar devuelve la palabra a repaso.
+export const TOKENS_POR_PRUEBA = 3;
+export function resultadoPrueba(estado, idioma, id, acerto, ahora = Date.now()) {
+  if (acerto) { estado.tokens += TOKENS_POR_PRUEBA; return TOKENS_POR_PRUEBA; }
+  const prog = progresoDe(estado, idioma);
+  prog[id] = responder(prog[id], false, ahora);
+  return 0;
+}
+
 export function registrarPractica(estado, idioma, id, sabia, ahora = Date.now()) {
   const prog = progresoDe(estado, idioma);
   if (!sabia && prog[id]) prog[id] = { ...prog[id], d: ahora, f: (prog[id].f ?? 0) + 1 };
