@@ -42,5 +42,16 @@ test('reglas de Firestore: el ranking solo acepta nombre y números (sin correo)
   assert.match(reglas, /match \/progreso\/\{uid\}/);
   assert.match(reglas, /match \/ranking\/\{uid\}/);
   assert.match(reglas, /hasOnly\(\['nombre', 'racha', 'dia', 'palabras', 'nivel', 'actualizado', 'liga', 'semana', 'xp'\]\)/);
-  assert.doesNotMatch(reglas, /email/);
+  const ranking = reglas.slice(reglas.indexOf('match /ranking/'), reglas.indexOf('match /sugerencias/'));
+  assert.doesNotMatch(ranking, /email/, 'el ranking nunca guarda el correo');
+});
+
+test('reglas de Firestore: buzón de sugerencias (cualquiera envía, solo la creadora lee)', async () => {
+  const reglas = readFileSync(new URL('../firestore.rules', import.meta.url), 'utf8');
+  const { CREADORA } = await import('../app/js/nube-config.js');
+  assert.match(reglas, /match \/sugerencias\/\{id\}/);
+  assert.ok(reglas.includes(`request.auth.token.email == '${CREADORA}'`), 'la misma creadora en reglas y app');
+  assert.match(reglas, /email_verified == true/);
+  assert.match(reglas, /allow read, delete: if esCreadora\(\)/);
+  assert.match(reglas, /texto\.size\(\) <= 2000/);
 });

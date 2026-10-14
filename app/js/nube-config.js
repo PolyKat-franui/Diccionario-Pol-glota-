@@ -20,3 +20,6 @@ export const FIREBASE = {
   messagingSenderId: '642024887872',
   appId: '1:642024887872:web:2ef4bd540d50aa7e5e31a5',
 };
+
+// Cuenta de la creadora: solo ella ve el buzón de sugerencias (también en firestore.rules).
+export const CREADORA = 'fransanhueza206@gmail.com';

@@ -84,3 +84,30 @@ export async function leerRanking(campo, n = 50) {
   const snap = await fs.getDocs(fs.query(fs.collection(db, 'ranking'), fs.orderBy(campo, 'desc'), fs.limit(n)));
   return snap.docs.map((d) => ({ uid: d.id, ...d.data() }));
 }
+
+// ---------- Buzón de sugerencias ----------
+// Cualquiera puede enviar (con o sin cuenta); solo la cuenta CREADORA las lee (firestore.rules).
+export { CREADORA } from './nube-config.js';
+const idAzar = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+
+/** Envía una sugerencia. s = { texto, fecha, idioma, version, nombre?, uid? }. */
+export async function enviarSugerencia(s) {
+  const { fs, db } = await cargarSdk();
+  const doc = { texto: String(s.texto).slice(0, 2000), fecha: s.fecha, idioma: s.idioma || '', version: s.version || '', leida: false };
+  if (s.nombre) doc.nombre = String(s.nombre).slice(0, 30);
+  if (s.uid) doc.uid = s.uid;
+  await fs.setDoc(fs.doc(db, 'sugerencias', idAzar()), doc);
+}
+export async function leerSugerencias(n = 200) {
+  const { fs, db } = await cargarSdk();
+  const snap = await fs.getDocs(fs.query(fs.collection(db, 'sugerencias'), fs.orderBy('fecha', 'desc'), fs.limit(n)));
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+}
+export async function marcarSugerencia(id, leida) {
+  const { fs, db } = await cargarSdk();
+  await fs.updateDoc(fs.doc(db, 'sugerencias', id), { leida });
+}
+export async function borrarSugerencia(id) {
+  const { fs, db } = await cargarSdk();
+  await fs.deleteDoc(fs.doc(db, 'sugerencias', id));
+}
