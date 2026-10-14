@@ -53,6 +53,18 @@ try {
   await sinScrollHorizontal(page, 'inicio');
   paso('Inicio: entrar, crear cuenta, Google e invitado');
 
+  const aviso = page.locator('#aviso-descarga');
+  await aviso.waitFor();
+  const bInst = await aviso.locator('.btn-instalar').boundingBox();
+  assert.ok(bInst.height >= 44, 'botón Instalar del aviso ≥ 44 px');
+  await aviso.locator('.btn-instalar').click();
+  await page.locator('#modal .pasos-instalar li').first().waitFor();
+  await foto(page, '01b-celular-aviso-instalar');
+  await page.keyboard.press('Escape');
+  await aviso.locator('.aviso-cerrar').click();
+  assert.equal(await aviso.count(), 0, 'el aviso se cierra');
+  paso('Aviso grande «Descarga Franui» con pasos; se puede cerrar');
+
   await page.locator('[name=usuario]').fill('Fran');
   await page.locator('[name=clave]').fill('123');
   await page.locator('#btn-login').click();
