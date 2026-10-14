@@ -471,6 +471,7 @@ async function abrirHistoria() {
 }
 
 function vistaMenu() {
+  if (J.aparecerCaquitas(S.jardin)) guardar();
   const racha = store.rachaVigente(S.racha);
   const hoy = hoyRevisadas();
   const meta = S.ajustes.meta;
@@ -498,7 +499,7 @@ function vistaMenu() {
       <a class="menu-jardin" href="#/jardin" id="menu-jardin">
         <span class="menu-jardin-arbol"><img src="${srcArbol(J.nivelDe(S.jardin.crecimiento))}" alt="" width="64" height="64"></span>
         <span class="menu-jardin-txt"><small>${t('jar_titulo')}</small><strong>${esc(nombreEtapa(J.nivelDe(S.jardin.crecimiento)))} · ${t('jar_nivel', { n: J.nivelDe(S.jardin.crecimiento) })}</strong>
-          <span>${J.pendiente(S.jardin) ? t('jar_listos', { n: J.pendiente(S.jardin) }) : t('jar_ir')}</span></span>
+          <span>${S.jardin.caquitas?.length ? tn('caq_aviso_n', S.jardin.caquitas.length) : J.pendiente(S.jardin) ? t('jar_listos', { n: J.pendiente(S.jardin) }) : t('jar_ir')}</span></span>
         ${ICON.flecha}
       </a>
       <ul class="menu-stats">
@@ -726,6 +727,7 @@ function dibujarEscena() {
   esc0.style.setProperty('--k', k);
   esc0.style.width = esc0.style.height = `${J.ESCENA.w * k}px`;
   esc0.classList.toggle('decorando', modoDecorar);
+  if (J.aparecerCaquitas(j)) guardar();
   const nivel = J.nivelDe(j.crecimiento);
   const img = (src, x, y, w, h, extra = '') => `<img src="${src}" alt="" width="${w * k}" height="${h * k}" style="left:${x * k}px;top:${y * k}px;${extra}"`;
   const decor = J.CATALOGO.filter((o) => o.tipo === 'decor' && j.tiene[o.id] && !j.ocultos[o.id]);
@@ -736,7 +738,8 @@ function dibujarEscena() {
     ${img(`assets/jardin/fondo-${j.fondo}.svg`, 0, 0, 96, 96)} class="escena-fondo">
     ${img(srcArbol(nivel), 16, 8, 64, 64, 'z-index:70')} class="escena-arbol" id="escena-arbol">
     ${decor.map((o) => { const [x, y] = J.posicion(j, o.id); return `${img(`assets/jardin/${o.id}.svg`, x, y, o.w, o.h, `z-index:${colgantes.includes(o.id) ? 150 : y + o.h}`)} class="escena-decor ${['furin', 'teru', 'koinobori'].includes(o.id) ? 'meciendo' : ''} ${j.fondo === 'noche' && ['farol', 'chochin'].includes(o.id) ? 'brilla-noche' : ''}" data-id="${o.id}" draggable="false">`; }).join('')}
-    ${img('assets/caras/feliz.svg', 54, 68, 20, 16, 'z-index:84')} class="escena-kitty" id="escena-kitty">
+    ${img(`assets/caras/${j.caquitas?.length ? 'avergonzada' : 'feliz'}.svg`, 54, 68, 20, 16, 'z-index:84')} class="escena-kitty" id="escena-kitty">
+    ${(j.caquitas ?? []).map(([x, y], i) => `<button type="button" class="escena-caquita" data-caquita="${i}" aria-label="${t('caq_label')}" style="left:${(x + J.CAQUITA.w / 2) * k}px;top:${(y + J.CAQUITA.h / 2) * k}px;z-index:${y + J.CAQUITA.h}"><img src="assets/jardin/caquita.svg" alt="" width="${J.CAQUITA.w * k}" height="${J.CAQUITA.h * k}"></button>`).join('')}
     ${Array.from({ length: petalos }, (_, i) => img('assets/jardin/petalo.svg', Math.round(6 + azar(i, 1) * 80), -4, 4, 3,
       `--dur:${(7 + azar(i, 2) * 7).toFixed(1)}s;--retraso:-${(azar(i, 3) * 14).toFixed(1)}s;--vaiven:${Math.round(8 + azar(i, 4) * 16) * k}px;--caida:${100 * k}px;z-index:160`) + ' class="escena-petalo">').join('')}
     ${j.tiene.mariposas ? [0, 1].map((i) => img('assets/jardin/mariposas.svg', 20 + i * 40, 30 + i * 12, 9, 7, `--retraso:-${i * 3}s;z-index:170`) + ' class="escena-mariposa">').join('') : ''}
@@ -747,9 +750,23 @@ function dibujarEscena() {
     const a = e.currentTarget; a.classList.remove('mece'); void a.offsetWidth; a.classList.add('mece');
     sonido.toque(); estallido(e.clientX, e.clientY, { cantidad: 6 });
   });
+  // Caquitas: tocarlas limpia el jardín (+tokens y abono natural)
+  $$('[data-caquita]', esc0).forEach((b) => b.addEventListener('click', (e) => {
+    const r0 = b.getBoundingClientRect();
+    const res = J.limpiarCaquita(S, Number(b.dataset.caquita));
+    if (!res) return;
+    guardar();
+    sonido.monedas(3);
+    estallido(r0.left + r0.width / 2, r0.top + r0.height / 2, { cantidad: 10 });
+    toast(t('caq_limpia', { n: res.tokens }));
+    actualizarChips(); pulsoChip();
+    if (res.despues > res.antes) celebrarNivel(res.despues);
+    dibujarEscena();
+  }));
   let iK = 0;
   $('#escena-kitty').addEventListener('click', (e) => {
     const frases = ['jar_k1', 'jar_k2', 'jar_k3'];
+    if (S.jardin.caquitas?.length) return toast(t('caq_k'));
     toast(t(frases[iK++ % frases.length]));
     e.currentTarget.src = cara(['muy_feliz', 'guino', 'enamorada'][iK % 3]);
   });

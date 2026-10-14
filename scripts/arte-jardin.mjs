@@ -259,6 +259,12 @@ const ESCENAS = {
     for (let x = 2; x < 96; x += 12) for (let y = 66; y < 80; y++) { pon(g, x, y, letra(m2)); pon(g, x + 1, y, letra(m1)); }
   },
 };
+/** Caquita de Kitty 10×9 (para limpiar el jardín), con brillo y una moscorra. */
+const caquita = () => {
+  const g = lienzo(10, 9);
+  sello(g, 0, 0, ['.......m..', '....o.....', '...oao....', '..oabbo...', '.ooooooo..', '.oabbbbbo.', 'oabwbbwbbo', 'oabbppbbbo', '.oooooooo.']);
+  return salida(g, { o: '#4A2A14', b: '#7A4A24', a: '#A8703E', w: '#FFFFFF', p: '#E8899A', m: '#3A3A44' });
+}
 /** Koi de 12×6 (naranja o rojo con blanco). */
 const koi = (tipo) => {
   const g = lienzo(12, 6);
@@ -501,6 +507,7 @@ export function archivos() {
   for (let i = 0; i < 8; i++) { const { filas, colores } = arbol(i); out[`arbol-${i}.svg`] = toSvg(filas, { titulo: `Sakura, etapa ${i}`, colores }); }
   for (const f of Object.keys(FONDOS)) { const { filas, colores } = fondo(f); out[`fondo-${f}.svg`] = toSvg(filas, { titulo: `Fondo ${f}`, colores }); }
   for (const e of Object.keys(ESCENAS)) for (const f of Object.keys(FONDOS)) { const { filas, colores } = fondo(f, e); out[`${e}-${f}.svg`] = toSvg(filas, { titulo: `${e} ${f}`, colores }); }
+  { const { filas, colores } = caquita(); out['caquita.svg'] = toSvg(filas, { titulo: 'Caquita', colores }); }
   for (const k of [1, 2]) { const { filas, colores } = koi(k); out[`koi-${k}.svg`] = toSvg(filas, { titulo: 'Koi', colores }); }
   for (const on of [false, true]) { const { filas, colores } = farolCalle(on); out[`farol-calle${on ? '-on' : ''}.svg`] = toSvg(filas, { titulo: 'Farol', colores }); }
   for (const [id, fn] of Object.entries(OBJETOS)) { const { filas, colores } = fn(); out[`${id}.svg`] = toSvg(filas, { titulo: id, colores }); }

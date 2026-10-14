@@ -1023,3 +1023,10 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .tanzaku::after { content: ''; position: absolute; top: 6px; left: 50%; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: var(--surface); }
 @keyframes tanzakuMece { 50% { transform: rotate(3deg); } }
 @media (prefers-reduced-motion: reduce) { .tanzaku { animation: none; } }
+
+/* Caquitas de Kitty: se tocan para limpiar el jardín */
+.escena-caquita { position: absolute; padding: 0; border: 0; background: none; cursor: pointer; width: 44px; height: 44px; translate: -50% -50%; display: grid; place-items: center; overflow: visible; animation: caquitaTiembla 2.4s ease-in-out infinite; }
+.escena-caquita img { position: static; image-rendering: pixelated; }
+.escena-caquita:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; border-radius: 8px; }
+@keyframes caquitaTiembla { 0%, 80%, 100% { transform: none; } 85% { transform: rotate(-6deg); } 90% { transform: rotate(6deg); } 95% { transform: rotate(-3deg); } }
+@media (prefers-reduced-motion: reduce) { .escena-caquita { animation: none; } }

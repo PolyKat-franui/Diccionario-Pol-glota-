@@ -68,7 +68,7 @@ export const objeto = (id) => CATALOGO.find((o) => o.id === id);
 export const FONDOS = ['dia', 'atardecer', 'noche'];
 
 export function jardinInicial() {
-  return { crecimiento: 0, tiene: {}, ocultos: {}, pos: {}, fondo: 'dia', cosecha: null, protectores: 0 };
+  return { crecimiento: 0, tiene: {}, ocultos: {}, pos: {}, fondo: 'dia', cosecha: null, protectores: 0, caquitas: [], ultimaCaquita: null, limpiadas: 0 };
 }
 
 /** Objetos permanentes que tienes (decoraciones, ambientes y fondos): cada uno suma producción. */
@@ -160,3 +160,32 @@ export const FAROLES_CALLE = [
   { x: 14, y: 64, e: 2 }, { x: 66, y: 64, e: 2 },
   { x: 34, y: 50, e: 1 }, { x: 54, y: 50, e: 1 },
 ]
+
+// ---------- Caquitas de Kitty (idea de Francisca, 2026-10-14) ----------
+// De vez en cuando Kitty deja una caquita en el jardín. Tocarla la limpia: da tokens y sirve de abono natural.
+export const CAQUITA = { cadaHoras: 3, max: 3, tokens: 3, crece: 1, w: 10, h: 9 };
+/** Lugar en el pasto (pixeles lógicos), lejos del tronco, elegido con un número 0–1. */
+const lugarCaquita = (r1, r2) => {
+  const x = Math.round(4 + r1 * 80);
+  return [x > 36 && x < 52 ? x + 18 : x, Math.round(76 + r2 * 10)];
+};
+/** Agrega las caquitas que tocan desde la última (una cada 3 h, máximo 3 a la vez). Devuelve cuántas nuevas. */
+export function aparecerCaquitas(j, ahora = Date.now(), azar = Math.random) {
+  j.caquitas ??= [];
+  if (!j.ultimaCaquita) { j.ultimaCaquita = ahora; return 0; }
+  const n = Math.floor((ahora - j.ultimaCaquita) / (CAQUITA.cadaHoras * 3.6e6));
+  if (n <= 0) return 0;
+  j.ultimaCaquita += n * CAQUITA.cadaHoras * 3.6e6;
+  let nuevas = 0;
+  for (let i = 0; i < n && j.caquitas.length < CAQUITA.max; i++) { j.caquitas.push(lugarCaquita(azar(), azar())); nuevas++; }
+  return nuevas;
+}
+/** Limpia la caquita i: suma tokens y crecimiento. Devuelve { tokens, antes, despues } o null. */
+export function limpiarCaquita(estado, i) {
+  const j = estado.jardin;
+  if (!j.caquitas?.[i]) return null;
+  j.caquitas.splice(i, 1);
+  j.limpiadas = (j.limpiadas ?? 0) + 1;
+  estado.tokens += CAQUITA.tokens;
+  return { tokens: CAQUITA.tokens, ...crecer(estado, CAQUITA.crece) };
+}

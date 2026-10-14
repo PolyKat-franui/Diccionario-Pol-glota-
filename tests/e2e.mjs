@@ -389,6 +389,28 @@ try {
   const pos = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).jardin.pos.mantel);
   assert.ok(pos && pos[1] < 80, `el mantel se movió (${pos})`);
   await foto(page, '13e-celular-jardin');
+  // Caquitas de Kitty: aparecen con el tiempo y tocarlas limpia el jardín (+3 tokens)
+  await page.goto('about:blank');
+  const ed4 = await ctx.newPage();
+  await ed4.goto(URL_APP.replace('/app/', '/'));
+  await ed4.evaluate(() => { const s = JSON.parse(localStorage.getItem('franui:v1')); s.jardin.caquitas = []; s.jardin.ultimaCaquita = Date.now() - 7 * 3.6e6; localStorage.setItem('franui:v1', JSON.stringify(s)); });
+  await ed4.close();
+  await page.goto(`${URL_APP}#/menu`);
+  assert.match(await page.locator('#menu-jardin').innerText(), /2 caquitas/);
+  await page.goto(`${URL_APP}#/jardin`);
+  await page.locator('[data-caquita]').first().waitFor();
+  assert.equal(await page.locator('[data-caquita]').count(), 2);
+  assert.match(await page.locator('#escena-kitty').getAttribute('src'), /avergonzada/);
+  await foto(page, '13e2-celular-caquitas');
+  const tokCaq = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).tokens);
+  await page.locator('[data-caquita]').first().click();
+  await page.locator('#toast', { hasText: 'Jardín limpio' }).waitFor();
+  if (await page.locator('#sube-ok').count()) await page.locator('#sube-ok').click();
+  await page.locator('[data-caquita]').first().click();
+  await page.waitForFunction(() => JSON.parse(localStorage.getItem('franui:v1')).jardin.caquitas.length === 0);
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).tokens), tokCaq + 6);
+  assert.match(await page.locator('#escena-kitty').getAttribute('src'), /feliz/);
+  paso('Caquitas de Kitty: aparecen cada 3 h, tocarlas limpia el jardín y da +3 tokens');
   await imagenesCargadas(page, 'jardín');
   paso('Jardín de Sakura: estudiar lo riega, la tienda vende abono y adornos, y se decora arrastrando');
 
