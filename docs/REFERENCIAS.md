@@ -33,13 +33,13 @@ y parte de 4 (racha, meta diaria). **Lo que más falta es lo social (5).**
 | Sonido como parte de la experiencia | Pronunciación automática al revelar (opción en Ajustes) | 🔜 |
 | «Para ti»: aprende lo que te gusta | Mezcla «¡Jugar!» que prioriza los temas que más practicas | 🔜 |
 | Barra de progreso fina del video | Barra de la sesión arriba | ✅ |
-| Doble toque = me gusta, con corazón que salta | Doble toque en la tarjeta = favorito | 🔜 |
+| Doble toque = me gusta, con corazón que salta | Doble toque en la tarjeta = favorito |✅ |
 
 ## Instagram
 
 | Qué tiene | Cómo usarlo | Estado |
 |---|---|---|
-| Historias: barras arriba, tocar para avanzar, duran 24 h | «Frase del día» en 6 idiomas como historia (en la web ✅); en la app, una historia diaria que se pierde a medianoche | 🔜 |
+| Historias: barras arriba, tocar para avanzar, duran 24 h | «Frase del día» en 6 idiomas como historia (en la web ✅); en la app, una historia diaria que se pierde a medianoche |✅ |
 | Círculos de historias con anillo de color | Anillo de color alrededor de los temas con repaso pendiente | 🔜 |
 | Perfil con cuadrícula | Perfil con tus sakuras del mes (una por día cumplido) | 🔜 |
 | Compartir en historias | Botón «Compartir mi racha» con una imagen bonita de Kitty | 🔜 |
@@ -53,10 +53,10 @@ y parte de 4 (racha, meta diaria). **Lo que más falta es lo social (5).**
 | Meta diaria elegible | Meta de 5, 10 o 20 palabras con sakura que florece | ✅ |
 | Cofres y gemas | Kitty tokens, premio cada 10 palabras, cofre cada 7 días | ✅ |
 | Mascota con emociones (Duo) | Kitty con 14 expresiones | ✅ |
-| Ligas semanales (subir/bajar de división) | Ligas con nombres de flores (Brote → Capullo → Sakura → Jardín) | 🔜 |
-| Recordatorios con personalidad («¡Duo está triste!») | Notificación diaria de Kitty con su cara | 🔜 |
-| Protector de racha | «Sakura de reserva» que se compra con Kitty tokens | 🔜 |
-| Tienda | Gastar tokens en accesorios para Kitty (sombreros, lentes) | 🔜 |
+| Ligas semanales (subir/bajar de división) | Ligas con nombres de flores (Brote → Capullo → Sakura → Jardín) |✅ |
+| Recordatorios con personalidad («¡Duo está triste!») | Notificación diaria de Kitty con su cara |✅ |
+| Protector de racha | «Sakura de reserva» que se compra con Kitty tokens |✅ |
+| Tienda | Gastar tokens en accesorios para Kitty (sombreros, lentes) |✅ |
 | Camino de lecciones | Red de neuronas por tema | ✅ |
 
 ## Tinder
@@ -67,7 +67,7 @@ y parte de 4 (racha, meta diaria). **Lo que más falta es lo social (5).**
 | Sellos que aparecen al arrastrar (LIKE / NOPE) | Sellos «LO SÉ» / «REPASAR» | ✅ |
 | Mazo con cartas apiladas detrás | Mazo apilado en la demo de la web ✅; en la app | 🔜 |
 | Botones grandes y redondos abajo (✕ ♥) | Botones redondos | ✅ |
-| Pantalla de *match* a pantalla completa | Pantalla de «¡Dominada!» cuando una palabra llega al nivel máximo | 🔜 |
+| Pantalla de *match* a pantalla completa | Pantalla de «¡Dominada!» cuando una palabra llega al nivel máximo |✅ |
 | Super like (limitado) | «Súper favorito» que vuelve en 1 hora | 🔜 |
 
 ---
@@ -98,10 +98,10 @@ Lo que tomamos:
 - **Árbol en racimos** con ramas oscuras que asoman y **flores colgantes** (etapas 6 y 7). ✅
 - **Estilo sticker**: borde blanco recortado alrededor de los objetos (tienda, menú). ✅
 - **Objetos japoneses** en la tienda: gato de la suerte, teru teru bozu, daruma, koinobori, torii, tanzaku. ✅
-- 🔜 Papel washi de fondo en algunas pantallas; separadores verticales (tanzaku) con frases de ánimo diarias.
-- 🔜 Faroles que se encienden de noche; reflejos de pétalos en el agua.
+- ✅ Papel washi de fondo (menú y jardín); tanzaku con una frase de ánimo diaria junto a Kitty.
+- ✅ Faroles que se encienden de noche (jardín y calle de faroles). 🔜 Reflejos de pétalos en el agua.
 
-## Idea para el futuro: un mundo de sakuras para recorrer (Francisca, 2026-10-13)
+## ✅ Mundo de sakuras para recorrer (Francisca, 2026-10-13; hecho 2026-10-14: Jardín → Explorar)
 
 Que el campo de sakuras sea **mucho más grande**, ocupe casi toda la pantalla y sea **interactivo**:
 recorrer varios espacios (deslizando de lado o con un mapa), por ejemplo:

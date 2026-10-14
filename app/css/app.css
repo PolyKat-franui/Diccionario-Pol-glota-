@@ -985,7 +985,7 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 @keyframes koiNada { 0%, 100% { transform: translateX(0) scaleX(1); } 45% { transform: translateX(calc(var(--k) * 30px)) scaleX(1); } 50% { transform: translateX(calc(var(--k) * 30px)) scaleX(-1); } 95% { transform: translateX(0) scaleX(-1); } }
 @keyframes koiSalta { 40% { transform: translateY(calc(var(--k) * -10px)) rotate(-25deg); } }
 .mundo-farol { align-items: end; }
-.mundo-farol.on img { filter: drop-shadow(0 0 calc(var(--k) * 3px) #FFD27A); }
+.mundo-farol.on img { filter: drop-shadow(0 0 calc(var(--k) * 3px) var(--luz-farol)); }
 .mundo-espacio.brilla .mundo-escena { box-shadow: 0 0 0 3px var(--surface), 0 0 40px 6px color-mix(in srgb, var(--gold) 45%, transparent); }
 .mundo-kitty { z-index: 5; animation: kittyPasea 14s linear infinite; }
 @keyframes kittyPasea { 0% { transform: translateX(0) scaleX(-1); } 48% { transform: translateX(calc(var(--k) * 68px)) scaleX(-1); } 50% { transform: translateX(calc(var(--k) * 68px)) scaleX(1); } 98% { transform: translateX(0) scaleX(1); } 100% { transform: translateX(0) scaleX(-1); } }
@@ -1003,3 +1003,23 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .mundo-kitty.quieta { animation: kittyRespira 3s ease-in-out infinite; transform-origin: 50% 100%; }
 @keyframes kittyRespira { 50% { transform: scaleY(.94); } }
 @keyframes koiNada { 0%, 100% { transform: translateX(0) scaleX(1); } 45% { transform: translateX(calc(var(--k) * 18px)) scaleX(1); } 50% { transform: translateX(calc(var(--k) * 18px)) scaleX(-1); } 95% { transform: translateX(0) scaleX(-1); } }
+
+/* Papel washi: fibras suaves de fondo en el menú y el jardín (sin imágenes, con los colores del tema) */
+.menu-juego, .pagina.jardin {
+  background-image:
+    repeating-linear-gradient(112deg, transparent 0 22px, color-mix(in srgb, var(--ink) 3%, transparent) 22px 23px, transparent 23px 61px),
+    repeating-linear-gradient(23deg, transparent 0 37px, color-mix(in srgb, var(--accent) 7%, transparent) 37px 38px, transparent 38px 89px),
+    radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--accent-soft) 35%, transparent), transparent 40%),
+    radial-gradient(circle at 80% 70%, color-mix(in srgb, var(--surface-2) 45%, transparent), transparent 45%);
+}
+/* Faroles del jardín: se encienden de noche */
+.escena-decor.brilla-noche { filter: drop-shadow(0 0 calc(var(--k) * 4px) var(--luz-farol)) drop-shadow(0 0 calc(var(--k) * 1px) var(--luz-farol)); animation: farolTitila 3.5s ease-in-out infinite; }
+@keyframes farolTitila { 50% { filter: drop-shadow(0 0 calc(var(--k) * 3px) var(--luz-farol)); } }
+@media (prefers-reduced-motion: reduce) { .escena-decor.brilla-noche { animation: none; } }
+/* Tanzaku: tira de papel que cuelga junto a Kitty con una frase de ánimo del día */
+.menu-escena { position: relative; }
+.tanzaku { position: absolute; right: max(4px, calc(50% - 170px)); top: 150px; z-index: 2; margin: 0; writing-mode: vertical-rl; max-height: 210px; padding: 18px 8px 12px; font-family: var(--font-logo); font-style: italic; font-size: 16px; line-height: 1.2; color: var(--ink); background: var(--accent-soft); border-radius: 3px; box-shadow: 0 6px 14px color-mix(in srgb, var(--sombra-color) 18%, transparent); transform-origin: 50% -14px; animation: tanzakuMece 5s ease-in-out infinite; }
+.tanzaku::before { content: ''; position: absolute; top: -14px; left: 50%; width: 1px; height: 14px; background: var(--ink-soft); }
+.tanzaku::after { content: ''; position: absolute; top: 6px; left: 50%; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: var(--surface); }
+@keyframes tanzakuMece { 50% { transform: rotate(3deg); } }
+@media (prefers-reduced-motion: reduce) { .tanzaku { animation: none; } }

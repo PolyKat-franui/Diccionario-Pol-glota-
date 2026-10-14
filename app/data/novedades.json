@@ -4,14 +4,15 @@
     {
       "version": "0.10.0",
       "fecha": "2026-10-14",
-      "titulo": "Historias de Kitty, ¡Dominada! y ligas semanales",
+      "titulo": "Historias de Kitty, ¡Dominada!, ligas y mundo de sakuras",
       "cambios": [
         "Toca dos veces una tarjeta para guardarla en favoritos: salta un corazón grande.",
         "Historia del día: en el menú, Kitty te trae una frase nueva cada día.",
         "Cuando dominas una palabra aparece la pantalla «¡Dominada!» y ganas 5 Kitty tokens.",
         "Recordatorio diario: agrégalo a tu calendario o activa el aviso de Kitty (en Ajustes).",
         "Ligas semanales de flores: Brote, Capullo, Sakura y Jardín. Suma XP y sube de liga cada semana.",
-        "Mundo de sakuras: en Jardín → Explorar recorre el estanque con koi, la calle de faroles y el mirador del Fuji. Se abren al subir de nivel tu sakura."
+        "Mundo de sakuras: en Jardín → Explorar recorre el estanque con koi, la calle de faroles y el mirador del Fuji. Se abren al subir de nivel tu sakura.",
+        "Más estética japonesa: papel washi de fondo, un tanzaku con una frase de ánimo cada día y faroles que brillan de noche en tu jardín."
       ]
     },
     {

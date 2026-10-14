@@ -486,6 +486,7 @@ function vistaMenu() {
           <span class="menu-linea" aria-hidden="true"></span>
         </h1>
         <p class="eslogan menu-eslogan">Be fluent in multiple languages</p>
+        <p class="tanzaku" aria-label="Tanzaku">${t('tz_' + store.indiceDelDia(store.diaLocal(Date.now()), 7))}</p>
         <button class="menu-kitty" type="button" id="menu-kitty" aria-label="Kitty">
           <img src="${cara(racha ? 'muy_feliz' : 'feliz')}" alt="" width="160" height="128">
         </button>
@@ -734,7 +735,7 @@ function dibujarEscena() {
   esc0.innerHTML = `
     ${img(`assets/jardin/fondo-${j.fondo}.svg`, 0, 0, 96, 96)} class="escena-fondo">
     ${img(srcArbol(nivel), 16, 8, 64, 64, 'z-index:70')} class="escena-arbol" id="escena-arbol">
-    ${decor.map((o) => { const [x, y] = J.posicion(j, o.id); return `${img(`assets/jardin/${o.id}.svg`, x, y, o.w, o.h, `z-index:${colgantes.includes(o.id) ? 150 : y + o.h}`)} class="escena-decor ${['furin', 'teru', 'koinobori'].includes(o.id) ? 'meciendo' : ''}" data-id="${o.id}" draggable="false">`; }).join('')}
+    ${decor.map((o) => { const [x, y] = J.posicion(j, o.id); return `${img(`assets/jardin/${o.id}.svg`, x, y, o.w, o.h, `z-index:${colgantes.includes(o.id) ? 150 : y + o.h}`)} class="escena-decor ${['furin', 'teru', 'koinobori'].includes(o.id) ? 'meciendo' : ''} ${j.fondo === 'noche' && ['farol', 'chochin'].includes(o.id) ? 'brilla-noche' : ''}" data-id="${o.id}" draggable="false">`; }).join('')}
     ${img('assets/caras/feliz.svg', 54, 68, 20, 16, 'z-index:84')} class="escena-kitty" id="escena-kitty">
     ${Array.from({ length: petalos }, (_, i) => img('assets/jardin/petalo.svg', Math.round(6 + azar(i, 1) * 80), -4, 4, 3,
       `--dur:${(7 + azar(i, 2) * 7).toFixed(1)}s;--retraso:-${(azar(i, 3) * 14).toFixed(1)}s;--vaiven:${Math.round(8 + azar(i, 4) * 16) * k}px;--caida:${100 * k}px;z-index:160`) + ' class="escena-petalo">').join('')}
