@@ -33,8 +33,18 @@ Para revisar una traducción: cambia `borrador` por `revisada` en su fila.
 `node scripts/importar-banco-ingles.mjs banco/banco_palabras_ingles.tsv`
 conserva los `id` existentes (misma palabra + tipo), así no se pierden traducciones ni progreso.
 
-## Estado (2026-10-09)
+## Oraciones de ejemplo
 
-- Inglés: 5.000 / 5.000.
-- Español, portugués, francés, italiano y alemán: 313 / 5.000 cada uno, todos `borrador`
-  (mega tema "Conversación y vida social" completo + 44 palabras sueltas).
+`ejemplos/<código>.tsv` (columnas `id`, `ejemplo`, `nota`, `estado`, `fuente`):
+
+- `ejemplo`: oración corta; la palabra de la tarjeta va entre `*asteriscos*` una vez.
+- `nota`: solo en idiomas nativos, aclara una confusión de la palabra en inglés
+  (p. ej. *account* vs *bill*). Se abre tocando «💡 Ojo con esta palabra».
+- Todo lo generado con IA va como `borrador`.
+
+`npm run build` crea `app/data/banco/ej-<código>.json`.
+
+## Estado (2026-10-14)
+
+- Inglés, español, portugués, francés, italiano y alemán: 5.000 / 5.000 (traducciones en `borrador`).
+- Ejemplos: las 1.000 palabras más usadas en los 6 idiomas, en `borrador`.
