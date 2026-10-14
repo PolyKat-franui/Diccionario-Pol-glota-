@@ -802,7 +802,23 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 
 /* ---------- Instalar la app ---------- */
 .icono-app { display: inline-grid; place-items: center; width: 104px; height: 104px; flex: none; border-radius: 24px; background: var(--carmesi); box-shadow: 0 10px 24px color-mix(in srgb, var(--sombra-color) 30%, transparent); }
-.icono-app img { image-rendering: pixelated; }
+.icono-app { overflow: hidden; }
+.icono-app img { width: 100%; height: 100%; }
+/* Aviso grande «Descarga la app» (abajo, sobre la barra de pestañas) */
+.aviso-descarga {
+  position: fixed; z-index: 25; left: 12px; right: 12px; bottom: calc(var(--tab-h) + env(safe-area-inset-bottom) + 10px);
+  max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 10px;
+  padding: 10px 6px 10px 10px; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line);
+  box-shadow: var(--shadow); animation: aparecer .5s var(--ease) both;
+}
+.aviso-descarga img { border-radius: 12px; }
+.con-aviso-descarga #vista { padding-bottom: 96px; }
+.aviso-txt { display: grid; min-width: 0; line-height: 1.25; }
+.aviso-txt strong { font-size: var(--fs-md); }
+.aviso-txt small { font-size: var(--fs-xs); color: var(--ink-soft); }
+.aviso-descarga .btn-instalar { min-height: var(--tap); padding: 0 14px; white-space: nowrap; }
+.aviso-cerrar { min-width: var(--tap); min-height: var(--tap); }
+@media (max-width: 380px) { .aviso-descarga .btn-instalar span { display: none; } }
 .instalar { display: grid; justify-items: center; gap: 14px; text-align: center; }
 .pasos-instalar { margin: 0; padding-left: 22px; display: grid; gap: 10px; text-align: left; font-weight: 600; }
 .fila-app { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }

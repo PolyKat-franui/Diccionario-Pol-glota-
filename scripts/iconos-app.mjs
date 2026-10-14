@@ -53,10 +53,10 @@ export function icono(lado, k) {
 }
 
 export const ICONOS_APP = {
-  'icono-192.png': () => icono(192, 6),            // 138 px de flor
-  'icono-512.png': () => icono(512, 16),           // 368 px
-  'icono-maskable-512.png': () => icono(512, 11),  // 253 px: cabe en la zona segura (círculo del 80 %)
-  'apple-touch-icon.png': () => icono(180, 6),
+  'icono-192.png': () => icono(192, 7),            // 161 px de flor (84 %)
+  'icono-512.png': () => icono(512, 19),           // 437 px (85 %)
+  'icono-maskable-512.png': () => icono(512, 16),  // 368 px (72 %): la flor redonda cabe en la zona segura (círculo del 80 %)
+  'apple-touch-icon.png': () => icono(180, 7),
   'favicon-32.png': () => icono(32, 1),
 };
 

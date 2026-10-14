@@ -28,6 +28,7 @@ export function estadoInicial() {
     liga: { nivel: 0, semana: null, xp: 0, cambio: null }, // ligas semanales (ver ligas más abajo)
     cofre: 0,             // último día de racha (7, 14, 21…) en que se abrió un cofre
     tutorialVisto: false, // tutorial guiado por Kitty (primera sesión)
+    pistas: {},           // consejos de Kitty que aparecen una sola vez, cuando hacen falta
     novedadVista: null,   // última versión de Novedades que se abrió
     actualizado: 0,
   };
@@ -123,6 +124,8 @@ export function rachaVigente(racha, ahora = Date.now()) {
 // ---------- Meta diaria y cofres ----------
 /** La racha del día se cumple con META_DIA palabras revisadas (fija, no se elige). */
 export const META_DIA = 20;
+/** Primeros pasos: hasta las primeras 20 palabras la app se muestra simple (sin avisos ni sorpresas). */
+export const esNovato = (estado) => (estado.ejercicios ?? 0) < META_DIA;
 export const ETAPAS_FLOR = 4; // brote, capullo, abriendo, casi en flor → sakura (meta cumplida)
 /** Etapa de la sakura del día (0…4) según las palabras revisadas hoy y la meta. */
 export function etapaFlor(revisadas, meta) {

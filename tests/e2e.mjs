@@ -53,6 +53,18 @@ try {
   await sinScrollHorizontal(page, 'inicio');
   paso('Inicio: entrar, crear cuenta, Google e invitado');
 
+  const aviso = page.locator('#aviso-descarga');
+  await aviso.waitFor();
+  const bInst = await aviso.locator('.btn-instalar').boundingBox();
+  assert.ok(bInst.height >= 44, 'botón Instalar del aviso ≥ 44 px');
+  await aviso.locator('.btn-instalar').click();
+  await page.locator('#modal .pasos-instalar li').first().waitFor();
+  await foto(page, '01b-celular-aviso-instalar');
+  await page.keyboard.press('Escape');
+  await aviso.locator('.aviso-cerrar').click();
+  assert.equal(await aviso.count(), 0, 'el aviso se cierra');
+  paso('Aviso grande «Descarga Franui» con pasos; se puede cerrar');
+
   await page.locator('[name=usuario]').fill('Fran');
   await page.locator('[name=clave]').fill('123');
   await page.locator('#btn-login').click();
@@ -77,6 +89,9 @@ try {
   assert.match(await conv.innerText(), /269 tarjetas/);
   await page.waitForTimeout(1200); // termina la animación de entrada
   await foto(page, '03-celular-temas');
+  assert.ok(await page.locator('#empieza-aqui').isVisible(), 'persona nueva: «Empieza aquí» destacado');
+  assert.ok(!(await page.locator('.tabbar a[href="#/novedades"]').evaluate((a) => a.classList.contains('con-aviso'))), 'persona nueva: sin punto rojo en Novedades');
+  paso('Inicio simple para principiantes: «Empieza aquí» y sin avisos');
   await sinScrollHorizontal(page, 'temas');
   assert.ok((await page.locator('#red .axon').count()) >= 13, 'la red dibuja sus conexiones');
   paso('13 mega temas en red de neuronas; Conversación y vida social con 269 tarjetas');
@@ -112,9 +127,9 @@ try {
   await page.waitForTimeout(500);
   assert.ok(await primera.evaluate((el) => el.classList.contains('revelada')));
   assert.match(await page.locator('#tutorial').innerText(), /Desliza/);
-  for (let i = 0; i < 3; i++) await page.locator('#tut-avanzar').click();
+  await page.locator('#tut-avanzar').click();
   assert.equal(await page.locator('#tutorial').isHidden(), true);
-  paso('Tutorial de Kitty: 4 pasos, avanza al tocar la tarjeta y se cierra con «¡Entendido!»');
+  paso('Tutorial de Kitty: 2 pasos, avanza al tocar la tarjeta y se cierra con «¡Entendido!»');
   await primera.locator('.btn-fav').click();
   assert.equal(await primera.locator('.btn-fav').getAttribute('aria-pressed'), 'true');
   await foto(page, '06-celular-tarjeta-revelada');
