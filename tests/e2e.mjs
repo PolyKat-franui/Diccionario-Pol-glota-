@@ -431,7 +431,7 @@ try {
     localStorage.setItem('franui:v1', JSON.stringify(s));
   });
   await ed2.close();
-  await page.goto(`${URL_APP}#/estudiar?dif=todas&libre=1`);
+  await page.goto(`${URL_APP}#/estudiar?mega=${encodeURIComponent('Conversación y vida social')}&dif=todas`);
   await page.locator('#feed .slide .palabra').first().waitFor();
   for (let i = 0; i < 12 && !(await page.locator('.dominada-capa').count()); i++) { await page.waitForTimeout(700); await page.keyboard.press('ArrowRight'); }
   await page.locator('.dominada-capa').waitFor({ timeout: 3000 });
@@ -442,6 +442,30 @@ try {
   await page.locator('#dom-seguir').click();
   assert.equal(await page.locator('.dominada-capa').count(), 0);
   paso('Al llegar al nivel máximo, pantalla «¡Dominada!» con +5 tokens');
+
+  // Estudio libre: elegir palabras ya vistas (dominadas) y repasarlas sin mover el calendario
+  await page.goto(`${URL_APP}#/libre`);
+  await page.locator('#libre-lista li').first().waitFor();
+  await page.locator('.libre-chips [data-nivel=dominada]').click();
+  await page.locator('#libre-lista .libre-fila').first().waitFor();
+  const filaLibre = page.locator('#libre-lista .libre-fila').first();
+  const palabraLibre = await filaLibre.locator('strong').innerText();
+  await page.locator('#libre-q').fill(palabraLibre.slice(0, 4));
+  await page.locator('#libre-lista .libre-fila', { hasText: palabraLibre }).first().locator('input').check();
+  assert.match(await page.locator('#libre-ir').innerText(), /Estudiar 1/);
+  await foto(page, '13f2-celular-estudio-libre');
+  const idLibre = await page.locator('#libre-lista input:checked').first().getAttribute('value');
+  const antesLibre = await page.evaluate((id) => { const s = JSON.parse(localStorage.getItem('franui:v1')); return s.progreso[s.aprendiendo][id]; }, idLibre);
+  await page.locator('#libre-ir').click();
+  await page.locator('#feed .slide .palabra').first().waitFor();
+  assert.equal(await page.locator('#feed .slide:not(.fin)').count(), 1);
+  await page.waitForTimeout(500);
+  await page.keyboard.press('ArrowRight');
+  await page.waitForFunction((id) => { const s = JSON.parse(localStorage.getItem('franui:v1')); return s.progreso[s.aprendiendo][id].u !== undefined; }, idLibre);
+  await page.waitForTimeout(400);
+  const despuesLibre = await page.evaluate((id) => { const s = JSON.parse(localStorage.getItem('franui:v1')); return s.progreso[s.aprendiendo][id]; }, idLibre);
+  assert.deepEqual(despuesLibre, antesLibre, 'estudio libre: el calendario de la palabra no cambia');
+  paso('Estudio libre: buscar y elegir una palabra dominada, repasarla sin mover su calendario');
 
   // Mundo de sakuras: con el sakura en nivel 4 se abren estanque y faroles; el mirador sigue bloqueado
   await page.goto('about:blank');

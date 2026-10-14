@@ -2,6 +2,17 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.11.0",
+      "fecha": "2026-10-14",
+      "titulo": "Estudio libre y racha de 20 palabras",
+      "cambios": [
+        "Estudio libre: busca y elige las palabras que quieras repasar (dominadas, fáciles, favoritos…), sin cambiar tu calendario de repasos.",
+        "La racha del día ahora se cumple con 20 palabras, igual para todas las personas.",
+        "Al cumplir tu racha, Kitty baila de alegría a pantalla completa.",
+        "Buzón de sugerencias conectado: tus ideas ahora le llegan a Francisca."
+      ]
+    },
+    {
       "version": "0.10.0",
       "fecha": "2026-10-14",
       "titulo": "Historias de Kitty, ¡Dominada!, ligas y mundo de sakuras",

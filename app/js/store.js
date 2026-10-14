@@ -305,3 +305,18 @@ export function sumarXP(estado, ahora = Date.now()) {
   actualizarLiga(estado, ahora);
   estado.liga.xp += 1;
 }
+
+// ---------- Estudio libre ----------
+/**
+ * Respuesta en estudio libre: suma tokens, XP y la cuenta del día, pero NO mueve el calendario de repasos.
+ * Si fallas una palabra que ya habías visto, queda para repasar pronto (vence ahora, sin perder su caja).
+ */
+export function registrarPractica(estado, idioma, id, sabia, ahora = Date.now()) {
+  const prog = progresoDe(estado, idioma);
+  if (!sabia && prog[id]) prog[id] = { ...prog[id], d: ahora, f: (prog[id].f ?? 0) + 1 };
+  estado.tokens += TOKENS_POR_TARJETA;
+  estado.ejercicios += 1;
+  sumarXP(estado, ahora);
+  usarProtectores(estado, ahora);
+  return TOKENS_POR_TARJETA;
+}

@@ -1067,3 +1067,18 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 @keyframes notaSube { 0% { opacity: 0; transform: translateY(0) rotate(-10deg); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-70px) rotate(15deg); } }
 @media (prefers-reduced-motion: reduce) { .baile-kitty, .baile-sombra, .baile-nota { animation: none; } .baile-nota { opacity: 1; } }
 .meta-fija { margin: 0; }
+
+/* Estudio libre */
+.libre { display: grid; gap: 12px; }
+.libre-btn { justify-self: start; margin-top: 8px; }
+.libre-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.libre-chips button { min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; }
+.libre-chips button[aria-checked="true"] { background: var(--primary); color: var(--on-primary); border-color: var(--primary); font-weight: 700; }
+.libre-chips button[aria-checked="true"]::before { content: '✓ '; }
+.libre-barra { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.libre-lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; max-height: 55vh; overflow-y: auto; }
+.libre-fila { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 6px 12px; border-radius: 14px; background: var(--surface); cursor: pointer; }
+.libre-fila input { width: 22px; height: 22px; accent-color: var(--primary); flex: none; }
+.libre-palabra { flex: 1; display: grid; min-width: 0; }
+.libre-palabra small { color: var(--ink-soft); overflow-wrap: anywhere; }
+.libre-acciones { position: sticky; bottom: calc(var(--tabbar, 64px) + 8px); display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; padding: 8px 0; background: linear-gradient(transparent, var(--bg) 30%); }
