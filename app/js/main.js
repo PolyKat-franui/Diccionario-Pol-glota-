@@ -339,7 +339,7 @@ document.addEventListener('click', (e) => {
 });
 
 function marcarAvisoNovedades() {
-  const hay = ultimaVersion && S.novedadVista !== ultimaVersion;
+  const hay = ultimaVersion && S.novedadVista !== ultimaVersion && !store.esNovato(S);
   $$('a[href="#/novedades"]').forEach((a) => a.classList.toggle('con-aviso', !!hay));
 }
 fetch('data/novedades.json').then((r) => r.json()).then((d) => { ultimaVersion = d.novedades[0]?.version ?? null; marcarAvisoNovedades(); }).catch(() => {});
@@ -1028,7 +1028,9 @@ async function vistaAprender() {
           <h1 class="display">${t('temas_titulo')}</h1>
           <p class="suave">${t('temas_sub')}</p>
         </div>
-        <a class="btn libre-btn" href="#/libre" id="ir-libre">${ICON.libro}<span>${t('libre_abrir')}</span></a>
+        ${store.esNovato(S)
+          ? `<a class="btn primario libre-btn empieza-btn" href="#/estudiar?${new URLSearchParams({ mega: MEGA_TEMAS[0], dif: 'todas' })}" id="empieza-aqui">${ICON.jugar}<span>${t('empieza_aqui')}</span></a>`
+          : `<a class="btn libre-btn" href="#/libre" id="ir-libre">${ICON.libro}<span>${t('libre_abrir')}</span></a>`}
       </div>
       <div class="red" id="red">
         <svg class="red-sinapsis" aria-hidden="true"></svg>
@@ -1348,6 +1350,7 @@ function responderSlide(slide, sabia, auto = false) {
   const diaAntes = S.racha.ultimoDia;
   const nivAntes = dificultad(store.progresoDe(S, meta)[id]);
   sesion.tokens += (sesion.libre ? store.registrarPractica : store.registrarRespuesta)(S, meta, id, sabia);
+  if (S.tutorialVisto && store.esNovato(S)) { if (!sabia) pista('kitty', 'tut_k4'); else pista('monedas', 'tut_k3'); }
   sabia ? sesion.sabias++ : sesion.repasar++;
   if (!auto) {
     sonido.moneda(0.05, sabia ? 2 : 0);
@@ -1359,7 +1362,7 @@ function responderSlide(slide, sabia, auto = false) {
     regarJardin(J.CRECE_POR_PALABRA);
     if (S.diario.revisadas === S.ajustes.meta) regarJardin(J.CRECE_POR_META);
     if (S.diario.revisadas === store.DIAMANTE_PALABRAS) setTimeout(() => celebrarDiamante(t('dia_50')), premio ? 1600 : 600);
-    else if (!window.__sinSorpresas && store.tocaDiamante(S)) setTimeout(aparecerDiamante, 900 + Math.random() * 2500);
+    else if (!window.__sinSorpresas && !store.esNovato(S) && store.tocaDiamante(S)) setTimeout(aparecerDiamante, 900 + Math.random() * 2500);
     if (S.racha.ultimoDia !== diaAntes) setTimeout(celebrarRacha, premio ? 1200 : 500);
   }
   const niv = dificultad(store.progresoDe(S, meta)[id]);
@@ -1658,9 +1661,13 @@ function mostrarPremio(p) {
 const PASOS_TUT = [
   { texto: 'tut_k1', cara: 'muy_feliz', objetivo: (sl) => sl && $('.revelar', sl) },
   { texto: 'tut_k2', cara: 'guino', objetivo: (sl) => sl && $('.tarjeta', sl) },
-  { texto: 'tut_k3', cara: 'celebrando', objetivo: () => $('#chip-tokens') },
-  { texto: 'tut_k4', cara: 'enamorada', objetivo: (sl) => sl && $('.kitty-ayuda', sl) },
 ];
+// Lo demás se cuenta cuando pasa (no todo de golpe al principio)
+function pista(clave, texto) {
+  if (S.pistas[clave]) return;
+  S.pistas[clave] = true; guardar();
+  setTimeout(() => toast(t(texto)), 700);
+}
 function ocultarTutorial() {
   const capa = $('#tutorial');
   if (capa) { capa.hidden = true; capa.innerHTML = ''; }

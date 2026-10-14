@@ -77,6 +77,9 @@ try {
   assert.match(await conv.innerText(), /269 tarjetas/);
   await page.waitForTimeout(1200); // termina la animación de entrada
   await foto(page, '03-celular-temas');
+  assert.ok(await page.locator('#empieza-aqui').isVisible(), 'persona nueva: «Empieza aquí» destacado');
+  assert.ok(!(await page.locator('.tabbar a[href="#/novedades"]').evaluate((a) => a.classList.contains('con-aviso'))), 'persona nueva: sin punto rojo en Novedades');
+  paso('Inicio simple para principiantes: «Empieza aquí» y sin avisos');
   await sinScrollHorizontal(page, 'temas');
   assert.ok((await page.locator('#red .axon').count()) >= 13, 'la red dibuja sus conexiones');
   paso('13 mega temas en red de neuronas; Conversación y vida social con 269 tarjetas');
@@ -112,9 +115,9 @@ try {
   await page.waitForTimeout(500);
   assert.ok(await primera.evaluate((el) => el.classList.contains('revelada')));
   assert.match(await page.locator('#tutorial').innerText(), /Desliza/);
-  for (let i = 0; i < 3; i++) await page.locator('#tut-avanzar').click();
+  await page.locator('#tut-avanzar').click();
   assert.equal(await page.locator('#tutorial').isHidden(), true);
-  paso('Tutorial de Kitty: 4 pasos, avanza al tocar la tarjeta y se cierra con «¡Entendido!»');
+  paso('Tutorial de Kitty: 2 pasos, avanza al tocar la tarjeta y se cierra con «¡Entendido!»');
   await primera.locator('.btn-fav').click();
   assert.equal(await primera.locator('.btn-fav').getAttribute('aria-pressed'), 'true');
   await foto(page, '06-celular-tarjeta-revelada');
