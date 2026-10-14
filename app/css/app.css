@@ -1095,3 +1095,15 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .tienda-saldo img[src*="diamante"] { margin-left: 12px; image-rendering: pixelated; }
 .menu-diamantes img { image-rendering: pixelated; }
 @media (prefers-reduced-motion: reduce) { .diamante-vuela { animation-duration: 6s; } .diamante-vuela img { animation: none; } }
+
+/* Visitantes del fondo: nubes que pasan y una abeja que cruza volando */
+.visitante { position: absolute; left: 0; top: var(--y); image-rendering: pixelated; pointer-events: none; }
+.nube-pasa { opacity: .55; animation: nubePasa var(--dur) linear var(--retraso) infinite; }
+.abeja-vuela { opacity: .9; animation: abejaVuela var(--dur) linear var(--retraso) infinite; }
+@keyframes nubePasa { from { transform: translateX(-30vw); } to { transform: translateX(110vw); } }
+@keyframes abejaVuela {
+  0% { transform: translate(-12vw, 0) scaleX(-1); } 12% { transform: translate(10vw, -30px) scaleX(-1); } 25% { transform: translate(30vw, 10px) scaleX(-1); }
+  37% { transform: translate(50vw, -25px) scaleX(-1); } 50% { transform: translate(70vw, 15px) scaleX(-1); } 62% { transform: translate(90vw, -20px) scaleX(-1); }
+  75%, 100% { transform: translate(115vw, 0) scaleX(-1); }
+}
+@media (prefers-reduced-motion: reduce) { .visitante { display: none; } }

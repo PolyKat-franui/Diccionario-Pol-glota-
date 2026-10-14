@@ -1,5 +1,5 @@
 // Franui — página web. Animaciones suaves (respetan "reducir movimiento") y datos compartidos con la app.
-import { sembrarAdornos, estallido } from './app/js/adornos.js';
+import { sembrarAdornos, sembrarVisitantes, estallido } from './app/js/adornos.js';
 import { sonido } from './app/js/sonido.js';
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -238,6 +238,7 @@ $('#kitty-panel').addEventListener('click', (e) => { if (e.target.id === 'kitty-
 
 // Sakuras y monedas que caen despacio por toda la página
 sembrarAdornos(document.getElementById('adornos'), { cantidad: 12, base: 'app/assets/' });
+sembrarVisitantes(document.getElementById('adornos'), { base: 'app/assets/', nubes: 3, abejas: 1 });
 
 // ---------- Cinta de saludos: todos los idiomas, los próximos marcados ----------
 const SALUDOS_TODOS = [['es', 'Hola'], ['en', 'Hello'], ['pt', 'Olá'], ['fr', 'Bonjour'], ['it', 'Ciao'], ['de', 'Hallo'],

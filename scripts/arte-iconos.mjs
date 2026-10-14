@@ -336,4 +336,93 @@ export function cofreAbierto() {
   return { filas: aTexto(g), colores: COLORES_COFRE };
 }
 
-export const ICONOS = { sakura, moneda, diamante, estrella, cerezas, mensaje, burbuja, corazon, 'flor-0': flor0, 'flor-1': flor1, 'flor-2': flor2, 'flor-3': flor3, cofre, 'cofre-abierto': cofreAbierto };
+
+// ---------- Decoraciones (referencias de Francisca, 2026-10-14): abeja, flores, destello, poción, tréboles y nube ----------
+const deFilas = (filas, colores) => ({ filas, colores });
+export const abeja = () => deFilas([
+  '....o..o...ooo..',
+  '....og.o..owwwo.',
+  '...oooooo.owwwwo',
+  '..oyyyyyyWWwwwwo',
+  '.oyyyyyyygWwwwo.',
+  '.oyykkyyyggYwo..',
+  '.oyykkyyygYygo..',
+  '.oyyyyyygYYygo..',
+  '..oyyyyggYyYgo..',
+  '...oggYYgYyYo...',
+  '....ooYgYYoo....',
+  '......oooo......',
+], { o: '#8B4A1E', y: '#FBD27C', Y: '#E8A93A', g: '#C9BFAE', w: '#D3EBF2', W: '#8FA9B0', k: '#1A1A1A' });
+const florCuatro = (P, p) => deFilas([
+  '.PPP.PPP.',
+  'PpppPpppP',
+  'PpppppppP',
+  '.PPpcpPP.',
+  'PpppppppP',
+  'PpppPpppP',
+  '.PPP.PPP.',
+], { P, p, c: '#F8C46B' });
+export const florRosa = () => florCuatro('#EE8FA6', '#F9C6D3');
+export const florCeleste = () => florCuatro('#6CC3E2', '#BFEAF6');
+export const destello = () => deFilas([
+  '.....o.....',
+  '....owo....',
+  '....oao....',
+  '...oawlo...',
+  '.ooalwagoo.',
+  'owlaawwalwo',
+  '.oogaalaoo.',
+  '...olwao...',
+  '....oao....',
+  '....owo....',
+  '.....o.....',
+], { o: '#9A93E6', w: '#FFFFFF', a: '#BFF2FF', l: '#F3DDFB', g: '#D3F7DD' });
+export const pocion = () => deFilas([
+  '......kKk......',
+  '.....kKKKk.....',
+  '.....bkKkb.....',
+  '....bLLLLLb....',
+  '..bbLLLLLLLbb..',
+  '.bLLpppLpppLLb.',
+  'bLpwppppppPPLLb',
+  'bLpppppppPPPLLb',
+  'bLppppppPPPPLvb',
+  '.bLpppppPPPLvb.',
+  '..bLpppPPPLvb..',
+  '...bLppPPLvb...',
+  '....bLpPLvb....',
+  '.....bLLvb.....',
+  '......bbb......',
+], { k: '#8A5A2B', K: '#C9A04A', b: '#6A72E0', L: '#C5E6FB', p: '#EC5D97', P: '#C4337A', w: '#FFFFFF', v: '#A79BF2' });
+const trebolDe = (o, g, l, d) => deFilas([
+  '..ooo...ooo....',
+  '.ollgo.ogllo...',
+  'olllggoggllgo..',
+  'ollgggogggllo..',
+  'ogggggogggggo..',
+  '.ooooooooooo...',
+  'ogggggogggggo..',
+  'ollgggoggglgo..',
+  'olldggogglllo..',
+  '.ollgo.ogllo...',
+  '..ooo.o.ooo....',
+  '......od.......',
+  '.......od......',
+  '........ood....',
+], { o, g, l, d });
+export const trebol = () => trebolDe('#1F7A3A', '#7CC44E', '#A9DB7A', '#5BA83B');
+export const trebolCeleste = () => trebolDe('#6FA8E8', '#BCD9F8', '#EAF4FE', '#94C0F0');
+export const nube = () => deFilas([
+  '..........oooo..........',
+  '........oowwwwoo........',
+  '.......owwwwwwwwo.......',
+  '....ooowwwoooowwwo......',
+  '...owwwwwowwwwowwoooo...',
+  '..owwwoowwwwwwwowwwwwo..',
+  '.owwwowwwwooowwwowwwwwo.',
+  'owwwwowwwowwwowwwowwwwwo',
+  'owwwwwwwwwwwwwwwwwwwwwwo',
+  '.oooooooooooooooooooooo.',
+], { o: '#A6D6EE', w: '#EEF7FD' });
+
+export const ICONOS = { sakura, moneda, diamante, abeja, 'flor-rosa': florRosa, 'flor-celeste': florCeleste, destello, pocion, trebol, 'trebol-celeste': trebolCeleste, nube, estrella, cerezas, mensaje, burbuja, corazon, 'flor-0': flor0, 'flor-1': flor1, 'flor-2': flor2, 'flor-3': flor3, cofre, 'cofre-abierto': cofreAbierto };

@@ -1,6 +1,9 @@
 // Adornos de fondo: sakuras y monedas pixel art que flotan y caen despacio (app y página web).
 // Van detrás del contenido, no se pueden tocar y se apagan con «reducir movimiento».
-const PIEZAS = [['sakura', 23, 23], ['sakura', 23, 23], ['sakura', 23, 23], ['moneda', 24, 24], ['estrella', 21, 21]];
+const PIEZAS = [['sakura', 23, 23], ['flor-rosa', 9, 7], ['sakura', 23, 23], ['moneda', 24, 24], ['destello', 11, 11], ['sakura', 23, 23],
+  ['flor-celeste', 9, 7], ['trebol', 15, 14], ['estrella', 21, 21], ['trebol-celeste', 15, 14]];
+/** Para estallidos y lluvias: solo lo clásico (sakuras, monedas y estrellas). */
+const PIEZAS_LLUVIA = [['sakura', 23, 23], ['sakura', 23, 23], ['sakura', 23, 23], ['moneda', 24, 24], ['estrella', 21, 21]];
 
 /**
  * Llena `capa` con adornos.
@@ -21,11 +24,30 @@ export function sembrarAdornos(capa, { cantidad = 14, base = 'assets/' } = {}) {
   }).join('');
 }
 
+/**
+ * Visitantes: una abeja que cruza volando y nubes que pasan despacio (decoran los espacios vacíos).
+ * Van detrás del contenido y no se pueden tocar.
+ */
+export function sembrarVisitantes(capa, { base = 'assets/', nubes = 2, abejas = 1 } = {}) {
+  if (!capa || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const html = [];
+  for (let i = 0; i < nubes; i++) {
+    const k = i % 2 ? 2 : 3;
+    html.push(`<img class="visitante nube-pasa" src="${base}nube.svg" alt="" width="${24 * k}" height="${10 * k}"
+      style="--y:${(6 + i * 22 + Math.random() * 8).toFixed(1)}%;--dur:${(70 + i * 25 + Math.random() * 20).toFixed(0)}s;--retraso:-${(Math.random() * 60).toFixed(0)}s">`);
+  }
+  for (let i = 0; i < abejas; i++) {
+    html.push(`<img class="visitante abeja-vuela" src="${base}abeja.svg" alt="" width="32" height="24"
+      style="--y:${(30 + Math.random() * 40).toFixed(1)}%;--dur:${(22 + Math.random() * 10).toFixed(0)}s;--retraso:-${(Math.random() * 20).toFixed(0)}s">`);
+  }
+  capa.insertAdjacentHTML('beforeend', html.join(''));
+}
+
 /** Lluvia corta de sakuras y monedas desde un punto (al tocar una neurona, al elegir idioma…). */
 export function estallido(x, y, { base = 'assets/', cantidad = 10 } = {}) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   for (let i = 0; i < cantidad; i++) {
-    const [n, w, h] = PIEZAS[i % PIEZAS.length];
+    const [n, w, h] = PIEZAS_LLUVIA[i % PIEZAS_LLUVIA.length];
     const img = document.createElement('img');
     img.src = `${base}${n}.svg`; img.alt = ''; img.width = w; img.height = h; img.className = 'chispa-adorno';
     img.style.left = `${x - w / 2}px`; img.style.top = `${y - h / 2}px`;

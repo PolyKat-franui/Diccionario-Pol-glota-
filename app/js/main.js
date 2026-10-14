@@ -8,7 +8,7 @@ import * as banco from './banco.js';
 import { hablar } from './voz.js';
 import { ICON } from './iconos.js';
 import { sonido, activarSonido } from './sonido.js';
-import { sembrarAdornos, estallido, lluvia } from './adornos.js';
+import { sembrarAdornos, sembrarVisitantes, estallido, lluvia } from './adornos.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
 import * as nube from './nube.js';
 import * as J from './jardin.js';
@@ -330,6 +330,7 @@ async function router() {
 }
 addEventListener('hashchange', router);
 sembrarAdornos($('#adornos'), { cantidad: 10 });
+sembrarVisitantes($('#adornos'), { nubes: 2, abejas: 1 });
 // Estallido de sakuras y monedas al elegir un tema o un idioma
 document.addEventListener('click', (e) => {
   if (e.target.closest('.neurona:not(.vacio), .nodo-idioma:not([aria-disabled="true"])')) estallido(e.clientX, e.clientY);
