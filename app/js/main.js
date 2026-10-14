@@ -1666,7 +1666,10 @@ function vistaAjustes() {
     const m = b.dataset.modal;
     if (m === 'cosmeticos') abrirCosmeticos();
     if (m === 'apoyar') modal(t('aj_apoyar'), `<p>${t('aj_apoyar_texto')}</p>`);
-    if (m === 'legal') modal(t('aj_legal'), `<p>${t('legal_texto')}</p>`);
+    if (m === 'legal') modal(t('aj_legal'), `<p>${t('legal_texto')}</p>
+      <ul class="enlaces-legales" lang="es"><li><a href="../legal/privacidad.html" target="_blank" rel="noopener">Política de privacidad</a></li>
+      <li><a href="../legal/terminos.html" target="_blank" rel="noopener">Términos y condiciones</a></li>
+      <li><a href="../legal/cookies.html" target="_blank" rel="noopener">Política de cookies</a></li></ul>`);
   }));
   function abrirCosmeticos() {
     modal(t('aj_cosmeticos'), `<p>${t('aj_cos_texto')}</p><p class="chip"><img class="moneda" src="assets/moneda.svg" alt="" width="24" height="24">${S.tokens}</p>`);
