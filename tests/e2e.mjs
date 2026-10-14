@@ -100,6 +100,8 @@ try {
   assert.match(await primera.locator('.nivel').innerText(), /Nueva/);
   await foto(page, '05-celular-tarjeta');
   await sinScrollHorizontal(page, 'tarjeta');
+  const sinCruce = async () => page.evaluate(() => document.querySelector('.feed-progreso').getBoundingClientRect().bottom <= document.querySelector('#feed .slide .tarjeta').getBoundingClientRect().top);
+  assert.ok(await sinCruce(), 'la barra de progreso no tapa la cabecera de la tarjeta (celular)');
   paso('Sesión de 10 tarjetas, ícono "Nueva" con texto');
 
   // Tutorial guiado por Kitty en la primera sesión: tocar la tarjeta lo hace avanzar
@@ -549,6 +551,7 @@ try {
     await p.locator('#feed .slide .palabra').first().waitFor();
     await p.locator('#feed .slide').first().locator('.revelar').click();
     await p.waitForTimeout(500);
+    assert.ok(await p.evaluate(() => document.querySelector('.feed-progreso').getBoundingClientRect().bottom <= document.querySelector('#feed .slide .tarjeta').getBoundingClientRect().top), `la barra no tapa la tarjeta (${nombre})`);
     await foto(p, `15-${nombre}-tarjeta`);
     await c.close();
     paso(`Formato ${nombre} (${viewport.width}×${viewport.height}), francés`);
