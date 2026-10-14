@@ -1,6 +1,6 @@
 # Publica la web (raíz) y la app (/app/) en GitHub Pages cada vez que cambia main.
 # Requisito (una sola vez): Settings → Pages → Build and deployment → Source: «GitHub Actions».
-# Dirección: https://franciscasanhueza.github.io/Diccionario-Pol-glota-/  (app: …/app/)
+# Dirección: https://polykat-franui.github.io/  (app: …/app/)
 name: Publicar
 on:
   push:

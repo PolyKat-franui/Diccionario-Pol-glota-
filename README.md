@@ -3,7 +3,7 @@
 > Nombre decidido el 2026-10-13 (antes: «Franui» y luego «Franui Polykat» provisorio).
 > Logo: «Polykat» (cursiva) sobre «FRANUI», en Cormorant Garamond · Eslogan: «Be fluent in multiple languages».
 
-**En línea:** https://franciscasanhueza.github.io/Diccionario-Pol-glota-/ (web) · https://franciscasanhueza.github.io/Diccionario-Pol-glota-/app/ (app).
+**En línea:** https://polykat-franui.github.io/ (web) · https://polykat-franui.github.io/app/ (app).
 Se publica sola con cada cambio en `main` (`.github/workflows/publicar.yml`).
 
 > **⏸ Pausa (desde 2026-10-13):** `sitio.json` → `"pausado": true` publica solo la pantalla
