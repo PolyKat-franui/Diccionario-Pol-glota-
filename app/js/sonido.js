@@ -78,6 +78,13 @@ export const sonido = {
     tono(1319 * k, retardo + 0.065, 0.32, { vol: 0.07 });
     vibrar(12);
   },
+  /** Brillo de diamante: arpegio agudo y cristalino con un destello final. */
+  brillo() {
+    [1568, 2093, 2637, 3136, 4186].forEach((f, i) => tono(f, i * 0.055, 0.22, { tipo: 'sine', vol: 0.06 }));
+    tono(5274, 0.3, 0.5, { tipo: 'triangle', vol: 0.035 });
+    soplido(0.28, 0.35, 6000, 12000, 0.03);
+    vibrar([10, 30, 10]);
+  },
   /** Varias monedas seguidas, cada una un poco más aguda. */
   monedas(n = 3) { for (let i = 0; i < n; i++) this.moneda(i * 0.09, i); },
   /** Me gusta: burbuja que sube + destello. */

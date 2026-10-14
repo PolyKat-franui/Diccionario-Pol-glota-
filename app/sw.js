@@ -2,7 +2,7 @@
 // Estrategia: primero la red (así siempre ves la versión nueva) y, si no hay conexión, lo guardado.
 // El banco de palabras (data/banco/*.json) se guarda la primera vez que se usa.
 // Al agregar archivos a la app, súmalos a NUCLEO (tests/pwa.test.mjs lo revisa).
-const VERSION = 'franui-v10';
+const VERSION = 'franui-v11';
 const NUCLEO = [
   './',
   'index.html',
@@ -36,6 +36,7 @@ const NUCLEO = [
   'assets/cofre-abierto.svg',
   'assets/cofre.svg',
   'assets/corazon.svg',
+  'assets/diamante.svg',
   'assets/estrella.svg',
   'assets/flor-0.svg',
   'assets/flor-1.svg',

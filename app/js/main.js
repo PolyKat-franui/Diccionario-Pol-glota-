@@ -507,6 +507,7 @@ function vistaMenu() {
       <ul class="menu-stats">
         <li><img src="assets/sakura.svg" alt="" width="23" height="23"><span>${tn('racha_n', racha)}</span></li>
         <li><img src="assets/moneda.svg" alt="" width="24" height="24"><span>${t('tokens_n', { n: S.tokens })}</span></li>
+        <li class="menu-diamantes"><img src="assets/diamante.svg" alt="" width="25" height="19"><span>${tn('dia_n', S.diamantes ?? 0)}</span></li>
         <li class="menu-hoy">
           <img class="menu-flor" src="${srcFlor(etapaHoy())}" alt="" width="46" height="46">
           <span>${t('menu_hoy', { n: hoy })}</span>
@@ -834,12 +835,24 @@ function htmlTienda() {
     </li>`;
   };
   return `<div class="tienda">
-    <p class="tienda-saldo"><img src="assets/moneda.svg" alt="" width="24" height="24"><strong>${S.tokens}</strong> <span class="suave">Kitty tokens</span></p>
+    <p class="tienda-saldo"><img src="assets/moneda.svg" alt="" width="24" height="24"><strong>${S.tokens}</strong> <span class="suave">Kitty tokens</span>
+      <img src="assets/diamante.svg" alt="" width="25" height="19"><strong id="saldo-diamantes">${S.diamantes ?? 0}</strong> <span class="suave">${t('dia_titulo')}</span></p>
+    <div class="card tienda-diamantes">
+      <img src="assets/diamante.svg" alt="" width="75" height="57">
+      ${S.diamantes ? `<button class="btn primario" type="button" id="cambiar-diamante">${t('dia_cambiar', { n: store.DIAMANTE_TOKENS })}</button>` : `<p class="suave pequeno">${t('dia_sin')}</p>`}
+    </div>
     ${SECCIONES_TIENDA.map((sec) => `<h2 class="tienda-seccion">${t(`tienda_${sec}`)}</h2>
       <ul class="tienda-lista">${J.CATALOGO.filter((o) => o.tipo === sec).map(tarjeta).join('')}</ul>`).join('')}
   </div>`;
 }
 function activarTienda() {
+  $('#cambiar-diamante')?.addEventListener('click', () => {
+    if (!store.cambiarDiamante(S)) return;
+    guardar(); sonido.brillo(); sonido.monedas(4);
+    toast(t('dia_cambiado', { n: store.DIAMANTE_TOKENS }));
+    actualizarChips(); pulsoChip();
+    vistaJardin({ q: new URLSearchParams('t=tienda') });
+  });
   $$('[data-comprar]').forEach((b) => b.addEventListener('click', () => {
     const id = b.dataset.comprar;
     const res = J.comprar(S, id);
@@ -1315,6 +1328,8 @@ function responderSlide(slide, sabia, auto = false) {
     if (etapaHoy() !== etapa) pintarFlor(true);
     regarJardin(J.CRECE_POR_PALABRA);
     if (S.diario.revisadas === S.ajustes.meta) regarJardin(J.CRECE_POR_META);
+    if (S.diario.revisadas === store.DIAMANTE_PALABRAS) setTimeout(() => celebrarDiamante(t('dia_50')), premio ? 1600 : 600);
+    else if (store.tocaDiamante(S)) setTimeout(aparecerDiamante, 900 + Math.random() * 2500);
     if (S.racha.ultimoDia !== diaAntes) setTimeout(celebrarRacha, premio ? 1200 : 500);
   }
   const niv = dificultad(store.progresoDe(S, meta)[id]);
@@ -1527,6 +1542,37 @@ function mostrarDominada(id, meta) {
   $('#dom-seguir').addEventListener('click', cerrar);
   capa.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
   $('#dom-seguir').focus();
+}
+
+/** Diamante sorpresa: cruza la pantalla unos segundos; si lo tocas a tiempo, es tuyo. */
+function aparecerDiamante() {
+  if (!sesion || document.querySelector('.diamante-vuela')) return;
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'diamante-vuela'; b.setAttribute('aria-label', t('dia_atrapa'));
+  b.innerHTML = '<img src="assets/diamante.svg" alt="" width="75" height="57">';
+  b.style.top = `${18 + Math.random() * 50}vh`;
+  b.style.setProperty('--dir', Math.random() < 0.5 ? 1 : -1);
+  document.body.append(b);
+  sonido.toque();
+  const fuera = setTimeout(() => b.remove(), 3600);
+  b.addEventListener('click', (e) => {
+    clearTimeout(fuera);
+    const r0 = b.getBoundingClientRect();
+    b.remove();
+    estallido(r0.left + r0.width / 2, r0.top + r0.height / 2, { cantidad: 14 });
+    store.ganarDiamante(S);
+    guardar();
+    celebrarDiamante(t('dia_ganado'));
+  });
+}
+function celebrarDiamante(texto) {
+  sonido.brillo();
+  toast(texto);
+  if (sinMovimiento()) return;
+  const d = document.createElement('img');
+  d.src = 'assets/diamante.svg'; d.alt = ''; d.width = 125; d.height = 95; d.className = 'diamante-gana';
+  document.body.append(d);
+  setTimeout(() => d.remove(), 1600);
 }
 
 /** Ventana de premio estilo tragamonedas: 3 rodillos que se detienen en monedas y lluvia de monedas. */

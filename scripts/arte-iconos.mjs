@@ -83,6 +83,41 @@ export function moneda() {
   return { filas: aTexto(g), colores: { o: '#5A3418', d: '#C98A2E', f: '#F2BE4A', l: '#FCDB7E', r: '#B8701E', h: '#FFF6D8', H: '#FFFFFF' } };
 }
 
+// ---------- Diamante (moneda rara y valiosa: aparece de sorpresa o con 50 palabras en el día) ----------
+export function diamante() {
+  // Molde de la referencia de Francisca: corona con brillos blancos, faja oscura y pabellón en facetas.
+  const W = 25, H = 19, cx = 12;
+  const g = lienzo(W, H);
+  const crown = 7; // filas 0..6 corona, 7 faja, 8..18 pabellón
+  for (let y = 0; y < H; y++) {
+    let x0, x1;
+    if (y <= crown) { x0 = Math.max(0, 6 - y); x1 = Math.min(W - 1, 18 + y); } else { const k = y - crown; x0 = k; x1 = W - 1 - k; }
+    if (x0 > x1) continue;
+    for (let x = x0; x <= x1; x++) {
+      const hw = Math.max(1, (x1 - x0) / 2), u = (x - cx) / hw;
+      let c;
+      if (y === 0 || x === x0 || x === x1 || y === crown) c = 'o';
+      else if (y < crown) {
+        if (u < -0.42) c = (x + y) % 5 === 0 ? 'l' : 'w';
+        else if (u < -0.32) c = 'c';
+        else if (u < 0.32) c = y === 1 || (x - y) % 7 === 0 ? 'w' : 'l';
+        else if (u < 0.42) c = 'o';
+        else if (u < 0.8) c = 'd';
+        else c = 'c';
+      } else {
+        if (u < -0.62) c = y < 12 && x > x0 + 1 ? 'l' : 'c';
+        else if (u < -0.5) c = 'o';
+        else if (u < -0.18) c = 'd';
+        else if (u < 0.3) c = (x === cx + 2 && y === 10) ? 'l' : 'c';
+        else if (u < 0.42) c = 'o';
+        else c = 'd';
+      }
+      g[y][x] = c;
+    }
+  }
+  return { filas: aTexto(g), colores: { o: '#137E9B', c: '#14D2EC', d: '#1E9DC0', l: '#A5F7F7', w: '#FFFFFF' } };
+}
+
 // ---------- Estrella (polígono de 5 puntas: líneas rectas y caras con volumen) ----------
 export function estrella() {
   const n = 21;
@@ -301,4 +336,4 @@ export function cofreAbierto() {
   return { filas: aTexto(g), colores: COLORES_COFRE };
 }
 
-export const ICONOS = { sakura, moneda, estrella, cerezas, mensaje, burbuja, corazon, 'flor-0': flor0, 'flor-1': flor1, 'flor-2': flor2, 'flor-3': flor3, cofre, 'cofre-abierto': cofreAbierto };
+export const ICONOS = { sakura, moneda, diamante, estrella, cerezas, mensaje, burbuja, corazon, 'flor-0': flor0, 'flor-1': flor1, 'flor-2': flor2, 'flor-3': flor3, cofre, 'cofre-abierto': cofreAbierto };

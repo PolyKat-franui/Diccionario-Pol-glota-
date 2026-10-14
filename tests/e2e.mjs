@@ -467,6 +467,25 @@ try {
   assert.deepEqual(despuesLibre, antesLibre, 'estudio libre: el calendario de la palabra no cambia');
   paso('Estudio libre: buscar y elegir una palabra dominada, repasarla sin mover su calendario');
 
+  // Diamante sorpresa: con el azar a favor aparece, cruza la pantalla y al tocarlo se gana
+  await page.goto(`${URL_APP}#/estudiar?mega=${encodeURIComponent('Comida y bebida')}&dif=todas`);
+  await page.locator('#feed .slide .palabra').first().waitFor();
+  const diamAntes = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).diamantes ?? 0);
+  await page.evaluate(() => { Math.random = () => 0.001; });
+  await page.waitForTimeout(500);
+  await page.keyboard.press('ArrowRight');
+  await page.locator('.diamante-vuela').waitFor({ timeout: 5000 });
+  await foto(page, '13f3-celular-diamante');
+  await page.locator('.diamante-vuela').dispatchEvent('click');
+  await page.waitForFunction((n) => (JSON.parse(localStorage.getItem('franui:v1')).diamantes ?? 0) === n + 1, diamAntes);
+  await page.locator('#toast', { hasText: 'diamante' }).waitFor();
+  await page.goto(`${URL_APP}#/jardin?t=tienda`);
+  const diamTienda = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).diamantes);
+  await page.locator('#cambiar-diamante').click();
+  await page.locator('#toast', { hasText: '+150' }).waitFor();
+  await page.waitForFunction((n) => JSON.parse(localStorage.getItem('franui:v1')).diamantes === n - 1, diamTienda);
+  paso('Diamante sorpresa: aparece de vez en cuando, se atrapa tocándolo y se cambia por 150 tokens');
+
   // Mundo de sakuras: con el sakura en nivel 4 se abren estanque y faroles; el mirador sigue bloqueado
   await page.goto('about:blank');
   const ed3 = await ctx.newPage();

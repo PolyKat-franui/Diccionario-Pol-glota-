@@ -162,3 +162,21 @@ test('historia del día: índice estable por día y cambia entre días', async (
   st.marcarHistoriaVista(e);
   assert.equal(st.historiaVista(e), true);
 });
+
+test('diamantes: 1 al llegar a 50 palabras, sorpresas raras (máx. 2 al día) y se cambian por 150 tokens', () => {
+  const s = store.estadoInicial();
+  for (let i = 0; i < 49; i++) store.contarRevision(s, dia(9));
+  assert.equal(s.diamantes, 0);
+  store.contarRevision(s, dia(9));
+  assert.equal(s.diamantes, 1);
+  for (let i = 0; i < 50; i++) store.contarRevision(s, dia(9));
+  assert.equal(s.diamantes, 1, 'una vez por día');
+  assert.equal(store.tocaDiamante(s, () => 0.5, dia(9)), false, 'casi nunca');
+  assert.equal(store.tocaDiamante(s, () => 0.01, dia(9)), true);
+  assert.equal(store.tocaDiamante(s, () => 0.01, dia(9)), true);
+  assert.equal(store.tocaDiamante(s, () => 0.01, dia(9)), false, 'máximo 2 sorpresas al día');
+  const t0 = s.tokens;
+  assert.equal(store.cambiarDiamante(s), true);
+  assert.equal(s.tokens, t0 + 150);
+  assert.equal(store.cambiarDiamante(s), false);
+});

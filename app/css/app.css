@@ -1082,3 +1082,16 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .libre-palabra { flex: 1; display: grid; min-width: 0; }
 .libre-palabra small { color: var(--ink-soft); overflow-wrap: anywhere; }
 .libre-acciones { position: sticky; bottom: calc(var(--tabbar, 64px) + 8px); display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; padding: 8px 0; background: linear-gradient(transparent, var(--bg) 30%); }
+
+/* Diamantes 💎: sorpresa que cruza la pantalla y celebración */
+.diamante-vuela { position: fixed; z-index: 230; left: 0; width: 80px; height: 64px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; animation: diamanteCruza 3.6s linear forwards; filter: drop-shadow(0 0 10px var(--brillo-diamante)) drop-shadow(0 0 3px var(--blanco-fijo)); }
+.diamante-vuela img { image-rendering: pixelated; animation: diamanteGira .9s ease-in-out infinite; }
+@keyframes diamanteCruza { from { transform: translateX(calc(var(--dir) * -20vw + (1 - var(--dir)) * 60vw)); } to { transform: translateX(calc(var(--dir) * 110vw + (1 - var(--dir)) * -55vw)); } }
+@keyframes diamanteGira { 50% { transform: translateY(-10px) scale(1.08) rotate(6deg); } }
+.diamante-gana { position: fixed; left: 50%; top: 40%; z-index: 231; width: 125px; height: 95px; margin: -48px 0 0 -62px; image-rendering: pixelated; pointer-events: none; animation: diamanteGana 1.6s cubic-bezier(.3, 1.6, .5, 1) forwards; filter: drop-shadow(0 0 18px var(--brillo-diamante)); }
+@keyframes diamanteGana { 0% { transform: scale(0) rotate(-30deg); } 30% { transform: scale(1.2) rotate(8deg); } 60% { transform: scale(1); opacity: 1; } 100% { transform: translateY(-120px) scale(.6); opacity: 0; } }
+.tienda-diamantes { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.tienda-diamantes img { image-rendering: pixelated; }
+.tienda-saldo img[src*="diamante"] { margin-left: 12px; image-rendering: pixelated; }
+.menu-diamantes img { image-rendering: pixelated; }
+@media (prefers-reduced-motion: reduce) { .diamante-vuela { animation-duration: 6s; } .diamante-vuela img { animation: none; } }
