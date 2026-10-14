@@ -1403,8 +1403,8 @@ function responderSlide(slide, sabia, auto = false) {
 
   if (!sabia) {
     sesion.reps[id] = (sesion.reps[id] ?? 0) + 1;
-    // "Repasar" vuelve hasta 2 veces; una tarjeta solo deslizada, 1 vez (para no inflar la sesión).
-    if (sesion.reps[id] <= (auto ? 1 : MAX_REPETICIONES)) {
+    // "Repasar" vuelve hasta 2 veces (las saltadas se marcan al terminar y ya no vuelven).
+    if (!sesion.terminada && sesion.reps[id] <= MAX_REPETICIONES) {
       const slides = slidesDeFeed();
       const pos = Math.max(slides.indexOf(slide) + REINSERTAR_EN, sesion.actual + 1);
       const tmp = document.createElement('div');
@@ -1433,10 +1433,9 @@ function alVerSlide(entries) {
     if (!e.isIntersecting) continue;
     const todas = $$('#feed .slide');
     const i = todas.indexOf(e.target);
-    const avanzo = i > sesion.actual;
     sesion.actual = i;
-    // Deslizar sin marcar = "repasar": la tarjeta vuelve a salir (como pide la especificación).
-    if (avanzo) todas.slice(0, i).forEach((s) => { if (!s.classList.contains('fin') && !s.dataset.r) responderSlide(s, false, true); });
+    // Pasar una tarjeta sin marcar cuenta como "repasar", pero recién al terminar:
+    // así se puede volver atrás con el scroll y responderla.
     if (e.target.id === 'slide-fin') terminar();
   }
 }
@@ -1444,6 +1443,7 @@ function alVerSlide(entries) {
 function terminar() {
   if (!sesion || sesion.terminada) return;
   sesion.terminada = true;
+  slidesDeFeed().forEach((sl) => { if (!sl.dataset.r) responderSlide(sl, false, true); });
   sesion.tokens += store.terminarSesion(S);
   sonido.fin();
   guardar();
