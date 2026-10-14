@@ -117,6 +117,17 @@ try {
   await foto(page, '06-celular-tarjeta-revelada');
   paso('Tocar revela la traducción; corazón guarda en favoritos');
 
+  await primera.locator('.btn-fav').click();
+  assert.equal(await primera.locator('.btn-fav').getAttribute('aria-pressed'), 'false');
+  await primera.locator('.tarjeta-centro').dblclick();
+  assert.equal(await primera.locator('.btn-fav').getAttribute('aria-pressed'), 'true');
+  assert.equal(await primera.locator('.corazon-grande').count(), 1);
+  await foto(page, '06b-celular-doble-toque');
+  await page.waitForTimeout(1000);
+  await primera.locator('.tarjeta-centro').dblclick();
+  assert.equal(await primera.locator('.btn-fav').getAttribute('aria-pressed'), 'true', 'el doble toque solo marca, no quita');
+  paso('Doble toque en la tarjeta = favorito, con corazón grande');
+
   await primera.locator('.btn-sabe').click();
   await page.waitForFunction(() => document.querySelector('#chip-tokens span:last-child').textContent === '1');
   assert.match(await primera.locator('.nivel').innerText(), /Media/);

@@ -969,6 +969,7 @@ async function vistaEstudiar(r) {
     </section>`;
   const feed = $('#feed');
   feed.addEventListener('click', clickFeed);
+  feed.addEventListener('click', detectarDobleToque);
   activarDeslizar(feed);
   if (!S.tutorialVisto) setTimeout(iniciarTutorial, 500);
   sesion.observer = new IntersectionObserver(alVerSlide, { root: feed, threshold: 0.6 });
@@ -1401,17 +1402,53 @@ function clickFeed(e) {
   else if (e.target.closest('.btn-audio')) {
     if (!hablar(banco.texto(sesion.meta, id).texto, sesion.meta)) toast(t('sin_voz'));
   } else if (e.target.closest('.kitty-ayuda')) kittyAbrir();
-  else if (e.target.closest('.btn-fav')) {
-    const on = store.alternarFavorito(S, sesion.meta, id);
-    guardar();
-    if (on) { sonido.like(); estallarCorazones(e.target.closest('.btn-fav')); } else sonido.quitar();
-    $$(`#feed .slide[data-id="${id}"] .btn-fav`).forEach((b) => {
-      b.setAttribute('aria-pressed', String(on));
-      b.setAttribute('aria-label', t(on ? 'quitar_favorito' : 'favorito'));
-      b.innerHTML = on ? ICON.corazonLleno : ICON.corazon;
-      b.classList.toggle('pop', on);
-    });
+  else if (e.target.closest('.btn-fav')) alternarFav(slide, id, e.target.closest('.btn-fav'));
+}
+
+/** Marca o quita favorito y actualiza el corazón de la tarjeta. forzar=true solo marca (doble toque). */
+function alternarFav(slide, id, origen, forzar = false) {
+  if (forzar && store.esFavorito(S, sesion.meta, id)) return true;
+  const on = store.alternarFavorito(S, sesion.meta, id);
+  guardar();
+  if (on) { sonido.like(); estallarCorazones(origen ?? $('.btn-fav', slide)); } else sonido.quitar();
+  $$(`#feed .slide[data-id="${id}"] .btn-fav`).forEach((b) => {
+    b.setAttribute('aria-pressed', String(on));
+    b.setAttribute('aria-label', t(on ? 'quitar_favorito' : 'favorito'));
+    b.innerHTML = on ? ICON.corazonLleno : ICON.corazon;
+    b.classList.toggle('pop', on);
+  });
+  return on;
+}
+
+let ultimoToque = null;
+/** Dos toques seguidos (< 320 ms, cerca) en la misma tarjeta; funciona igual con dedo y mouse. */
+function detectarDobleToque(e) {
+  if (ignorarClick) return;
+  const ahora = performance.now();
+  const u = ultimoToque;
+  ultimoToque = { t: ahora, x: e.clientX, y: e.clientY, tarj: e.target.closest('.tarjeta') };
+  if (u && u.tarj && u.tarj === ultimoToque.tarj && ahora - u.t < 320 && Math.hypot(e.clientX - u.x, e.clientY - u.y) < 40) {
+    ultimoToque = null;
+    dobleToqueFeed(e);
   }
+}
+
+/** Doble toque en la tarjeta = favorito, con un corazón grande que salta donde tocaste (como Instagram). */
+function dobleToqueFeed(e) {
+  const tarj = e.target.closest('.tarjeta');
+  if (!tarj || e.target.closest('button:not(.revelar), a, .riel, .tarjeta-acciones')) return;
+  const slide = tarj.closest('.slide');
+  if (!slide || slide.classList.contains('fin')) return;
+  e.preventDefault();
+  window.getSelection?.()?.removeAllRanges();
+  alternarFav(slide, slide.dataset.id, null, true);
+  if (sinMovimiento()) return;
+  const r = tarj.getBoundingClientRect();
+  const h = document.createElement('span');
+  h.className = 'corazon-grande'; h.setAttribute('aria-hidden', 'true'); h.innerHTML = ICON.corazonLleno;
+  h.style.left = `${e.clientX - r.left}px`; h.style.top = `${e.clientY - r.top}px`;
+  tarj.append(h);
+  setTimeout(() => h.remove(), 900);
 }
 
 document.addEventListener('keydown', (e) => {
