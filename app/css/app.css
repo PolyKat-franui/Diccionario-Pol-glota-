@@ -215,12 +215,13 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 }
 .feed::-webkit-scrollbar { display: none; }
 .feed-progreso {
-  position: fixed; z-index: 5; top: calc(var(--barra-h) + 10px); left: 50%; transform: translateX(-50%);
+  /* pegada arriba del área de tarjetas (sticky: no depende de animaciones del contenedor) y sin ocupar espacio */
+  position: sticky; z-index: 5; top: 10px; height: 24px; margin: 10px auto -34px;
   width: min(520px, calc(100% - 64px)); display: flex; align-items: center; gap: 10px;
   font-size: var(--fs-xs); color: var(--ink-soft); font-weight: 600;
 }
 .feed-progreso .progreso { flex: 1; height: 4px; }
-.slide { height: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: grid; place-items: center; padding: 34px 16px 14px; }
+.slide { height: 100%; scroll-snap-align: start; scroll-snap-stop: always; display: grid; place-items: center; padding: 52px 16px 14px; } /* arriba: espacio para la barra de progreso fija */
 .tarjeta {
   position: relative; width: min(560px, 100%); height: min(100%, 720px);
   display: grid; grid-template-rows: auto 1fr auto auto; gap: 12px; padding: 20px;
