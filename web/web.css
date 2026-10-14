@@ -429,7 +429,7 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, trans
 
 /* ---------- Descargar la app (ícono: sakura sobre carmesí) ---------- */
 .btn-descargar { gap: 10px; padding-left: 10px; }
-.icono-app-mini { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: radial-gradient(circle, var(--carmesi-luz) 0 55%, var(--carmesi) 56%); }
+.icono-app-mini { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: var(--carmesi); }
 .icono-app-mini img { image-rendering: pixelated; }
 .menu-movil .btn + .btn { margin-top: 10px; }
 .cta-botones { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
