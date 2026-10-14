@@ -238,3 +238,16 @@ export function agregarSugerencia(estado, texto, ahora = Date.now()) {
   estado.sugerencias.push({ texto: limpio, fecha: ahora, enviada: false });
   return true;
 }
+
+// ---------- Historia del día de Kitty ----------
+/** Índice estable para un día (YYYY-MM-DD): la misma frase todo el día, otra al siguiente. */
+export function indiceDelDia(dia, n) {
+  if (!n) return -1;
+  let h = 2166136261;
+  for (const c of dia) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
+  return (h >>> 0) % n;
+}
+export const historiaVista = (estado, ahora = Date.now()) => estado.historia?.dia === diaLocal(ahora);
+export function marcarHistoriaVista(estado, ahora = Date.now()) {
+  estado.historia = { dia: diaLocal(ahora) };
+}

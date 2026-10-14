@@ -396,6 +396,61 @@ function vistaInicio() {
 }
 
 // ---------- Menú principal (estilo juego) ----------
+/** Historia del día de Kitty (como Instagram): 3 pantallas que avanzan solas; una frase nueva cada día. */
+async function abrirHistoria() {
+  const meta = S.aprendiendo, nativo = S.ajustes.nativo;
+  if (!meta) { location.hash = '#/idiomas'; return; }
+  await banco.prepararPar(meta, nativo);
+  const frases = banco.disponibles(meta, nativo).filter((c) => c.tipos.includes('frase'));
+  if (!frases.length) { toast(t('hist_sin')); return; }
+  const c = frases[store.indiceDelDia(store.diaLocal(Date.now()), frases.length)];
+  const frase = banco.texto(meta, c.id).texto, trad = banco.texto(nativo, c.id).texto;
+  store.marcarHistoriaVista(S); guardar();
+  $('#menu-historia')?.classList.add('vista');
+  const pantallas = [
+    `<img class="historia-kitty" src="${cara('feliz')}" alt="" width="80" height="64"><p class="historia-dice">${t('hist_k1')}</p>
+     <p class="historia-frase" lang="${meta}">${esc(frase)}</p>
+     <button class="icon-btn historia-audio" type="button" aria-label="${t('escuchar')}">${ICON.audio}</button>`,
+    `<p class="historia-dice">${t('hist_signif')}</p><p class="historia-frase" lang="${meta}">${esc(frase)}</p>
+     <p class="historia-trad" lang="${nativo}">${esc(trad)}</p>`,
+    `<img class="historia-kitty" src="${cara('guino')}" alt="" width="80" height="64"><p class="historia-dice">${t('hist_k3')}</p>
+     <button class="btn primario historia-fav" type="button" aria-pressed="${store.esFavorito(S, meta, c.id)}">${ICON.corazon}<span>${t(store.esFavorito(S, meta, c.id) ? 'hist_guardada' : 'hist_guardar')}</span></button>`,
+  ];
+  const capa = document.createElement('div');
+  capa.className = 'historia-capa'; capa.setAttribute('role', 'dialog'); capa.setAttribute('aria-modal', 'true'); capa.setAttribute('aria-label', t('hist_titulo'));
+  capa.innerHTML = `<div class="historia">
+      <div class="historia-barras">${pantallas.map(() => '<i></i>').join('')}</div>
+      <div class="historia-cabeza"><span>${t('hist_titulo')}</span><button class="icon-btn historia-cerrar" type="button" aria-label="${t('hist_cerrar')}">${ICON.cerrar}</button></div>
+      <div class="historia-cuerpo" aria-live="polite"></div>
+      <button class="historia-zona izq" type="button" aria-label="${t('hist_ant')}"></button><button class="historia-zona der" type="button" aria-label="${t('hist_sig')}"></button>
+    </div>`;
+  document.body.append(capa);
+  let i = 0, timer = null;
+  const cerrar = () => { clearTimeout(timer); capa.remove(); document.removeEventListener('keydown', teclas); $('#menu-historia')?.focus(); };
+  const ir = (n) => { if (n >= pantallas.length) return cerrar(); i = Math.max(0, n); pintar(); };
+  const pintar = () => {
+    clearTimeout(timer);
+    $('.historia-cuerpo', capa).innerHTML = pantallas[i];
+    $$('.historia-barras i', capa).forEach((b, k) => { b.className = k < i ? 'llena' : ''; });
+    const barra = $$('.historia-barras i', capa)[i]; void barra.offsetWidth; barra.className = 'llenando';
+    if (i < pantallas.length - 1) timer = setTimeout(() => ir(i + 1), 6000);
+    $('.historia-audio', capa)?.addEventListener('click', (e) => { e.stopPropagation(); if (!hablar(frase, meta)) toast(t('sin_voz')); });
+    $('.historia-fav', capa)?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!store.esFavorito(S, meta, c.id)) { store.alternarFavorito(S, meta, c.id); guardar(); sonido.like(); estallarCorazones(e.currentTarget); }
+      e.currentTarget.setAttribute('aria-pressed', 'true');
+      $('span', e.currentTarget).textContent = t('hist_guardada');
+    });
+  };
+  const teclas = (e) => { if (e.key === 'Escape') cerrar(); else if (e.key === 'ArrowRight') ir(i + 1); else if (e.key === 'ArrowLeft') ir(i - 1); };
+  document.addEventListener('keydown', teclas);
+  $('.historia-cerrar', capa).addEventListener('click', cerrar);
+  $('.historia-zona.izq', capa).addEventListener('click', () => ir(i - 1));
+  $('.historia-zona.der', capa).addEventListener('click', () => ir(i + 1));
+  pintar();
+  $('.historia-cerrar', capa).focus();
+}
+
 function vistaMenu() {
   const racha = store.rachaVigente(S.racha);
   const hoy = hoyRevisadas();
@@ -416,6 +471,10 @@ function vistaMenu() {
           <img src="${cara(racha ? 'muy_feliz' : 'feliz')}" alt="" width="160" height="128">
         </button>
       </div>
+      <button class="menu-historia ${store.historiaVista(S) ? 'vista' : ''}" type="button" id="menu-historia" aria-label="${t('hist_abrir')}">
+        <span class="historia-anillo"><img src="${cara('guino')}" alt="" width="40" height="32"></span>
+        <span>${t('hist_titulo')}</span>
+      </button>
       <a class="menu-jardin" href="#/jardin" id="menu-jardin">
         <span class="menu-jardin-arbol"><img src="${srcArbol(J.nivelDe(S.jardin.crecimiento))}" alt="" width="64" height="64"></span>
         <span class="menu-jardin-txt"><small>${t('jar_titulo')}</small><strong>${esc(nombreEtapa(J.nivelDe(S.jardin.crecimiento)))} · ${t('jar_nivel', { n: J.nivelDe(S.jardin.crecimiento) })}</strong>
@@ -444,6 +503,7 @@ function vistaMenu() {
       ${botonInstalar()}
     </section>`;
   marcarAvisoNovedades();
+  $('#menu-historia').addEventListener('click', abrirHistoria);
   // Tocar una letra de FRANUI: salta y suena una moneda (cada letra un poco más aguda)
   $('.menu-letras').addEventListener('click', (e) => {
     const l = e.target.closest('span[style]');

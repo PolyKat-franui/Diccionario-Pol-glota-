@@ -906,3 +906,34 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .corazon-grande { position: absolute; width: 96px; height: 96px; margin: -48px; color: var(--d-dificil); pointer-events: none; z-index: 5; animation: corazonGrande .9s var(--ease) forwards; filter: drop-shadow(0 6px 14px color-mix(in srgb, var(--d-dificil) 35%, transparent)); }
 .corazon-grande svg { width: 100%; height: 100%; }
 @keyframes corazonGrande { 0% { transform: scale(0) rotate(-12deg); opacity: 0; } 25% { transform: scale(1.15) rotate(6deg); opacity: 1; } 45% { transform: scale(.95) rotate(0); } 75% { opacity: 1; } 100% { transform: scale(1.05) translateY(-40px); opacity: 0; } }
+
+/* Historia del día de Kitty (estilo Instagram) */
+.menu-historia { display: inline-flex; align-items: center; gap: 10px; justify-self: center; min-height: 44px; padding: 4px 16px 4px 4px; border: 0; border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px color-mix(in srgb, var(--ink) 8%, transparent); }
+.historia-anillo { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; padding: 3px; background: conic-gradient(from 0deg, var(--carmesi), var(--accent), var(--carmesi-luz), var(--carmesi)); }
+.historia-anillo img { width: 40px; height: 32px; padding: 7px 3px; border-radius: 50%; background: var(--surface); image-rendering: pixelated; box-sizing: content-box; }
+.menu-historia:not(.vista) .historia-anillo { animation: anilloGira 4s linear infinite; }
+.menu-historia.vista .historia-anillo { background: var(--line); }
+.menu-historia.vista::after { content: '✓'; color: var(--ink-soft); font-size: 14px; }
+@keyframes anilloGira { to { filter: hue-rotate(25deg); transform: rotate(360deg); } }
+.menu-historia:not(.vista) .historia-anillo img { animation: anilloGira 4s linear infinite reverse; }
+.historia-capa { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: color-mix(in srgb, var(--ink) 70%, transparent); }
+.historia { position: relative; width: min(420px, 100vw); height: min(760px, 100dvh); display: grid; grid-template-rows: auto auto 1fr; padding: 12px 16px 24px; background: linear-gradient(160deg, var(--surface-2), var(--accent-soft) 60%, var(--surface)); color: var(--ink); overflow: hidden; }
+@media (min-width: 480px) { .historia { border-radius: 24px; } }
+.historia-barras { display: flex; gap: 4px; }
+.historia-barras i { flex: 1; height: 4px; border-radius: 2px; background: color-mix(in srgb, var(--ink) 18%, transparent); position: relative; overflow: hidden; }
+.historia-barras i::after { content: ''; position: absolute; inset: 0; background: var(--ink); transform-origin: left; transform: scaleX(0); }
+.historia-barras i.llena::after { transform: scaleX(1); }
+.historia-barras i.llenando::after { animation: barraLlena 6s linear forwards; }
+@keyframes barraLlena { to { transform: scaleX(1); } }
+.historia-cabeza { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-weight: 700; position: relative; z-index: 3; }
+.historia-cuerpo { display: grid; align-content: center; justify-items: center; gap: 16px; text-align: center; padding: 0 8px; }
+.historia-kitty { width: 80px; height: 64px; image-rendering: pixelated; }
+.historia-dice { margin: 0; font-size: 18px; color: var(--ink-soft); }
+.historia-frase { margin: 0; font-family: var(--font-display, inherit); font-size: clamp(28px, 8vw, 40px); line-height: 1.15; font-weight: 700; }
+.historia-trad { margin: 0; font-size: 22px; padding: 10px 18px; border-radius: 14px; background: var(--surface); }
+.historia-audio, .historia-fav { position: relative; z-index: 3; }
+.historia-fav { display: inline-flex; gap: 8px; align-items: center; }
+.historia-fav[aria-pressed="true"] svg { fill: currentColor; }
+.historia-zona { position: absolute; top: 80px; bottom: 0; width: 35%; border: 0; background: transparent; cursor: pointer; z-index: 2; }
+.historia-zona.izq { left: 0; } .historia-zona.der { right: 0; }
+@media (prefers-reduced-motion: reduce) { .menu-historia .historia-anillo, .menu-historia .historia-anillo img { animation: none; } .historia-barras i.llenando::after { animation-duration: 6s; } }

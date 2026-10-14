@@ -208,13 +208,33 @@ try {
   assert.ok(await page.evaluate(() => navigator.serviceWorker.ready.then((r) => !!r.active)), 'service worker activo');
   const man = await page.evaluate(() => fetch('manifest.webmanifest').then((r) => r.json()));
   assert.equal(man.short_name, 'Franui');
+  assert.ok(!(await page.locator('#menu-historia').evaluate((b) => b.classList.contains('vista'))), 'historia sin ver: anillo de color');
+  await page.locator('#menu-historia').click();
+  await page.locator('.historia .historia-frase').waitFor();
+  const fraseHoy = await page.locator('.historia .historia-frase').innerText();
+  assert.ok(fraseHoy.length > 2);
+  await page.waitForTimeout(400);
+  await foto(page, '07e-celular-historia');
+  await page.locator('.historia-zona.der').click();
+  await page.locator('.historia-trad').waitFor();
+  await page.locator('.historia-zona.der').click();
+  await page.locator('.historia-fav').click();
+  assert.equal(await page.locator('.historia-fav').getAttribute('aria-pressed'), 'true');
+  await page.locator('.historia-cerrar').click();
+  assert.equal(await page.locator('.historia-capa').count(), 0);
+  assert.ok(await page.locator('#menu-historia').evaluate((b) => b.classList.contains('vista')), 'historia vista: anillo gris');
+  await page.locator('#menu-historia').click();
+  assert.equal(await page.locator('.historia .historia-frase').innerText(), fraseHoy, 'misma frase todo el día');
+  await page.keyboard.press('Escape');
+  paso('Historia del día de Kitty: frase, traducción y guardar en favoritos; misma frase todo el día');
+
   await page.locator('#menu-temas').click();
   await page.waitForURL(/#\/aprender/);
   paso('Tocar el logo abre el menú principal animado; «Descargar la app» muestra los pasos; service worker activo');
 
   await page.goto(`${URL_APP}#/favoritos`);
   await page.locator('.fila-fav').first().waitFor();
-  assert.equal(await page.locator('.fila-fav').count(), 1);
+  assert.equal(await page.locator('.fila-fav').count(), 2, 'la palabra de la tarjeta y la frase de la historia');
   await foto(page, '08-celular-favoritos');
   paso('Favoritos muestra la palabra con corazón');
 
