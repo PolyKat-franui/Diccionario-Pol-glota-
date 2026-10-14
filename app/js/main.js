@@ -303,6 +303,7 @@ const RUTAS = {
   menu: vistaMenu,
   instalar: vistaInstalar,
   jardin: vistaJardin,
+  buzon: vistaBuzon,
   conservar: vistaConservar,
   idiomas: vistaIdiomas,
   aprender: vistaAprender,
@@ -1785,6 +1786,68 @@ async function vistaRanking() {
   }
 }
 
+// ---------- Buzón de sugerencias ----------
+const esCreadora = () => conCuenta() && S.perfil.cuenta.email?.toLowerCase() === nube.CREADORA;
+let enviando = null;
+/** Envía a la nube las sugerencias guardadas que aún no salieron. Devuelve cuántas se enviaron. */
+function enviarSugerenciasPendientes() {
+  if (enviando) return enviando;
+  enviando = (async () => {
+    if (!nube.nubeLista()) return 0;
+    let n = 0;
+    for (const s of S.sugerencias.filter((x) => !x.enviada)) {
+      try {
+        await nube.enviarSugerencia({ texto: s.texto, fecha: s.fecha, idioma: S.ajustes.nativo || '', version: ultimaVersion || '',
+          ...(conCuenta() ? { uid: S.perfil.cuenta.uid, nombre: (S.perfil.nombre || '').slice(0, 30) } : {}) });
+        s.enviada = true; n++;
+      } catch { break; }
+    }
+    if (n) guardarYa();
+    return n;
+  })().finally(() => { enviando = null; });
+  return enviando;
+}
+window.addEventListener('online', () => enviarSugerenciasPendientes());
+
+/** Solo para la creadora: lee, marca y borra las sugerencias. */
+async function vistaBuzon() {
+  if (!esCreadora()) { location.hash = '#/ajustes'; return; }
+  vista.innerHTML = `<section class="pagina angosta"><h1 class="display">${t('buzon_titulo')}</h1><div class="cargando" aria-busy="true"><img src="assets/corazon.svg" alt="" width="52" height="48"></div></section>`;
+  let lista;
+  try { lista = await nube.leerSugerencias(); } catch {
+    vista.innerHTML = `<section class="pagina angosta"><h1 class="display">${t('buzon_titulo')}</h1><p class="aviso">${t('buzon_error')}</p></section>`; return;
+  }
+  const fecha = (ms) => new Date(ms).toLocaleString(S.ajustes.nativo || 'es', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  const sinLeer = lista.filter((x) => !x.leida).length;
+  vista.innerHTML = `
+    <section class="pagina angosta buzon">
+      <h1 class="display">${t('buzon_titulo')}</h1>
+      ${lista.length ? `<p class="suave">${tn('buzon_nuevas_n', sinLeer)}</p>` : `<p class="aviso">${t('buzon_vacio')}</p>`}
+      <ul class="buzon-lista">${lista.map((x) => `
+        <li class="card ${x.leida ? 'leida' : 'nueva'}" data-id="${esc(x.id)}">
+          <p class="buzon-meta">${x.leida ? '' : `<span class="tag">${t('niv_nueva')}</span>`}<strong>${esc(x.nombre || t('buzon_anonimo'))}</strong>
+            <span class="suave">· ${fecha(x.fecha)} · ${esc((x.idioma || '?').toUpperCase())}${x.version ? ` · v${esc(x.version)}` : ''}</span></p>
+          <p class="buzon-texto">${esc(x.texto)}</p>
+          <div class="buzon-acciones">
+            <button class="btn pequeno" type="button" data-leer>${t(x.leida ? 'buzon_no_leida' : 'buzon_leida')}</button>
+            <button class="btn fantasma pequeno" type="button" data-borrar>${t('buzon_borrar')}</button>
+          </div>
+        </li>`).join('')}</ul>
+    </section>`;
+  $$('.buzon-lista li').forEach((li) => {
+    const x = lista.find((y) => y.id === li.dataset.id);
+    $('[data-leer]', li).addEventListener('click', async () => { await nube.marcarSugerencia(x.id, !x.leida).catch(() => toast(t('buzon_error'))); vistaBuzon(); });
+    $('[data-borrar]', li).addEventListener('click', () => {
+      modal(t('buzon_borrar'), `<p class="buzon-texto">${esc(x.texto)}</p><button class="btn peligro ancho" type="button" id="buzon-borrar-si">${t('buzon_borrar')}</button>`);
+      $('#buzon-borrar-si').addEventListener('click', async () => {
+        $('#modal').close();
+        await nube.borrarSugerencia(x.id).then(() => toast(t('buzon_borrar_ok'))).catch(() => toast(t('buzon_error')));
+        vistaBuzon();
+      });
+    });
+  });
+}
+
 // ---------- Novedades ----------
 async function vistaNovedades() {
   const data = await (await fetch('data/novedades.json')).json();
@@ -1822,7 +1885,7 @@ async function vistaNovedades() {
 function vistaAjustes() {
   const a = S.ajustes;
   const opcion = (grupo, valor, texto, actual) => `<button type="button" role="radio" aria-checked="${valor === actual}" data-${grupo}="${valor}">${texto}</button>`;
-  const pendientes = S.sugerencias.filter((s) => !s.enviada).length;
+  const pendientes = S.sugerencias.filter((s) => s.enviada).length;
   vista.innerHTML = `
     <section class="pagina angosta ajustes">
       <h1 class="display">${t('aj_titulo')}</h1>
@@ -1895,6 +1958,7 @@ function vistaAjustes() {
         <p class="suave">${t('aj_kitty_texto')}</p>
       </div>
 
+      ${esCreadora() ? `<a class="card buzon-acceso" href="#/buzon">${ICON.enviar}<span>${t('buzon_abrir')}</span>${ICON.flecha}</a>` : ''}
       <div class="card">
         <h2>${t('aj_sugerencias')}</h2>
         <form id="f-sug">
@@ -1946,7 +2010,9 @@ function vistaAjustes() {
   $('#aj-nativo').addEventListener('change', (e) => cambiarNativo(e.target.value));
   $('#f-sug').addEventListener('submit', (e) => {
     e.preventDefault();
-    if (store.agregarSugerencia(S, $('#aj-sug').value)) { guardar(); toast(t('aj_sug_ok')); vistaAjustes(); }
+    if (!store.agregarSugerencia(S, $('#aj-sug').value)) return;
+    guardarYa();
+    enviarSugerenciasPendientes().then((n) => { toast(t(n ? 'sug_enviada' : 'sug_pendiente')); vistaAjustes(); });
   });
   $$('[data-modal]').forEach((b) => b.addEventListener('click', () => {
     const m = b.dataset.modal;
@@ -2066,6 +2132,7 @@ $('#kitty-form').addEventListener('submit', (e) => {
 S.ajustes.nativo ??= nativoInicial();
 aplicarAjustes();
 if (store.usarProtectores(S)) { store.guardar(S); setTimeout(() => toast(t('protector_usado')), 1500); }
+setTimeout(() => enviarSugerenciasPendientes(), 3000);
 { const c = store.actualizarLiga(S); if (c === 'sube' || c === 'baja') { store.guardar(S); setTimeout(() => toast(t(c === 'sube' ? 'liga_sube' : 'liga_baja', { liga: t('liga_' + store.LIGAS[S.liga.nivel]) })), 2200); } }
 matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', aplicarAjustes);
 router();
