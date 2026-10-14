@@ -48,7 +48,19 @@ test('Kitty tokens: +1 por tarjeta y +5 al terminar la sesión', () => {
   store.terminarSesion(s);
   assert.equal(s.tokens, 7);
   assert.equal(s.ejercicios, 2);
+  assert.equal(s.racha.actual, 0, 'la racha no sube por estudiar una tarjeta');
+});
+
+test('racha del día: se cumple al revisar 20 palabras, no antes', () => {
+  const s = store.estadoInicial();
+  for (let i = 0; i < 19; i++) store.contarRevision(s, dia(9));
+  assert.equal(s.racha.actual, 0);
+  store.contarRevision(s, dia(9));
   assert.equal(s.racha.actual, 1);
+  for (let i = 0; i < 30; i++) store.contarRevision(s, dia(9));
+  assert.equal(s.racha.actual, 1, 'un día cuenta una vez');
+  for (let i = 0; i < 20; i++) store.contarRevision(s, dia(10));
+  assert.equal(s.racha.actual, 2);
 });
 
 test('favoritos: el corazón agrega y quita', () => {
@@ -122,7 +134,7 @@ test('la sakura del día florece por etapas hasta cumplir la meta', () => {
   assert.equal(store.etapaFlor(10, 10), 4);
   assert.equal(store.etapaFlor(40, 10), 4);
   assert.equal(store.etapaFlor(5, 5), 4);
-  assert.equal(store.normalizar({ ajustes: { meta: 7 } }).ajustes.meta, 10); // meta inválida → 10
+  assert.equal(store.normalizar({ ajustes: { meta: 5 } }).ajustes.meta, 20); // la meta es fija: 20
 });
 
 test('cofre de monedas cada 7 días de racha, una sola vez por hito', () => {
@@ -149,4 +161,22 @@ test('historia del día: índice estable por día y cambia entre días', async (
   assert.equal(st.historiaVista(e), false);
   st.marcarHistoriaVista(e);
   assert.equal(st.historiaVista(e), true);
+});
+
+test('diamantes: 1 al llegar a 50 palabras, sorpresas raras (máx. 2 al día) y se cambian por 150 tokens', () => {
+  const s = store.estadoInicial();
+  for (let i = 0; i < 49; i++) store.contarRevision(s, dia(9));
+  assert.equal(s.diamantes, 0);
+  store.contarRevision(s, dia(9));
+  assert.equal(s.diamantes, 1);
+  for (let i = 0; i < 50; i++) store.contarRevision(s, dia(9));
+  assert.equal(s.diamantes, 1, 'una vez por día');
+  assert.equal(store.tocaDiamante(s, () => 0.5, dia(9)), false, 'casi nunca');
+  assert.equal(store.tocaDiamante(s, () => 0.01, dia(9)), true);
+  assert.equal(store.tocaDiamante(s, () => 0.01, dia(9)), true);
+  assert.equal(store.tocaDiamante(s, () => 0.01, dia(9)), false, 'máximo 2 sorpresas al día');
+  const t0 = s.tokens;
+  assert.equal(store.cambiarDiamante(s), true);
+  assert.equal(s.tokens, t0 + 150);
+  assert.equal(store.cambiarDiamante(s), false);
 });

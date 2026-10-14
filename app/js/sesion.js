@@ -72,3 +72,20 @@ export function practicaLibre({ ids, progreso, tam = TAM_SESION, azar = Math.ran
 /** Donde vuelve a entrar una tarjeta fallada dentro de la sesión (un poco más adelante). */
 export const REINSERTAR_EN = 3;
 export const MAX_REPETICIONES = 2;
+
+/**
+ * Estudio libre: filtra el banco para elegir qué repasar.
+ * filtro = { texto, mega, nivel ('todas'|'vistas'|nivel de srs), favoritos (Set) }; nivelDe(id) da el nivel actual.
+ */
+export function filtrarLibre(conceptos, { texto = '', mega = '', nivel = 'todas', favoritos = null } = {}, { nivelDe, textos }) {
+  const q = texto.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  return conceptos.filter((c) => {
+    if (mega && !c.megas.includes(mega)) return false;
+    const n = nivelDe(c.id);
+    if (nivel === 'vistas' && n === 'nueva') return false;
+    if (nivel === 'favoritos' && !favoritos?.has(c.id)) return false;
+    if (!['todas', 'vistas', 'favoritos'].includes(nivel) && n !== nivel) return false;
+    if (q && !textos(c.id).some((s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').includes(q))) return false;
+    return true;
+  });
+}

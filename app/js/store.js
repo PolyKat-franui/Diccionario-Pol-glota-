@@ -13,9 +13,10 @@ export function estadoInicial() {
   return {
     version: 1,
     perfil: { nombre: '', cuenta: null, elegido: false }, // cuenta: null = sin cuenta (invitado)
-    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true, sonido: true, meta: 10, ranking: true, recordatorio: false, horaRecordatorio: '20:00' }, // meta: palabras al día · ranking: aparecer en el ranking (con cuenta)
+    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true, sonido: true, meta: 20, ranking: true, recordatorio: false, horaRecordatorio: '20:00' }, // meta: palabras al día · ranking: aparecer en el ranking (con cuenta)
     aprendiendo: null,
     tokens: 0,
+    diamantes: 0,   // moneda rara: aparece de sorpresa o con 50 palabras en el día
     ejercicios: 0,
     sesiones: 0,
     racha: { actual: 0, mejor: 0, ultimoDia: null },
@@ -38,7 +39,7 @@ export function normalizar(data) {
   if (!data || typeof data !== 'object') return base;
   const ajustes = { ...base.ajustes, ...data.ajustes };
   if (!PALETAS.includes(ajustes.paleta)) ajustes.paleta = base.ajustes.paleta; // paletas antiguas → la actual
-  if (!METAS.includes(ajustes.meta)) ajustes.meta = base.ajustes.meta;
+  ajustes.meta = META_DIA; // meta fija para todas las personas (decisión de Francisca, 2026-10-14)
   return {
     ...base,
     ...data,
@@ -84,7 +85,7 @@ function diaAnterior(ts) {
   return diaLocal(new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1).getTime());
 }
 
-/** Se llama al estudiar una tarjeta: el primer estudio del día suma (o reinicia) la racha. */
+/** Se llama al cumplir la meta del día (META_DIA palabras): suma (o reinicia) la racha. */
 export function marcarDiaEstudiado(racha, ahora = Date.now()) {
   const hoy = diaLocal(ahora);
   if (racha.ultimoDia === hoy) return racha;
@@ -120,7 +121,8 @@ export function rachaVigente(racha, ahora = Date.now()) {
 }
 
 // ---------- Meta diaria y cofres ----------
-export const METAS = [5, 10, 20];
+/** La racha del día se cumple con META_DIA palabras revisadas (fija, no se elige). */
+export const META_DIA = 20;
 export const ETAPAS_FLOR = 4; // brote, capullo, abriendo, casi en flor → sakura (meta cumplida)
 /** Etapa de la sakura del día (0…4) según las palabras revisadas hoy y la meta. */
 export function etapaFlor(revisadas, meta) {
@@ -152,7 +154,6 @@ export function registrarRespuesta(estado, idioma, id, sabia, ahora = Date.now()
   estado.ejercicios += 1;
   sumarXP(estado, ahora);
   usarProtectores(estado, ahora);
-  marcarDiaEstudiado(estado.racha, ahora);
   return TOKENS_POR_TARJETA;
 }
 
@@ -168,6 +169,8 @@ export function contarRevision(estado, ahora = Date.now()) {
   if (estado.diario.dia !== hoy) estado.diario = { dia: hoy, revisadas: 0, premios: 0 };
   const d = estado.diario;
   d.revisadas += 1;
+  if (d.revisadas === META_DIA) marcarDiaEstudiado(estado.racha, ahora);
+  if (d.revisadas === DIAMANTE_PALABRAS) { estado.diamantes = (estado.diamantes ?? 0) + 1; d.diamante50 = true; }
   if (d.revisadas % PREMIO_CADA !== 0) return null;
   const nivel = d.revisadas / PREMIO_CADA;
   const monedas = premioDeNivel(nivel);
@@ -303,4 +306,43 @@ function semanasEntre(a, b) {
 export function sumarXP(estado, ahora = Date.now()) {
   actualizarLiga(estado, ahora);
   estado.liga.xp += 1;
+}
+
+// ---------- Estudio libre ----------
+/**
+ * Respuesta en estudio libre: suma tokens, XP y la cuenta del día, pero NO mueve el calendario de repasos.
+ * Si fallas una palabra que ya habías visto, queda para repasar pronto (vence ahora, sin perder su caja).
+ */
+export function registrarPractica(estado, idioma, id, sabia, ahora = Date.now()) {
+  const prog = progresoDe(estado, idioma);
+  if (!sabia && prog[id]) prog[id] = { ...prog[id], d: ahora, f: (prog[id].f ?? 0) + 1 };
+  estado.tokens += TOKENS_POR_TARJETA;
+  estado.ejercicios += 1;
+  sumarXP(estado, ahora);
+  usarProtectores(estado, ahora);
+  return TOKENS_POR_TARJETA;
+}
+
+// ---------- Diamantes 💎 (idea de Francisca, 2026-10-14) ----------
+// Muy valiosos y difíciles: 1 al llegar a 50 palabras en el día, o de sorpresa mientras estudias
+// (aparece unos segundos y hay que tocarlo a tiempo). Se cambian en la tienda de Kitty.
+export const DIAMANTE_PALABRAS = 50;
+export const DIAMANTE_PROB = 0.03;     // 3 % por tarjeta respondida…
+export const DIAMANTE_MAX_DIA = 2;     // …y como mucho 2 sorpresas al día
+export const DIAMANTE_TOKENS = 150;    // valor al cambiarlo en la tienda
+/** ¿Aparece un diamante sorpresa ahora? (cuenta las apariciones del día, se toquen o no). */
+export function tocaDiamante(estado, azar = Math.random, ahora = Date.now()) {
+  const d = estado.diario;
+  if (d.dia !== diaLocal(ahora)) return false;
+  if ((d.diamantesAzar ?? 0) >= DIAMANTE_MAX_DIA || azar() >= DIAMANTE_PROB) return false;
+  d.diamantesAzar = (d.diamantesAzar ?? 0) + 1;
+  return true;
+}
+export function ganarDiamante(estado, n = 1) { estado.diamantes = (estado.diamantes ?? 0) + n; return estado.diamantes; }
+/** Cambia 1 diamante por DIAMANTE_TOKENS tokens. */
+export function cambiarDiamante(estado) {
+  if ((estado.diamantes ?? 0) < 1) return false;
+  estado.diamantes -= 1;
+  estado.tokens += DIAMANTE_TOKENS;
+  return true;
 }

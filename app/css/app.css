@@ -787,7 +787,7 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 @keyframes cofreSacude { 0%, 60%, 100% { transform: rotate(0); } 70% { transform: rotate(-6deg); } 80% { transform: rotate(6deg); } 90% { transform: rotate(-3deg); } }
 
 /* ---------- Instalar la app ---------- */
-.icono-app { display: inline-grid; place-items: center; width: 104px; height: 104px; flex: none; border-radius: 24px; background: radial-gradient(circle, var(--carmesi-luz) 0 52%, var(--carmesi) 53%); box-shadow: 0 10px 24px color-mix(in srgb, var(--sombra-color) 30%, transparent); }
+.icono-app { display: inline-grid; place-items: center; width: 104px; height: 104px; flex: none; border-radius: 24px; background: var(--carmesi); box-shadow: 0 10px 24px color-mix(in srgb, var(--sombra-color) 30%, transparent); }
 .icono-app img { image-rendering: pixelated; }
 .instalar { display: grid; justify-items: center; gap: 14px; text-align: center; }
 .pasos-instalar { margin: 0; padding-left: 22px; display: grid; gap: 10px; text-align: left; font-weight: 600; }
@@ -1039,3 +1039,71 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .buzon-meta { margin: 0 0 6px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 14px; }
 .buzon-texto { margin: 0 0 10px; white-space: pre-wrap; overflow-wrap: anywhere; }
 .buzon-acciones { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Racha del día: Kitty baila */
+.baile-capa { position: fixed; inset: 0; z-index: 220; display: grid; place-items: center; padding: 16px; background: radial-gradient(circle at 50% 35%, var(--accent-soft), var(--surface-2) 55%, var(--bg)); color: var(--ink); animation: aparecer .3s var(--ease); }
+.baile { display: grid; justify-items: center; gap: 12px; text-align: center; max-width: 420px; }
+.baile p { margin: 0; font-size: 18px; }
+.baile-titulo { margin: 0; font-family: var(--font-logo); font-style: italic; font-size: clamp(34px, 10vw, 52px); line-height: 1.05; color: var(--primary); }
+.baile-pista { position: relative; width: 240px; height: 200px; display: grid; place-items: end center; }
+.baile-kitty { width: 160px; height: 128px; image-rendering: pixelated; transform-origin: 50% 100%; animation: kittyBaila 1.8s cubic-bezier(.4, 0, .3, 1) infinite; z-index: 1; }
+.baile-sombra { position: absolute; bottom: -4px; width: 120px; height: 14px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 18%, transparent); animation: sombraBaila 1.8s cubic-bezier(.4, 0, .3, 1) infinite; }
+.baile-nota { position: absolute; font-size: 28px; color: var(--primary); animation: notaSube 1.8s ease-out infinite; opacity: 0; }
+.baile-nota.n1 { left: 18px; bottom: 60px; } .baile-nota.n2 { right: 20px; bottom: 90px; animation-delay: .6s; } .baile-nota.n3 { left: 50px; bottom: 130px; animation-delay: 1.2s; }
+.baile-racha { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; border-radius: 999px; background: var(--surface); font-size: 20px; }
+.baile-racha img { width: 46px; height: 46px; image-rendering: pixelated; }
+@keyframes kittyBaila {
+  0% { transform: translateY(0) rotate(0) scale(1, 1); }
+  12% { transform: translateY(0) rotate(0) scale(1.08, .9); }
+  25% { transform: translateY(-46px) rotate(-12deg) scale(.95, 1.06); }
+  37% { transform: translateY(0) rotate(0) scale(1.08, .9); }
+  50% { transform: translateY(0) rotate(10deg) scale(1, 1); }
+  62% { transform: translateY(-46px) rotate(12deg) scaleX(-1); }
+  75% { transform: translateY(0) rotate(0) scale(-1.08, .9); }
+  87% { transform: translateY(0) rotate(-10deg) scaleX(-1); }
+  100% { transform: translateY(0) rotate(0) scale(1, 1); }
+}
+@keyframes sombraBaila { 25%, 62% { transform: scale(.6); opacity: .5; } }
+@keyframes notaSube { 0% { opacity: 0; transform: translateY(0) rotate(-10deg); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-70px) rotate(15deg); } }
+@media (prefers-reduced-motion: reduce) { .baile-kitty, .baile-sombra, .baile-nota { animation: none; } .baile-nota { opacity: 1; } }
+.meta-fija { margin: 0; }
+
+/* Estudio libre */
+.libre { display: grid; gap: 12px; }
+.libre-btn { justify-self: start; margin-top: 8px; }
+.libre-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.libre-chips button { min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; }
+.libre-chips button[aria-checked="true"] { background: var(--primary); color: var(--on-primary); border-color: var(--primary); font-weight: 700; }
+.libre-chips button[aria-checked="true"]::before { content: '✓ '; }
+.libre-barra { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.libre-lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; max-height: 55vh; overflow-y: auto; }
+.libre-fila { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 6px 12px; border-radius: 14px; background: var(--surface); cursor: pointer; }
+.libre-fila input { width: 22px; height: 22px; accent-color: var(--primary); flex: none; }
+.libre-palabra { flex: 1; display: grid; min-width: 0; }
+.libre-palabra small { color: var(--ink-soft); overflow-wrap: anywhere; }
+.libre-acciones { position: sticky; bottom: calc(var(--tabbar, 64px) + 8px); display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; padding: 8px 0; background: linear-gradient(transparent, var(--bg) 30%); }
+
+/* Diamantes 💎: sorpresa que cruza la pantalla y celebración */
+.diamante-vuela { position: fixed; z-index: 230; left: 0; width: 80px; height: 64px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; animation: diamanteCruza 3.6s linear forwards; filter: drop-shadow(0 0 10px var(--brillo-diamante)) drop-shadow(0 0 3px var(--blanco-fijo)); }
+.diamante-vuela img { image-rendering: pixelated; animation: diamanteGira .9s ease-in-out infinite; }
+@keyframes diamanteCruza { from { transform: translateX(calc(var(--dir) * -20vw + (1 - var(--dir)) * 60vw)); } to { transform: translateX(calc(var(--dir) * 110vw + (1 - var(--dir)) * -55vw)); } }
+@keyframes diamanteGira { 50% { transform: translateY(-10px) scale(1.08) rotate(6deg); } }
+.diamante-gana { position: fixed; left: 50%; top: 40%; z-index: 231; width: 125px; height: 95px; margin: -48px 0 0 -62px; image-rendering: pixelated; pointer-events: none; animation: diamanteGana 1.6s cubic-bezier(.3, 1.6, .5, 1) forwards; filter: drop-shadow(0 0 18px var(--brillo-diamante)); }
+@keyframes diamanteGana { 0% { transform: scale(0) rotate(-30deg); } 30% { transform: scale(1.2) rotate(8deg); } 60% { transform: scale(1); opacity: 1; } 100% { transform: translateY(-120px) scale(.6); opacity: 0; } }
+.tienda-diamantes { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.tienda-diamantes img { image-rendering: pixelated; }
+.tienda-saldo img[src*="diamante"] { margin-left: 12px; image-rendering: pixelated; }
+.menu-diamantes img { image-rendering: pixelated; }
+@media (prefers-reduced-motion: reduce) { .diamante-vuela { animation-duration: 6s; } .diamante-vuela img { animation: none; } }
+
+/* Visitantes del fondo: nubes que pasan y una abeja que cruza volando */
+.visitante { position: absolute; left: 0; top: var(--y); image-rendering: pixelated; pointer-events: none; }
+.nube-pasa { opacity: .55; animation: nubePasa var(--dur) linear var(--retraso) infinite; }
+.abeja-vuela { opacity: .9; animation: abejaVuela var(--dur) linear var(--retraso) infinite; }
+@keyframes nubePasa { from { transform: translateX(-30vw); } to { transform: translateX(110vw); } }
+@keyframes abejaVuela {
+  0% { transform: translate(-12vw, 0) scaleX(-1); } 12% { transform: translate(10vw, -30px) scaleX(-1); } 25% { transform: translate(30vw, 10px) scaleX(-1); }
+  37% { transform: translate(50vw, -25px) scaleX(-1); } 50% { transform: translate(70vw, 15px) scaleX(-1); } 62% { transform: translate(90vw, -20px) scaleX(-1); }
+  75%, 100% { transform: translate(115vw, 0) scaleX(-1); }
+}
+@media (prefers-reduced-motion: reduce) { .visitante { display: none; } }

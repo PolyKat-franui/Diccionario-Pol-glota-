@@ -3,12 +3,12 @@ import { t, tn, setIdiomaUI, tMega, tTipo, nombreIdioma, IDIOMAS_UI, MEGA_TEMAS 
 import * as store from './store.js';
 import { PALETAS } from './store.js';
 import { dificultad } from './srs.js';
-import { armarSesion, practicaLibre, ordenar, grupoDificultad, bloques, bloqueActual, REINSERTAR_EN, MAX_REPETICIONES } from './sesion.js';
+import { armarSesion, practicaLibre, filtrarLibre, ordenar, grupoDificultad, bloques, bloqueActual, REINSERTAR_EN, MAX_REPETICIONES } from './sesion.js';
 import * as banco from './banco.js';
 import { hablar } from './voz.js';
 import { ICON } from './iconos.js';
 import { sonido, activarSonido } from './sonido.js';
-import { sembrarAdornos, estallido, lluvia } from './adornos.js';
+import { sembrarAdornos, sembrarVisitantes, estallido, lluvia } from './adornos.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
 import * as nube from './nube.js';
 import * as J from './jardin.js';
@@ -304,6 +304,7 @@ const RUTAS = {
   instalar: vistaInstalar,
   jardin: vistaJardin,
   buzon: vistaBuzon,
+  libre: vistaLibre,
   conservar: vistaConservar,
   idiomas: vistaIdiomas,
   aprender: vistaAprender,
@@ -329,6 +330,7 @@ async function router() {
 }
 addEventListener('hashchange', router);
 sembrarAdornos($('#adornos'), { cantidad: 10 });
+sembrarVisitantes($('#adornos'), { nubes: 2, abejas: 1 });
 // Estallido de sakuras y monedas al elegir un tema o un idioma
 document.addEventListener('click', (e) => {
   if (e.target.closest('.neurona:not(.vacio), .nodo-idioma:not([aria-disabled="true"])')) estallido(e.clientX, e.clientY);
@@ -506,6 +508,7 @@ function vistaMenu() {
       <ul class="menu-stats">
         <li><img src="assets/sakura.svg" alt="" width="23" height="23"><span>${tn('racha_n', racha)}</span></li>
         <li><img src="assets/moneda.svg" alt="" width="24" height="24"><span>${t('tokens_n', { n: S.tokens })}</span></li>
+        <li class="menu-diamantes"><img src="assets/diamante.svg" alt="" width="25" height="19"><span>${tn('dia_n', S.diamantes ?? 0)}</span></li>
         <li class="menu-hoy">
           <img class="menu-flor" src="${srcFlor(etapaHoy())}" alt="" width="46" height="46">
           <span>${t('menu_hoy', { n: hoy })}</span>
@@ -516,6 +519,7 @@ function vistaMenu() {
       <nav class="menu-botones" aria-label="${t('menu_titulo')}">
         <a class="menu-jugar" id="menu-jugar" href="${S.aprendiendo ? '#/estudiar?dif=todas' : '#/idiomas'}">${ICON.jugar}<span>${t('menu_jugar')}</span></a>
         ${boton('#/aprender', ICON.libro, t('menu_temas'), 'menu-temas')}
+        ${boton('#/libre', ICON.todas, t('libre_titulo'), 'menu-libre')}
         ${boton('#/favoritos', ICON.corazon, t('nav_favoritos'), 'menu-favoritos')}
         ${boton('#/ranking', ICON.trofeo, t('nav_ranking'), 'menu-ranking')}
         ${boton('#/idiomas', `<span class="monograma pequeno" aria-hidden="true">${esc((S.aprendiendo || '?').toUpperCase())}</span>`, t('menu_idioma'), 'menu-idioma')}
@@ -832,12 +836,24 @@ function htmlTienda() {
     </li>`;
   };
   return `<div class="tienda">
-    <p class="tienda-saldo"><img src="assets/moneda.svg" alt="" width="24" height="24"><strong>${S.tokens}</strong> <span class="suave">Kitty tokens</span></p>
+    <p class="tienda-saldo"><img src="assets/moneda.svg" alt="" width="24" height="24"><strong>${S.tokens}</strong> <span class="suave">Kitty tokens</span>
+      <img src="assets/diamante.svg" alt="" width="25" height="19"><strong id="saldo-diamantes">${S.diamantes ?? 0}</strong> <span class="suave">${t('dia_titulo')}</span></p>
+    <div class="card tienda-diamantes">
+      <img src="assets/diamante.svg" alt="" width="75" height="57">
+      ${S.diamantes ? `<button class="btn primario" type="button" id="cambiar-diamante">${t('dia_cambiar', { n: store.DIAMANTE_TOKENS })}</button>` : `<p class="suave pequeno">${t('dia_sin')}</p>`}
+    </div>
     ${SECCIONES_TIENDA.map((sec) => `<h2 class="tienda-seccion">${t(`tienda_${sec}`)}</h2>
       <ul class="tienda-lista">${J.CATALOGO.filter((o) => o.tipo === sec).map(tarjeta).join('')}</ul>`).join('')}
   </div>`;
 }
 function activarTienda() {
+  $('#cambiar-diamante')?.addEventListener('click', () => {
+    if (!store.cambiarDiamante(S)) return;
+    guardar(); sonido.brillo(); sonido.monedas(4);
+    toast(t('dia_cambiado', { n: store.DIAMANTE_TOKENS }));
+    actualizarChips(); pulsoChip();
+    vistaJardin({ q: new URLSearchParams('t=tienda') });
+  });
   $$('[data-comprar]').forEach((b) => b.addEventListener('click', () => {
     const id = b.dataset.comprar;
     const res = J.comprar(S, id);
@@ -1008,6 +1024,7 @@ async function vistaAprender() {
           <h1 class="display">${t('temas_titulo')}</h1>
           <p class="suave">${t('temas_sub')}</p>
         </div>
+        <a class="btn libre-btn" href="#/libre" id="ir-libre">${ICON.libro}<span>${t('libre_abrir')}</span></a>
       </div>
       <div class="red" id="red">
         <svg class="red-sinapsis" aria-hidden="true"></svg>
@@ -1101,6 +1118,7 @@ function cerrarSesion() {
 
 function idsParaEstudiar(q, meta, nativo) {
   const lista = banco.disponibles(meta, nativo);
+  if (q.get('ids')) { const elegidos = new Set(q.get('ids').split(',')); return lista.filter((c) => elegidos.has(c.id)).map((c) => c.id); }
   if (q.get('fav') === '1') {
     const favs = new Set(S.favoritos[meta] ?? []);
     return ordenar(lista.filter((c) => favs.has(c.id))).map((c) => c.id);
@@ -1118,9 +1136,9 @@ async function vistaEstudiar(r) {
   await banco.prepararPar(meta, nativo);
   const ids = idsParaEstudiar(r.q, meta, nativo);
   const prog = store.progresoDe(S, meta);
-  const libre = r.q.get('libre') === '1' || r.q.get('fav') === '1';
-  const plan = libre ? { cola: practicaLibre({ ids, progreso: prog }), motivo: 'normal' } : armarSesion({ ids, progreso: prog });
-  const volverA = r.q.get('mega') ? `#/tema/${encodeURIComponent(r.q.get('mega'))}` : r.q.get('fav') ? '#/favoritos' : '#/aprender';
+  const libre = r.q.get('libre') === '1' || r.q.get('fav') === '1' || !!r.q.get('ids');
+  const plan = r.q.get('ids') ? { cola: ids, motivo: 'normal' } : libre ? { cola: practicaLibre({ ids, progreso: prog }), motivo: 'normal' } : armarSesion({ ids, progreso: prog });
+  const volverA = r.q.get('ids') ? '#/libre' : r.q.get('mega') ? `#/tema/${encodeURIComponent(r.q.get('mega'))}` : r.q.get('fav') ? '#/favoritos' : '#/aprender';
 
   if (!ids.length || !plan.cola.length) {
     const q = new URLSearchParams(r.q); q.set('libre', '1');
@@ -1137,7 +1155,7 @@ async function vistaEstudiar(r) {
     return;
   }
 
-  sesion = { meta, nativo, sabias: 0, repasar: 0, tokens: 0, reps: {}, actual: 0, k: 0, terminada: false, ruta: location.hash, volverA };
+  sesion = { meta, nativo, libre, sabias: 0, repasar: 0, tokens: 0, reps: {}, actual: 0, k: 0, terminada: false, ruta: location.hash, volverA };
   vista.innerHTML = `
     <section class="feed" id="feed" aria-label="${t('nav_aprender')}">
       <div class="feed-progreso" aria-hidden="true"><span class="progreso"><i id="feed-barra"></i></span><span id="feed-cuenta"></span><img class="feed-flor" id="feed-flor" src="assets/flor-0.svg" alt="" width="23" height="23"></div>
@@ -1217,18 +1235,41 @@ function pintarFlor(crece = false) {
   if (crece) { img.classList.remove('crece'); void img.offsetWidth; img.classList.add('crece'); }
 }
 /** Primer estudio del día: la racha sube con una lluvia de sakuras; cada 7 días, un cofre. */
+/** Racha del día cumplida (20 palabras): Kitty baila a pantalla completa; después, el cofre si toca. */
 function celebrarRacha() {
+  if (document.querySelector('.premio-capa')) return setTimeout(celebrarRacha, 400); // espera a que se cobre el premio
   const n = store.rachaVigente(S.racha);
-  lluvia({ cantidad: 22 });
-  toast(tn('racha_sube_n', n));
   pulsoChip();
   const cofre = store.abrirCofre(S);
-  if (cofre) { guardar(); setTimeout(() => mostrarCofre(cofre), 1400); }
+  if (cofre) guardar();
+  bailarKitty(n, () => { if (cofre) setTimeout(() => mostrarCofre(cofre), 300); });
 }
-function metaCumplida() {
-  lluvia({ cantidad: 40, monedas: 0.3, dur: 3200 });
+function bailarKitty(n, alCerrar) {
+  document.querySelector('.baile-capa')?.remove();
+  const capa = document.createElement('div');
+  capa.className = 'baile-capa'; capa.setAttribute('role', 'dialog'); capa.setAttribute('aria-modal', 'true'); capa.setAttribute('aria-labelledby', 'baile-titulo');
+  capa.innerHTML = `<div class="baile">
+      <div class="baile-pista" aria-hidden="true">
+        <span class="baile-nota n1">♪</span><span class="baile-nota n2">♫</span><span class="baile-nota n3">♪</span>
+        <img class="baile-kitty" id="baile-kitty" src="${cara('celebrando')}" alt="" width="160" height="128">
+        <span class="baile-sombra"></span>
+      </div>
+      <h2 class="baile-titulo" id="baile-titulo">${t('baile_titulo')}</h2>
+      <p class="baile-racha"><img src="assets/sakura.svg" alt="" width="46" height="46"><strong>${tn('baile_dias_n', n)}</strong></p>
+      <p>${t('baile_texto')}</p>
+      <button class="btn primario grande" type="button" id="baile-ok">${t('baile_ok')}</button>
+    </div>`;
+  document.body.append(capa);
   sonido.fin();
-  setTimeout(() => toast(t('meta_cumplida')), 300);
+  lluvia({ cantidad: 40, monedas: 0.3, dur: 3200 });
+  // Kitty cambia de cara al ritmo del baile
+  const caras = ['celebrando', 'muy_feliz', 'guino', 'enamorada'];
+  let i = 0;
+  const ritmo = sinMovimiento() ? null : setInterval(() => { const k = $('#baile-kitty'); if (!k) return clearInterval(ritmo); k.src = cara(caras[++i % caras.length]); }, 450);
+  const cerrar = () => { clearInterval(ritmo); capa.remove(); alCerrar?.(); };
+  $('#baile-ok').addEventListener('click', cerrar);
+  capa.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
+  $('#baile-ok').focus();
 }
 /** Cofre: se sacude, se abre al tocarlo y suelta monedas. */
 function mostrarCofre({ dias, monedas }) {
@@ -1277,8 +1318,7 @@ function responderSlide(slide, sabia, auto = false) {
   slide.dataset.r = sabia ? 'si' : 'no';
   const diaAntes = S.racha.ultimoDia;
   const nivAntes = dificultad(store.progresoDe(S, meta)[id]);
-  sesion.tokens += store.registrarRespuesta(S, meta, id, sabia);
-  if (S.racha.ultimoDia !== diaAntes) celebrarRacha();
+  sesion.tokens += (sesion.libre ? store.registrarPractica : store.registrarRespuesta)(S, meta, id, sabia);
   sabia ? sesion.sabias++ : sesion.repasar++;
   if (!auto) {
     sonido.moneda(0.05, sabia ? 2 : 0);
@@ -1288,7 +1328,10 @@ function responderSlide(slide, sabia, auto = false) {
     if (premio) { sesion.tokens += premio.monedas; setTimeout(() => mostrarPremio(premio), 700); }
     if (etapaHoy() !== etapa) pintarFlor(true);
     regarJardin(J.CRECE_POR_PALABRA);
-    if (S.diario.revisadas === S.ajustes.meta) { metaCumplida(); regarJardin(J.CRECE_POR_META); }
+    if (S.diario.revisadas === S.ajustes.meta) regarJardin(J.CRECE_POR_META);
+    if (S.diario.revisadas === store.DIAMANTE_PALABRAS) setTimeout(() => celebrarDiamante(t('dia_50')), premio ? 1600 : 600);
+    else if (!window.__sinSorpresas && store.tocaDiamante(S)) setTimeout(aparecerDiamante, 900 + Math.random() * 2500);
+    if (S.racha.ultimoDia !== diaAntes) setTimeout(celebrarRacha, premio ? 1200 : 500);
   }
   const niv = dificultad(store.progresoDe(S, meta)[id]);
   $('.nivel', slide).outerHTML = insignia(niv);
@@ -1500,6 +1543,37 @@ function mostrarDominada(id, meta) {
   $('#dom-seguir').addEventListener('click', cerrar);
   capa.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
   $('#dom-seguir').focus();
+}
+
+/** Diamante sorpresa: cruza la pantalla unos segundos; si lo tocas a tiempo, es tuyo. */
+function aparecerDiamante() {
+  if (!sesion || document.querySelector('.diamante-vuela')) return;
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'diamante-vuela'; b.setAttribute('aria-label', t('dia_atrapa'));
+  b.innerHTML = '<img src="assets/diamante.svg" alt="" width="75" height="57">';
+  b.style.top = `${18 + Math.random() * 50}vh`;
+  b.style.setProperty('--dir', Math.random() < 0.5 ? 1 : -1);
+  document.body.append(b);
+  sonido.toque();
+  const fuera = setTimeout(() => b.remove(), 3600);
+  b.addEventListener('click', (e) => {
+    clearTimeout(fuera);
+    const r0 = b.getBoundingClientRect();
+    b.remove();
+    estallido(r0.left + r0.width / 2, r0.top + r0.height / 2, { cantidad: 14 });
+    store.ganarDiamante(S);
+    guardar();
+    celebrarDiamante(t('dia_ganado'));
+  });
+}
+function celebrarDiamante(texto) {
+  sonido.brillo();
+  toast(texto);
+  if (sinMovimiento()) return;
+  const d = document.createElement('img');
+  d.src = 'assets/diamante.svg'; d.alt = ''; d.width = 125; d.height = 95; d.className = 'diamante-gana';
+  document.body.append(d);
+  setTimeout(() => d.remove(), 1600);
 }
 
 /** Ventana de premio estilo tragamonedas: 3 rodillos que se detienen en monedas y lluvia de monedas. */
@@ -1786,6 +1860,72 @@ async function vistaRanking() {
   }
 }
 
+// ---------- Estudio libre: elegir qué repasar sin mover el calendario ----------
+const libreFiltro = { texto: '', mega: '', nivel: 'vistas', elegidos: new Set() };
+const MAX_LIBRE_LISTA = 120, MAX_LIBRE_SESION = 40;
+async function vistaLibre() {
+  if (!S.aprendiendo) return void (location.hash = '#/idiomas');
+  const meta = S.aprendiendo, nativo = S.ajustes.nativo;
+  cargando();
+  await banco.prepararPar(meta, nativo);
+  const prog = store.progresoDe(S, meta);
+  const todos = ordenar(banco.disponibles(meta, nativo));
+  const nivelDe = (id) => dificultad(prog[id]);
+  const textos = (id) => [banco.texto(meta, id)?.texto ?? '', banco.texto(nativo, id)?.texto ?? ''];
+  const f = libreFiltro;
+  const chips = [['vistas', t('libre_f_vistas')], ['dominada', t('niv_dominada')], ['facil', t('niv_facil')], ['media', t('niv_media')], ['dificil', t('niv_dificil')], ['favoritos', t('libre_f_favoritos')], ['todas', t('libre_f_todas')]];
+  vista.innerHTML = `
+    <section class="pagina angosta libre">
+      <h1 class="display">${t('libre_titulo')}</h1>
+      <p class="suave">${t('libre_texto')}</p>
+      <label class="campo"><span>${t('libre_buscar')}</span><input type="search" id="libre-q" value="${esc(f.texto)}" autocomplete="off" enterkeyhint="search"></label>
+      <label class="campo"><span>${t('libre_tema')}</span><select id="libre-tema"><option value="">${t('libre_todos_temas')}</option>${MEGA_TEMAS.map((m) => `<option value="${esc(m)}" ${m === f.mega ? 'selected' : ''}>${esc(tMega(m))}</option>`).join('')}</select></label>
+      <div class="libre-chips" role="radiogroup" aria-label="${t('libre_titulo')}">${chips.map(([v, l]) => `<button type="button" role="radio" data-nivel="${v}" aria-checked="${f.nivel === v}">${l}</button>`).join('')}</div>
+      <div class="libre-barra"><span id="libre-cuenta"></span><button class="btn pequeno" type="button" id="libre-marcar"></button></div>
+      <ul class="libre-lista" id="libre-lista"></ul>
+      <p class="suave pequeno" id="libre-mas"></p>
+      <div class="libre-acciones">
+        <button class="btn" type="button" id="libre-azar">${t('libre_azar')}</button>
+        <button class="btn primario grande" type="button" id="libre-ir"></button>
+      </div>
+    </section>`;
+  let visibles = [];
+  const pintar = () => {
+    visibles = filtrarLibre(todos, { ...f, favoritos: new Set(S.favoritos[meta] ?? []) }, { nivelDe, textos });
+    const mostrar = visibles.slice(0, MAX_LIBRE_LISTA);
+    $('#libre-cuenta').textContent = tn('libre_n', visibles.length);
+    $('#libre-lista').innerHTML = mostrar.length ? mostrar.map((c) => `
+      <li><label class="libre-fila"><input type="checkbox" value="${c.id}" ${f.elegidos.has(c.id) ? 'checked' : ''}>
+        <span class="libre-palabra"><strong lang="${meta}">${esc(banco.texto(meta, c.id).texto)}</strong><small lang="${nativo}">${esc(banco.texto(nativo, c.id).texto)}</small></span>
+        ${insignia(nivelDe(c.id))}</label></li>`).join('') : `<li class="aviso">${t('libre_vacio')}</li>`;
+    $('#libre-mas').textContent = visibles.length > MAX_LIBRE_LISTA ? t('libre_mas', { n: MAX_LIBRE_LISTA, m: visibles.length }) : '';
+    $$('#libre-lista input').forEach((i) => i.addEventListener('change', () => { i.checked ? f.elegidos.add(i.value) : f.elegidos.delete(i.value); botones(); }));
+    botones();
+  };
+  const botones = () => {
+    const n = Math.min(f.elegidos.size, MAX_LIBRE_SESION);
+    $('#libre-ir').disabled = !n;
+    $('#libre-ir').textContent = t('libre_estudiar', { n });
+    $('#libre-marcar').textContent = f.elegidos.size ? t('libre_desmarcar') : t('libre_marcar');
+  };
+  const ir = (ids) => { location.hash = `#/estudiar?${new URLSearchParams({ ids: ids.slice(0, MAX_LIBRE_SESION).join(',') })}`; };
+  $('#libre-q').addEventListener('input', (e) => { f.texto = e.target.value; pintar(); });
+  $('#libre-tema').addEventListener('change', (e) => { f.mega = e.target.value; pintar(); });
+  $$('.libre-chips [data-nivel]', vista).forEach((b) => b.addEventListener('click', () => {
+    f.nivel = b.dataset.nivel; $$('.libre-chips [data-nivel]', vista).forEach((x) => x.setAttribute('aria-checked', String(x === b))); pintar();
+  }));
+  $('#libre-marcar').addEventListener('click', () => {
+    if (f.elegidos.size) f.elegidos.clear(); else visibles.slice(0, MAX_LIBRE_SESION).forEach((c) => f.elegidos.add(c.id));
+    pintar();
+  });
+  $('#libre-ir').addEventListener('click', () => ir([...f.elegidos]));
+  $('#libre-azar').addEventListener('click', () => {
+    const base = visibles.length ? visibles : todos;
+    ir([...base].sort(() => Math.random() - 0.5).slice(0, 10).map((c) => c.id));
+  });
+  pintar();
+}
+
 // ---------- Buzón de sugerencias ----------
 const esCreadora = () => conCuenta() && S.perfil.cuenta.email?.toLowerCase() === nube.CREADORA;
 let enviando = null;
@@ -1939,10 +2079,7 @@ function vistaAjustes() {
 
       <div class="card">
         <h2>${t('aj_meta')}</h2>
-        <p class="suave pequeno">${t('aj_meta_nota')}</p>
-        <div class="seg" role="radiogroup" aria-label="${t('aj_meta')}">
-          ${store.METAS.map((m) => opcion('meta', m, t('meta_n', { n: m }), a.meta)).join('')}
-        </div>
+        <p class="meta-fija"><strong>${t('meta_n', { n: store.META_DIA })}</strong> · ${t('aj_meta_fija')}</p>
         <p class="flores-meta" aria-hidden="true">${[0, 1, 2, 3, 4].map((e) => `<img src="${srcFlor(e)}" alt="" width="23" height="23">`).join('<span>›</span>')}</p>
       </div>
 
@@ -1991,7 +2128,6 @@ function vistaAjustes() {
     else if (conCuenta()) nube.borrarRanking(S.perfil.cuenta.uid).catch(() => {});
   });
   $$('[data-tema]').forEach((b) => b.addEventListener('click', () => { a.tema = b.dataset.tema; guardar(); aplicarAjustes(); vistaAjustes(); }));
-  $$('[data-meta]').forEach((b) => b.addEventListener('click', () => { a.meta = Number(b.dataset.meta); guardar(); vistaAjustes(); }));
   $$('.paletas [data-paleta]').forEach((b) => b.addEventListener('click', () => { a.paleta = b.dataset.paleta; guardar(); aplicarAjustes(); vistaAjustes(); }));
   $('#aj-escala').addEventListener('input', (e) => { a.escala = Number(e.target.value); $('#o-escala').textContent = `${Math.round(a.escala * 100)}%`; aplicarAjustes(); guardar(); });
   $('#aj-brillo').addEventListener('input', (e) => { a.brillo = Number(e.target.value); $('#o-brillo').textContent = `${Math.round(a.brillo * 100)}%`; aplicarAjustes(); guardar(); });
