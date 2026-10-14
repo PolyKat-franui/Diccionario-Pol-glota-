@@ -1,7 +1,8 @@
 # Cuenta de Google y guardado en la nube (Firebase)
 
 **Activa desde el 2026-10-13:** proyecto `franui-polykat`, configuración en `app/js/nube-config.js`.
-Verificado: dominio `polykat-franui.github.io` autorizado, Google habilitado y reglas de Firestore
+Verificado (2026-10-13, dirección antigua `franciscasanhueza.github.io`): Google habilitado y reglas de Firestore
+(2026-10-14) Mudanza: hay que autorizar también `polykat-franui.github.io` en Authentication → Authorized domains.
 que niegan leer sin sesión. Falta probar el login real en un celular.
 
 ## Cómo funciona
