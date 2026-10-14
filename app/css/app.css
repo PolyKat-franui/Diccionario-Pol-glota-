@@ -1039,3 +1039,31 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .buzon-meta { margin: 0 0 6px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 14px; }
 .buzon-texto { margin: 0 0 10px; white-space: pre-wrap; overflow-wrap: anywhere; }
 .buzon-acciones { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Racha del día: Kitty baila */
+.baile-capa { position: fixed; inset: 0; z-index: 220; display: grid; place-items: center; padding: 16px; background: radial-gradient(circle at 50% 35%, var(--accent-soft), var(--surface-2) 55%, var(--bg)); color: var(--ink); animation: aparecer .3s var(--ease); }
+.baile { display: grid; justify-items: center; gap: 12px; text-align: center; max-width: 420px; }
+.baile p { margin: 0; font-size: 18px; }
+.baile-titulo { margin: 0; font-family: var(--font-logo); font-style: italic; font-size: clamp(34px, 10vw, 52px); line-height: 1.05; color: var(--primary); }
+.baile-pista { position: relative; width: 240px; height: 200px; display: grid; place-items: end center; }
+.baile-kitty { width: 160px; height: 128px; image-rendering: pixelated; transform-origin: 50% 100%; animation: kittyBaila 1.8s cubic-bezier(.4, 0, .3, 1) infinite; z-index: 1; }
+.baile-sombra { position: absolute; bottom: -4px; width: 120px; height: 14px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 18%, transparent); animation: sombraBaila 1.8s cubic-bezier(.4, 0, .3, 1) infinite; }
+.baile-nota { position: absolute; font-size: 28px; color: var(--primary); animation: notaSube 1.8s ease-out infinite; opacity: 0; }
+.baile-nota.n1 { left: 18px; bottom: 60px; } .baile-nota.n2 { right: 20px; bottom: 90px; animation-delay: .6s; } .baile-nota.n3 { left: 50px; bottom: 130px; animation-delay: 1.2s; }
+.baile-racha { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; border-radius: 999px; background: var(--surface); font-size: 20px; }
+.baile-racha img { width: 46px; height: 46px; image-rendering: pixelated; }
+@keyframes kittyBaila {
+  0% { transform: translateY(0) rotate(0) scale(1, 1); }
+  12% { transform: translateY(0) rotate(0) scale(1.08, .9); }
+  25% { transform: translateY(-46px) rotate(-12deg) scale(.95, 1.06); }
+  37% { transform: translateY(0) rotate(0) scale(1.08, .9); }
+  50% { transform: translateY(0) rotate(10deg) scale(1, 1); }
+  62% { transform: translateY(-46px) rotate(12deg) scaleX(-1); }
+  75% { transform: translateY(0) rotate(0) scale(-1.08, .9); }
+  87% { transform: translateY(0) rotate(-10deg) scaleX(-1); }
+  100% { transform: translateY(0) rotate(0) scale(1, 1); }
+}
+@keyframes sombraBaila { 25%, 62% { transform: scale(.6); opacity: .5; } }
+@keyframes notaSube { 0% { opacity: 0; transform: translateY(0) rotate(-10deg); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-70px) rotate(15deg); } }
+@media (prefers-reduced-motion: reduce) { .baile-kitty, .baile-sombra, .baile-nota { animation: none; } .baile-nota { opacity: 1; } }
+.meta-fija { margin: 0; }

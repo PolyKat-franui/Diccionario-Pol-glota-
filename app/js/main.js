@@ -1217,18 +1217,41 @@ function pintarFlor(crece = false) {
   if (crece) { img.classList.remove('crece'); void img.offsetWidth; img.classList.add('crece'); }
 }
 /** Primer estudio del día: la racha sube con una lluvia de sakuras; cada 7 días, un cofre. */
+/** Racha del día cumplida (20 palabras): Kitty baila a pantalla completa; después, el cofre si toca. */
 function celebrarRacha() {
+  if (document.querySelector('.premio-capa')) return setTimeout(celebrarRacha, 400); // espera a que se cobre el premio
   const n = store.rachaVigente(S.racha);
-  lluvia({ cantidad: 22 });
-  toast(tn('racha_sube_n', n));
   pulsoChip();
   const cofre = store.abrirCofre(S);
-  if (cofre) { guardar(); setTimeout(() => mostrarCofre(cofre), 1400); }
+  if (cofre) guardar();
+  bailarKitty(n, () => { if (cofre) setTimeout(() => mostrarCofre(cofre), 300); });
 }
-function metaCumplida() {
-  lluvia({ cantidad: 40, monedas: 0.3, dur: 3200 });
+function bailarKitty(n, alCerrar) {
+  document.querySelector('.baile-capa')?.remove();
+  const capa = document.createElement('div');
+  capa.className = 'baile-capa'; capa.setAttribute('role', 'dialog'); capa.setAttribute('aria-modal', 'true'); capa.setAttribute('aria-labelledby', 'baile-titulo');
+  capa.innerHTML = `<div class="baile">
+      <div class="baile-pista" aria-hidden="true">
+        <span class="baile-nota n1">♪</span><span class="baile-nota n2">♫</span><span class="baile-nota n3">♪</span>
+        <img class="baile-kitty" id="baile-kitty" src="${cara('celebrando')}" alt="" width="160" height="128">
+        <span class="baile-sombra"></span>
+      </div>
+      <h2 class="baile-titulo" id="baile-titulo">${t('baile_titulo')}</h2>
+      <p class="baile-racha"><img src="assets/sakura.svg" alt="" width="46" height="46"><strong>${tn('baile_dias_n', n)}</strong></p>
+      <p>${t('baile_texto')}</p>
+      <button class="btn primario grande" type="button" id="baile-ok">${t('baile_ok')}</button>
+    </div>`;
+  document.body.append(capa);
   sonido.fin();
-  setTimeout(() => toast(t('meta_cumplida')), 300);
+  lluvia({ cantidad: 40, monedas: 0.3, dur: 3200 });
+  // Kitty cambia de cara al ritmo del baile
+  const caras = ['celebrando', 'muy_feliz', 'guino', 'enamorada'];
+  let i = 0;
+  const ritmo = sinMovimiento() ? null : setInterval(() => { const k = $('#baile-kitty'); if (!k) return clearInterval(ritmo); k.src = cara(caras[++i % caras.length]); }, 450);
+  const cerrar = () => { clearInterval(ritmo); capa.remove(); alCerrar?.(); };
+  $('#baile-ok').addEventListener('click', cerrar);
+  capa.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
+  $('#baile-ok').focus();
 }
 /** Cofre: se sacude, se abre al tocarlo y suelta monedas. */
 function mostrarCofre({ dias, monedas }) {
@@ -1278,7 +1301,6 @@ function responderSlide(slide, sabia, auto = false) {
   const diaAntes = S.racha.ultimoDia;
   const nivAntes = dificultad(store.progresoDe(S, meta)[id]);
   sesion.tokens += store.registrarRespuesta(S, meta, id, sabia);
-  if (S.racha.ultimoDia !== diaAntes) celebrarRacha();
   sabia ? sesion.sabias++ : sesion.repasar++;
   if (!auto) {
     sonido.moneda(0.05, sabia ? 2 : 0);
@@ -1288,7 +1310,8 @@ function responderSlide(slide, sabia, auto = false) {
     if (premio) { sesion.tokens += premio.monedas; setTimeout(() => mostrarPremio(premio), 700); }
     if (etapaHoy() !== etapa) pintarFlor(true);
     regarJardin(J.CRECE_POR_PALABRA);
-    if (S.diario.revisadas === S.ajustes.meta) { metaCumplida(); regarJardin(J.CRECE_POR_META); }
+    if (S.diario.revisadas === S.ajustes.meta) regarJardin(J.CRECE_POR_META);
+    if (S.racha.ultimoDia !== diaAntes) setTimeout(celebrarRacha, premio ? 1200 : 500);
   }
   const niv = dificultad(store.progresoDe(S, meta)[id]);
   $('.nivel', slide).outerHTML = insignia(niv);
@@ -1939,10 +1962,7 @@ function vistaAjustes() {
 
       <div class="card">
         <h2>${t('aj_meta')}</h2>
-        <p class="suave pequeno">${t('aj_meta_nota')}</p>
-        <div class="seg" role="radiogroup" aria-label="${t('aj_meta')}">
-          ${store.METAS.map((m) => opcion('meta', m, t('meta_n', { n: m }), a.meta)).join('')}
-        </div>
+        <p class="meta-fija"><strong>${t('meta_n', { n: store.META_DIA })}</strong> · ${t('aj_meta_fija')}</p>
         <p class="flores-meta" aria-hidden="true">${[0, 1, 2, 3, 4].map((e) => `<img src="${srcFlor(e)}" alt="" width="23" height="23">`).join('<span>›</span>')}</p>
       </div>
 
@@ -1991,7 +2011,6 @@ function vistaAjustes() {
     else if (conCuenta()) nube.borrarRanking(S.perfil.cuenta.uid).catch(() => {});
   });
   $$('[data-tema]').forEach((b) => b.addEventListener('click', () => { a.tema = b.dataset.tema; guardar(); aplicarAjustes(); vistaAjustes(); }));
-  $$('[data-meta]').forEach((b) => b.addEventListener('click', () => { a.meta = Number(b.dataset.meta); guardar(); vistaAjustes(); }));
   $$('.paletas [data-paleta]').forEach((b) => b.addEventListener('click', () => { a.paleta = b.dataset.paleta; guardar(); aplicarAjustes(); vistaAjustes(); }));
   $('#aj-escala').addEventListener('input', (e) => { a.escala = Number(e.target.value); $('#o-escala').textContent = `${Math.round(a.escala * 100)}%`; aplicarAjustes(); guardar(); });
   $('#aj-brillo').addEventListener('input', (e) => { a.brillo = Number(e.target.value); $('#o-brillo').textContent = `${Math.round(a.brillo * 100)}%`; aplicarAjustes(); guardar(); });

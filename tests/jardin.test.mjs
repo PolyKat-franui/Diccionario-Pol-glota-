@@ -59,11 +59,12 @@ test('sakura de reserva: cubre los días perdidos si alcanza; si no, no se gasta
   assert.deepEqual(J.comprar(s, 'protector'), { ok: false, motivo: 'max' });
   s.racha = { actual: 5, mejor: 5, ultimoDia: store.diaLocal(dia(10)) };
   // no estudió el 11; el 12 estudia → la reserva cubre el 11
-  store.registrarRespuesta(s, 'en', 'x', true, dia(12));
+  const completarDia = (d) => { store.registrarRespuesta(s, 'en', 'x', true, d); for (let i = 0; i < store.META_DIA; i++) store.contarRevision(s, d); };
+  completarDia(dia(12));
   assert.equal(s.racha.actual, 6);
   assert.equal(s.jardin.protectores, 1);
   // no estudia el 13, 14 ni 15 → 3 días perdidos, solo tiene 1: se pierde la racha y la reserva queda
-  store.registrarRespuesta(s, 'en', 'x', true, dia(16));
+  completarDia(dia(16));
   assert.equal(s.racha.actual, 1);
   assert.equal(s.jardin.protectores, 1);
 });

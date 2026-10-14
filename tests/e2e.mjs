@@ -131,10 +131,10 @@ try {
   await primera.locator('.btn-sabe').click();
   await page.waitForFunction(() => document.querySelector('#chip-tokens span:last-child').textContent === '1');
   assert.match(await primera.locator('.nivel').innerText(), /Media/);
-  assert.equal(await page.locator('#chip-racha span').innerText(), '1');
+  assert.equal(await page.locator('#chip-racha span').innerText(), '0', 'la racha sube recién con 20 palabras');
   assert.ok(await page.locator('#chip-tokens .moneda').evaluate((m) => m.classList.contains('gira')), 'la moneda gira al ganar tokens');
   await imagenesCargadas(page, 'tarjeta');
-  paso('"Lo sé" → +1 Kitty token (la moneda gira), nivel "Media", racha 1');
+  paso('"Lo sé" → +1 Kitty token (la moneda gira), nivel "Media"; la racha aún no sube');
 
   await page.waitForTimeout(900);
   const segunda = page.locator('#feed .slide').nth(1);
@@ -308,8 +308,8 @@ try {
 
   // Meta diaria de 5 palabras en Ajustes
   await page.goto(`${URL_APP}#/ajustes`);
-  await page.locator('[data-meta="5"]').click();
-  await page.locator('[data-meta="5"][aria-checked="true"]').waitFor();
+  assert.equal(await page.locator('[data-meta]').count(), 0, 'la meta ya no se elige');
+  assert.match(await page.locator('.meta-fija').innerText(), /20 palabras/);
   await page.locator('#aj-hora').fill('21:15');
   await page.locator('#aj-hora').dispatchEvent('change');
   const [descarga] = await Promise.all([page.waitForEvent('download'), page.locator('#aj-calendario').click()]);
@@ -330,19 +330,27 @@ try {
     const ayer = new Date(Date.now() - 864e5);
     const pad = (n) => String(n).padStart(2, '0');
     s.racha = { actual: 6, mejor: 6, ultimoDia: `${ayer.getFullYear()}-${pad(ayer.getMonth() + 1)}-${pad(ayer.getDate())}` };
-    s.diario = { dia: null, revisadas: 0, premios: 0 };
+    const hoy = new Date();
+    s.diario = { dia: `${hoy.getFullYear()}-${pad(hoy.getMonth() + 1)}-${pad(hoy.getDate())}`, revisadas: 19, premios: 1 }; // a 1 palabra de la meta
     s.cofre = 0;
     localStorage.setItem('franui:v1', JSON.stringify(s));
   });
   await editor.close();
   await page.goto(`${URL_APP}#/menu`);
-  assert.match(await page.locator('.menu-flor').getAttribute('src'), /flor-0\.svg/);
+  assert.match(await page.locator('.menu-flor').getAttribute('src'), /flor-3\.svg/, '19 de 20: casi en flor');
   const antesCofre = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).tokens);
   await page.goto(`${URL_APP}#/estudiar?mega=${encodeURIComponent('Conversación y vida social')}&dif=todas`);
   await page.locator('#feed .slide .palabra').first().waitFor();
   await page.waitForTimeout(500);
   await page.keyboard.press('ArrowRight');
-  await page.locator('#toast', { hasText: '7 días' }).waitFor();
+  // la palabra 20 del día: primero el premio de 20 palabras, después Kitty baila y luego el cofre de 7 días
+  await page.locator('#premio-ok').click({ timeout: 6000 });
+  await page.locator('.baile-capa').waitFor({ timeout: 5000 });
+  assert.match(await page.locator('.baile').innerText(), /Racha del día cumplida[\s\S]*7 días seguidos/);
+  await page.waitForTimeout(700);
+  await foto(page, '13a-celular-baile-kitty');
+  assert.match(await page.locator('#baile-kitty').getAttribute('src'), /caras\//);
+  await page.locator('#baile-ok').click();
   await page.locator('.cofre-capa').waitFor({ timeout: 5000 });
   await page.waitForTimeout(400);
   await foto(page, '13b-celular-cofre');
@@ -353,13 +361,11 @@ try {
   await foto(page, '13c-celular-cofre-abierto');
   await page.locator('#cofre-ok').click();
   await page.locator('.cofre-capa').waitFor({ state: 'detached' });
-  const revisadasHoy = () => page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).diario.revisadas);
-  for (let i = 0; i < 14 && (await revisadasHoy()) < 5; i++) { await page.waitForTimeout(650); await page.keyboard.press('ArrowRight'); }
-  await page.locator('#toast', { hasText: 'Meta del día cumplida' }).waitFor({ timeout: 5000 });
   assert.match(await page.locator('#feed-flor').getAttribute('src'), /sakura\.svg/);
+  assert.equal(await page.locator('#chip-racha span').innerText(), '7');
   const despuesCofre = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).tokens);
-  assert.ok(despuesCofre - antesCofre >= 50 + 5, `el cofre da 50 monedas (${despuesCofre - antesCofre})`);
-  paso('Racha 7 → lluvia de sakuras y cofre (+50); meta de 5 palabras → la sakura florece');
+  assert.ok(despuesCofre - antesCofre >= 50 + 15, `el cofre da 50 monedas (${despuesCofre - antesCofre})`);
+  paso('Palabra 20 del día → premio, Kitty baila por la racha 7 y cofre (+50); la sakura florece');
 
   // Jardín de Sakura: pestaña propia, tienda de Kitty, abono que lo hace crecer, decorar arrastrando
   await page.locator('.tabbar a[href="#/jardin"]').click();
@@ -371,6 +377,7 @@ try {
   await page.locator('[data-comprar="abono"]').waitFor();
   const crecAntes = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).jardin.crecimiento);
   await page.locator('[data-comprar="abono"]').click();
+  if (await page.locator('#sube-ok').waitFor({ timeout: 1500 }).then(() => true, () => false)) await page.locator('#sube-ok').click(); // el abono puede subir de nivel el sakura
   await page.locator('[data-comprar="mantel"]').click();
   await page.locator('#toast', { hasText: 'Mantel de picnic' }).waitFor();
   await page.waitForFunction(() => JSON.parse(localStorage.getItem('franui:v1')).jardin.tiene.mantel === true); // guardado automático
