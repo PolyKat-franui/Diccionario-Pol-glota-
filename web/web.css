@@ -459,3 +459,82 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, trans
   75%, 100% { transform: translate(115vw, 0) scaleX(-1); }
 }
 @media (prefers-reduced-motion: reduce) { .visitante { display: none; } }
+
+/* ===== El método: tres capítulos (estilo editorial, como una casa de lujo) ===== */
+.metodo { gap: clamp(56px, 8vw, 120px); }
+.metodo-intro { max-width: 560px; font-size: 18px; }
+.capitulo { position: relative; display: grid; gap: clamp(28px, 4vw, 64px); align-items: center; padding: clamp(28px, 4vw, 56px); border-radius: 32px; background: var(--surface); box-shadow: var(--shadow); overflow: hidden; isolation: isolate; }
+.capitulo::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--c); }
+.capitulo-num { display: flex; align-items: center; gap: 14px; margin: 0; font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: var(--ink-soft); }
+.kanji { font-family: var(--font-logo); font-size: 44px; letter-spacing: 0; color: var(--c); line-height: 1; }
+.capitulo h3 { margin: 10px 0 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(34px, 4.6vw, 56px); line-height: 1.02; letter-spacing: -0.02em; }
+.kanji-titulo { position: absolute; right: -0.08em; bottom: -0.25em; z-index: -1; font-family: var(--font-logo); font-size: clamp(140px, 20vw, 260px); line-height: 1; color: color-mix(in srgb, var(--c) 7%, transparent); pointer-events: none; }
+.capitulo-lema { margin: 8px 0 0; font-family: var(--font-logo); font-style: italic; font-size: clamp(20px, 2.2vw, 26px); color: var(--c); }
+.capitulo-datos { margin: 24px 0 0; display: grid; gap: 18px; }
+.capitulo-datos div { display: grid; gap: 4px; padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
+.capitulo-datos dt { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-soft); }
+.capitulo-datos dd { margin: 0; font-size: 17px; line-height: 1.6; }
+.capitulo-visual { margin: 0; min-height: 240px; display: grid; place-items: center; gap: 12px; padding: 24px; border-radius: 24px; background: color-mix(in srgb, var(--c) 6%, var(--surface-2)); text-align: center; }
+@media (min-width: 900px) {
+  .capitulo { grid-template-columns: 1.1fr 1fr; }
+  .capitulo.invertido .capitulo-texto { order: 2; }
+}
+/* Kaizen: la cifra que crece y la sakura que florece día a día */
+.kaizen-cifra { margin: 0; font-family: var(--font-logo); font-size: clamp(64px, 9vw, 104px); line-height: 1; color: var(--c); }
+.kaizen-nota { margin: 0; font-size: 14px; color: var(--ink-soft); max-width: 260px; }
+.kaizen-dias { list-style: none; padding: 0; margin: 8px 0 0; display: flex; gap: clamp(6px, 2vw, 14px); align-items: end; }
+.kaizen-dias li { display: grid; justify-items: center; gap: 6px; font-size: 12px; letter-spacing: .2em; color: var(--ink-soft); }
+.kaizen-dias img { width: 46px; height: 46px; image-rendering: pixelated; opacity: 0; transform: translateY(14px) scale(.6); transition: opacity .6s var(--ease), transform .7s cubic-bezier(.3, 1.6, .5, 1); transition-delay: calc(var(--i) * 260ms + 300ms); }
+.capitulo.visible .kaizen-dias img { opacity: 1; transform: none; }
+/* Kumon: escalera de bloques de diez tarjetas */
+.kumon { position: relative; }
+.kumon-escalera { list-style: none; padding: 0; margin: 0; display: flex; align-items: end; gap: 10px; }
+.kumon-escalera li { display: grid; justify-items: center; gap: 6px; font-size: 11px; color: var(--ink-soft); }
+.kumon-escalera li:nth-child(1) { padding-bottom: 0; } .kumon-escalera li:nth-child(2) { padding-bottom: 28px; } .kumon-escalera li:nth-child(3) { padding-bottom: 56px; } .kumon-escalera li:nth-child(4) { padding-bottom: 84px; }
+.bloque { display: grid; grid-template-columns: repeat(2, 12px); gap: 3px; padding: 6px; border-radius: 10px; background: var(--surface); box-shadow: 0 6px 14px color-mix(in srgb, var(--sombra-color) 12%, transparent); }
+.bloque i { width: 12px; height: 9px; border-radius: 2px; background: color-mix(in srgb, var(--c) 18%, var(--surface-2)); transition: background .3s var(--ease); }
+.capitulo.visible .kumon-escalera li:not(.actual) .bloque i { background: var(--c); transition-delay: calc(var(--i) * 450ms + var(--j, 0ms)); }
+.capitulo.visible .kumon-escalera li.actual .bloque i:nth-child(-n+4) { background: var(--c); transition-delay: 1800ms; }
+.bloque i:nth-child(2n) { --j: 40ms; } .bloque i:nth-child(3n) { --j: 80ms; } .bloque i:nth-child(5n) { --j: 120ms; }
+.kumon-kitty { width: 40px; height: 32px; image-rendering: pixelated; opacity: 0; transform: translate(-60px, 40px); }
+.capitulo.visible .kumon-kitty { animation: kittySube 1.6s cubic-bezier(.4, 0, .3, 1) 1.9s forwards; }
+@keyframes kittySube { 0% { opacity: 0; transform: translate(-90px, 84px); } 15% { opacity: 1; } 40% { transform: translate(-60px, 30px); } 55% { transform: translate(-42px, 56px); } 80% { transform: translate(-12px, -14px); } 100% { opacity: 1; transform: none; } }
+/* Repetición espaciada: la curva del olvido que se dibuja sola */
+.curva svg { width: 100%; max-width: 360px; overflow: visible; }
+.curva-eje { stroke: var(--line); stroke-width: 1.5; }
+.curva-sin { fill: none; stroke: var(--ink-soft); stroke-width: 2; stroke-dasharray: 6 6; opacity: .5; }
+.curva-con { fill: none; stroke: var(--c); stroke-width: 3.5; stroke-linejoin: round; stroke-dasharray: 900; stroke-dashoffset: 900; transition: stroke-dashoffset 3.2s ease-in-out .3s; }
+.capitulo.visible .curva-con { stroke-dashoffset: 0; }
+.curva-puntos circle { fill: var(--surface); stroke: var(--c); stroke-width: 3; opacity: 0; transition: opacity .4s; }
+.curva-puntos circle:nth-child(1) { transition-delay: .9s; } .curva-puntos circle:nth-child(2) { transition-delay: 1.4s; } .curva-puntos circle:nth-child(3) { transition-delay: 2s; } .curva-puntos circle:nth-child(4) { transition-delay: 2.8s; }
+.capitulo.visible .curva-puntos circle { opacity: 1; }
+.curva-dias text { font-size: 11px; fill: var(--ink-soft); text-anchor: middle; }
+.curva-leyenda { margin: 0; display: flex; gap: 18px; justify-content: center; font-size: 13px; color: var(--ink-soft); }
+.curva-leyenda span::before { content: ''; display: inline-block; width: 18px; height: 3px; margin-right: 6px; vertical-align: middle; background: var(--c); }
+.curva-leyenda .ley-sin::before { background: repeating-linear-gradient(90deg, var(--ink-soft) 0 4px, transparent 4px 7px); }
+
+/* ===== Cómo funciona: línea de tiempo con Kitty caminando ===== */
+.trayecto { position: relative; --p: 0; }
+.trayecto-riel { position: absolute; top: 8px; bottom: 8px; left: 27px; width: 2px; background: color-mix(in srgb, var(--line) 80%, transparent); }
+.trayecto-llena { position: absolute; inset: 0 0 auto 0; height: calc(var(--p) * 100%); background: linear-gradient(var(--nodo-1), var(--nodo-2), var(--nodo-3)); }
+.trayecto-kitty { position: absolute; z-index: 2; max-width: none; left: -19px; top: calc(var(--p) * 100% - 16px); width: 40px; height: 32px; image-rendering: pixelated; filter: drop-shadow(0 4px 6px color-mix(in srgb, var(--sombra-color) 25%, transparent)); transition: top .15s linear; }
+.trayecto-pasos { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(28px, 4vw, 48px); }
+.hito-paso { position: relative; display: grid; grid-template-columns: 56px 1fr; gap: clamp(16px, 3vw, 32px); align-items: start; }
+.hito-icono { position: relative; z-index: 1; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--surface); box-shadow: 0 0 0 6px var(--bg), var(--shadow); }
+.hito-icono img { image-rendering: pixelated; }
+.monograma-mini { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--primary); }
+.hito-paso > div { padding: 22px 26px; border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); display: grid; gap: 8px; transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
+.hito-paso > div:hover { transform: translateY(-4px); }
+.hito-paso h3 { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(24px, 3vw, 32px); line-height: 1.1; }
+.hito-paso p { margin: 0; color: var(--ink-soft); line-height: 1.6; }
+@media (min-width: 900px) {
+  .trayecto-riel { left: 50%; margin-left: -1px; }
+  .hito-paso { grid-template-columns: 1fr 56px 1fr; }
+  .hito-paso .hito-icono { grid-column: 2; grid-row: 1; }
+  .hito-paso > div { grid-column: 3; grid-row: 1; }
+  .hito-paso:nth-child(even) > div { grid-column: 1; text-align: right; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kaizen-dias img, .bloque i, .curva-con, .curva-puntos circle { transition: none; } .kumon-kitty { animation: none; opacity: 1; transform: none; }
+  .curva-con { stroke-dashoffset: 0; } .curva-puntos circle, .kaizen-dias img { opacity: 1; transform: none; }
+}

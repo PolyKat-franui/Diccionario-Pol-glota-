@@ -85,6 +85,17 @@ try {
   assert.match(await page.locator('#lista-idiomas .idioma.proximamente').first().innerText(), /Próximamente/);
   paso('Idiomas leídos del mismo archivo que la app (alemán Nuevo, otros Próximamente)');
 
+  assert.equal(await page.locator('#metodo .capitulo').count(), 3);
+  await page.locator('.contador').scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => document.querySelector('.contador').textContent === '37,8', null, { timeout: 6000 });
+  assert.equal(await page.locator('#como .hito-paso').count(), 6);
+  await page.locator('#trayecto').scrollIntoViewIfNeeded();
+  await page.mouse.wheel(0, 600);
+  await page.waitForFunction(() => Number(getComputedStyle(document.getElementById('trayecto')).getPropertyValue('--p')) > 0.1);
+  const kittyW = await page.locator('.trayecto-kitty').evaluate((k) => k.getBoundingClientRect().width);
+  assert.equal(Math.round(kittyW), 40, 'Kitty se ve en la línea');
+  paso('Método en 3 capítulos animados (1,01³⁶⁵ ≈ 37,8) y línea de 6 pasos que se llena al bajar con Kitty');
+
   assert.ok(await page.locator('#lista-novedades .hito').count() >= 1);
   assert.match(await page.locator('#lista-novedades').innerText(), /Primera versión de prueba/);
   paso('Novedades compartidas con la app');

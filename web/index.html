@@ -125,42 +125,96 @@
     </section>
 
     <!-- Método -->
-    <section class="seccion" id="metodo">
+    <section class="seccion metodo" id="metodo">
       <header class="seccion-cabeza revelar">
         <p class="sobretitulo">El método</p>
-        <h2 class="display">Tres ideas simples,<br>un hábito que dura.</h2>
+        <h2 class="display">Tres ideas simples,<br>un hábito que <em>dura</em>.</h2>
+        <p class="suave metodo-intro">Tres métodos japoneses y de la ciencia de la memoria, unidos en un juego de un minuto al día.</p>
       </header>
-      <div class="grid-3">
-        <article class="pieza revelar">
-          <span class="pieza-num">I</span>
-          <h3>Kaizen</h3>
-          <p>Mejorar un 1 % cada día. Sesiones de uno a cinco minutos que caben en cualquier pausa.</p>
-        </article>
-        <article class="pieza revelar">
-          <span class="pieza-num">II</span>
-          <h3>Kumon</h3>
-          <p>Bloques pequeños y progresivos. Dominas un bloque de diez tarjetas antes de pasar al siguiente.</p>
-        </article>
-        <article class="pieza revelar">
-          <span class="pieza-num">III</span>
-          <h3>Repetición espaciada</h3>
-          <p>Cada tarjeta vuelve justo antes de que la olvides: en minutos, en días o en semanas, según cómo te fue.</p>
-        </article>
-      </div>
+
+      <article class="capitulo revelar" style="--c: var(--nodo-1)">
+        <div class="capitulo-texto">
+          <p class="capitulo-num"><span class="kanji" lang="ja">一</span><span>Capítulo uno</span></p>
+          <h3>Kaizen <span class="kanji-titulo" lang="ja">改善</span></h3>
+          <p class="capitulo-lema">Mejorar un poco, todos los días.</p>
+          <dl class="capitulo-datos">
+            <div><dt>Qué es</dt><dd>Filosofía japonesa de mejora continua: pasos tan pequeños que no cuestan, pero que nunca se detienen.</dd></div>
+            <div><dt>En Franui</dt><dd>Sesiones de uno a cinco minutos y una meta diaria de 20 palabras. Tu sakura florece cada día que la cumples.</dd></div>
+          </dl>
+        </div>
+        <figure class="capitulo-visual kaizen" aria-label="Una sakura que crece día a día">
+          <p class="kaizen-cifra"><span class="contador" data-hasta="37.8" data-dec="1">1</span>×</p>
+          <p class="kaizen-nota">mejor en un año, mejorando un 1 % al día (1,01³⁶⁵)</p>
+          <ol class="kaizen-dias">
+            <li style="--i:0"><img src="app/assets/flor-0.svg" alt="" width="46" height="46"><span>L</span></li>
+            <li style="--i:1"><img src="app/assets/flor-1.svg" alt="" width="46" height="46"><span>M</span></li>
+            <li style="--i:2"><img src="app/assets/flor-2.svg" alt="" width="46" height="46"><span>M</span></li>
+            <li style="--i:3"><img src="app/assets/flor-3.svg" alt="" width="46" height="46"><span>J</span></li>
+            <li style="--i:4"><img src="app/assets/sakura.svg" alt="" width="46" height="46"><span>V</span></li>
+          </ol>
+        </figure>
+      </article>
+
+      <article class="capitulo invertido revelar" style="--c: var(--nodo-2)">
+        <div class="capitulo-texto">
+          <p class="capitulo-num"><span class="kanji" lang="ja">二</span><span>Capítulo dos</span></p>
+          <h3>Kumon <span class="kanji-titulo" lang="ja">公文</span></h3>
+          <p class="capitulo-lema">Dominar un escalón antes de subir al siguiente.</p>
+          <dl class="capitulo-datos">
+            <div><dt>Qué es</dt><dd>Método japonés de aprendizaje autónomo en bloques cortos y progresivos, al ritmo de cada persona.</dd></div>
+            <div><dt>En Franui</dt><dd>Las palabras van en bloques de diez, de las más usadas a las menos. El siguiente bloque se abre cuando el anterior ya es tuyo.</dd></div>
+          </dl>
+        </div>
+        <figure class="capitulo-visual kumon" aria-label="Bloques de diez tarjetas que se completan como una escalera">
+          <ol class="kumon-escalera">
+            <li style="--i:0"><span class="bloque"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><small>Bloque 1</small></li>
+            <li style="--i:1"><span class="bloque"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><small>Bloque 2</small></li>
+            <li style="--i:2"><span class="bloque"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><small>Bloque 3</small></li>
+            <li style="--i:3" class="actual"><img class="kumon-kitty" src="app/assets/caras/feliz.svg" alt="" width="40" height="32"><span class="bloque"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><small>Bloque 4</small></li>
+          </ol>
+        </figure>
+      </article>
+
+      <article class="capitulo revelar" style="--c: var(--nodo-3)">
+        <div class="capitulo-texto">
+          <p class="capitulo-num"><span class="kanji" lang="ja">三</span><span>Capítulo tres</span></p>
+          <h3>Repetición espaciada <span class="kanji-titulo" lang="ja">間隔</span></h3>
+          <p class="capitulo-lema">Volver a cada palabra justo antes de olvidarla.</p>
+          <dl class="capitulo-datos">
+            <div><dt>Qué es</dt><dd>Técnica basada en la curva del olvido (Ebbinghaus): cada repaso a tiempo hace que el recuerdo dure más.</dd></div>
+            <div><dt>En Franui</dt><dd>Si dices «Lo sé», la tarjeta vuelve en 1, 3, 7, 21 y 60 días. Si fallas, vuelve pronto. Al final, queda «Dominada».</dd></div>
+          </dl>
+        </div>
+        <figure class="capitulo-visual curva" aria-label="Curva del olvido: cada repaso sube el recuerdo y lo hace bajar más lento">
+          <svg viewBox="0 0 320 170" role="img" aria-hidden="true">
+            <line class="curva-eje" x1="20" y1="150" x2="310" y2="150"/>
+            <path class="curva-sin" d="M20 20 C 40 90, 70 130, 310 145"/>
+            <path class="curva-con" d="M20 20 C 30 60, 40 75, 45 78 L45 22 C 60 55, 75 65, 85 66 L85 22 C 110 45, 130 52, 145 54 L145 22 C 180 36, 210 42, 225 44 L225 22 C 260 30, 290 33, 310 34"/>
+            <g class="curva-puntos"><circle cx="45" cy="22" r="5"/><circle cx="85" cy="22" r="5"/><circle cx="145" cy="22" r="5"/><circle cx="225" cy="22" r="5"/></g>
+            <g class="curva-dias"><text x="45" y="166">1</text><text x="85" y="166">3</text><text x="145" y="166">7</text><text x="225" y="166">21</text><text x="300" y="166">60 días</text></g>
+          </svg>
+          <p class="curva-leyenda"><span class="ley-con">Con repasos</span><span class="ley-sin">Sin repasos</span></p>
+        </figure>
+      </article>
     </section>
 
-    <!-- Cómo funciona -->
+    <!-- Cómo funciona: una línea de tiempo que se dibuja al bajar, con Kitty caminando -->
     <section class="seccion como" id="como">
       <header class="seccion-cabeza revelar">
         <p class="sobretitulo">Cómo funciona</p>
-        <h2 class="display">Desliza. Recuerda. Repite.</h2>
+        <h2 class="display">Desliza. Recuerda. <em>Repite.</em></h2>
       </header>
-      <ol class="pasos">
-        <li class="paso revelar"><span class="paso-num">01</span><h3>Elige tu idioma</h3><p>La app se muestra en tu idioma nativo y tú eliges el que quieres aprender.</p></li>
-        <li class="paso revelar"><span class="paso-num">02</span><h3>Elige un tema</h3><p>Saludos, comida, viajes, trabajo… y la dificultad: fácil, medio o difícil.</p></li>
-        <li class="paso revelar"><span class="paso-num">03</span><h3>Desliza tarjetas</h3><p>Toca para ver la traducción, escucha la pronunciación y marca «Lo sé» o «Repasar».</p></li>
-        <li class="paso revelar"><span class="paso-num">04</span><h3>Suma tu racha <img class="icono-pixel" src="app/assets/sakura.svg" alt="" width="23" height="23"><img class="icono-pixel" src="app/assets/moneda.svg" alt="" width="24" height="24"></h3><p>Cada día que estudias suma una sakura a tu racha. Cada tarjeta te da Kitty tokens.</p></li>
-      </ol>
+      <div class="trayecto" id="trayecto">
+        <div class="trayecto-riel" aria-hidden="true"><span class="trayecto-llena"></span><img class="trayecto-kitty" src="app/assets/caras/feliz.svg" alt="" width="40" height="32"></div>
+        <ol class="trayecto-pasos">
+          <li class="hito-paso revelar"><span class="hito-icono"><span class="monograma-mini">ES</span></span><div><span class="paso-num">01</span><h3>Elige tu idioma</h3><p>La app se muestra en tu idioma nativo y tú eliges el que quieres aprender: inglés, español, portugués, francés, italiano o alemán.</p></div></li>
+          <li class="hito-paso revelar"><span class="hito-icono"><img src="app/assets/trebol.svg" alt="" width="30" height="28"></span><div><span class="paso-num">02</span><h3>Elige un tema</h3><p>Saludos, comida, viajes, trabajo… Cada tema es una neurona de tu red y crece a medida que lo dominas.</p></div></li>
+          <li class="hito-paso revelar"><span class="hito-icono"><img src="app/assets/corazon.svg" alt="" width="26" height="24"></span><div><span class="paso-num">03</span><h3>Desliza tarjetas</h3><p>Toca para ver la traducción y escucha la pronunciación. Desliza a la derecha si la sabes y a la izquierda para repasar.</p></div></li>
+          <li class="hito-paso revelar"><span class="hito-icono"><img src="app/assets/sakura.svg" alt="" width="23" height="23"></span><div><span class="paso-num">04</span><h3>Cumple tu racha</h3><p>20 palabras al día encienden tu racha y Kitty baila de alegría. Cada tarjeta te da Kitty tokens.</p></div></li>
+          <li class="hito-paso revelar"><span class="hito-icono"><img src="app/assets/moneda.svg" alt="" width="24" height="24"></span><div><span class="paso-num">05</span><h3>Haz crecer tu jardín</h3><p>Con tus tokens compras abono y adornos en la tienda de Kitty. Tu sakura crece y abre nuevos espacios del mundo.</p></div></li>
+          <li class="hito-paso revelar"><span class="hito-icono"><img src="app/assets/diamante.svg" alt="" width="25" height="19"></span><div><span class="paso-num">06</span><h3>Atrapa diamantes</h3><p>Aparecen de sorpresa mientras estudias: tócalos a tiempo. Y compite cada semana en las ligas de flores.</p></div></li>
+        </ol>
+      </div>
       <div class="niveles revelar" aria-label="Íconos de dificultad">
         <span class="nivel" data-nivel="nueva"><i></i>Nueva</span>
         <span class="nivel" data-nivel="dificil"><i></i>Difícil</span>

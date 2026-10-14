@@ -400,3 +400,39 @@ $('#caras-galeria').addEventListener('click', (e) => {
     arbol.classList.remove('crece'); void arbol.offsetWidth; arbol.classList.add('crece');
   });
 })();
+
+// ---------- El método: la cifra de Kaizen cuenta hacia arriba cuando aparece ----------
+(() => {
+  const movimiento = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const formato = (n, dec) => n.toLocaleString('es', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  const obs = new IntersectionObserver((entradas) => entradas.forEach((e) => {
+    if (!e.isIntersecting) return;
+    obs.unobserve(e.target);
+    const el = e.target, hasta = Number(el.dataset.hasta), dec = Number(el.dataset.dec || 0);
+    if (!movimiento) { el.textContent = formato(hasta, dec); return; }
+    const t0 = performance.now(), dur = 2200;
+    const paso = (t) => {
+      const k = Math.min(1, (t - t0) / dur), suave = 1 - (1 - k) ** 3;
+      el.textContent = formato(1 + (hasta - 1) * suave, dec);
+      if (k < 1) requestAnimationFrame(paso);
+    };
+    requestAnimationFrame(paso);
+  }), { threshold: 0.5 });
+  document.querySelectorAll('.contador').forEach((el) => obs.observe(el));
+})();
+
+// ---------- Cómo funciona: la línea se llena al bajar y Kitty camina por ella ----------
+(() => {
+  const trayecto = document.getElementById('trayecto');
+  if (!trayecto) return;
+  let pedido = false;
+  const medir = () => {
+    pedido = false;
+    const r = trayecto.getBoundingClientRect(), medio = innerHeight * 0.6;
+    const p = Math.max(0, Math.min(1, (medio - r.top) / r.height));
+    trayecto.style.setProperty('--p', p.toFixed(3));
+  };
+  addEventListener('scroll', () => { if (!pedido) { pedido = true; requestAnimationFrame(medir); } }, { passive: true });
+  addEventListener('resize', medir);
+  medir();
+})();
