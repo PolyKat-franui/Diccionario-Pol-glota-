@@ -24,6 +24,7 @@ export const ICON = {
   tienda: s('<path d="M4 9.5h16l-1.2-4.2a1.5 1.5 0 0 0-1.4-1.1H6.6a1.5 1.5 0 0 0-1.4 1.1Z"/><path d="M5 9.5V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M10 20v-5h4v5"/>'),
   libro: s('<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5"/>'),
   trofeo: s('<path d="M8 4h8v5a4 4 0 0 1-8 0V4Z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4"/>'),
+  calendario: s('<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M12 13.5v3M10.5 15h3"/>'),
   brillo: s('<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.5"/>'),
   enviar: s('<path d="M21 3 10 14"/><path d="m21 3-7 18-4-7-7-4 18-7Z"/>'),
   cerrar: s('<path d="M6 6l12 12M18 6 6 18"/>'),

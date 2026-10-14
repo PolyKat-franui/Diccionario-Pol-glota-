@@ -13,7 +13,7 @@ export function estadoInicial() {
   return {
     version: 1,
     perfil: { nombre: '', cuenta: null, elegido: false }, // cuenta: null = sin cuenta (invitado)
-    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true, sonido: true, meta: 10, ranking: true }, // meta: palabras al día · ranking: aparecer en el ranking (con cuenta)
+    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true, sonido: true, meta: 10, ranking: true, recordatorio: false, horaRecordatorio: '20:00' }, // meta: palabras al día · ranking: aparecer en el ranking (con cuenta)
     aprendiendo: null,
     tokens: 0,
     ejercicios: 0,

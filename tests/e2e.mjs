@@ -310,6 +310,17 @@ try {
   await page.goto(`${URL_APP}#/ajustes`);
   await page.locator('[data-meta="5"]').click();
   await page.locator('[data-meta="5"][aria-checked="true"]').waitFor();
+  await page.locator('#aj-hora').fill('21:15');
+  await page.locator('#aj-hora').dispatchEvent('change');
+  const [descarga] = await Promise.all([page.waitForEvent('download'), page.locator('#aj-calendario').click()]);
+  assert.equal(descarga.suggestedFilename(), 'franui-recordatorio.ics');
+  const ics = await (await import('node:fs/promises')).readFile(await descarga.path(), 'utf8');
+  assert.match(ics, /T211500[\s\S]*RRULE:FREQ=DAILY/);
+  await page.locator('#aj-recordatorio').check();
+  await page.locator('#toast').waitFor();
+  assert.equal(await page.locator('#aj-recordatorio').isChecked(), false, 'sin permiso de notificaciones queda apagado');
+  await foto(page, '12b-celular-recordatorio');
+  paso('Recordatorio diario: «Agregar al calendario» descarga un evento diario a la hora elegida');
   // Racha de 6 días que viene de ayer (se escribe con la app cerrada para que no la pise el autoguardado)
   await page.goto('about:blank');
   const editor = await ctx.newPage();

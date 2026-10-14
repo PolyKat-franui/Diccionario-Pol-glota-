@@ -12,6 +12,7 @@ import { sembrarAdornos, estallido, lluvia } from './adornos.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
 import * as nube from './nube.js';
 import * as J from './jardin.js';
+import * as rec from './recordatorio.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -29,7 +30,22 @@ let tutorialAlRevelar = null;  // el tutorial avanza cuando se revela la primera
 let timerGuardar = null;
 function guardar() {
   clearTimeout(timerGuardar);
-  timerGuardar = setTimeout(() => { store.guardar(S); subirPronto(); }, 150);
+  timerGuardar = setTimeout(() => { store.guardar(S); subirPronto(); publicarRecordatorio(); }, 150);
+}
+/** Le cuenta al service worker si hoy ya estudiaste (para no avisar de más). */
+function publicarRecordatorio() {
+  const a = S.ajustes;
+  if (!a.recordatorio) return;
+  rec.publicarEstado({ activo: true, hora: a.horaRecordatorio, ultimoDiaEstudio: S.racha.ultimoDia, titulo: t('rec_noti_titulo'), texto: t('rec_noti_texto') }).catch(() => {});
+}
+function descargarCalendario() {
+  const a = S.ajustes;
+  const ics = rec.crearICS({ hora: a.horaRecordatorio, titulo: t('rec_evento'), descripcion: t('rec_noti_texto'), url: new URL('./', location.href).href });
+  const enlace = document.createElement('a');
+  enlace.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+  enlace.download = 'franui-recordatorio.ics';
+  document.body.append(enlace); enlace.click(); enlace.remove();
+  setTimeout(() => URL.revokeObjectURL(enlace.href), 4000);
 }
 const guardarYa = () => { clearTimeout(timerGuardar); store.guardar(S); subirYa(); };
 
@@ -1724,6 +1740,14 @@ function vistaAjustes() {
       </div>
 
       <div class="card">
+        <h2>${t('rec_titulo')}</h2>
+        <label class="interruptor"><input type="checkbox" id="aj-recordatorio" ${a.recordatorio ? 'checked' : ''}><span>${t('rec_activar')}</span></label>
+        <label class="campo"><span>${t('rec_hora')}</span><input type="time" id="aj-hora" value="${esc(a.horaRecordatorio)}" step="900"></label>
+        <button class="btn ancho" type="button" id="aj-calendario">${ICON.calendario}<span>${t('rec_calendario')}</span></button>
+        <p class="suave pequeno">${t('rec_cal_nota')}</p>
+      </div>
+
+      <div class="card">
         <h2>${t('aj_app')}</h2>
         <div class="fila-app">${iconoApp()}<p class="suave">${instalada() ? t('inst_ya') : t('inst_texto')}</p></div>
         ${botonInstalar('btn ancho')}
@@ -1787,6 +1811,16 @@ function vistaAjustes() {
   $('#aj-escala').addEventListener('input', (e) => { a.escala = Number(e.target.value); $('#o-escala').textContent = `${Math.round(a.escala * 100)}%`; aplicarAjustes(); guardar(); });
   $('#aj-brillo').addEventListener('input', (e) => { a.brillo = Number(e.target.value); $('#o-brillo').textContent = `${Math.round(a.brillo * 100)}%`; aplicarAjustes(); guardar(); });
   $('#aj-ipa').addEventListener('change', (e) => { a.ipa = e.target.checked; guardar(); });
+  $('#aj-recordatorio').addEventListener('change', async (e) => {
+    if (!e.target.checked) { a.recordatorio = false; guardar(); rec.desactivarAvisos().catch(() => {}); rec.publicarEstado({ activo: false }).catch(() => {}); return; }
+    const r = await rec.activarAvisos().catch(() => 'no-soporta');
+    a.recordatorio = r === 'ok';
+    e.target.checked = a.recordatorio;
+    guardar();
+    toast(r === 'ok' ? t('rec_ok', { h: a.horaRecordatorio }) : t(r === 'sin-permiso' ? 'rec_sin_permiso' : 'rec_no_soporta'));
+  });
+  $('#aj-hora').addEventListener('change', (e) => { if (e.target.value) { a.horaRecordatorio = e.target.value; guardar(); } });
+  $('#aj-calendario').addEventListener('click', descargarCalendario);
   $('#aj-sonido').addEventListener('change', (e) => { a.sonido = e.target.checked; activarSonido(a.sonido); guardar(); if (a.sonido) sonido.moneda(); });
   $('#aj-nativo').addEventListener('change', (e) => cambiarNativo(e.target.value));
   $('#f-sug').addEventListener('submit', (e) => {
