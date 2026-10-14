@@ -1,0 +1,999 @@
+id	ejemplo	nota	estado	fuente
+en0086	Me comí *todas* las galletas.		borrador	ia
+en0117	Me gusta el té *y* el café.		borrador	ia
+en0463	El *niño* está jugando afuera.		borrador	ia
+en0632	Mi papá tiene un *auto* rojo.		borrador	ia
+en0663	El *gato* está durmiendo en la cama.		borrador	ia
+en1076	Hoy es un *día* precioso.		borrador	ia
+en1387	Lloré al *final* de la película.		borrador	ia
+en1504	Mi *familia* vive en Chile.		borrador	ia
+en2035	Me siento feliz *en casa*.		borrador	ia
+en2407	Perdí mi llave. ¿*La* has visto?		borrador	ia
+en2749	Ese *hombre* es mi profesor.		borrador	ia
+en2932	¿Cuál es tu *nombre*?		borrador	ia
+en3086	Tengo *una* hermana.		borrador	ia
+en3239	Mucha *gente* vino a la fiesta.		borrador	ia
+en3525	*Leo* un libro cada semana.		borrador	ia
+en3744	Mi *escuela* está cerca de mi casa.		borrador	ia
+en4052	¿Sabes *hablar* inglés?		borrador	ia
+en4345	Cierra *la* puerta, por favor.		borrador	ia
+en4399	*Este* es mi teléfono nuevo.		borrador	ia
+en4978	¿*Tú* tienes hambre?		borrador	ia
+en0202	¿Puedo *preguntarte* algo?		borrador	ia
+en0433	Este *libro* es muy divertido.		borrador	ia
+en0584	*Puedo* nadar muy bien.		borrador	ia
+en1236	Nuestro *perro* ama el parque.		borrador	ia
+en1485	Tengo algo en el *ojo*.		borrador	ia
+en1587	Este es mi *primer* viaje al extranjero.		borrador	ia
+en1784	*Vamos* a la playa en verano.		borrador	ia
+en1948	*Él* trabaja en un hospital.		borrador	ia
+en0750	El *niño* está dibujando una casa.		borrador	ia
+en2300	Las llaves están *en* mi bolso.		borrador	ia
+en2590	Quiero *aprender* japonés.		borrador	ia
+en2871	Tomo café todas las *mañanas*.		borrador	ia
+en3094	Por favor, *abre* la ventana.		borrador	ia
+en3314	Los niños *juegan* en el jardín.	¿Una obra de teatro? También es *play*.	borrador	ia
+en3487	Tengo una *pregunta* para ti.		borrador	ia
+en3660	Mi *habitación* es pequeña pero bonita.		borrador	ia
+en3735	¿Qué *dijo* ella?		borrador	ia
+en4105	La clase *empieza* a las nueve.		borrador	ia
+en4445	*Hoy* hace mucho calor.		borrador	ia
+en4927	No conozco esta *palabra*.		borrador	ia
+en0013	Este libro es *sobre* gatos.		borrador	ia
+en0208	Ahora estoy *en* la estación.		borrador	ia
+en0496	Mi *hermano* es más alto que yo.		borrador	ia
+en1276	¿Quieres una *bebida* fría?		borrador	ia
+en1326	La prueba fue muy *fácil*.		borrador	ia
+en1521	Mi *padre* cocina los domingos.		borrador	ia
+en1766	Esa *niña* es mi prima.		borrador	ia
+en1978	¿Me puedes *ayudar*, por favor?		borrador	ia
+en0699	Siéntate en esta *silla*.		borrador	ia
+en2542	No *sé* la respuesta.		borrador	ia
+en2917	Esta es *mi* bicicleta.		borrador	ia
+en2966	Tengo un trabajo *nuevo*.		borrador	ia
+en3176	Necesito una bolsa *de papel*.		borrador	ia
+en3320	Dos cafés, *por favor*.		borrador	ia
+en3626	Es un empresario *rico*.		borrador	ia
+en3839	*Ella* es mi mejor amiga.		borrador	ia
+en3877	¿Me puedes *mostrar* las fotos?		borrador	ia
+en4012	Su *hijo* tiene cinco años.		borrador	ia
+en4385	*Ellos* viven al lado.		borrador	ia
+en4777	¿*Qué* color es tu favorito?		borrador	ia
+en0102	*Siempre* camino al trabajo.		borrador	ia
+en0318	Quiero *ser* médico.		borrador	ia
+en0423	El ejercicio es bueno para el *cuerpo*.		borrador	ia
+en0644	Ten *cuidado* con ese cuchillo.		borrador	ia
+en1018	El bebé empezó a *llorar*.		borrador	ia
+en1245	Hay alguien en la *puerta*.		borrador	ia
+en1432	*Todo* está listo para la fiesta.		borrador	ia
+en1490	Lávate la *cara* antes de dormir.		borrador	ia
+en1983	*Le* di un regalo.		borrador	ia
+en2286	*Si* llueve, nos quedamos en casa.		borrador	ia
+en2755	Tengo *muchos* amigos aquí.		borrador	ia
+en2994	*No*, gracias.		borrador	ia
+en3230	¿Me prestas tu *lápiz pasta*?		borrador	ia
+en3303	Este es un *lugar* tranquilo.		borrador	ia
+en3641	Este *camino* va a la ciudad.		borrador	ia
+en4136	Por favor, *detén* el auto aquí.		borrador	ia
+en4162	Ella es *estudiante* universitaria.		borrador	ia
+en4564	Tengo *dos* gatos.		borrador	ia
+en4706	*Quiero* un vaso de agua.		borrador	ia
+en4835	¿*Dónde* vives?		borrador	ia
+en0131	No sé la *respuesta*.		borrador	ia
+en0367	El banco está *entre* dos tiendas.		borrador	ia
+en0794	El agua está muy *clara*.		borrador	ia
+en0969	Chile es un *país* largo.		borrador	ia
+en1064	¡Vamos a *bailar* juntos!		borrador	ia
+en1198	*Hago* mis tareas después de cenar.		borrador	ia
+en1310	*Cada* estudiante tiene un libro.		borrador	ia
+en1687	Es mi *amigo* más antiguo.		borrador	ia
+en2017	*Su* auto es azul.		borrador	ia
+en2478	Ella tiene un buen *trabajo*.		borrador	ia
+en2639	La *vida* es bella.		borrador	ia
+en2870	Necesito *más* tiempo.		borrador	ia
+en3186	Caminamos por el *parque*.	¿Parquear el auto? También es *park*.	borrador	ia
+en3256	Es una *persona* muy amable.		borrador	ia
+en3528	¿Estás *listo* para irnos?		borrador	ia
+en3773	Este es mi *segundo* café de hoy.		borrador	ia
+en4014	¡Nos vemos *pronto*!		borrador	ia
+en4337	*Esa* casa es muy vieja.		borrador	ia
+en4738	*Nosotros* vamos al cine.		borrador	ia
+en4884	¿*Por qué* llegas tarde?		borrador	ia
+en0012	Ella es *capaz* de correr rápido.		borrador	ia
+en0344	Lávate las manos *antes del* almuerzo.		borrador	ia
+en0532	Me gusta, *pero* es caro.		borrador	ia
+en0792	Mi pieza ya está *limpia*.		borrador	ia
+en0807	Por favor, *cierra* la puerta.		borrador	ia
+en1268	Anoche tuve un *sueño* extraño.		borrador	ia
+en1347	Me despierto a las *ocho*.		borrador	ia
+en1641	Este regalo es *para* ti.		borrador	ia
+en1907	Levanta la *mano*, por favor.		borrador	ia
+en2347	Vamos *adentro*, hace frío.		borrador	ia
+en3032	Estoy ocupado *ahora*.		borrador	ia
+en3106	¿Té *o* café?		borrador	ia
+en3284	Mira esta *foto* de mi perro.		borrador	ia
+en3640	El *río* es muy largo.		borrador	ia
+en3850	El *barco* salió del puerto.		borrador	ia
+en3862	Compré pan en la *tienda*.		borrador	ia
+en3918	Por favor, *siéntate*.		borrador	ia
+en4247	La comida está en la *mesa*.		borrador	ia
+en4659	La sopa está *muy* caliente.		borrador	ia
+en4958	Por favor, *escribe* tu nombre aquí.		borrador	ia
+en0072	Necesito un poco de *aire* fresco.		borrador	ia
+en0390	Tengo un gato *negro*.		borrador	ia
+en0775	Vamos al *cine* esta noche.		borrador	ia
+en1075	Su *hija* es médica.		borrador	ia
+en1329	*Almorzamos* a la una.		borrador	ia
+en1696	Soy *de* Chile.		borrador	ia
+en1808	Es una *buena* idea.		borrador	ia
+en1953	Me duele la *cabeza*.		borrador	ia
+en0735	Me encanta el pan con *queso*.		borrador	ia
+en2297	Esta reunión es muy *importante*.		borrador	ia
+en2558	El avión va a *aterrizar* pronto.		borrador	ia
+en2861	No tengo *dinero*.		borrador	ia
+en3215	¿Puedo *pagar* con tarjeta?		borrador	ia
+en3425	Hay un *problema* con mi teléfono.		borrador	ia
+en3686	*Corro* en el parque todos los días.		borrador	ia
+en3713	¡Tenemos los *mismos* zapatos!		borrador	ia
+en3781	Puedo *ver* las montañas.		borrador	ia
+en3795	Te *enviaré* un correo.		borrador	ia
+en4390	¿Qué es esa *cosa*?		borrador	ia
+en4928	*Trabajo* en una oficina.		borrador	ia
+en0137	¿Tienen *alguna* pregunta?		borrador	ia
+en0198	Ella es *tan* alta como yo.		borrador	ia
+en0366	Hoy me siento *mejor*.		borrador	ia
+en0834	El agua está muy *fría*.		borrador	ia
+en0848	¿Puedes *venir* a mi fiesta?		borrador	ia
+en1228	Necesito ver a un *médico*.		borrador	ia
+en1569	No puedo *encontrar* mis llaves.		borrador	ia
+en1727	Este *juego* es muy divertido.		borrador	ia
+en2284	¡Qué buena *idea*!		borrador	ia
+en2528	¿Qué *tipo* de música te gusta?		borrador	ia
+en2669	*Vivo* en Santiago.		borrador	ia
+en2741	Voy a *hacer* una torta.		borrador	ia
+en3219	Queremos *paz* en el mundo.		borrador	ia
+en3367	Esta canción es muy *popular*.		borrador	ia
+en3630	Dobla a la *derecha* en la esquina.		borrador	ia
+en3959	Vivo en un pueblo *pequeño*.		borrador	ia
+en3981	Era tarde, *así que* nos fuimos a casa.		borrador	ia
+en4005	Compré *algunas* manzanas.		borrador	ia
+en4377	Pon la caja *allí*.		borrador	ia
+en4693	Por favor, *espera* aquí.		borrador	ia
+en0064	¿Puedes decirlo *otra vez*?		borrador	ia
+en0254	Nos sentamos en el asiento *trasero*.		borrador	ia
+en0935	¿*Podría* ayudarme?		borrador	ia
+en1229	Por favor, firme este *documento*.		borrador	ia
+en1341	Como un *huevo* al desayuno.		borrador	ia
+en1576	El *fuego* está calentito.		borrador	ia
+en1768	*Dame* la pelota, por favor.		borrador	ia
+en0705	Es una buena *oportunidad* para aprender.		borrador	ia
+en2338	Necesito más *información*.		borrador	ia
+en2641	Esta bolsa es muy *ligera*.		borrador	ia
+en2782	Salimos de vacaciones en *mayo*.		borrador	ia
+en3061	*A menudo* como fruta.		borrador	ia
+en3398	*Prefiero* el té al café.		borrador	ia
+en3473	*Pon* las tazas en la mesa.		borrador	ia
+en3555	Ella tiene un vestido *rojo*.		borrador	ia
+en4134	Tiró una *piedra* al lago.		borrador	ia
+en4178	Fue un día *tan* lindo.		borrador	ia
+en4391	*Creo* que tienes razón.		borrador	ia
+en4585	No *entiendo* esta palabra.		borrador	ia
+en4677	Mañana voy a *visitar* a mi abuela.		borrador	ia
+en0185	Caminamos *alrededor del* lago.		borrador	ia
+en0365	Ella es mi *mejor* amiga.		borrador	ia
+en0570	Te *llamo* más tarde.		borrador	ia
+en1047	*Corta* el pan, por favor.		borrador	ia
+en1156	*Cenamos* a las ocho.		borrador	ia
+en1254	Siéntate *abajo*, por favor.		borrador	ia
+en1471	¿Me puedes *explicar* esto?		borrador	ia
+en1744	Necesito *conseguir* un teléfono nuevo.		borrador	ia
+en2360	Este libro es muy *interesante*.		borrador	ia
+en2690	Ella tiene el pelo *largo*.		borrador	ia
+en2890	Nos vamos a *mudar* a una casa nueva.		borrador	ia
+en3123	Salgamos *fuera* esta noche.		borrador	ia
+en3154	Abran sus libros en la *página* diez.		borrador	ia
+en3524	No *alcanzo* la repisa de arriba.		borrador	ia
+en3609	Necesitas *descanso*.		borrador	ia
+en3810	*Pon* los platos en la mesa.		borrador	ia
+en3873	*Deberías* tomar más agua.		borrador	ia
+en4100	Por favor, *quédense de pie* en la fila.		borrador	ia
+en4430	Hoy no tengo *tiempo*.	¿El clima? Eso es *weather*, no time.	borrador	ia
+en4619	Mira *hacia arriba*, al cielo.		borrador	ia
+en0066	¿Qué *edad* tienes?		borrador	ia
+en0332	Me quedé en casa *porque* estaba enfermo.		borrador	ia
+en0371	Viven en una casa *grande*.		borrador	ia
+en0579	Compré una *cámara* nueva.		borrador	ia
+en0781	Santiago es una *ciudad* grande.		borrador	ia
+en1269	Ella usó un *vestido* azul.		borrador	ia
+en1426	Vemos tele en la *tarde*.		borrador	ia
+en1674	¿Estás *libre* el sábado?		borrador	ia
+en1938	*Tengo* dos hermanos.		borrador	ia
+en2287	Está *enfermo* en cama.		borrador	ia
+en2647	Me *gusta* el chocolate.		borrador	ia
+en2878	Mi *madre* es enfermera.		borrador	ia
+en3067	Este puente es muy *viejo*.		borrador	ia
+en3345	¡Llama a la *policía*!		borrador	ia
+en3581	No puedo *recordar* su nombre.		borrador	ia
+en4150	Vivo en esta *calle*.		borrador	ia
+en4165	*Estudio* todas las tardes.		borrador	ia
+en4291	Nuestro *profesor* es muy amable.		borrador	ia
+en4681	Ella tiene una *voz* preciosa.		borrador	ia
+en4726	¿Me das un poco de *agua*?		borrador	ia
+en0098	*También* hablo francés.		borrador	ia
+en0461	Guarda los juguetes en la *caja*.		borrador	ia
+en0785	La *clase* empieza a las diez.		borrador	ia
+en1145	Este ejercicio es *difícil*.		borrador	ia
+en1279	¿Sabes *conducir* un auto?		borrador	ia
+en1635	Me encanta la *comida* chilena.		borrador	ia
+en1847	¡Hiciste un trabajo *genial*!		borrador	ia
+en1926	Hoy estoy muy *feliz*.		borrador	ia
+en0706	Quiero *cambiar* mi peinado.		borrador	ia
+en2492	Tomo *jugo* de naranja todos los días.		borrador	ia
+en2801	*Juntémonos* en el café.		borrador	ia
+en2954	*Necesito* un bolso nuevo.		borrador	ia
+en3407	¡Qué jardín más *bonito*!		borrador	ia
+en3495	La película estuvo *bastante* buena.		borrador	ia
+en3529	¿Es un diamante *real*?	¿Real de la realeza? Eso es *royal*.	borrador	ia
+en3693	¿Por qué estás *triste*?		borrador	ia
+en4083	Las flores crecen en *primavera*.		borrador	ia
+en4103	Veo una *estrella* brillante.		borrador	ia
+en4253	*Lleva* un paraguas.		borrador	ia
+en4971	*Sí*, estoy de acuerdo.		borrador	ia
+en0032	Me gustan las películas de *acción*.		borrador	ia
+en0092	Ella vive *sola*.		borrador	ia
+en0477	Tomo *desayuno* a las siete.		borrador	ia
+en0899	Por favor, *continúa* leyendo.		borrador	ia
+en1078	La planta está *muerta*.		borrador	ia
+en1398	¡*Disfruta* tu comida!		borrador	ia
+en1706	El bus está *lleno*.		borrador	ia
+en1730	Tenemos un *jardín* pequeño.		borrador	ia
+en2062	Esta es mi *casa*.		borrador	ia
+en2486	El *viaje* duró cinco horas.		borrador	ia
+en2899	No tengo *mucho* tiempo.		borrador	ia
+en3024	No hay *nada* en el refri.		borrador	ia
+en3269	Mi *teléfono* está en la mesa.		borrador	ia
+en3411	¿Cuál es el *precio* de esto?		borrador	ia
+en3612	Estoy feliz con el *resultado*.		borrador	ia
+en3916	Mi *hermana* vive en Londres.		borrador	ia
+en4192	El *sol* está muy fuerte hoy.		borrador	ia
+en4300	*Cuéntame* un cuento.		borrador	ia
+en4669	La *vista* desde aquí es increíble.		borrador	ia
+en4911	Vivo *con* mis papás.		borrador	ia
+en0065	Jugamos *contra* un equipo fuerte.		borrador	ia
+en0523	Tomo el *bus* para ir al trabajo.		borrador	ia
+en0860	Ella trabaja para una *empresa* grande.	Ojo: compañía de amigos se dice mejor *friends*.	borrador	ia
+en1121	El *desierto* es caluroso y seco.	¿El postre? Eso es *dessert*.	borrador	ia
+en1464	Este hotel es muy *caro*.		borrador	ia
+en1618	Ella me regaló una *flor* roja.		borrador	ia
+en1850	El pasto está muy *verde*.		borrador	ia
+en0772	La antigua *iglesia* es preciosa.		borrador	ia
+en2298	Es *imposible* dormir aquí.		borrador	ia
+en2593	*Salgo* de casa a las ocho.		borrador	ia
+en2864	Nos mudamos aquí el *mes* pasado.		borrador	ia
+en3074	Tu teléfono está *sobre* la mesa.		borrador	ia
+en3306	¿Cuál es tu *plan* para hoy?		borrador	ia
+en3377	¿Es *posible* cambiar la fecha?		borrador	ia
+en3616	La tienda acepta *devoluciones* dentro de diez días.		borrador	ia
+en3730	Quiero *ahorrar* dinero.		borrador	ia
+en3761	Nadamos en el *mar*.		borrador	ia
+en4009	Quiero decirte *algo*.		borrador	ia
+en4449	Comamos *juntos*.		borrador	ia
+en4918	Esa *mujer* es mi tía.		borrador	ia
+en0141	¿Necesitas *algo*?		borrador	ia
+en0184	Entró al *ejército* a los dieciocho.		borrador	ia
+en0260	Hoy hace *mal* tiempo.		borrador	ia
+en0978	Pon la *tapa* en la olla.		borrador	ia
+en1024	Me encanta la *cultura* japonesa.		borrador	ia
+en1089	Fue una *decisión* difícil.		borrador	ia
+en1441	¿Me puedes dar un *ejemplo*?		borrador	ia
+en1533	Hoy me *siento* cansada.		borrador	ia
+en2065	¿*Cómo* estás?		borrador	ia
+en2403	La *Isla* de Pascua queda muy lejos.		borrador	ia
+en2805	Ella es *miembro* del club.		borrador	ia
+en2973	¡Nos vemos la *próxima* semana!		borrador	ia
+en3375	Cambia de *posición* en la foto.		borrador	ia
+en3403	Este *regalo* es para ti.		borrador	ia
+en3547	Batió el *récord* mundial.	¿Recordar? Eso es *remember*.	borrador	ia
+en3947	*Duermo* ocho horas cada noche.		borrador	ia
+en4224	Compramos unos *dulces* para los niños.		borrador	ia
+en4529	¡*Prueba* esta torta!		borrador	ia
+en4580	El gato está *debajo de* la cama.		borrador	ia
+en4937	Quiero viajar por el *mundo*.		borrador	ia
+en0061	Juntémonos *después de* clases.		borrador	ia
+en0335	Me voy a la *cama* a las once.		borrador	ia
+en0538	Necesito *comprar* leche.		borrador	ia
+en0665	*Tomo* el bus a las siete.		borrador	ia
+en0918	La tienda está en la *esquina*.		borrador	ia
+en1188	La *distancia* es de diez kilómetros.		borrador	ia
+en1336	La *educación* es muy importante.		borrador	ia
+en1517	Es un corredor *rápido*.		borrador	ia
+en1986	Ven *aquí*, por favor.		borrador	ia
+en2358	No tengo *interés* en los deportes.		borrador	ia
+en2630	Le escribí una *carta* a mi abuela.		borrador	ia
+en2965	*Nunca* tomo café de noche.		borrador	ia
+en3192	Esta es la mejor *parte* de la película.		borrador	ia
+en3405	El *presidente* dio un discurso.		borrador	ia
+en3668	Tenemos una mesa *redonda*.		borrador	ia
+en3821	Tengo *varias* preguntas.		borrador	ia
+en4026	Escuché un *sonido* extraño.		borrador	ia
+en4140	Léeme un *cuento*, por favor.	¿Historia del pasado? Eso es *history*.	borrador	ia
+en4271	¿Podemos *hablar* más tarde?		borrador	ia
+en4756	Trabajo cinco días a la *semana*.		borrador	ia
+en0091	Es *casi* medianoche.		borrador	ia
+en0473	Compro *pan* fresco todos los días.		borrador	ia
+en0901	El piloto perdió el *control* del avión.		borrador	ia
+en1082	Este vestido es demasiado *caro* para mí.		borrador	ia
+en1429	Nado *cada* mañana.		borrador	ia
+en1545	Tengo *pocos* amigos aquí.		borrador	ia
+en1804	Ella tiene un anillo *de oro*.		borrador	ia
+en0749	Él es el ingeniero *jefe*.		borrador	ia
+en2374	Quiero *invitarte* a cenar.		borrador	ia
+en2566	Almorzamos *tarde*.		borrador	ia
+en2875	Esta es la playa *más* bonita.		borrador	ia
+en3090	Ella es hija *única*.		borrador	ia
+en3428	Este *producto* es muy popular.		borrador	ia
+en3452	Este es un parque *público*.		borrador	ia
+en3538	¿*Recibiste* mi mensaje?		borrador	ia
+en4017	*Lamento* el error.		borrador	ia
+en4160	Él es muy *fuerte*.		borrador	ia
+en4376	*Luego* nos fuimos a casa.		borrador	ia
+en4458	A mí *también* me gusta.		borrador	ia
+en4737	Este es el *camino* a la playa.		borrador	ia
+en0030	Cruzamos el puente *a pie*.		borrador	ia
+en0193	Me encanta el *arte* moderno.		borrador	ia
+en0488	*Trae* a tu amigo a la fiesta.		borrador	ia
+en0650	¿Puedes *llevar* esta bolsa?		borrador	ia
+en0885	Por favor, *confirma* tu correo.		borrador	ia
+en1141	Mis plantas se *mueren* sin agua.		borrador	ia
+en1323	El sol sale por el *este*.		borrador	ia
+en1866	Viajamos en *grupo*.		borrador	ia
+en2045	*Espero* que te sientas mejor.		borrador	ia
+en2334	Trabaja en la *industria* automotriz.		borrador	ia
+en2695	¡*Mira* el cielo!		borrador	ia
+en2914	*Debes* usar el cinturón de seguridad.		borrador	ia
+en3145	Tengo mi *propia* pieza.		borrador	ia
+en3257	Es una pregunta *personal*.		borrador	ia
+en3533	¿Cuál es la *razón* de esto?		borrador	ia
+en3808	El *servicio* aquí es excelente.		borrador	ia
+en3828	¿*Nos* vamos ya?		borrador	ia
+en4110	Nos *quedaremos* en un hotel.		borrador	ia
+en4372	*Su* casa es muy grande.		borrador	ia
+en4887	Su *esposa* es profesora.		borrador	ia
+en0248	¡Vete *lejos*, por favor!		borrador	ia
+en0330	¡Qué atardecer más *hermoso*!		borrador	ia
+en0642	*Cuídate* mucho.		borrador	ia
+en0923	¿Cuál es el *costo* del viaje?		borrador	ia
+en1092	El lago es muy *profundo*.		borrador	ia
+en1401	Tenemos *suficiente* comida.		borrador	ia
+en1554	Los niños tuvieron una *pelea*.		borrador	ia
+en1729	El auto está en el *garaje*.		borrador	ia
+en2368	Ella saltó *a* la piscina.		borrador	ia
+en2508	*Guarda* el vuelto.		borrador	ia
+en2847	No quiero *perder* el bus.		borrador	ia
+en3117	¿Dónde está el *otro* zapato?		borrador	ia
+en3317	Es un gran *jugador* de fútbol.		borrador	ia
+en3521	*Prefiero* quedarme en casa.		borrador	ia
+en3580	Por favor, *permanezcan* sentados.		borrador	ia
+en3886	Camina por el *lado* izquierdo.		borrador	ia
+en4031	Manejamos hacia el *sur*.		borrador	ia
+en4524	¿Esa historia es *verdadera*?		borrador	ia
+en4633	¿Puedo *usar* tu teléfono?		borrador	ia
+en4880	¿*Quién* es ese hombre?		borrador	ia
+en0096	*Ya* comí.		borrador	ia
+en0334	Ella quiere *convertirse en* piloto.		borrador	ia
+en0670	¿Cuál fue la *causa* del incendio?		borrador	ia
+en0695	¿Estás *seguro* de eso?		borrador	ia
+en1119	¿Puedes *describir* al hombre?		borrador	ia
+en1289	Mi ropa ya está *seca*.		borrador	ia
+en1462	*Espero* una llamada hoy.		borrador	ia
+en1494	Eso es un *hecho*.		borrador	ia
+en1929	Este pan está muy *duro*.		borrador	ia
+en2319	El precio *incluye* el desayuno.		borrador	ia
+en2612	*Déjame* ayudarte.		borrador	ia
+en2859	Espera un *momento*, por favor.		borrador	ia
+en3393	El dinero no es *poder*.		borrador	ia
+en3450	El hotel *proporciona* toallas.		borrador	ia
+en3594	Quiero *denunciar* un robo.		borrador	ia
+en3770	¿Está libre este *asiento*?		borrador	ia
+en3909	¿Él es *soltero* o casado?		borrador	ia
+en4245	El *sistema* escolar está cambiando.		borrador	ia
+en4412	Pasamos *a través del* túnel.		borrador	ia
+en4865	¿*Qué* color quieres?		borrador	ia
+en0157	Me como una *manzana* todos los días.		borrador	ia
+en0415	El cielo es *azul*.		borrador	ia
+en0806	El *reloj* de la pared está atrasado.		borrador	ia
+en0844	¿De qué *color* es tu auto?		borrador	ia
+en1144	Somos muy *diferentes*.		borrador	ia
+en1320	La *Tierra* gira alrededor del sol.		borrador	ia
+en1562	Veamos una *película* esta noche.		borrador	ia
+en1774	Estoy *contenta* de verte.		borrador	ia
+en2061	El viaje dura una *hora*.		borrador	ia
+en2500	La pelea fue *justa* y limpia.		borrador	ia
+en2716	*Amo* a mi familia.		borrador	ia
+en3035	¿Cuál es tu *número* de teléfono?		borrador	ia
+en3232	Escribe con *lápiz*, por favor.		borrador	ia
+en3490	¿Puedo hacer una pregunta *rápida*?		borrador	ia
+en3509	Me encanta el sonido de la *lluvia*.		borrador	ia
+en3903	La receta es muy *simple*.		borrador	ia
+en4191	Vamos a la playa en *verano*.		borrador	ia
+en4483	Crecí en un *pueblo* pequeño.		borrador	ia
+en4513	Hay un *árbol* grande en el parque.		borrador	ia
+en4898	Abre la *ventana*, por favor.		borrador	ia
+en0040	¿Cuál es tu *dirección*?		borrador	ia
+en0512	Este *edificio* es muy alto.		borrador	ia
+en0873	Mi *computadora* está muy lenta.		borrador	ia
+en1003	Hay una *cruz* en la iglesia.		borrador	ia
+en1125	Mis libros están en el *escritorio*.		borrador	ia
+en1312	Me duele la *oreja*.		borrador	ia
+en1591	Como *pescado* los viernes.		borrador	ia
+en1776	La mesa tiene una cubierta *de vidrio*.		borrador	ia
+en2271	Quiero agua con *hielo*.		borrador	ia
+en2519	Perdí mi *llave*.		borrador	ia
+en2844	Espera un *minuto*, por favor.		borrador	ia
+en3057	Ella está en la *oficina*.		borrador	ia
+en3184	Mis *padres* viven en el sur.	¿Parientes? Eso es *relatives*.	borrador	ia
+en3379	Voy a *publicar* la foto en internet.		borrador	ia
+en3648	Nos sentamos en una *roca* grande.		borrador	ia
+en3766	Mi *búsqueda* de departamento terminó.		borrador	ia
+en4077	Mi *deporte* favorito es el tenis.		borrador	ia
+en4288	¿Quieres un poco de *té*?		borrador	ia
+en4641	El *valle* es verde y tranquilo.		borrador	ia
+en4701	*Camino* a la escuela.		borrador	ia
+en0076	Llegamos temprano al *aeropuerto*.		borrador	ia
+en0251	El *bebé* está durmiendo.		borrador	ia
+en0639	Le mandé una *tarjeta* de cumpleaños.		borrador	ia
+en0689	Vivimos en el Santiago *central*.		borrador	ia
+en1161	Fuimos en la *dirección* equivocada.	¿Dirección de una casa? Eso es *address*.	borrador	ia
+en1238	Cuesta diez *dólares*.		borrador	ia
+en1700	Como *fruta* todos los días.		borrador	ia
+en1762	Gracias por el *regalo*.		borrador	ia
+en2003	La montaña es muy *alta*.		borrador	ia
+en2289	Tiene una *enfermedad* grave.		borrador	ia
+en2833	Tomo *leche* con cereal.		borrador	ia
+en3017	*No* estoy cansada.		borrador	ia
+en3286	¿Me das un *pedazo* de torta?		borrador	ia
+en3447	Los lentes de sol *protegen* tus ojos.		borrador	ia
+en3498	Ella ganó la *carrera*.		borrador	ia
+en3904	Vivo aquí *desde* 2010.		borrador	ia
+en3957	Internet está muy *lento*.		borrador	ia
+en3963	Ella tiene una *sonrisa* encantadora.		borrador	ia
+en4421	Compré un *boleto* de tren.		borrador	ia
+en4766	*Bueno*, no sé.		borrador	ia
+en0021	Tuvo un *accidente* en auto.		borrador	ia
+en0411	Hay *sangre* en tu camisa.		borrador	ia
+en0528	Mi tío tiene un pequeño *negocio*.		borrador	ia
+en1298	Me dormí *durante* la película.		borrador	ia
+en1425	*Incluso* a mi papá le gusta esta canción.		borrador	ia
+en1614	Las llaves están en el *suelo*.		borrador	ia
+en1736	Es una pregunta *general*.		borrador	ia
+en0766	*Elige* un color.		borrador	ia
+en2337	Por favor, *infórmenos* de cualquier cambio.		borrador	ia
+en2668	Vivimos en una casa *pequeña*.		borrador	ia
+en2802	La *reunión* empieza a las diez.		borrador	ia
+en3110	El mesero tomó nuestro *pedido*.		borrador	ia
+en3199	¡Hagamos una *fiesta*!		borrador	ia
+en3298	Ella tiene zapatos *rosados*.		borrador	ia
+en3593	Estoy esperando su *respuesta*.		borrador	ia
+en3974	Las montañas están cubiertas de *nieve*.		borrador	ia
+en4183	Tomo el café sin *azúcar*.		borrador	ia
+en4507	Me encanta *viajar*.		borrador	ia
+en4675	La computadora tiene un *virus*.		borrador	ia
+en4723	*Vemos* tele después de cenar.		borrador	ia
+en0130	¿Me das *otro* café?		borrador	ia
+en0354	Te *creo*.		borrador	ia
+en0449	*Ambos* padres míos son médicos.		borrador	ia
+en0984	¡Esa idea es *loca*!		borrador	ia
+en1025	Quiero una *taza* de té.		borrador	ia
+en1087	No puedo *decidir* qué ponerme.		borrador	ia
+en1428	¿Has ido *alguna vez* a Perú?		borrador	ia
+en1547	Las vacas están en el *campo*.		borrador	ia
+en1962	Mi *corazón* late rápido.		borrador	ia
+en2293	*Imagina* un mundo sin música.		borrador	ia
+en2654	Dibuja una *línea* recta.		borrador	ia
+en2795	No como *carne*.		borrador	ia
+en3138	Hay una lámpara *sobre* la mesa.		borrador	ia
+en3457	*Tira* la puerta para abrirla.		borrador	ia
+en3632	Escuché el *timbre* de la puerta.		borrador	ia
+en3793	Aquí *venden* pescado fresco.		borrador	ia
+en3902	Nuestros vestidos son muy *parecidos*.		borrador	ia
+en4059	El tren viaja a alta *velocidad*.		borrador	ia
+en4325	Ella es más alta *que* yo.		borrador	ia
+en4990	¿Es *tu* bolso?		borrador	ia
+en0014	El cuadro está *sobre* el sofá.		borrador	ia
+en0345	*Empecemos* la lección.		borrador	ia
+en0692	Esta casa es del *siglo* pasado.		borrador	ia
+en0891	Por favor, *considera* mi oferta.		borrador	ia
+en1068	Este camino es *peligroso*.		borrador	ia
+en1070	Afuera está muy *oscuro*.		borrador	ia
+en1445	¿Hay una casa de *cambio* aquí?		borrador	ia
+en1823	El *gobierno* hizo una nueva ley.		borrador	ia
+en1961	No te *oigo*.		borrador	ia
+en2496	El gato puede *saltar* muy alto.		borrador	ia
+en2774	¿De qué *material* es este bolso?		borrador	ia
+en2946	El banco está *cerca* de aquí.		borrador	ia
+en3206	No pienses en el *pasado*.		borrador	ia
+en3427	Compramos *productos agrícolas* frescos en la feria.	¿Producir? Como verbo también es *produce*.	borrador	ia
+en3584	Por favor, *quítate* los zapatos.		borrador	ia
+en3776	¿Sabes guardar un *secreto*?		borrador	ia
+en4013	Esta es mi *canción* favorita.		borrador	ia
+en4299	No veo mucha *televisión*.		borrador	ia
+en4643	Este anillo tiene un gran *valor*.		borrador	ia
+en4828	Llámame *cuando* llegues.		borrador	ia
+en0182	Me quebré el *brazo*.		borrador	ia
+en0350	El jardín está *detrás de* la casa.		borrador	ia
+en0656	Hice mi *maleta* para el viaje.		borrador	ia
+en0837	*Colecciono* monedas antiguas.		borrador	ia
+en1264	A mi hijo le encanta *dibujar*.		borrador	ia
+en1439	El médico te va a *examinar* ahora.		borrador	ia
+en1501	¡Cuidado, no te *caigas*!		borrador	ia
+en1868	Los tomates *crecen* rápido en verano.		borrador	ia
+en2294	Llámame *inmediatamente*.		borrador	ia
+en2718	La mesa es muy *baja*.		borrador	ia
+en2837	¿Te *importa* si me siento aquí?		borrador	ia
+en3055	Las luces están *apagadas*.		borrador	ia
+en3200	¿Me puedes *pasar* la sal?		borrador	ia
+en3503	Escucho la *radio* en el auto.		borrador	ia
+en3855	Perdí un *zapato* en la playa.		borrador	ia
+en4109	La *estación* de tren está cerca.		borrador	ia
+en4207	¿Estás *seguro*?		borrador	ia
+en4318	Mañana tengo una *prueba*.		borrador	ia
+en4637	Lo *habitual*, por favor.	*Usually* se usa menos que «usualmente» en español.	borrador	ia
+en4871	Escucho música *mientras* cocino.		borrador	ia
+en0069	Lo conocí *hace* dos años.		borrador	ia
+en0093	Caminamos *a lo largo de* la playa.		borrador	ia
+en0327	Vimos un *oso* en el bosque.		borrador	ia
+en0878	El auto está en buena *condición*.		borrador	ia
+en1159	¿Hay un vuelo *directo*?		borrador	ia
+en1335	No te pares cerca del *borde*.		borrador	ia
+en1571	Estoy *bien*, gracias.		borrador	ia
+en1899	Me comí la *mitad* de la pizza.		borrador	ia
+en0747	Almorzamos *pollo*.		borrador	ia
+en2322	Los precios *aumentan* cada año.		borrador	ia
+en2734	Leo una *revista* de moda.	¿Almacén o tienda? Eso es *store* o shop.	borrador	ia
+en2942	Me encanta caminar en la *naturaleza*.		borrador	ia
+en3312	Pon la comida en el *plato*.		borrador	ia
+en3363	La familia es muy *pobre*.		borrador	ia
+en3607	Muestra *respeto* a las personas mayores.		borrador	ia
+en3835	Este cuchillo está muy *afilado*.		borrador	ia
+en4010	*A veces* camino al trabajo.		borrador	ia
+en4124	¿*Todavía* estás en casa?		borrador	ia
+en4274	Mi hermano es muy *alto*.		borrador	ia
+en4944	*Quisiera* un café, por favor.		borrador	ia
+en0038	*Añade* un poco de sal a la sopa.		borrador	ia
+en0111	La casa está *entre* los árboles.		borrador	ia
+en0510	Van a *construir* una escuela nueva.		borrador	ia
+en0857	Es un nombre *común*.		borrador	ia
+en1116	*Depende* del clima.		borrador	ia
+en1314	Me despierto *temprano*.		borrador	ia
+en1624	Los pájaros *vuelan* al sur en invierno.		borrador	ia
+en1923	¿Qué *pasó* aquí?		borrador	ia
+en0724	¿Me trae la *cuenta*, por favor?		borrador	ia
+en2369	Déjame *presentarte* a mi amiga Ana.	¿Introducir algo? Eso es *insert* o put in.	borrador	ia
+en2610	Quiero comer *menos* azúcar.		borrador	ia
+en2760	Me saqué una buena *nota* en matemáticas.		borrador	ia
+en3210	Por favor, ten *paciencia*.		borrador	ia
+en3248	*Quizás* llueva más tarde.		borrador	ia
+en3638	Los precios *suben* cada año.		borrador	ia
+en3798	Esto no tiene *sentido*.	¿Sentido común? Se dice *common sense*.	borrador	ia
+en3868	Ella tiene el pelo *corto*.		borrador	ia
+en4107	El camino está en mal *estado*.		borrador	ia
+en4540	*Gira* a la izquierda en el banco.		borrador	ia
+en4893	¿Me *ayudarás*?		borrador	ia
+en0031	Debemos *actuar* ahora.		borrador	ia
+en0153	Un gato *apareció* en la ventana.		borrador	ia
+en0474	Tomemos un *descanso*.		borrador	ia
+en0975	Estoy haciendo un *curso* de cocina.		borrador	ia
+en0976	Los jugadores están en la *cancha*.		borrador	ia
+en1179	*Discutamos* el plan.	¿Pelear o discutir enojado? Eso es *argue*.	borrador	ia
+en1338	El remedio tuvo un buen *efecto*.		borrador	ia
+en1654	Llene este *formulario*, por favor.		borrador	ia
+en2027	*Sostén* mi mano.		borrador	ia
+en2346	Hay un *insecto* en la pared.		borrador	ia
+en2790	¿Qué *significa* esta palabra?		borrador	ia
+en3085	Voy al gimnasio *una vez* a la semana.		borrador	ia
+en3468	¿Cuál es el *propósito* de este viaje?		borrador	ia
+en3532	*Realmente* me gusta esta canción.		borrador	ia
+en3627	*Ando* en bicicleta a la escuela.		borrador	ia
+en3923	Es una *situación* difícil.		borrador	ia
+en4176	La fiesta fue un gran *éxito*.	¿Suceso? Eso es *event*.	borrador	ia
+en4404	*Aunque* hacía frío, nadamos.		borrador	ia
+en4623	*Érase* una vez un rey.		borrador	ia
+en4707	La *guerra* duró cinco años.		borrador	ia
+en0062	Tengo clase esta *tarde*.		borrador	ia
+en0531	Hoy estoy muy *ocupada*.		borrador	ia
+en0829	Necesito un *café* cargado.		borrador	ia
+en1129	Cuéntame cada *detalle*.		borrador	ia
+en1416	Me encanta la fruta, *especialmente* los mangos.		borrador	ia
+en1573	Pronto voy a *terminar* mi trabajo.		borrador	ia
+en1865	La pelota cayó al *suelo*.		borrador	ia
+en2031	El lunes es *feriado*.		borrador	ia
+en0763	No tienes *elección*.		borrador	ia
+en2533	Mamá está en la *cocina*.		borrador	ia
+en2611	La *lección* de hoy es sobre animales.		borrador	ia
+en2910	Escucho *música* todos los días.		borrador	ia
+en3107	Quiero una *naranja*, por favor.		borrador	ia
+en3243	¡Tu inglés es *perfecto*!		borrador	ia
+en3597	Envié una *solicitud* de ayuda.		borrador	ia
+en3768	El invierno es mi *estación* favorita.		borrador	ia
+en3884	Hoy me siento *enferma*.		borrador	ia
+en4453	¡Nos vemos *mañana*!		borrador	ia
+en4764	Aquí siempre eres *bienvenido*.		borrador	ia
+en4972	La vi *ayer*.		borrador	ia
+en0070	*Estoy de acuerdo* contigo.		borrador	ia
+en0484	Cruzamos el *puente* viejo.		borrador	ia
+en0566	Hice una *torta* de chocolate.		borrador	ia
+en1044	El *cliente* quiere pagar.		borrador	ia
+en1074	¿Qué *fecha* es hoy?		borrador	ia
+en1403	Por favor, *entren* a la sala en silencio.		borrador	ia
+en1722	Quiero estudiar en el *futuro*.		borrador	ia
+en1740	Es todo un *caballero*.		borrador	ia
+en1891	Ella tiene el *pelo* crespo.		borrador	ia
+en2290	Esta *imagen* es muy nítida.		borrador	ia
+en2562	¿Cuántos *idiomas* hablas?		borrador	ia
+en2762	Compramos verduras en el *mercado*.		borrador	ia
+en3307	El *avión* sale a mediodía.		borrador	ia
+en3422	Es una playa *privada*.		borrador	ia
+en3610	Comamos en ese *restaurante*.		borrador	ia
+en3930	¿De qué *talla* son estos zapatos?		borrador	ia
+en3943	Hoy el *cielo* está despejado.		borrador	ia
+en3960	Es una niña muy *inteligente*.		borrador	ia
+en4326	Quiero *agradecerte*.		borrador	ia
+en4748	Hoy hace buen *tiempo*.		borrador	ia
+en0034	Es un *actor* famoso.		borrador	ia
+en0451	Necesito una *botella* de agua.		borrador	ia
+en0809	Limpia la mesa con un *paño*.		borrador	ia
+en0822	Ponte el *abrigo*, hace frío.		borrador	ia
+en1128	La tormenta *destruyó* la casa.		borrador	ia
+en1434	Busqué mis llaves *en todas partes*.		borrador	ia
+en1572	Me corté el *dedo*.		borrador	ia
+en1878	Nuestro *guía* habla tres idiomas.		borrador	ia
+en2299	Quiero *mejorar* mi inglés.		borrador	ia
+en2538	Pásame el *cuchillo*, por favor.		borrador	ia
+en2564	Quiero un café *grande*.	¿Largo? Eso es *long*; large significa grande.	borrador	ia
+en2850	Cometí un *error*.		borrador	ia
+en3048	Hoy el *océano* está muy azul.		borrador	ia
+en3309	Riega la *planta* todos los días.		borrador	ia
+en3590	¿Puedes *repetir* eso, por favor?		borrador	ia
+en3709	Pásame la *sal*, por favor.		borrador	ia
+en4055	Hoy es un día *especial*.		borrador	ia
+en4290	*Enseño* inglés a niños.		borrador	ia
+en4577	Mi *tío* vive en España.		borrador	ia
+en4907	En *invierno* nieva.		borrador	ia
+en0121	¿Por qué estás *enojado*?		borrador	ia
+en0195	Leí un *artículo* sobre salud.		borrador	ia
+en1165	Mis zapatos están *sucios*.		borrador	ia
+en1443	Vinieron todos *excepto* Tom.		borrador	ia
+en1505	Es una cantante *famosa*.		borrador	ia
+en1732	Cocinamos con *gas*.	En EE.UU. *gas* también es gasolina.	borrador	ia
+en2060	Nuestro *hotel* está cerca de la playa.		borrador	ia
+en0722	Esta camisa fue muy *barata*.		borrador	ia
+en2366	Hoy tengo una *entrevista* de trabajo.		borrador	ia
+en2869	Esta noche hay *luna* llena.		borrador	ia
+en2975	Tu hermana es muy *simpática*.		borrador	ia
+en3400	Tengo que *preparar* la cena.		borrador	ia
+en3420	Pasó dos años en la *cárcel*.		borrador	ia
+en3624	Como *arroz* con pollo.		borrador	ia
+en3790	*Pareces* cansado.		borrador	ia
+en3942	Ella usó una *falda* larga.		borrador	ia
+en4145	Escuché un ruido *extraño*.		borrador	ia
+en4495	El *tren* viene atrasado.		borrador	ia
+en4709	Hoy está *templado*.		borrador	ia
+en0026	Abrí una *cuenta* en el banco.	¿La cuenta del restaurante? Eso es *bill*.	borrador	ia
+en0381	Un *pájaro* está cantando afuera.		borrador	ia
+en0812	Hay una *nube* oscura en el cielo.		borrador	ia
+en0852	Este sofá es muy *cómodo*.		borrador	ia
+en1061	La tormenta causó mucho *daño*.		borrador	ia
+en1299	Hay *polvo* en la repisa.		borrador	ia
+en1456	El *ejercicio* te hace bien.		borrador	ia
+en1524	El azul es mi color *favorito*.		borrador	ia
+en2054	Mi mamá trabaja en el *hospital*.		borrador	ia
+en2484	Contó un *chiste* divertido.		borrador	ia
+en2813	Recibí tu *mensaje*.		borrador	ia
+en2983	¡Buenas *noches*, que duermas bien!		borrador	ia
+en3157	La *pintura* todavía está fresca.		borrador	ia
+en3325	Es un *placer* conocerte.		borrador	ia
+en3573	Tenemos una buena *relación*.		borrador	ia
+en3746	Me encanta la clase de *ciencias*.		borrador	ia
+en3804	Es un problema *serio*.		borrador	ia
+en4062	No *gastes* todo tu dinero.		borrador	ia
+en4437	Hoy estoy muy *cansada*.		borrador	ia
+en4963	Tu respuesta está *equivocada*.		borrador	ia
+en0112	Agrega una pequeña *cantidad* de sal.		borrador	ia
+en0283	Tengo que ir al *banco*.	¿Banco para sentarse? Eso es *bench*.	borrador	ia
+en0498	Ella tiene los ojos *café*.		borrador	ia
+en1010	Una gran *multitud* vio el partido.		borrador	ia
+en1081	Puedo *lidiar* con este problema.		borrador	ia
+en1393	El *motor* del auto hace mucho ruido.		borrador	ia
+en1632	*Sígueme*, por favor.		borrador	ia
+en0762	Me encanta el *chocolate* amargo.		borrador	ia
+en2329	Cada estudiante tiene un escritorio *individual*.		borrador	ia
+en2598	Dobla a la *izquierda* en el semáforo.		borrador	ia
+en2789	El desayuno es mi *comida* favorita.		borrador	ia
+en3064	Cocina los huevos en *aceite* de oliva.		borrador	ia
+en3155	Tengo un *dolor* en la espalda.		borrador	ia
+en3424	*Probablemente* llueva mañana.		borrador	ia
+en3592	Necesito *reemplazar* la batería.		borrador	ia
+en3989	Vivimos en una *sociedad* moderna.		borrador	ia
+en4086	Nos juntamos en la *plaza* principal.		borrador	ia
+en4115	Cuidado con el *escalón*.		borrador	ia
+en4301	Hoy la *temperatura* está baja.		borrador	ia
+en4605	Mi hermana va a la *universidad*.		borrador	ia
+en0020	¿*Aceptan* tarjetas de crédito?		borrador	ia
+en0046	Es un gran *avance* en medicina.		borrador	ia
+en0264	Mi *bolsa* pesa mucho.		borrador	ia
+en0631	El *capitán* habló con el equipo.		borrador	ia
+en0691	Vivimos en el *centro* de la ciudad.		borrador	ia
+en1106	Hay una alta *demanda* de agua.		borrador	ia
+en1390	Es mi peor *enemigo*.		borrador	ia
+en1496	Mi papá trabaja en una *fábrica*.		borrador	ia
+en2114	Tengo mucha *hambre*.		borrador	ia
+en2288	Estacionar aquí es *ilegal*.		borrador	ia
+en2577	Va contra la *ley*.		borrador	ia
+en3015	Tengo la *nariz* fría.		borrador	ia
+en3266	Tenemos que comprar *gasolina*.		borrador	ia
+en3448	Estoy *orgullosa* de ti.		borrador	ia
+en3608	¿Quién es el *responsable* de esto?		borrador	ia
+en4137	La *tienda* cierra a las nueve.		borrador	ia
+en4177	Es una escritora *exitosa*.		borrador	ia
+en4228	*Nado* todos los sábados.		borrador	ia
+en4467	La repisa *superior* está vacía.		borrador	ia
+en4895	Ojalá *ganemos* el partido.		borrador	ia
+en0243	¿Está *disponible* esta habitación?		borrador	ia
+en0422	Fuimos a pescar en un *bote* pequeño.		borrador	ia
+en0446	¿Me *prestas* tu lápiz?		borrador	ia
+en0821	Manejamos por la *costa*.		borrador	ia
+en0985	Me pongo *crema* en la piel.		borrador	ia
+en1123	Me gusta el *diseño* de esta silla.		borrador	ia
+en1476	Su *expresión* era muy triste.		borrador	ia
+en1511	Mis abuelos viven en una *granja*.		borrador	ia
+en2020	Me encanta la *historia* de Chile.		borrador	ia
+en2341	No te *lastimes*.		borrador	ia
+en2756	Mira el *mapa*.		borrador	ia
+en3045	Debes *obtener* una visa.		borrador	ia
+en3220	El pueblo es muy *tranquilo*.		borrador	ia
+en3396	*Practico* piano todos los días.		borrador	ia
+en3540	*Recientemente* me mudé a Londres.		borrador	ia
+en3832	La torta tiene *forma* de corazón.		borrador	ia
+en3901	Ella usó un vestido *plateado*.		borrador	ia
+en3964	Hay *humo* en la cocina.		borrador	ia
+en4473	No *toques* la pintura.		borrador	ia
+en4713	*Lávate* las manos antes de comer.		borrador	ia
+en0048	Hablar dos idiomas es una *ventaja*.		borrador	ia
+en0224	El *ataque* ocurrió de noche.		borrador	ia
+en0535	Le pongo *mantequilla* a mi tostada.		borrador	ia
+en0816	Me uní a un *club* de tenis.		borrador	ia
+en0840	Mi hermano está en la *universidad*.	¿Colegio escolar? Eso es *school*.	borrador	ia
+en1096	Ella tiene un *título universitario* en derecho.		borrador	ia
+en1415	El pájaro se *escapó* de su jaula.		borrador	ia
+en1735	Cierra el *portón*, por favor.		borrador	ia
+en2325	Ella es muy *independiente*.		borrador	ia
+en2662	*Escúchame*, por favor.		borrador	ia
+en2768	Quiere *casarse con* ella.		borrador	ia
+en3042	¿Qué es ese *objeto*?		borrador	ia
+en3209	Sigue el *sendero* hasta el lago.		borrador	ia
+en3492	La biblioteca es muy *tranquila*.		borrador	ia
+en3564	Se *negó* a ayudarme.		borrador	ia
+en4170	Cambiemos de *tema*.		borrador	ia
+en4203	El *suministro* de agua está bajo.		borrador	ia
+en4283	Me encanta el *sabor* del mango.		borrador	ia
+en4638	*Normalmente* me levanto a las siete.		borrador	ia
+en4650	¡Cómete las *verduras*!		borrador	ia
+en0186	Voy a *organizar* la reunión.		borrador	ia
+en0358	Escribe tu nombre *abajo*.		borrador	ia
+en0774	Se fumó un *cigarrillo*.		borrador	ia
+en0929	Arrendamos una *casa de campo* junto al lago.		borrador	ia
+en1112	Ella trabaja en el *departamento* de ventas.	¿Departamento para vivir? Eso es *flat* o apartment.	borrador	ia
+en1315	¿Cuánto *ganas*?		borrador	ia
+en1697	Me senté en el asiento *delantero*.		borrador	ia
+en1739	Sé *suave* con el bebé.		borrador	ia
+en1936	Usa un *sombrero* negro.		borrador	ia
+en2354	¿Tocas algún *instrumento*?		borrador	ia
+en2729	La *máquina* está mala.		borrador	ia
+en2972	Leo el *periódico* todas las mañanas.		borrador	ia
+en3182	Le mandé un *paquete* a mi mamá.		borrador	ia
+en3579	Respetamos toda *religión*.		borrador	ia
+en3589	¿Puedes *reparar* mi bicicleta?		borrador	ia
+en3806	*Sirven* el almuerzo a mediodía.		borrador	ia
+en3874	Me duele el *hombro*.		borrador	ia
+en4517	Hicimos un *viaje* a la playa.		borrador	ia
+en4670	Viven en un *pueblo* pequeño.		borrador	ia
+en4704	Hay un reloj en la *pared*.		borrador	ia
+en0190	¿A qué hora *llega* el tren?		borrador	ia
+en0445	*Nací* en 1990.		borrador	ia
+en0810	Necesito *ropa* nueva.		borrador	ia
+en0920	Tu respuesta es *correcta*.		borrador	ia
+en1248	Quiero una habitación *doble*.		borrador	ia
+en1397	¿Hablas *inglés*?		borrador	ia
+en1651	No *olvides* tus llaves.		borrador	ia
+en1797	¡Hizo un *gol*!		borrador	ia
+en1937	*Odio* el frío.		borrador	ia
+en2526	Fumar te puede *matar*.		borrador	ia
+en2565	Es el *último* bus de esta noche.		borrador	ia
+en2738	Esta es la calle *principal*.		borrador	ia
+en3161	Compré un *par* de zapatos.		borrador	ia
+en3439	Le hice una *promesa*.		borrador	ia
+en3572	Es un cliente *regular*.		borrador	ia
+en4011	Dejé mi teléfono *en algún lugar*.		borrador	ia
+en4041	No hay *espacio* en mi bolso.		borrador	ia
+en4384	*Estos* zapatos son nuevos.		borrador	ia
+en4634	Esta app es muy *útil*.		borrador	ia
+en4915	Tomo café *sin* azúcar.		borrador	ia
+en0122	El gato es mi *animal* favorito.		borrador	ia
+en0341	Se tomó una *cerveza* helada.		borrador	ia
+en0577	Hoy el mar está *tranquilo*.		borrador	ia
+en0913	¿Me da una *copia*?		borrador	ia
+en1183	Pon el *plato* en el fregadero.		borrador	ia
+en1475	Me cuesta *expresar* mis sentimientos.		borrador	ia
+en1647	Me encanta aprender idiomas *extranjeros*.		borrador	ia
+en1874	¡*Adivina*!		borrador	ia
+en2118	Su *esposo* es médico.		borrador	ia
+en2637	No me *mientas*.		borrador	ia
+en2838	Ese libro es *mío*.		borrador	ia
+en3101	¿Cuál es tu *opinión*?		borrador	ia
+en3201	El *pasajero* está durmiendo.		borrador	ia
+en3406	*Presiona* el botón verde.		borrador	ia
+en3684	Sigan las *reglas*, por favor.		borrador	ia
+en3891	Mira esa *señal*.		borrador	ia
+en4204	Gracias por tu *apoyo*.		borrador	ia
+en4403	*Esos* pájaros hacen mucho ruido.		borrador	ia
+en4922	Lo pasamos *maravilloso*.		borrador	ia
+en4969	Visito Chile cada *año*.		borrador	ia
+en0059	Les tengo *miedo* a los perros.		borrador	ia
+en0419	El profesor escribió en la *pizarra*.		borrador	ia
+en0777	Dibuja un *círculo*.		borrador	ia
+en0967	¿Sabes *contar* hasta diez en inglés?		borrador	ia
+en1083	Su *muerte* fue muy triste.		borrador	ia
+en1178	Quiero *descubrir* lugares nuevos.		borrador	ia
+en1713	Esa película fue muy *divertida*.	¿Divertido de pasarlo bien? Mejor *fun*.	borrador	ia
+en1875	Esta noche tenemos un *invitado*.		borrador	ia
+en2050	Ella monta un *caballo* blanco.		borrador	ia
+en2555	Nadamos en el *lago*.		borrador	ia
+en2856	Viven en una casa *moderna*.		borrador	ia
+en2950	¿Es *necesario* reservar?		borrador	ia
+en3326	Tenemos *mucho* tiempo.		borrador	ia
+en3433	La tienda tuvo una gran *ganancia*.		borrador	ia
+en3558	*Rebajaron* los precios.		borrador	ia
+en3833	*Compartamos* la pizza.		borrador	ia
+en4113	Alguien me *robó* la bicicleta.		borrador	ia
+en4527	*Confío* en mis amigos.		borrador	ia
+en4910	¡Pide un *deseo*!		borrador	ia
+en4988	Es muy *joven*.		borrador	ia
+en0042	*Admiro* a mi madre.		borrador	ia
+en0090	Aquí no se *permiten* perros.		borrador	ia
+en0316	Ganaron la *batalla*.		borrador	ia
+en0803	*Escalamos* la montaña.		borrador	ia
+en0867	*Complete* el formulario, por favor.		borrador	ia
+en1193	*Divide* la torta en ocho pedazos.		borrador	ia
+en1340	Gracias por tu *esfuerzo*.		borrador	ia
+en1681	Me encanta el pan *fresco*.		borrador	ia
+en2030	Tengo un *agujero* en el calcetín.		borrador	ia
+en2324	*En efecto*, fue un gran día.		borrador	ia
+en2766	Su *matrimonio* es muy feliz.		borrador	ia
+en3134	Los niños están jugando *afuera*.		borrador	ia
+en3319	Pasamos una tarde *agradable*.		borrador	ia
+en3339	No *señales* a la gente.		borrador	ia
+en3539	Esta es una foto *reciente*.		borrador	ia
+en3777	La *secretaria* contestó el teléfono.		borrador	ia
+en3906	Me encanta *cantar*.		borrador	ia
+en3995	Esta almohada es muy *suave*.		borrador	ia
+en4392	Esta es mi *tercera* visita.		borrador	ia
+en4647	Tenemos *varios* colores.		borrador	ia
+en0049	Nuestro viaje fue una gran *aventura*.		borrador	ia
+en0099	*Aunque* llovió, lo pasamos bien.		borrador	ia
+en0455	El cajón *inferior* está lleno.		borrador	ia
+en0832	Encontré una *moneda* en la calle.		borrador	ia
+en0851	Me gusta la *comodidad* de mi casa.		borrador	ia
+en1284	¡No *dejes caer* los vasos!		borrador	ia
+en1411	Todas las personas son *iguales*.		borrador	ia
+en1885	El policía tiene un *arma*.		borrador	ia
+en2356	Los delfines son animales *inteligentes*.		borrador	ia
+en2481	¿Quieres *unirte a* nuestro equipo?		borrador	ia
+en2573	Me encanta su *risa*.		borrador	ia
+en2826	Párate en el *medio*.		borrador	ia
+en3244	La banda va a *actuar* esta noche.		borrador	ia
+en3304	Ella usó una camisa blanca *lisa*.		borrador	ia
+en3674	Nos sentamos en la primera *fila*.		borrador	ia
+en4000	El *soldado* es muy joven.		borrador	ia
+en4209	La *superficie* de la mesa está mojada.		borrador	ia
+en4386	Este libro es muy *grueso*.		borrador	ia
+en4616	Espera *hasta* mañana.		borrador	ia
+en4890	Los leones son animales *salvajes*.		borrador	ia
+en0225	Voy a *intentar* terminar hoy.		borrador	ia
+en0375	¿Nos trae la *cuenta*, por favor?	¿Cuenta bancaria? Eso es *account*.	borrador	ia
+en0480	*Respira* despacio.		borrador	ia
+en0905	A mi mamá le encanta *cocinar*.		borrador	ia
+en1094	Los perros *defienden* sus casas.		borrador	ia
+en1520	Mi gato está un poco *gordo*.		borrador	ia
+en1857	Hoy el cielo está *gris*.		borrador	ia
+en2057	Cuidado, la sopa está *caliente*.		borrador	ia
+en0710	Ella tiene un *carácter* fuerte.		borrador	ia
+en2296	Es una *importación* de China.		borrador	ia
+en2706	No *pierdas* tu pasaporte.		borrador	ia
+en2885	Escalamos una *montaña* alta.		borrador	ia
+en3099	Necesita una *operación*.		borrador	ia
+en3423	Ella ganó el primer *premio*.		borrador	ia
+en3639	Hay *riesgo* de lluvia.		borrador	ia
+en3695	Esta zona es muy *segura*.		borrador	ia
+en4180	*De repente*, se cortó la luz.		borrador	ia
+en4186	Usó un *traje* negro.		borrador	ia
+en4566	¿Qué *tipo* de música te gusta?		borrador	ia
+en4923	La mesa es de *madera*.		borrador	ia
+en0175	Vivimos en una *zona* tranquila.		borrador	ia
+en0203	El bebé está *dormido*.		borrador	ia
+en0309	Me doy un *baño* todas las noches.		borrador	ia
+en0646	Es un conductor *descuidado*.		borrador	ia
+en1098	Hay un *retraso* en los trenes.		borrador	ia
+en1427	Fue un gran *evento*.		borrador	ia
+en1637	Me duele el *pie*.		borrador	ia
+en2002	*Esconde* el regalo debajo de la cama.		borrador	ia
+en0698	Ella usa una *cadena* de oro.		borrador	ia
+en2362	Es un colegio *internacional*.		borrador	ia
+en2771	Vimos el *partido* de fútbol.		borrador	ia
+en2962	Estoy *nerviosa* por el examen.		borrador	ia
+en3301	¡Qué *lástima*!		borrador	ia
+en3449	¿Puedes *demostrarlo*?		borrador	ia
+en3514	*Levanta* la mano, por favor.		borrador	ia
+en3881	Hoy la tienda está *cerrada*.		borrador	ia
+en3962	Me encanta el *olor* del café.		borrador	ia
+en4142	Sigue *derecho*.		borrador	ia
+en4490	Aprendió el *oficio* de carpintero.		borrador	ia
+en4646	Tienen una *variedad* de tortas.		borrador	ia
+en0044	*Admito* que me equivoqué.		borrador	ia
+en0226	*Asisto* a clases todos los días.	¿Atender a clientes? Eso es *serve* o help.	borrador	ia
+en0468	Un pájaro se posó en la *rama*.		borrador	ia
+en0819	Queman *carbón* para calentarse.		borrador	ia
+en0892	El almuerzo *consiste* en sopa y pan.		borrador	ia
+en1090	¿Tiene algo que *declarar*?		borrador	ia
+en1435	¿Cuál es la hora *exacta*?		borrador	ia
+en1512	El *agricultor* tiene muchas vacas.		borrador	ia
+en2351	*En cambio*, tomaré té.		borrador	ia
+en2457	Lleva tu *chaqueta*.		borrador	ia
+en2601	Me quebré la *pierna*.		borrador	ia
+en2815	La silla es *metálica*.		borrador	ia
+en3103	El banco está *frente al* parque.		borrador	ia
+en3389	Cuesta diez *libras*.		borrador	ia
+en3651	Quisiera un *panecillo* con queso.		borrador	ia
+en3752	¿Cómo va el *marcador*?		borrador	ia
+en3860	¡No *disparen*!		borrador	ia
+en4058	El alcalde dio un *discurso*.		borrador	ia
+en4450	¿Dónde está el *baño*?		borrador	ia
+en4883	¿*De quién* es este bolso?		borrador	ia
+en0229	Ella tiene una *actitud* positiva.		borrador	ia
+en0470	El bombero fue muy *valiente*.		borrador	ia
+en0896	Esta caja *contiene* cartas antiguas.		borrador	ia
+en1251	No tengo ninguna *duda*.		borrador	ia
+en1465	Ella tiene mucha *experiencia*.	¿Experimento? Eso es *experiment*.	borrador	ia
+en1606	Vivo en un *departamento* pequeño.		borrador	ia
+en1871	El *guardia* revisó mi bolso.		borrador	ia
+en1966	Esta caja es muy *pesada*.		borrador	ia
+en0711	Tengo que *cargar* mi teléfono.		borrador	ia
+en2382	Uso una *plancha* para mis camisas.		borrador	ia
+en2799	Toma este *remedio* dos veces al día.		borrador	ia
+en3000	¿Qué es ese *ruido*?		borrador	ia
+en3355	No me interesa la *política*.		borrador	ia
+en3390	*Vierte* la leche en la taza.		borrador	ia
+en3690	Tengo *prisa*.		borrador	ia
+en3968	Su piel es muy *suave*.		borrador	ia
+en4184	*Sugiero* que nos vayamos ahora.		borrador	ia
+en4520	Tengo *problemas* con mi auto.		borrador	ia
+en4773	El sol se pone por el *oeste*.		borrador	ia
+en0244	La edad *promedio* es veinte años.		borrador	ia
+en0357	Este libro me *pertenece*.		borrador	ia
+en0696	*Ciertamente* vendré.		borrador	ia
+en0997	Robar es un *delito*.		borrador	ia
+en1303	Es mi *deber* ayudar.		borrador	ia
+en1353	A mí *tampoco* me gusta.		borrador	ia
+en1497	No quiero *reprobar* el examen.		borrador	ia
+en1959	Fumar es malo para la *salud*.		borrador	ia
+en2336	Ella tiene una gran *influencia* en mí.		borrador	ia
+en2586	Es un buen *líder*.		borrador	ia
+en2793	*Mide* la mesa, por favor.		borrador	ia
+en3056	¿Te puedo *ofrecer* algo para tomar?		borrador	ia
+en3291	Hay una *pila* de libros.		borrador	ia
+en3565	Lo *considero* un amigo.		borrador	ia
+en3667	La pared se siente *áspera*.		borrador	ia
+en3803	Me encanta esta *serie* de televisión.		borrador	ia
+en4072	La lluvia *estropeó* nuestro pícnic.		borrador	ia
+en4081	Ella tiene un *lunar* en la mejilla.		borrador	ia
+en4389	Es alto y *delgado*.		borrador	ia
+en4686	Cada *voto* cuenta.		borrador	ia
