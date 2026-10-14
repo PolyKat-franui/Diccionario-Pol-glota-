@@ -2,7 +2,7 @@
 // Estrategia: primero la red (así siempre ves la versión nueva) y, si no hay conexión, lo guardado.
 // El banco de palabras (data/banco/*.json) se guarda la primera vez que se usa.
 // Al agregar archivos a la app, súmalos a NUCLEO (tests/pwa.test.mjs lo revisa).
-const VERSION = 'franui-v20';
+const VERSION = 'franui-v21';
 const NUCLEO = [
   './',
   'index.html',
