@@ -1403,8 +1403,8 @@ function responderSlide(slide, sabia, auto = false) {
 
   if (!sabia) {
     sesion.reps[id] = (sesion.reps[id] ?? 0) + 1;
-    // "Repasar" vuelve hasta 2 veces; una tarjeta solo deslizada, 1 vez (para no inflar la sesión).
-    if (sesion.reps[id] <= (auto ? 1 : MAX_REPETICIONES)) {
+    // "Repasar" vuelve hasta 2 veces (las saltadas se marcan al terminar y ya no vuelven).
+    if (!sesion.terminada && sesion.reps[id] <= MAX_REPETICIONES) {
       const slides = slidesDeFeed();
       const pos = Math.max(slides.indexOf(slide) + REINSERTAR_EN, sesion.actual + 1);
       const tmp = document.createElement('div');
@@ -1433,10 +1433,9 @@ function alVerSlide(entries) {
     if (!e.isIntersecting) continue;
     const todas = $$('#feed .slide');
     const i = todas.indexOf(e.target);
-    const avanzo = i > sesion.actual;
     sesion.actual = i;
-    // Deslizar sin marcar = "repasar": la tarjeta vuelve a salir (como pide la especificación).
-    if (avanzo) todas.slice(0, i).forEach((s) => { if (!s.classList.contains('fin') && !s.dataset.r) responderSlide(s, false, true); });
+    // Pasar una tarjeta sin marcar cuenta como "repasar", pero recién al terminar:
+    // así se puede volver atrás con el scroll y responderla.
     if (e.target.id === 'slide-fin') terminar();
   }
 }
@@ -1444,6 +1443,7 @@ function alVerSlide(entries) {
 function terminar() {
   if (!sesion || sesion.terminada) return;
   sesion.terminada = true;
+  slidesDeFeed().forEach((sl) => { if (!sl.dataset.r) responderSlide(sl, false, true); });
   sesion.tokens += store.terminarSesion(S);
   sonido.fin();
   guardar();
@@ -2017,6 +2017,11 @@ function enviarSugerenciasPendientes() {
 }
 window.addEventListener('online', () => enviarSugerenciasPendientes());
 
+function pintarLeida(li, b, leida) {
+  li.classList.toggle('leida', leida); li.classList.toggle('nueva', !leida);
+  b.textContent = t(leida ? 'buzon_no_leida' : 'buzon_leida');
+  $('.buzon-meta .tag', li)?.toggleAttribute('hidden', leida);
+}
 /** Solo para la creadora: lee, marca y borra las sugerencias. */
 async function vistaBuzon() {
   if (!esCreadora()) { location.hash = '#/ajustes'; return; }
@@ -2033,7 +2038,7 @@ async function vistaBuzon() {
       ${lista.length ? `<p class="suave">${tn('buzon_nuevas_n', sinLeer)}</p>` : `<p class="aviso">${t('buzon_vacio')}</p>`}
       <ul class="buzon-lista">${lista.map((x) => `
         <li class="card ${x.leida ? 'leida' : 'nueva'}" data-id="${esc(x.id)}">
-          <p class="buzon-meta">${x.leida ? '' : `<span class="tag">${t('niv_nueva')}</span>`}<strong>${esc(x.nombre || t('buzon_anonimo'))}</strong>
+          <p class="buzon-meta"><span class="tag" ${x.leida ? 'hidden' : ''}>${t('niv_nueva')}</span><strong>${esc(x.nombre || t('buzon_anonimo'))}</strong>
             <span class="suave">· ${fecha(x.fecha)} · ${esc((x.idioma || '?').toUpperCase())}${x.version ? ` · v${esc(x.version)}` : ''}</span></p>
           <p class="buzon-texto">${esc(x.texto)}</p>
           <div class="buzon-acciones">
@@ -2044,7 +2049,22 @@ async function vistaBuzon() {
     </section>`;
   $$('.buzon-lista li').forEach((li) => {
     const x = lista.find((y) => y.id === li.dataset.id);
-    $('[data-leer]', li).addEventListener('click', async () => { await nube.marcarSugerencia(x.id, !x.leida).catch(() => toast(t('buzon_error'))); vistaBuzon(); });
+    // Se marca al instante en pantalla y se guarda en la nube; si la nube lo rechaza, se deshace y se dice por qué.
+    $('[data-leer]', li).addEventListener('click', async (e) => {
+      const b = e.currentTarget;
+      const nueva = !x.leida;
+      b.disabled = true;
+      pintarLeida(li, b, nueva);
+      try {
+        await nube.marcarSugerencia(x.id, nueva);
+        x.leida = nueva;
+      } catch (err) {
+        pintarLeida(li, b, x.leida);
+        toast(err?.code === 'permission-denied' ? t('buzon_sin_permiso') : t('buzon_error'));
+      }
+      b.disabled = false;
+      $('.buzon .suave').textContent = tn('buzon_nuevas_n', lista.filter((y) => !y.leida).length);
+    });
     $('[data-borrar]', li).addEventListener('click', () => {
       modal(t('buzon_borrar'), `<p class="buzon-texto">${esc(x.texto)}</p><button class="btn peligro ancho" type="button" id="buzon-borrar-si">${t('buzon_borrar')}</button>`);
       $('#buzon-borrar-si').addEventListener('click', async () => {

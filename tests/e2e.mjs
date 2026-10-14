@@ -170,7 +170,16 @@ try {
   assert.match(await segunda.locator('.nivel').innerText(), /Difícil/);
   paso('"Repasar" → nivel "Difícil" y la tarjeta vuelve a salir en la sesión');
 
-  // Deslizar hasta el final sin marcar el resto (cuenta como "repasar")
+  // Bajar con el scroll sin responder y volver: la tarjeta saltada todavía se puede responder
+  await page.waitForTimeout(600);
+  for (const tecla of ['ArrowDown', 'ArrowDown', 'ArrowUp']) { await page.keyboard.press(tecla); await page.waitForTimeout(600); }
+  const saltada = page.locator('#feed .slide').nth(3);
+  assert.equal(await saltada.getAttribute('data-r'), null, 'pasarla con scroll no la marca todavía');
+  await saltada.locator('.btn-sabe').click();
+  await page.waitForFunction(() => document.querySelectorAll('#feed .slide')[3]?.dataset.r === 'si');
+  paso('Scroll abajo y de vuelta: la tarjeta saltada se puede responder con «Lo sé»');
+
+  // Deslizar hasta el final sin marcar el resto (cuenta como "repasar" al terminar)
   for (let i = 0; i < 40 && !(await page.locator('#slide-fin .fin-card').count()); i++) {
     await page.keyboard.press('ArrowDown');
     await page.waitForTimeout(450);
@@ -321,6 +330,14 @@ try {
   assert.ok(!(await page.evaluate(async () => (await import('./js/musica.js')).musicaActiva())), 'y se apaga');
   paso('Música de fondo lo-fi se enciende y apaga en Ajustes');
 
+  // Ya no es principiante (≥ 20 palabras): ahora sí aparece el aviso de Novedades
+  await page.goto('about:blank');
+  const edN = await ctx.newPage();
+  await edN.goto(URL_APP.replace('/app/', '/'));
+  await edN.evaluate(() => { const s = JSON.parse(localStorage.getItem('franui:v1')); s.ejercicios = Math.max(s.ejercicios, 20); localStorage.setItem('franui:v1', JSON.stringify(s)); });
+  await edN.close();
+  await page.goto(`${URL_APP}#/ajustes`);
+  await page.locator('.tabbar a[href="#/novedades"].con-aviso').waitFor();
   assert.ok(await page.locator('.tabbar a[href="#/novedades"]').evaluate((a) => a.classList.contains('con-aviso')), 'aviso de novedad sin ver');
   await page.locator('.tabbar a[href="#/novedades"]').click();
   await page.locator('.nov-hero').waitFor();

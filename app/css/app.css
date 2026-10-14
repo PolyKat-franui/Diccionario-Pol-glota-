@@ -100,6 +100,7 @@ input[type=range] { accent-color: var(--enfasis); width: 100%; min-height: var(-
 .error { color: var(--peligro); font-size: var(--fs-sm); min-height: 1em; }
 
 .tag { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: var(--r-pill); font-size: var(--fs-xs); font-weight: 600; letter-spacing: .04em; white-space: nowrap; }
+.tag[hidden] { display: none; }
 .tag-nuevo { background: linear-gradient(120deg, var(--accent), var(--surface-2)); color: var(--ink); }
 .tag-pronto { background: color-mix(in srgb, var(--line) 35%, var(--surface)); color: var(--ink-soft); }
 .tag-activo { background: var(--primary); color: var(--on-primary); }
