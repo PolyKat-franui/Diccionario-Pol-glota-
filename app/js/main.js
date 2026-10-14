@@ -1329,7 +1329,7 @@ function responderSlide(slide, sabia, auto = false) {
     regarJardin(J.CRECE_POR_PALABRA);
     if (S.diario.revisadas === S.ajustes.meta) regarJardin(J.CRECE_POR_META);
     if (S.diario.revisadas === store.DIAMANTE_PALABRAS) setTimeout(() => celebrarDiamante(t('dia_50')), premio ? 1600 : 600);
-    else if (store.tocaDiamante(S)) setTimeout(aparecerDiamante, 900 + Math.random() * 2500);
+    else if (!window.__sinSorpresas && store.tocaDiamante(S)) setTimeout(aparecerDiamante, 900 + Math.random() * 2500);
     if (S.racha.ultimoDia !== diaAntes) setTimeout(celebrarRacha, premio ? 1200 : 500);
   }
   const niv = dificultad(store.progresoDe(S, meta)[id]);

@@ -787,7 +787,7 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 @keyframes cofreSacude { 0%, 60%, 100% { transform: rotate(0); } 70% { transform: rotate(-6deg); } 80% { transform: rotate(6deg); } 90% { transform: rotate(-3deg); } }
 
 /* ---------- Instalar la app ---------- */
-.icono-app { display: inline-grid; place-items: center; width: 104px; height: 104px; flex: none; border-radius: 24px; background: radial-gradient(circle, var(--carmesi-luz) 0 52%, var(--carmesi) 53%); box-shadow: 0 10px 24px color-mix(in srgb, var(--sombra-color) 30%, transparent); }
+.icono-app { display: inline-grid; place-items: center; width: 104px; height: 104px; flex: none; border-radius: 24px; background: var(--carmesi); box-shadow: 0 10px 24px color-mix(in srgb, var(--sombra-color) 30%, transparent); }
 .icono-app img { image-rendering: pixelated; }
 .instalar { display: grid; justify-items: center; gap: 14px; text-align: center; }
 .pasos-instalar { margin: 0; padding-left: 22px; display: grid; gap: 10px; text-align: left; font-weight: 600; }

@@ -14,7 +14,6 @@ import { sakura } from './arte-iconos.mjs';
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(RAIZ, 'app', 'assets', 'app');
 export const CARMESI = '#9E2A3A';     // --primary de Higo
-const CARMESI_LUZ = '#B8384A';        // centro un poco más claro (halo suave detrás de la flor)
 
 const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
 
@@ -38,23 +37,18 @@ export function png(ancho, alto, pixel) {
   return Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), bloque('IHDR', ihdr), bloque('IDAT', deflateSync(crudo, { level: 9 })), bloque('IEND', Buffer.alloc(0))]);
 }
 
-/** Ícono cuadrado de `lado` px con la sakura a escala entera `k`, centrada. */
-export function icono(lado, k, { halo = true } = {}) {
+/** Ícono cuadrado de `lado` px: fondo carmesí liso y la sakura a escala entera `k`, centrada por su contorno real. */
+export function icono(lado, k) {
   const { filas, colores } = sakura();
-  const n = filas.length;
-  const x0 = Math.floor((lado - n * k) / 2), y0 = Math.floor((lado - n * k) / 2);
-  const fondo = rgb(CARMESI), luz = rgb(CARMESI_LUZ);
-  const radioHalo = n * k * 0.56;
+  // centro visual de la flor (promedio de sus pixeles): así el centro de la sakura queda en el centro del ícono
+  let sx = 0, sy = 0, n = 0;
+  filas.forEach((f, y) => [...f].forEach((ch, x) => { if (ch !== '.') { sx += x + 0.5; sy += y + 0.5; n++; } }));
+  const x0 = Math.round(lado / 2 - (sx / n) * k), y0 = Math.round(lado / 2 - (sy / n) * k);
+  const fondo = rgb(CARMESI);
   return png(lado, lado, (x, y) => {
     const fx = Math.floor((x - x0) / k), fy = Math.floor((y - y0) / k);
-    const ch = fy >= 0 && fy < n && fx >= 0 && fx < n ? filas[fy][fx] : '.';
-    if (ch !== '.' && colores[ch]) return rgb(colores[ch]);
-    // halo escalonado (en pasos de k px, para que combine con el pixel art)
-    if (halo) {
-      const cx = Math.floor((x - lado / 2) / k) * k, cy = Math.floor((y - lado / 2) / k) * k;
-      if (Math.hypot(cx, cy) < radioHalo) return luz;
-    }
-    return fondo;
+    const ch = x >= x0 && y >= y0 && fy < filas.length && fx < filas[0].length ? filas[fy][fx] : '.';
+    return ch !== '.' && colores[ch] ? rgb(colores[ch]) : fondo;
   });
 }
 
@@ -63,7 +57,7 @@ export const ICONOS_APP = {
   'icono-512.png': () => icono(512, 16),           // 368 px
   'icono-maskable-512.png': () => icono(512, 11),  // 253 px: cabe en la zona segura (círculo del 80 %)
   'apple-touch-icon.png': () => icono(180, 6),
-  'favicon-32.png': () => icono(32, 1, { halo: false }),
+  'favicon-32.png': () => icono(32, 1),
 };
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

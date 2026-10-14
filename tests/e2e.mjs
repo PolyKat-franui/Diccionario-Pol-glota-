@@ -22,6 +22,7 @@ const paso = (msg) => console.log(`  ✓ ${++pasos}. ${msg}`);
 let ultimaPagina = null; // para guardar una captura si algo falla
 async function nuevaPagina(viewport, extra = {}) {
   const ctx = await browser.newContext({ viewport, locale: 'es-CL', ...extra });
+  await ctx.addInitScript(() => { window.__sinSorpresas = true; }); // los diamantes al azar podrían tapar botones
   const page = await ctx.newPage();
   ultimaPagina = page;
   page.on('pageerror', (e) => errores.push(`pageerror: ${e.message}`));
@@ -471,7 +472,7 @@ try {
   await page.goto(`${URL_APP}#/estudiar?mega=${encodeURIComponent('Comida y bebida')}&dif=todas`);
   await page.locator('#feed .slide .palabra').first().waitFor();
   const diamAntes = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).diamantes ?? 0);
-  await page.evaluate(() => { Math.random = () => 0.001; });
+  await page.evaluate(() => { window.__sinSorpresas = false; Math.random = () => 0.001; });
   await page.waitForTimeout(500);
   await page.keyboard.press('ArrowRight');
   await page.locator('.diamante-vuela').waitFor({ timeout: 5000 });
