@@ -104,6 +104,14 @@ await page.waitForFunction(() => document.querySelector('.ranking li strong')?.t
 await page.locator('[data-campo=nivel]').click();
 await page.waitForFunction(() => document.querySelector('.ranking li strong')?.textContent === 'Ana');
 console.log('✓ Ranking real: racha, palabras y jardín, con otras personas y sin el correo');
+// Si mi fila no llegó a publicarse (cerré la app justo después de entrar), se publica al volver a abrir
+await page.evaluate(() => { const d = JSON.parse(localStorage.getItem('__sim_docs')); delete d['ranking/u1']; localStorage.setItem('__sim_docs', JSON.stringify(d)); });
+await page.goto(`${U}#/menu`);
+await page.reload();
+await page.waitForFunction(() => !!JSON.parse(localStorage.getItem('__sim_docs'))['ranking/u1']);
+console.log('✓ Al abrir la app con cuenta, la fila del ranking se vuelve a publicar');
+await page.goto(`${U}#/ranking`);
+await page.locator('.ranking li.yo').waitFor();
 // Liga semanal: solo personas de mi liga y de esta semana, ordenadas por XP
 await page.evaluate(async () => {
   const { semanaISO } = await import('./js/store.js');

@@ -80,7 +80,7 @@ const filaRanking = () => ({
 });
 function publicarMiRanking() {
   if (!conCuenta() || S.ajustes.ranking === false) return;
-  nube.publicarRanking(S.perfil.cuenta.uid, filaRanking()).catch(() => {});
+  nube.publicarRanking(S.perfil.cuenta.uid, filaRanking()).catch((e) => console.warn('ranking:', e?.code || e));
 }
 function subirPronto() {
   if (!conCuenta() || cuentaPendiente) return;
@@ -138,6 +138,9 @@ async function sincronizarAlAbrir() {
     const accion = sincronizar(await nube.leerAvance(cuenta.uid), cuenta);
     if (accion === 'preguntar') ir('#/conservar');
     else if (accion === 'bajar') router();
+    // Cada vez que se abre la app con cuenta se actualiza la fila del ranking:
+    // así aparece también quien entró con Google pero cerró antes de que se publicara.
+    if (accion !== 'preguntar') publicarMiRanking();
   } catch { /* sin conexión: se sigue con el avance de este navegador */ }
 }
 addEventListener('pagehide', guardarYa);
