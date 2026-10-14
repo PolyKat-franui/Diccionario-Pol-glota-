@@ -480,7 +480,8 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, trans
   .capitulo.invertido .capitulo-texto { order: 2; }
 }
 /* Kaizen: la cifra que crece y la sakura que florece día a día */
-.kaizen-cifra { margin: 0; font-family: var(--font-logo); font-size: clamp(64px, 9vw, 104px); line-height: 1; color: var(--c); }
+.kaizen-cifra { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(60px, 8.5vw, 96px); line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--c); }
+.kaizen-cifra .contador { display: inline-block; min-width: 3.4ch; text-align: right; }
 .kaizen-nota { margin: 0; font-size: 14px; color: var(--ink-soft); max-width: 260px; }
 .kaizen-dias { list-style: none; padding: 0; margin: 8px 0 0; display: flex; gap: clamp(6px, 2vw, 14px); align-items: end; }
 .kaizen-dias li { display: grid; justify-items: center; gap: 6px; font-size: 12px; letter-spacing: .2em; color: var(--ink-soft); }
