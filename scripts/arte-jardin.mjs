@@ -3,6 +3,8 @@
 //   app/assets/jardin/fondo-dia|atardecer|noche.svg   cielo y pasto (96×96)
 //   app/assets/jardin/<id>.svg              cada objeto del catálogo (app/js/jardin.js)
 //   app/assets/jardin/petalo.svg            pétalo que cae en la escena
+//   app/assets/jardin/estanque|faroles|mirador-<cielo>.svg  espacios del mundo de sakuras (96×96)
+//   app/assets/jardin/koi-1|2.svg, farol-calle(-on).svg     detalles que se mueven o encienden
 // Mostrar siempre a escala entera (×1, ×2, ×3…).
 // Uso: node scripts/arte-jardin.mjs   (también corre con npm run build)
 import { writeFileSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
@@ -136,7 +138,7 @@ const FONDOS = {
   noche: { cielo: ['#1C1F45', '#232756', '#2C3166', '#363B74', '#434784'], fuji: ['#3E4677', '#323A66', '#D9DDF0', '#AEB5D6'],
     lejos: ['#8A6C9E', '#76598C', '#5E4778'], pasto: ['#3E6448', '#33573D', '#4B7656'], astro: ['luna', 76, 13, '#F4EFD8'] },
 };
-function fondo(nombre) {
+function fondo(nombre, escena = 'te') {
   const f = FONDOS[nombre];
   const g = lienzo(96, 96);
   const col = {};
@@ -162,13 +164,15 @@ function fondo(nombre) {
     for (const [x, y] of [[12, 22], [52, 14], [72, 34], [36, 26]]) pon(g, x, y, letra('#B9BCE8'));
   }
   // monte Fuji: cumbre plana, laderas cóncavas, nieve con bordes irregulares, luz a la izquierda
+  // (en el mirador se ve más cerca: más alto y más ancho)
   const [luz, sombra, nieve, nieveSombra] = f.fuji;
+  const cima = escena === 'mirador' ? 12 : 24, ancho = escena === 'mirador' ? 0.42 : 0.55;
   for (let x = 0; x < 96; x++) {
     const d = Math.abs(x - 48);
-    const top = d < 4 ? 24 : Math.round(24 + (d - 4) * 0.55 + ((d - 4) ** 2) * 0.004);
+    const top = d < 4 ? cima : Math.round(cima + (d - 4) * ancho + ((d - 4) ** 2) * 0.004);
     for (let y = Math.max(0, top); y < 60; y++) {
-      const lineaNieve = 32 + Math.round(3 * ruido(Math.floor(x / 2), 1, 5)) + (d < 8 ? 0 : (d - 8) * 0.2);
-      const izq = x < 48 + (y - 24) * 0.15;
+      const lineaNieve = cima + 8 + Math.round(3 * ruido(Math.floor(x / 2), 1, 5)) + (d < 8 ? 0 : (d - 8) * 0.2);
+      const izq = x < 48 + (y - cima) * 0.15;
       g[y][x] = letra(y < lineaNieve ? (izq ? nieve : nieveSombra) : (izq ? luz : sombra));
     }
   }
@@ -184,8 +188,96 @@ function fondo(nombre) {
     g[y][x] = letra(n > 0.9 ? f.pasto[2] : n < 0.12 || y === 60 ? f.pasto[1] : f.pasto[0]);
     if (ruido(x, y, 13) > 0.975) g[y][x] = letra(nombre === 'noche' ? '#C9A6C8' : '#F7C2CE');
   }
+  if (escena !== 'te') ESCENAS[escena](g, letra, nombre, f);
   return salida(g, col);
 }
+
+// ---------- el mundo de sakuras: espacios para recorrer (96×96 cada uno, misma paleta día/atardecer/noche) ----------
+const AGUA = { dia: ['#8EC9E0', '#B5DDEB', '#6FB0CC'], atardecer: ['#E9A8A8', '#F4C3B4', '#D48C94'], noche: ['#2E3F73', '#45599A', '#24325E'] };
+const MADERA = { dia: ['#A9744F', '#8C5A3A', '#C38D63'], atardecer: ['#9C6A4E', '#7E5038', '#B5815E'], noche: ['#5E4A52', '#4A3842', '#73606A'] };
+const ROJO = { dia: ['#C8323C', '#E14B4B', '#962430'], atardecer: ['#C23A42', '#DD5752', '#8F2A33'], noche: ['#8E3A52', '#A84C62', '#6B2B40'] };
+/** Cerezo de primer plano: tronco y copa en racimos. */
+function cerezo(g, letra, cx, base, r, nombre) {
+  const [m1, m2] = MADERA[nombre];
+  for (let y = base - r - 4; y <= base; y++) for (let x = cx - 1; x <= cx + 1; x++) pon(g, x, y, letra(x === cx - 1 ? m2 : m1));
+  const rosa = nombre === 'noche' ? ['#B98FB8', '#A07AA6', '#D2AFCF'] : ['#F6B3C4', '#E992AA', '#FBD3DD'];
+  for (let k = 0; k < 7; k++) {
+    const bx = cx + Math.round((ruido(k, cx, 21) - 0.5) * r * 1.6), by = base - r - 6 + Math.round((ruido(cx, k, 22) - 0.5) * r);
+    elipse(g, bx, by, r * 0.55, r * 0.45, letra(rosa[k % 2]));
+    elipse(g, bx - 1, by - 1, r * 0.25, r * 0.2, letra(rosa[2]));
+  }
+}
+const ESCENAS = {
+  // Estanque con puente rojo (taiko-bashi); los koi son dibujos aparte que nadan
+  estanque(g, letra, nombre) {
+    const [a1, a2, a3] = AGUA[nombre];
+    elipse(g, 48, 82, 44, 13, letra('#9A948C'));
+    elipse(g, 48, 82, 42, 11.5, letra(a1));
+    for (let y = 70; y < 96; y++) for (let x = 0; x < 96; x++) if (g[y][x] === letra(a1)) { const n = ruido(x, y, 31); if (n > 0.9) g[y][x] = letra(a2); else if (n < 0.06) g[y][x] = letra(a3); }
+    const [r1, r2, r3] = ROJO[nombre];
+    for (let x = 16; x <= 80; x++) {
+      const yArco = Math.round(76 - 9 * Math.sin(Math.PI * (x - 16) / 64));
+      for (let k = 0; k < 3; k++) pon(g, x, yArco + k, letra(k === 2 ? r3 : r1));
+      pon(g, x, yArco - 5, letra(r2));
+      if ((x - 16) % 8 === 0) for (let k = 1; k < 5; k++) pon(g, x, yArco - k, letra(r1));
+      if (x === 16 || x === 80) for (let k = 3; k < 9; k++) pon(g, x, yArco + k, letra(r3));
+    }
+    cerezo(g, letra, 7, 66, 10, nombre); cerezo(g, letra, 89, 64, 9, nombre);
+  },
+  // Calle de faroles: túnel de cerezos y un camino de piedra que se aleja; los faroles son dibujos aparte
+  faroles(g, letra, nombre) {
+    const piedra = nombre === 'noche' ? ['#6E6A86', '#5A5672', '#8582A0'] : ['#D9CFC4', '#C2B6A8', '#E8E0D6'];
+    for (let y = 58; y < 96; y++) {
+      const t = (y - 58) / 38, mitad = 3 + t * 24;
+      for (let x = Math.round(48 - mitad); x <= Math.round(48 + mitad); x++) {
+        const junta = (y % 5 === 0) || ((x + (Math.floor(y / 5) % 2) * 3) % 7 === 0);
+        pon(g, x, y, letra(junta ? piedra[1] : ruido(x, y, 41) > 0.9 ? piedra[2] : piedra[0]));
+      }
+    }
+    const rosa = nombre === 'noche' ? ['#B98FB8', '#A07AA6', '#D2AFCF', '#8C6A94'] : ['#F6B3C4', '#E992AA', '#FBD3DD', '#D9809A'];
+    const [m1, m2] = MADERA[nombre];
+    for (const lado of [-1, 1]) for (let i = 0; i < 5; i++) {
+      const x = 48 + lado * (46 - i * 8), base = 92 - i * 7;
+      for (let y = 6; y <= base; y++) for (let k = 0; k < 3 - Math.floor(i / 2); k++) pon(g, x + k * lado, y, letra(k ? m2 : m1));
+    }
+    for (let k = 0; k < 70; k++) {
+      const x = Math.round(ruido(k, 1, 51) * 96), y = Math.round(ruido(k, 2, 52) * 34);
+      if (Math.abs(x - 48) < 8 + y * 0.3 && y > 20) continue;
+      elipse(g, x, y, 6 + ruido(k, 3, 53) * 4, 4 + ruido(k, 4, 54) * 3, letra(rosa[k % 3]));
+    }
+    for (let y = 0; y < 40; y++) for (let x = 0; x < 96; x++) if (ruido(x, y, 55) > 0.985) pon(g, x, y, letra(rosa[3]));
+  },
+  // Mirador del Fuji: baranda y piso de madera, con una pagoda a la derecha
+  mirador(g, letra, nombre) {
+    const [m1, m2, m3] = MADERA[nombre];
+    const sil = nombre === 'noche' ? '#2A2550' : nombre === 'atardecer' ? '#7A4E62' : '#5C4A5E';
+    const pag = (y0, hw, h) => { for (let y = y0; y < y0 + h; y++) for (let x = 80 - hw; x <= 80 + hw; x++) pon(g, x, y, letra(sil)); };
+    for (let i = 0; i < 4; i++) { pag(26 + i * 8, 7 - i + 2, 2); pag(28 + i * 8, 4, 6); }
+    for (let y = 18; y < 26; y++) pon(g, 80, y, letra(sil));
+    for (let y = 80; y < 96; y++) for (let x = 0; x < 96; x++) pon(g, x, y, letra((y - 80) % 4 === 3 ? m2 : ruido(x, y, 61) > 0.92 ? m3 : m1));
+    for (let x = 0; x < 96; x++) { pon(g, x, 68, letra(m1)); pon(g, x, 69, letra(m2)); pon(g, x, 74, letra(m1)); }
+    for (let x = 2; x < 96; x += 12) for (let y = 66; y < 80; y++) { pon(g, x, y, letra(m2)); pon(g, x + 1, y, letra(m1)); }
+  },
+};
+/** Caquita de Kitty 10×9 (para limpiar el jardín), con brillo y una moscorra. */
+const caquita = () => {
+  const g = lienzo(10, 9);
+  sello(g, 0, 0, ['.......m..', '....o.....', '...oao....', '..oabbo...', '.ooooooo..', '.oabbbbbo.', 'oabwbbwbbo', 'oabbppbbbo', '.oooooooo.']);
+  return salida(g, { o: '#4A2A14', b: '#7A4A24', a: '#A8703E', w: '#FFFFFF', p: '#E8899A', m: '#3A3A44' });
+}
+/** Koi de 12×6 (naranja o rojo con blanco). */
+const koi = (tipo) => {
+  const g = lienzo(12, 6);
+  sello(g, 0, 0, ['...aaa......', '.aabbaaa..ab', 'abbbaaaaaab.', 'abbaaaaaaab.', '.aaaaaa...ab', '...aa.......']);
+  const c = tipo === 1 ? { a: '#F28A3C', b: '#FFFFFF' } : { a: '#D93A3A', b: '#FFFFFF' };
+  return salida(g, c);
+};
+/** Farol de la calle 8×14, apagado o encendido. */
+const farolCalle = (on) => {
+  const g = lienzo(8, 14);
+  sello(g, 0, 0, ['..OOOO..', '.OOOOOO.', 'OOOOOOOO', '.OaaaaO.', '.OabbaO.', '.OabbaO.', '.OaaaaO.', '.OOOOOO.', '...OO...', '...OO...', '...OO...', '...OO...', '..OOOO..', '.OOOOOO.']);
+  return salida(g, on ? { O: '#3A3A44', a: '#FFC870', b: '#FFF2C4' } : { O: '#3A3A44', a: '#8A7F72', b: '#A79C8E' });
+};
 
 // ---------- objetos de la tienda ----------
 const O = '#3A2414'; // contorno común (café oscuro)
@@ -414,6 +506,10 @@ export function archivos() {
   const out = {};
   for (let i = 0; i < 8; i++) { const { filas, colores } = arbol(i); out[`arbol-${i}.svg`] = toSvg(filas, { titulo: `Sakura, etapa ${i}`, colores }); }
   for (const f of Object.keys(FONDOS)) { const { filas, colores } = fondo(f); out[`fondo-${f}.svg`] = toSvg(filas, { titulo: `Fondo ${f}`, colores }); }
+  for (const e of Object.keys(ESCENAS)) for (const f of Object.keys(FONDOS)) { const { filas, colores } = fondo(f, e); out[`${e}-${f}.svg`] = toSvg(filas, { titulo: `${e} ${f}`, colores }); }
+  { const { filas, colores } = caquita(); out['caquita.svg'] = toSvg(filas, { titulo: 'Caquita', colores }); }
+  for (const k of [1, 2]) { const { filas, colores } = koi(k); out[`koi-${k}.svg`] = toSvg(filas, { titulo: 'Koi', colores }); }
+  for (const on of [false, true]) { const { filas, colores } = farolCalle(on); out[`farol-calle${on ? '-on' : ''}.svg`] = toSvg(filas, { titulo: 'Farol', colores }); }
   for (const [id, fn] of Object.entries(OBJETOS)) { const { filas, colores } = fn(); out[`${id}.svg`] = toSvg(filas, { titulo: id, colores }); }
   const p = petalo(); out['petalo.svg'] = toSvg(p.filas, { titulo: 'Pétalo', colores: p.colores });
   return out;

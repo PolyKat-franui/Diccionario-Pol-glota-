@@ -83,3 +83,24 @@ test('cada objeto de la tienda tiene su dibujo con el tamaño del catálogo', ()
     assert.deepEqual([Number(w), Number(h)], [o.w, o.h], o.id);
   }
 });
+
+test('caquitas: una cada 3 h (máx. 3), limpiarlas da tokens y abono', async () => {
+  const J = await import('../app/js/jardin.js');
+  const st = await import('../app/js/store.js');
+  const e = st.estadoInicial();
+  const h = 3.6e6, t0 = 1_000_000_000_000;
+  assert.equal(J.aparecerCaquitas(e.jardin, t0), 0, 'la primera vez solo empieza a contar');
+  assert.equal(J.aparecerCaquitas(e.jardin, t0 + 2 * h), 0);
+  assert.equal(J.aparecerCaquitas(e.jardin, t0 + 3 * h, () => 0.5), 1);
+  assert.equal(J.aparecerCaquitas(e.jardin, t0 + 30 * h, () => 0.1), 2, 'nunca más de 3');
+  assert.equal(e.jardin.caquitas.length, 3);
+  for (const [x, y] of e.jardin.caquitas) { assert.ok(x >= 0 && x + J.CAQUITA.w <= 96 && y >= 60 && y + J.CAQUITA.h <= 96); assert.ok(x <= 36 || x >= 52, 'no sobre el tronco'); }
+  const tokens = e.tokens, crec = e.jardin.crecimiento;
+  const r = J.limpiarCaquita(e, 0);
+  assert.equal(e.tokens, tokens + 3);
+  assert.equal(e.jardin.crecimiento, crec + 1);
+  assert.equal(e.jardin.caquitas.length, 2);
+  assert.equal(e.jardin.limpiadas, 1);
+  assert.ok(r);
+  assert.equal(J.limpiarCaquita(e, 5), null);
+});

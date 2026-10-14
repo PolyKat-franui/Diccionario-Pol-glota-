@@ -41,6 +41,6 @@ test('reglas de Firestore: el ranking solo acepta nombre y números (sin correo)
   const reglas = readFileSync(new URL('../firestore.rules', import.meta.url), 'utf8');
   assert.match(reglas, /match \/progreso\/\{uid\}/);
   assert.match(reglas, /match \/ranking\/\{uid\}/);
-  assert.match(reglas, /hasOnly\(\['nombre', 'racha', 'dia', 'palabras', 'nivel', 'actualizado'\]\)/);
+  assert.match(reglas, /hasOnly\(\['nombre', 'racha', 'dia', 'palabras', 'nivel', 'actualizado', 'liga', 'semana', 'xp'\]\)/);
   assert.doesNotMatch(reglas, /email/);
 });

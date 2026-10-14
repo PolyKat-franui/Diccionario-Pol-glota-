@@ -136,3 +136,17 @@ test('cofre de monedas cada 7 días de racha, una sola vez por hito', () => {
   s.racha.actual = 14;
   assert.deepEqual(store.abrirCofre(s), { dias: 14, monedas: 75 });
 });
+
+test('historia del día: índice estable por día y cambia entre días', async () => {
+  const st = await import('../app/js/store.js');
+  const a = st.indiceDelDia('2026-10-14', 626);
+  assert.equal(a, st.indiceDelDia('2026-10-14', 626));
+  assert.ok(a >= 0 && a < 626);
+  const dias = new Set(['2026-10-14', '2026-10-15', '2026-10-16', '2026-10-17', '2026-10-18'].map((d) => st.indiceDelDia(d, 626)));
+  assert.ok(dias.size >= 4, 'días distintos dan frases distintas');
+  assert.equal(st.indiceDelDia('2026-10-14', 0), -1);
+  const e = {};
+  assert.equal(st.historiaVista(e), false);
+  st.marcarHistoriaVista(e);
+  assert.equal(st.historiaVista(e), true);
+});

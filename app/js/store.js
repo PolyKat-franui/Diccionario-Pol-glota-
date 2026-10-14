@@ -13,7 +13,7 @@ export function estadoInicial() {
   return {
     version: 1,
     perfil: { nombre: '', cuenta: null, elegido: false }, // cuenta: null = sin cuenta (invitado)
-    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true, sonido: true, meta: 10, ranking: true }, // meta: palabras al día · ranking: aparecer en el ranking (con cuenta)
+    ajustes: { nativo: null, tema: 'sistema', paleta: 'higo', escala: 1, brillo: 1, ipa: true, sonido: true, meta: 10, ranking: true, recordatorio: false, horaRecordatorio: '20:00' }, // meta: palabras al día · ranking: aparecer en el ranking (con cuenta)
     aprendiendo: null,
     tokens: 0,
     ejercicios: 0,
@@ -24,6 +24,7 @@ export function estadoInicial() {
     favoritos: {},  // { idioma: [idConcepto, ...] }
     sugerencias: [], // { texto, fecha, enviada }
     jardin: jardinInicial(), // Jardín de Sakura (ver jardin.js)
+    liga: { nivel: 0, semana: null, xp: 0, cambio: null }, // ligas semanales (ver ligas más abajo)
     cofre: 0,             // último día de racha (7, 14, 21…) en que se abrió un cofre
     tutorialVisto: false, // tutorial guiado por Kitty (primera sesión)
     novedadVista: null,   // última versión de Novedades que se abrió
@@ -46,6 +47,7 @@ export function normalizar(data) {
     racha: { ...base.racha, ...data.racha },
     diario: { ...base.diario, ...data.diario },
     jardin: { ...base.jardin, ...data.jardin },
+    liga: { ...base.liga, ...data.liga },
   };
 }
 
@@ -148,6 +150,7 @@ export function registrarRespuesta(estado, idioma, id, sabia, ahora = Date.now()
   prog[id] = responder(prog[id], sabia, ahora);
   estado.tokens += TOKENS_POR_TARJETA;
   estado.ejercicios += 1;
+  sumarXP(estado, ahora);
   usarProtectores(estado, ahora);
   marcarDiaEstudiado(estado.racha, ahora);
   return TOKENS_POR_TARJETA;
@@ -237,4 +240,67 @@ export function agregarSugerencia(estado, texto, ahora = Date.now()) {
   if (!limpio) return false;
   estado.sugerencias.push({ texto: limpio, fecha: ahora, enviada: false });
   return true;
+}
+
+// ---------- Historia del día de Kitty ----------
+/** Índice estable para un día (YYYY-MM-DD): la misma frase todo el día, otra al siguiente. */
+export function indiceDelDia(dia, n) {
+  if (!n) return -1;
+  let h = 2166136261;
+  for (const c of dia) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
+  return (h >>> 0) % n;
+}
+export const historiaVista = (estado, ahora = Date.now()) => estado.historia?.dia === diaLocal(ahora);
+export function marcarHistoriaVista(estado, ahora = Date.now()) {
+  estado.historia = { dia: diaLocal(ahora) };
+}
+
+/** Premio por dominar una palabra (pantalla «¡Dominada!»). */
+export const BONO_DOMINADA = 5;
+
+// ---------- Ligas semanales de flores (estilo Duolingo) ----------
+// Cada palabra revisada suma 1 XP en la semana (lunes a domingo). Al empezar una semana nueva:
+// con SUBE_LIGA XP o más subes de liga; con menos de BAJA_LIGA bajas (Brote no baja).
+export const LIGAS = ['brote', 'capullo', 'sakura', 'jardin'];
+export const SUBE_LIGA = 100;
+export const BAJA_LIGA = 20;
+
+/** Semana ISO del día local: '2026-W42'. */
+export function semanaISO(ahora = Date.now()) {
+  const d = new Date(ahora);
+  const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  const dia = t.getUTCDay() || 7;
+  t.setUTCDate(t.getUTCDate() + 4 - dia);
+  const ini = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
+  const n = Math.ceil(((t - ini) / 864e5 + 1) / 7);
+  return `${t.getUTCFullYear()}-W${pad(n)}`;
+}
+/** Días que faltan para que termine la semana (domingo = 1). */
+export function diasParaCierre(ahora = Date.now()) {
+  const dia = new Date(ahora).getDay() || 7;
+  return 8 - dia;
+}
+
+/** Cierra la semana si cambió: sube o baja de liga y reinicia el XP. Devuelve 'sube' | 'baja' | 'igual' | null. */
+export function actualizarLiga(estado, ahora = Date.now()) {
+  const l = (estado.liga ??= { nivel: 0, semana: null, xp: 0, cambio: null });
+  const sem = semanaISO(ahora);
+  if (l.semana === sem) return null;
+  let cambio = null;
+  if (l.semana) {
+    const salto = semanasEntre(l.semana, sem);
+    if (salto === 1 && l.xp >= SUBE_LIGA && l.nivel < LIGAS.length - 1) { l.nivel++; cambio = 'sube'; }
+    else if ((salto > 1 || l.xp < BAJA_LIGA) && l.nivel > 0) { l.nivel--; cambio = 'baja'; }
+    else cambio = 'igual';
+  }
+  l.semana = sem; l.xp = 0; l.cambio = cambio;
+  return cambio;
+}
+function semanasEntre(a, b) {
+  const lunes = (w) => { const [y, n] = w.split('-W').map(Number); const t = new Date(Date.UTC(y, 0, 4)); t.setUTCDate(t.getUTCDate() - ((t.getUTCDay() || 7) - 1) + (n - 1) * 7); return t; };
+  return Math.round((lunes(b) - lunes(a)) / (7 * 864e5));
+}
+export function sumarXP(estado, ahora = Date.now()) {
+  actualizarLiga(estado, ahora);
+  estado.liga.xp += 1;
 }

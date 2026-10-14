@@ -117,6 +117,17 @@ try {
   await foto(page, '06-celular-tarjeta-revelada');
   paso('Tocar revela la traducción; corazón guarda en favoritos');
 
+  await primera.locator('.btn-fav').click();
+  assert.equal(await primera.locator('.btn-fav').getAttribute('aria-pressed'), 'false');
+  await primera.locator('.tarjeta-centro').dblclick();
+  assert.equal(await primera.locator('.btn-fav').getAttribute('aria-pressed'), 'true');
+  assert.equal(await primera.locator('.corazon-grande').count(), 1);
+  await foto(page, '06b-celular-doble-toque');
+  await page.waitForTimeout(1000);
+  await primera.locator('.tarjeta-centro').dblclick();
+  assert.equal(await primera.locator('.btn-fav').getAttribute('aria-pressed'), 'true', 'el doble toque solo marca, no quita');
+  paso('Doble toque en la tarjeta = favorito, con corazón grande');
+
   await primera.locator('.btn-sabe').click();
   await page.waitForFunction(() => document.querySelector('#chip-tokens span:last-child').textContent === '1');
   assert.match(await primera.locator('.nivel').innerText(), /Media/);
@@ -197,13 +208,33 @@ try {
   assert.ok(await page.evaluate(() => navigator.serviceWorker.ready.then((r) => !!r.active)), 'service worker activo');
   const man = await page.evaluate(() => fetch('manifest.webmanifest').then((r) => r.json()));
   assert.equal(man.short_name, 'Franui');
+  assert.ok(!(await page.locator('#menu-historia').evaluate((b) => b.classList.contains('vista'))), 'historia sin ver: anillo de color');
+  await page.locator('#menu-historia').click();
+  await page.locator('.historia .historia-frase').waitFor();
+  const fraseHoy = await page.locator('.historia .historia-frase').innerText();
+  assert.ok(fraseHoy.length > 2);
+  await page.waitForTimeout(400);
+  await foto(page, '07e-celular-historia');
+  await page.locator('.historia-zona.der').click();
+  await page.locator('.historia-trad').waitFor();
+  await page.locator('.historia-zona.der').click();
+  await page.locator('.historia-fav').click();
+  assert.equal(await page.locator('.historia-fav').getAttribute('aria-pressed'), 'true');
+  await page.locator('.historia-cerrar').click();
+  assert.equal(await page.locator('.historia-capa').count(), 0);
+  assert.ok(await page.locator('#menu-historia').evaluate((b) => b.classList.contains('vista')), 'historia vista: anillo gris');
+  await page.locator('#menu-historia').click();
+  assert.equal(await page.locator('.historia .historia-frase').innerText(), fraseHoy, 'misma frase todo el día');
+  await page.keyboard.press('Escape');
+  paso('Historia del día de Kitty: frase, traducción y guardar en favoritos; misma frase todo el día');
+
   await page.locator('#menu-temas').click();
   await page.waitForURL(/#\/aprender/);
   paso('Tocar el logo abre el menú principal animado; «Descargar la app» muestra los pasos; service worker activo');
 
   await page.goto(`${URL_APP}#/favoritos`);
   await page.locator('.fila-fav').first().waitFor();
-  assert.equal(await page.locator('.fila-fav').count(), 1);
+  assert.equal(await page.locator('.fila-fav').count(), 2, 'la palabra de la tarjeta y la frase de la historia');
   await foto(page, '08-celular-favoritos');
   paso('Favoritos muestra la palabra con corazón');
 
@@ -279,6 +310,17 @@ try {
   await page.goto(`${URL_APP}#/ajustes`);
   await page.locator('[data-meta="5"]').click();
   await page.locator('[data-meta="5"][aria-checked="true"]').waitFor();
+  await page.locator('#aj-hora').fill('21:15');
+  await page.locator('#aj-hora').dispatchEvent('change');
+  const [descarga] = await Promise.all([page.waitForEvent('download'), page.locator('#aj-calendario').click()]);
+  assert.equal(descarga.suggestedFilename(), 'franui-recordatorio.ics');
+  const ics = await (await import('node:fs/promises')).readFile(await descarga.path(), 'utf8');
+  assert.match(ics, /T211500[\s\S]*RRULE:FREQ=DAILY/);
+  await page.locator('#aj-recordatorio').click();
+  await page.waitForFunction(() => !document.querySelector('#aj-recordatorio').checked, null, { timeout: 5000 });
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).ajustes.recordatorio), false, 'sin permiso de notificaciones queda apagado');
+  await foto(page, '12b-celular-recordatorio');
+  paso('Recordatorio diario: «Agregar al calendario» descarga un evento diario a la hora elegida');
   // Racha de 6 días que viene de ayer (se escribe con la app cerrada para que no la pise el autoguardado)
   await page.goto('about:blank');
   const editor = await ctx.newPage();
@@ -347,8 +389,79 @@ try {
   const pos = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).jardin.pos.mantel);
   assert.ok(pos && pos[1] < 80, `el mantel se movió (${pos})`);
   await foto(page, '13e-celular-jardin');
+  // Caquitas de Kitty: aparecen con el tiempo y tocarlas limpia el jardín (+3 tokens)
+  await page.goto('about:blank');
+  const ed4 = await ctx.newPage();
+  await ed4.goto(URL_APP.replace('/app/', '/'));
+  await ed4.evaluate(() => { const s = JSON.parse(localStorage.getItem('franui:v1')); s.jardin.caquitas = []; s.jardin.ultimaCaquita = Date.now() - 7 * 3.6e6; localStorage.setItem('franui:v1', JSON.stringify(s)); });
+  await ed4.close();
+  await page.goto(`${URL_APP}#/menu`);
+  assert.match(await page.locator('#menu-jardin').innerText(), /2 caquitas/);
+  await page.goto(`${URL_APP}#/jardin`);
+  await page.locator('[data-caquita]').first().waitFor();
+  assert.equal(await page.locator('[data-caquita]').count(), 2);
+  assert.match(await page.locator('#escena-kitty').getAttribute('src'), /avergonzada/);
+  await foto(page, '13e2-celular-caquitas');
+  const tokCaq = await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).tokens);
+  await page.locator('[data-caquita]').first().click();
+  await page.locator('#toast', { hasText: 'Jardín limpio' }).waitFor();
+  if (await page.locator('#sube-ok').count()) await page.locator('#sube-ok').click();
+  await page.locator('[data-caquita]').first().click();
+  await page.waitForFunction(() => JSON.parse(localStorage.getItem('franui:v1')).jardin.caquitas.length === 0);
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('franui:v1')).tokens), tokCaq + 6);
+  assert.match(await page.locator('#escena-kitty').getAttribute('src'), /feliz/);
+  paso('Caquitas de Kitty: aparecen cada 3 h, tocarlas limpia el jardín y da +3 tokens');
   await imagenesCargadas(page, 'jardín');
   paso('Jardín de Sakura: estudiar lo riega, la tienda vende abono y adornos, y se decora arrastrando');
+
+  // «¡Dominada!»: todas las palabras vistas quedan a un paso del máximo y vencidas → la primera que sepa se domina
+  await page.goto('about:blank');
+  const ed2 = await ctx.newPage();
+  await ed2.goto(URL_APP.replace('/app/', '/'));
+  await ed2.evaluate(() => {
+    const s = JSON.parse(localStorage.getItem('franui:v1'));
+    for (const prog of Object.values(s.progreso)) for (const e of Object.values(prog)) { e.c = 4; e.d = 0; }
+    localStorage.setItem('franui:v1', JSON.stringify(s));
+  });
+  await ed2.close();
+  await page.goto(`${URL_APP}#/estudiar?dif=todas&libre=1`);
+  await page.locator('#feed .slide .palabra').first().waitFor();
+  for (let i = 0; i < 12 && !(await page.locator('.dominada-capa').count()); i++) { await page.waitForTimeout(700); await page.keyboard.press('ArrowRight'); }
+  await page.locator('.dominada-capa').waitFor({ timeout: 3000 });
+  assert.match(await page.locator('.dominada').innerText(), /¡Dominada!/);
+  assert.match(await page.locator('.dominada').innerText(), /\+5 Kitty tokens/);
+  await page.waitForTimeout(900);
+  await foto(page, '13f-celular-dominada');
+  await page.locator('#dom-seguir').click();
+  assert.equal(await page.locator('.dominada-capa').count(), 0);
+  paso('Al llegar al nivel máximo, pantalla «¡Dominada!» con +5 tokens');
+
+  // Mundo de sakuras: con el sakura en nivel 4 se abren estanque y faroles; el mirador sigue bloqueado
+  await page.goto('about:blank');
+  const ed3 = await ctx.newPage();
+  await ed3.goto(URL_APP.replace('/app/', '/'));
+  await ed3.evaluate(() => { const s = JSON.parse(localStorage.getItem('franui:v1')); s.jardin.crecimiento = 130; s.jardin.fondo = 'dia'; localStorage.setItem('franui:v1', JSON.stringify(s)); });
+  await ed3.close();
+  await page.goto(`${URL_APP}#/jardin?t=mundo`);
+  await page.locator('#mundo-tira').waitFor();
+  assert.equal(await page.locator('.mundo-espacio').count(), 4);
+  assert.equal(await page.locator('.mundo-espacio.bloqueado').count(), 1);
+  assert.match(await page.locator('[data-espacio=mirador]').innerText(), /nivel 6/);
+  await imagenesCargadas(page, 'mundo');
+  await page.locator('#mundo-sig').click();
+  await page.waitForFunction(() => document.querySelector('.mundo-puntos button[data-ir="1"]').getAttribute('aria-current') === 'true');
+  await page.locator('[data-koi]').first().dispatchEvent('click'); // el koi nada: se toca con un evento directo
+  assert.ok(await page.locator('[data-koi]').first().evaluate((b) => b.classList.contains('salta')), 'el koi salta');
+  await page.waitForTimeout(400);
+  await foto(page, '13g-celular-mundo-estanque');
+  await page.locator('.mundo-puntos button[data-ir="2"]').click();
+  await page.waitForFunction(() => document.querySelector('.mundo-puntos button[data-ir="2"]').getAttribute('aria-current') === 'true');
+  for (const f of await page.locator('[data-farol]').all()) await f.click();
+  assert.ok(await page.locator('[data-espacio=faroles]').evaluate((e) => e.classList.contains('brilla')), 'todos los faroles encendidos');
+  await page.locator('#toast', { hasText: 'brilla' }).waitFor();
+  await foto(page, '13h-celular-mundo-faroles');
+  await sinScrollHorizontal(page, 'mundo');
+  paso('Mundo de sakuras: espacios que se recorren, koi que saltan, faroles que se encienden y el mirador bloqueado hasta nivel 6');
 
   await page.goto(`${URL_APP}#/ajustes`);
   await page.locator('#btn-nativo').click();

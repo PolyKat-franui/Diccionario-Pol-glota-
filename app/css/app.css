@@ -809,8 +809,8 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .jardin-cabeza .display { font-family: var(--font-logo); font-weight: 600; letter-spacing: .02em; }
 .jardin-datos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; color: var(--ink-soft); font-weight: 700; margin: 0; }
 .jardin-datos .tag { background: var(--primary); color: var(--on-primary); }
-.jardin-tabs { justify-self: center; }
-.jardin-tabs a { display: inline-flex; align-items: center; gap: 8px; min-height: var(--tap); padding: 0 16px; border-radius: var(--r-pill); text-decoration: none; color: inherit; font-weight: 600; }
+.jardin-tabs { justify-self: stretch; display: grid; grid-template-columns: repeat(3, 1fr); max-width: 480px; width: 100%; margin-inline: auto; }
+.jardin-tabs a { display: inline-flex; align-items: center; gap: 8px; min-height: var(--tap); padding: 0 8px; justify-content: center; font-size: 15px; border-radius: var(--r-pill); text-decoration: none; color: inherit; font-weight: 600; }
 .jardin-tabs a svg { width: 20px; height: 20px; }
 .escena-marco { width: 100%; max-width: 480px; justify-self: center; display: grid; justify-items: center; }
 .escena { position: relative; overflow: hidden; border-radius: 18px; box-shadow: 0 16px 40px color-mix(in srgb, var(--sombra-color) 22%, transparent), 0 0 0 3px var(--surface); touch-action: manipulation; }
@@ -899,3 +899,134 @@ body[data-ruta="estudiar"] .adornos { display: none; }
     drop-shadow(0 3px 4px color-mix(in srgb, var(--sombra-color) 30%, transparent));
 }
 .tienda-icono { background: radial-gradient(circle closest-side, var(--accent-soft) 99%, transparent 100%); }
+
+/* Doble toque = favorito: corazón grande que salta donde tocaste */
+.tarjeta { position: relative; }
+.tarjeta .revelar, .tarjeta .palabra { -webkit-user-select: none; user-select: none; }
+.corazon-grande { position: absolute; width: 96px; height: 96px; margin: -48px; color: var(--d-dificil); pointer-events: none; z-index: 5; animation: corazonGrande .9s var(--ease) forwards; filter: drop-shadow(0 6px 14px color-mix(in srgb, var(--d-dificil) 35%, transparent)); }
+.corazon-grande svg { width: 100%; height: 100%; }
+@keyframes corazonGrande { 0% { transform: scale(0) rotate(-12deg); opacity: 0; } 25% { transform: scale(1.15) rotate(6deg); opacity: 1; } 45% { transform: scale(.95) rotate(0); } 75% { opacity: 1; } 100% { transform: scale(1.05) translateY(-40px); opacity: 0; } }
+
+/* Historia del día de Kitty (estilo Instagram) */
+.menu-historia { display: inline-flex; align-items: center; gap: 10px; justify-self: center; min-height: 44px; padding: 4px 16px 4px 4px; border: 0; border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px color-mix(in srgb, var(--ink) 8%, transparent); }
+.historia-anillo { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; padding: 3px; background: conic-gradient(from 0deg, var(--carmesi), var(--accent), var(--carmesi-luz), var(--carmesi)); }
+.historia-anillo img { width: 40px; height: 32px; padding: 7px 3px; border-radius: 50%; background: var(--surface); image-rendering: pixelated; box-sizing: content-box; }
+.menu-historia:not(.vista) .historia-anillo { animation: anilloGira 4s linear infinite; }
+.menu-historia.vista .historia-anillo { background: var(--line); }
+.menu-historia.vista::after { content: '✓'; color: var(--ink-soft); font-size: 14px; }
+@keyframes anilloGira { to { filter: hue-rotate(25deg); transform: rotate(360deg); } }
+.menu-historia:not(.vista) .historia-anillo img { animation: anilloGira 4s linear infinite reverse; }
+.historia-capa { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: color-mix(in srgb, var(--ink) 70%, transparent); }
+.historia { position: relative; width: min(420px, 100vw); height: min(760px, 100dvh); display: grid; grid-template-rows: auto auto 1fr; padding: 12px 16px 24px; background: linear-gradient(160deg, var(--surface-2), var(--accent-soft) 60%, var(--surface)); color: var(--ink); overflow: hidden; }
+@media (min-width: 480px) { .historia { border-radius: 24px; } }
+.historia-barras { display: flex; gap: 4px; }
+.historia-barras i { flex: 1; height: 4px; border-radius: 2px; background: color-mix(in srgb, var(--ink) 18%, transparent); position: relative; overflow: hidden; }
+.historia-barras i::after { content: ''; position: absolute; inset: 0; background: var(--ink); transform-origin: left; transform: scaleX(0); }
+.historia-barras i.llena::after { transform: scaleX(1); }
+.historia-barras i.llenando::after { animation: barraLlena 6s linear forwards; }
+@keyframes barraLlena { to { transform: scaleX(1); } }
+.historia-cabeza { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-weight: 700; position: relative; z-index: 3; }
+.historia-cuerpo { display: grid; align-content: center; justify-items: center; gap: 16px; text-align: center; padding: 0 8px; }
+.historia-kitty { width: 80px; height: 64px; image-rendering: pixelated; }
+.historia-dice { margin: 0; font-size: 18px; color: var(--ink-soft); }
+.historia-frase { margin: 0; font-family: var(--font-display, inherit); font-size: clamp(28px, 8vw, 40px); line-height: 1.15; font-weight: 700; }
+.historia-trad { margin: 0; font-size: 22px; padding: 10px 18px; border-radius: 14px; background: var(--surface); }
+.historia-audio, .historia-fav { position: relative; z-index: 3; }
+.historia-fav { display: inline-flex; gap: 8px; align-items: center; }
+.historia-fav[aria-pressed="true"] svg { fill: currentColor; }
+.historia-zona { position: absolute; top: 80px; bottom: 0; width: 35%; border: 0; background: transparent; cursor: pointer; z-index: 2; }
+.historia-zona.izq { left: 0; } .historia-zona.der { right: 0; }
+@media (prefers-reduced-motion: reduce) { .menu-historia .historia-anillo, .menu-historia .historia-anillo img { animation: none; } .historia-barras i.llenando::after { animation-duration: 6s; } }
+
+/* «¡Dominada!» (estilo match de Tinder) */
+.dominada-capa { position: fixed; inset: 0; z-index: 210; display: grid; place-items: center; padding: 16px; background: linear-gradient(160deg, var(--carmesi), var(--carmesi-luz)); color: var(--blanco-fijo); animation: aparecer .3s var(--ease); }
+.dominada { display: grid; justify-items: center; gap: 14px; text-align: center; max-width: 420px; }
+.dominada p { margin: 0; font-size: 18px; }
+.dominada-titulo { margin: 0; font-family: var(--font-logo); font-style: italic; font-size: clamp(44px, 13vw, 68px); letter-spacing: .02em; animation: domTitulo .7s cubic-bezier(.3, 1.6, .5, 1) both; }
+.dominada-par { display: flex; align-items: center; justify-content: center; gap: 4px; margin: 8px 0; }
+.dominada-burbuja { min-width: 92px; max-width: 34vw; padding: 14px 12px; border-radius: 22px; background: var(--blanco-fijo); color: var(--carmesi); font-weight: 700; font-size: 17px; overflow-wrap: anywhere; box-shadow: 0 10px 24px color-mix(in srgb, var(--sombra-color) 35%, transparent); }
+.dominada-burbuja.izq { transform: rotate(-6deg); animation: domIzq .6s cubic-bezier(.3, 1.4, .5, 1) both; }
+.dominada-burbuja.der { transform: rotate(6deg); animation: domDer .6s cubic-bezier(.3, 1.4, .5, 1) both; }
+.dominada-kitty { width: 100px; height: 80px; image-rendering: pixelated; z-index: 1; animation: domKitty .8s .3s cubic-bezier(.3, 1.6, .5, 1) both; }
+.dominada-bono { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: color-mix(in srgb, var(--blanco-fijo) 18%, transparent); font-weight: 700; }
+.dominada .btn.primario { background: var(--blanco-fijo); color: var(--carmesi); }
+@keyframes domIzq { from { transform: translateX(-60vw) rotate(-30deg); } }
+@keyframes domDer { from { transform: translateX(60vw) rotate(30deg); } }
+@keyframes domKitty { from { transform: scale(0); } }
+@keyframes domTitulo { from { transform: scale(.3); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .dominada-capa, .dominada-titulo, .dominada-burbuja, .dominada-kitty { animation: none; } }
+
+/* Ligas semanales de flores */
+.liga-card { display: grid; gap: 10px; text-align: center; margin-bottom: 16px; }
+.liga-card h2 { margin: 0; }
+.liga-peldanos { display: flex; justify-content: center; gap: 8px; padding: 0; margin: 0; list-style: none; }
+.liga-peldanos li { display: grid; justify-items: center; gap: 4px; width: 72px; font-size: 12px; color: var(--ink-soft); }
+.liga-peldanos li img { opacity: .5; }
+.liga-peldanos li.actual img, .liga-peldanos li.pasada img { opacity: 1; }
+.liga-peldanos li img { width: 46px; height: 46px; image-rendering: pixelated; padding: 6px; border-radius: 50%; background: var(--surface-2); box-sizing: content-box; }
+
+.liga-peldanos li.actual { color: var(--ink); font-weight: 700; }
+.liga-peldanos li.actual img { background: var(--accent-soft); outline: 3px solid var(--primary); }
+.liga-xp { margin: 0; }
+
+/* Mundo de sakuras: espacios que se recorren deslizando */
+.mundo { display: grid; gap: 12px; }
+.mundo-tira { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; border-radius: 18px; }
+.mundo-tira::-webkit-scrollbar { display: none; }
+.mundo-tira:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+.mundo-espacio { scroll-snap-align: center; margin: 0; display: grid; justify-items: center; gap: 10px; padding: 4px 0; }
+.mundo-espacio figcaption { display: grid; gap: 2px; text-align: center; max-width: 320px; }
+.mundo-espacio figcaption span { color: var(--ink-soft); font-size: 15px; }
+.mundo-escena { position: relative; }
+.mundo-escena button { position: absolute; padding: 0; border: 0; background: none; cursor: pointer; min-width: 44px; min-height: 44px; display: grid; place-items: center; }
+.mundo-escena button img { position: static; }
+.mundo-koi { animation: koiNada 9s ease-in-out infinite; animation-delay: var(--r); }
+.mundo-koi.salta img { animation: koiSalta .7s cubic-bezier(.3, 1.4, .5, 1); }
+@keyframes koiNada { 0%, 100% { transform: translateX(0) scaleX(1); } 45% { transform: translateX(calc(var(--k) * 30px)) scaleX(1); } 50% { transform: translateX(calc(var(--k) * 30px)) scaleX(-1); } 95% { transform: translateX(0) scaleX(-1); } }
+@keyframes koiSalta { 40% { transform: translateY(calc(var(--k) * -10px)) rotate(-25deg); } }
+.mundo-farol { align-items: end; }
+.mundo-farol.on img { filter: drop-shadow(0 0 calc(var(--k) * 3px) var(--luz-farol)); }
+.mundo-espacio.brilla .mundo-escena { box-shadow: 0 0 0 3px var(--surface), 0 0 40px 6px color-mix(in srgb, var(--gold) 45%, transparent); }
+.mundo-kitty { z-index: 5; animation: kittyPasea 14s linear infinite; }
+@keyframes kittyPasea { 0% { transform: translateX(0) scaleX(-1); } 48% { transform: translateX(calc(var(--k) * 68px)) scaleX(-1); } 50% { transform: translateX(calc(var(--k) * 68px)) scaleX(1); } 98% { transform: translateX(0) scaleX(1); } 100% { transform: translateX(0) scaleX(-1); } }
+.mundo-espacio.bloqueado .mundo-escena > img { filter: grayscale(1) brightness(.7) blur(1px); }
+.mundo-candado { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 8px; padding: 24px; text-align: center; color: var(--blanco-fijo); font-weight: 700; background: color-mix(in srgb, var(--ink) 45%, transparent); }
+.mundo-candado svg { width: 40px; height: 40px; }
+.mundo-nav { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.mundo-nav .icon-btn:disabled { opacity: .35; }
+.mundo-puntos { display: flex; gap: 2px; }
+.mundo-puntos button { width: 44px; height: 44px; border: 0; background: none; display: grid; place-items: center; cursor: pointer; }
+.mundo-puntos i { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--ink-soft); }
+.mundo-puntos button[aria-current="true"] i { background: var(--primary); border-color: var(--primary); width: 22px; border-radius: 6px; }
+@media (prefers-reduced-motion: reduce) { .mundo-koi, .mundo-kitty, .mundo-koi.salta img { animation: none; } }
+@media (max-width: 420px) { .jardin-tabs a { flex-direction: column; gap: 2px; padding: 6px 4px; font-size: 13px; line-height: 1.15; text-align: center; } }
+.mundo-kitty.quieta { animation: kittyRespira 3s ease-in-out infinite; transform-origin: 50% 100%; }
+@keyframes kittyRespira { 50% { transform: scaleY(.94); } }
+@keyframes koiNada { 0%, 100% { transform: translateX(0) scaleX(1); } 45% { transform: translateX(calc(var(--k) * 18px)) scaleX(1); } 50% { transform: translateX(calc(var(--k) * 18px)) scaleX(-1); } 95% { transform: translateX(0) scaleX(-1); } }
+
+/* Papel washi: fibras suaves de fondo en el menú y el jardín (sin imágenes, con los colores del tema) */
+.menu-juego, .pagina.jardin {
+  background-image:
+    repeating-linear-gradient(112deg, transparent 0 22px, color-mix(in srgb, var(--ink) 3%, transparent) 22px 23px, transparent 23px 61px),
+    repeating-linear-gradient(23deg, transparent 0 37px, color-mix(in srgb, var(--accent) 7%, transparent) 37px 38px, transparent 38px 89px),
+    radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--accent-soft) 35%, transparent), transparent 40%),
+    radial-gradient(circle at 80% 70%, color-mix(in srgb, var(--surface-2) 45%, transparent), transparent 45%);
+}
+/* Faroles del jardín: se encienden de noche */
+.escena-decor.brilla-noche { filter: drop-shadow(0 0 calc(var(--k) * 4px) var(--luz-farol)) drop-shadow(0 0 calc(var(--k) * 1px) var(--luz-farol)); animation: farolTitila 3.5s ease-in-out infinite; }
+@keyframes farolTitila { 50% { filter: drop-shadow(0 0 calc(var(--k) * 3px) var(--luz-farol)); } }
+@media (prefers-reduced-motion: reduce) { .escena-decor.brilla-noche { animation: none; } }
+/* Tanzaku: tira de papel que cuelga junto a Kitty con una frase de ánimo del día */
+.menu-escena { position: relative; }
+.tanzaku { position: absolute; right: max(4px, calc(50% - 170px)); top: 150px; z-index: 2; margin: 0; writing-mode: vertical-rl; max-height: 210px; padding: 18px 8px 12px; font-family: var(--font-logo); font-style: italic; font-size: 16px; line-height: 1.2; color: var(--ink); background: var(--accent-soft); border-radius: 3px; box-shadow: 0 6px 14px color-mix(in srgb, var(--sombra-color) 18%, transparent); transform-origin: 50% -14px; animation: tanzakuMece 5s ease-in-out infinite; }
+.tanzaku::before { content: ''; position: absolute; top: -14px; left: 50%; width: 1px; height: 14px; background: var(--ink-soft); }
+.tanzaku::after { content: ''; position: absolute; top: 6px; left: 50%; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: var(--surface); }
+@keyframes tanzakuMece { 50% { transform: rotate(3deg); } }
+@media (prefers-reduced-motion: reduce) { .tanzaku { animation: none; } }
+
+/* Caquitas de Kitty: se tocan para limpiar el jardín */
+.escena-caquita { position: absolute; padding: 0; border: 0; background: none; cursor: pointer; width: 44px; height: 44px; translate: -50% -50%; display: grid; place-items: center; overflow: visible; animation: caquitaTiembla 2.4s ease-in-out infinite; }
+.escena-caquita img { position: static; image-rendering: pixelated; }
+.escena-caquita:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; border-radius: 8px; }
+@keyframes caquitaTiembla { 0%, 80%, 100% { transform: none; } 85% { transform: rotate(-6deg); } 90% { transform: rotate(6deg); } 95% { transform: rotate(-3deg); } }
+@media (prefers-reduced-motion: reduce) { .escena-caquita { animation: none; } }

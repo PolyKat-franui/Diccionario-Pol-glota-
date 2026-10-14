@@ -12,6 +12,7 @@ import { sembrarAdornos, estallido, lluvia } from './adornos.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
 import * as nube from './nube.js';
 import * as J from './jardin.js';
+import * as rec from './recordatorio.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -29,7 +30,22 @@ let tutorialAlRevelar = null;  // el tutorial avanza cuando se revela la primera
 let timerGuardar = null;
 function guardar() {
   clearTimeout(timerGuardar);
-  timerGuardar = setTimeout(() => { store.guardar(S); subirPronto(); }, 150);
+  timerGuardar = setTimeout(() => { store.guardar(S); subirPronto(); publicarRecordatorio(); }, 150);
+}
+/** Le cuenta al service worker si hoy ya estudiaste (para no avisar de más). */
+function publicarRecordatorio() {
+  const a = S.ajustes;
+  if (!a.recordatorio) return;
+  rec.publicarEstado({ activo: true, hora: a.horaRecordatorio, ultimoDiaEstudio: S.racha.ultimoDia, titulo: t('rec_noti_titulo'), texto: t('rec_noti_texto') }).catch(() => {});
+}
+function descargarCalendario() {
+  const a = S.ajustes;
+  const ics = rec.crearICS({ hora: a.horaRecordatorio, titulo: t('rec_evento'), descripcion: t('rec_noti_texto'), url: new URL('./', location.href).href });
+  const enlace = document.createElement('a');
+  enlace.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+  enlace.download = 'franui-recordatorio.ics';
+  document.body.append(enlace); enlace.click(); enlace.remove();
+  setTimeout(() => URL.revokeObjectURL(enlace.href), 4000);
 }
 const guardarYa = () => { clearTimeout(timerGuardar); store.guardar(S); subirYa(); };
 
@@ -55,6 +71,9 @@ const filaRanking = () => ({
   palabras: store.resumen(S).palabras,
   nivel: J.nivelDe(S.jardin.crecimiento),
   actualizado: Date.now(),
+  liga: S.liga.nivel,
+  semana: S.liga.semana || store.semanaISO(),
+  xp: S.liga.semana === store.semanaISO() ? S.liga.xp : 0,
 });
 function publicarMiRanking() {
   if (!conCuenta() || S.ajustes.ranking === false) return;
@@ -396,7 +415,63 @@ function vistaInicio() {
 }
 
 // ---------- Menú principal (estilo juego) ----------
+/** Historia del día de Kitty (como Instagram): 3 pantallas que avanzan solas; una frase nueva cada día. */
+async function abrirHistoria() {
+  const meta = S.aprendiendo, nativo = S.ajustes.nativo;
+  if (!meta) { location.hash = '#/idiomas'; return; }
+  await banco.prepararPar(meta, nativo);
+  const frases = banco.disponibles(meta, nativo).filter((c) => c.tipos.includes('frase'));
+  if (!frases.length) { toast(t('hist_sin')); return; }
+  const c = frases[store.indiceDelDia(store.diaLocal(Date.now()), frases.length)];
+  const frase = banco.texto(meta, c.id).texto, trad = banco.texto(nativo, c.id).texto;
+  store.marcarHistoriaVista(S); guardar();
+  $('#menu-historia')?.classList.add('vista');
+  const pantallas = [
+    `<img class="historia-kitty" src="${cara('feliz')}" alt="" width="80" height="64"><p class="historia-dice">${t('hist_k1')}</p>
+     <p class="historia-frase" lang="${meta}">${esc(frase)}</p>
+     <button class="icon-btn historia-audio" type="button" aria-label="${t('escuchar')}">${ICON.audio}</button>`,
+    `<p class="historia-dice">${t('hist_signif')}</p><p class="historia-frase" lang="${meta}">${esc(frase)}</p>
+     <p class="historia-trad" lang="${nativo}">${esc(trad)}</p>`,
+    `<img class="historia-kitty" src="${cara('guino')}" alt="" width="80" height="64"><p class="historia-dice">${t('hist_k3')}</p>
+     <button class="btn primario historia-fav" type="button" aria-pressed="${store.esFavorito(S, meta, c.id)}">${ICON.corazon}<span>${t(store.esFavorito(S, meta, c.id) ? 'hist_guardada' : 'hist_guardar')}</span></button>`,
+  ];
+  const capa = document.createElement('div');
+  capa.className = 'historia-capa'; capa.setAttribute('role', 'dialog'); capa.setAttribute('aria-modal', 'true'); capa.setAttribute('aria-label', t('hist_titulo'));
+  capa.innerHTML = `<div class="historia">
+      <div class="historia-barras">${pantallas.map(() => '<i></i>').join('')}</div>
+      <div class="historia-cabeza"><span>${t('hist_titulo')}</span><button class="icon-btn historia-cerrar" type="button" aria-label="${t('hist_cerrar')}">${ICON.cerrar}</button></div>
+      <div class="historia-cuerpo" aria-live="polite"></div>
+      <button class="historia-zona izq" type="button" aria-label="${t('hist_ant')}"></button><button class="historia-zona der" type="button" aria-label="${t('hist_sig')}"></button>
+    </div>`;
+  document.body.append(capa);
+  let i = 0, timer = null;
+  const cerrar = () => { clearTimeout(timer); capa.remove(); document.removeEventListener('keydown', teclas); $('#menu-historia')?.focus(); };
+  const ir = (n) => { if (n >= pantallas.length) return cerrar(); i = Math.max(0, n); pintar(); };
+  const pintar = () => {
+    clearTimeout(timer);
+    $('.historia-cuerpo', capa).innerHTML = pantallas[i];
+    $$('.historia-barras i', capa).forEach((b, k) => { b.className = k < i ? 'llena' : ''; });
+    const barra = $$('.historia-barras i', capa)[i]; void barra.offsetWidth; barra.className = 'llenando';
+    if (i < pantallas.length - 1) timer = setTimeout(() => ir(i + 1), 6000);
+    $('.historia-audio', capa)?.addEventListener('click', (e) => { e.stopPropagation(); if (!hablar(frase, meta)) toast(t('sin_voz')); });
+    $('.historia-fav', capa)?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!store.esFavorito(S, meta, c.id)) { store.alternarFavorito(S, meta, c.id); guardar(); sonido.like(); estallarCorazones(e.currentTarget); }
+      e.currentTarget.setAttribute('aria-pressed', 'true');
+      $('span', e.currentTarget).textContent = t('hist_guardada');
+    });
+  };
+  const teclas = (e) => { if (e.key === 'Escape') cerrar(); else if (e.key === 'ArrowRight') ir(i + 1); else if (e.key === 'ArrowLeft') ir(i - 1); };
+  document.addEventListener('keydown', teclas);
+  $('.historia-cerrar', capa).addEventListener('click', cerrar);
+  $('.historia-zona.izq', capa).addEventListener('click', () => ir(i - 1));
+  $('.historia-zona.der', capa).addEventListener('click', () => ir(i + 1));
+  pintar();
+  $('.historia-cerrar', capa).focus();
+}
+
 function vistaMenu() {
+  if (J.aparecerCaquitas(S.jardin)) guardar();
   const racha = store.rachaVigente(S.racha);
   const hoy = hoyRevisadas();
   const meta = S.ajustes.meta;
@@ -412,14 +487,19 @@ function vistaMenu() {
           <span class="menu-linea" aria-hidden="true"></span>
         </h1>
         <p class="eslogan menu-eslogan">Be fluent in multiple languages</p>
+        <p class="tanzaku" aria-label="Tanzaku">${t('tz_' + store.indiceDelDia(store.diaLocal(Date.now()), 7))}</p>
         <button class="menu-kitty" type="button" id="menu-kitty" aria-label="Kitty">
           <img src="${cara(racha ? 'muy_feliz' : 'feliz')}" alt="" width="160" height="128">
         </button>
       </div>
+      <button class="menu-historia ${store.historiaVista(S) ? 'vista' : ''}" type="button" id="menu-historia" aria-label="${t('hist_abrir')}">
+        <span class="historia-anillo"><img src="${cara('guino')}" alt="" width="40" height="32"></span>
+        <span>${t('hist_titulo')}</span>
+      </button>
       <a class="menu-jardin" href="#/jardin" id="menu-jardin">
         <span class="menu-jardin-arbol"><img src="${srcArbol(J.nivelDe(S.jardin.crecimiento))}" alt="" width="64" height="64"></span>
         <span class="menu-jardin-txt"><small>${t('jar_titulo')}</small><strong>${esc(nombreEtapa(J.nivelDe(S.jardin.crecimiento)))} · ${t('jar_nivel', { n: J.nivelDe(S.jardin.crecimiento) })}</strong>
-          <span>${J.pendiente(S.jardin) ? t('jar_listos', { n: J.pendiente(S.jardin) }) : t('jar_ir')}</span></span>
+          <span>${S.jardin.caquitas?.length ? tn('caq_aviso_n', S.jardin.caquitas.length) : J.pendiente(S.jardin) ? t('jar_listos', { n: J.pendiente(S.jardin) }) : t('jar_ir')}</span></span>
         ${ICON.flecha}
       </a>
       <ul class="menu-stats">
@@ -444,6 +524,7 @@ function vistaMenu() {
       ${botonInstalar()}
     </section>`;
   marcarAvisoNovedades();
+  $('#menu-historia').addEventListener('click', abrirHistoria);
   // Tocar una letra de FRANUI: salta y suena una moneda (cada letra un poco más aguda)
   $('.menu-letras').addEventListener('click', (e) => {
     const l = e.target.closest('span[style]');
@@ -471,7 +552,12 @@ const nombreObjeto = (id) => t(`it_${id.replace(/-/g, '_')}`);
 /** Estudiar riega el sakura; si sube de nivel durante la sesión, solo un aviso (sin interrumpir). */
 function regarJardin(n) {
   const { antes, despues } = J.crecer(S, n);
-  if (despues > antes) setTimeout(() => toast(t('jar_sube_toast', { n: despues })), 1200);
+  if (despues > antes) setTimeout(() => toast(espacioNuevo(antes, despues) ?? t('jar_sube_toast', { n: despues })), 1200);
+}
+/** Si subir de nivel abrió un espacio del mundo, el texto del aviso. */
+function espacioNuevo(antes, despues) {
+  const e = J.MUNDO.find((m) => m.nivel > antes && m.nivel <= despues);
+  return e ? t('mundo_nuevo', { nombre: t('mundo_' + e.id) }) : null;
 }
 function celebrarNivel(nivel) {
   document.querySelector('.premio-capa')?.remove();
@@ -485,6 +571,7 @@ function celebrarNivel(nivel) {
       <p class="premio-titulo" id="sube-titulo">${t('jar_sube_titulo')}</p>
       <img class="sube-arbol" src="${srcArbol(nivel)}" alt="" width="192" height="192">
       <p class="premio-texto">${t('jar_sube_texto', { n: nivel, nombre: nombreEtapa(nivel), p: J.produccionPorHora(S.jardin) })}</p>
+      ${J.MUNDO.some((m) => m.nivel === nivel) ? `<p class="premio-texto"><strong>${espacioNuevo(nivel - 1, nivel)}</strong></p><a class="btn grande" href="#/jardin?t=mundo&e=${J.MUNDO.find((m) => m.nivel === nivel).id}" id="sube-mundo">${ICON.mapa}<span>${t('jar_tab_mundo')}</span></a>` : ''}
       <button class="btn primario grande" type="button" id="sube-ok">${t('premio_ok')}</button>
     </div>`;
   document.body.append(capa);
@@ -492,6 +579,7 @@ function celebrarNivel(nivel) {
   lluvia({ cantidad: 30, monedas: 0.15 });
   const cerrar = () => { capa.classList.add('saliendo'); setTimeout(() => capa.remove(), 300); };
   $('#sube-ok', capa).addEventListener('click', cerrar);
+  $('#sube-mundo', capa)?.addEventListener('click', cerrar);
   capa.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
   $('#sube-ok', capa).focus({ preventScroll: true });
 }
@@ -500,7 +588,7 @@ let modoDecorar = false;
 function vistaJardin(r) {
   J.iniciar(S);
   guardar();
-  const tab = r.q.get('t') === 'tienda' ? 'tienda' : 'jardin';
+  const tab = ['tienda', 'mundo'].includes(r.q.get('t')) ? r.q.get('t') : 'jardin';
   const j = S.jardin;
   const nivel = J.nivelDe(j.crecimiento);
   const desde = J.umbral(nivel), hasta = J.umbral(nivel + 1);
@@ -514,8 +602,9 @@ function vistaJardin(r) {
       <div class="seg jardin-tabs" role="tablist">
         <a role="tab" href="#/jardin" aria-selected="${tab === 'jardin'}">${ICON.arbol}<span>${t('jar_tab_jardin')}</span></a>
         <a role="tab" href="#/jardin?t=tienda" aria-selected="${tab === 'tienda'}">${ICON.tienda}<span>${t('jar_tab_tienda')}</span></a>
+        <a role="tab" href="#/jardin?t=mundo" aria-selected="${tab === 'mundo'}" id="tab-mundo">${ICON.mapa}<span>${t('jar_tab_mundo')}</span></a>
       </div>
-      ${tab === 'tienda' ? htmlTienda() : `
+      ${tab === 'tienda' ? htmlTienda() : tab === 'mundo' ? '<div class="mundo" id="mundo"></div>' : `
         <div class="escena-marco" id="escena-marco"><div class="escena" id="escena"></div></div>
         <div class="jardin-crece">
           <span>${t('jar_crece', { n: j.crecimiento - desde, m: hasta - desde })}</span>
@@ -529,6 +618,7 @@ function vistaJardin(r) {
         <p class="suave pequeno jardin-como">${t('jar_como')}</p>`}
     </section>`;
   if (tab === 'tienda') return activarTienda();
+  if (tab === 'mundo') return dibujarMundo(r.q.get('e'));
   dibujarEscena();
   pintarRecoger();
   pintarPanelDecorar();
@@ -557,6 +647,76 @@ function pintarRecoger() {
   b.title = lleno ? t('jar_lleno') : '';
 }
 
+/** Mundo de sakuras: espacios de 96×96 a escala entera que se recorren deslizando de lado. */
+function dibujarMundo(inicial) {
+  const caja = $('#mundo');
+  if (!caja) return;
+  const j = S.jardin;
+  const nivel = J.nivelDe(j.crecimiento);
+  const abiertos = J.espaciosAbiertos(j);
+  const k = Math.max(2, Math.min(5, Math.floor(Math.min(caja.clientWidth, 480) / 96)));
+  const cielo = j.fondo;
+  const im = (src, x, y, w, h, extra = '', clase = '') => `<img src="${src}" alt="" width="${w * k}" height="${h * k}" class="${clase}" style="left:${x * k}px;top:${y * k}px;${extra}" draggable="false">`;
+  const contenido = (e) => {
+    if (e.id === 'te') return im(`assets/jardin/fondo-${cielo}.svg`, 0, 0, 96, 96) + im(srcArbol(nivel), 16, 8, 64, 64);
+    let h = im(`assets/jardin/${e.id}-${cielo}.svg`, 0, 0, 96, 96);
+    if (e.id === 'estanque') h += [[24, 80, 1, 0], [50, 86, 2, 1.8]].map(([x, y, n, r]) => `<button type="button" class="mundo-koi" data-koi style="left:${x * k}px;top:${y * k}px;--r:-${r}s" aria-label="Koi"><img src="assets/jardin/koi-${n}.svg" alt="" width="${12 * k}" height="${6 * k}"></button>`).join('');
+    if (e.id === 'faroles') h += J.FAROLES_CALLE.map((f, i) => `<button type="button" class="mundo-farol ${cielo === 'noche' ? 'on' : ''}" data-farol="${i}" aria-pressed="${cielo === 'noche'}" aria-label="${t('mundo_faroles')} ${i + 1}" style="left:${f.x * k}px;top:${f.y * k}px"><img src="assets/jardin/farol-calle${cielo === 'noche' ? '-on' : ''}.svg" alt="" width="${8 * f.e * k}" height="${14 * f.e * k}"></button>`).join('');
+    return h;
+  };
+  caja.style.setProperty('--k', k);
+  caja.innerHTML = `
+    <div class="mundo-tira" id="mundo-tira" tabindex="0">
+      ${J.MUNDO.map((e) => {
+        const ok = abiertos.includes(e.id);
+        return `<figure class="mundo-espacio ${ok ? '' : 'bloqueado'}" data-espacio="${e.id}" aria-label="${t('mundo_' + e.id)}">
+          <div class="mundo-escena escena" style="width:${96 * k}px;height:${96 * k}px">${contenido(e)}
+            ${ok ? (e.id === 'estanque' ? im('assets/caras/feliz.svg', 38, 53, 20, 16, '', 'mundo-kitty quieta') : im('assets/caras/feliz.svg', 4, 78, 20, 16, '', 'mundo-kitty')) : `<div class="mundo-candado">${ICON.candado}<span>${t('mundo_bloq', { n: e.nivel })}</span></div>`}
+          </div>
+          <figcaption><strong>${t('mundo_' + e.id)}</strong><span>${ok ? t('mundo_' + e.id + '_t') : t('mundo_bloq', { n: e.nivel })}</span></figcaption>
+        </figure>`;
+      }).join('')}
+    </div>
+    <div class="mundo-nav">
+      <button class="icon-btn" type="button" id="mundo-ant" aria-label="${t('mundo_ant')}">${ICON.atras}</button>
+      <div class="mundo-puntos">${J.MUNDO.map((e, i) => `<button type="button" data-ir="${i}" aria-label="${t('mundo_ir', { nombre: t('mundo_' + e.id) })}"><i></i></button>`).join('')}</div>
+      <button class="icon-btn" type="button" id="mundo-sig" aria-label="${t('mundo_sig')}">${ICON.flecha}</button>
+    </div>`;
+  const tira = $('#mundo-tira');
+  const espacios = $$('.mundo-espacio', tira);
+  const actual = () => Math.round(tira.scrollLeft / tira.clientWidth);
+  const ir = (i, suave = true) => { i = Math.max(0, Math.min(espacios.length - 1, i)); tira.scrollTo({ left: i * tira.clientWidth, behavior: suave && !sinMovimiento() ? 'smooth' : 'auto' }); };
+  const marcar = () => {
+    const i = actual();
+    $$('.mundo-puntos button').forEach((b, k2) => b.setAttribute('aria-current', String(k2 === i)));
+    $('#mundo-ant').disabled = i === 0; $('#mundo-sig').disabled = i === espacios.length - 1;
+  };
+  tira.addEventListener('scroll', () => { clearTimeout(dibujarMundo.t); dibujarMundo.t = setTimeout(marcar, 80); }, { passive: true });
+  tira.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') { e.preventDefault(); ir(actual() + 1); } if (e.key === 'ArrowLeft') { e.preventDefault(); ir(actual() - 1); } });
+  $('#mundo-ant').addEventListener('click', () => ir(actual() - 1));
+  $('#mundo-sig').addEventListener('click', () => ir(actual() + 1));
+  $$('.mundo-puntos button').forEach((b) => b.addEventListener('click', () => ir(Number(b.dataset.ir))));
+  // Koi: saltan al tocarlos
+  $$('[data-koi]', tira).forEach((b) => b.addEventListener('click', () => {
+    b.classList.remove('salta'); void b.offsetWidth; b.classList.add('salta');
+    sonido.moneda(0, 6);
+  }));
+  // Faroles: se encienden al tocarlos; con todos encendidos, la calle brilla
+  $$('[data-farol]', tira).forEach((b) => b.addEventListener('click', () => {
+    const on = !b.classList.contains('on');
+    b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on));
+    $('img', b).src = `assets/jardin/farol-calle${on ? '-on' : ''}.svg`;
+    if (on) sonido.toque();
+    const todos = $$('[data-farol]', tira).every((x) => x.classList.contains('on'));
+    $('[data-espacio="faroles"]', tira).classList.toggle('brilla', todos);
+    if (todos && on) toast(t('mundo_luz'));
+  }));
+  // Mirador: tocar el paisaje suelta pétalos
+  $('[data-espacio="mirador"]:not(.bloqueado) .mundo-escena', tira)?.addEventListener('click', () => { lluvia({ cantidad: 22, monedas: 0 }); sonido.like(); });
+  const i0 = Math.max(0, J.MUNDO.findIndex((e) => e.id === inicial));
+  requestAnimationFrame(() => { ir(i0, false); marcar(); });
+}
+
 /** Escena a escala entera: 96×96 pixeles lógicos × k (3 en celular, 4 en computador). */
 function dibujarEscena() {
   const marco = $('#escena-marco');
@@ -567,6 +727,7 @@ function dibujarEscena() {
   esc0.style.setProperty('--k', k);
   esc0.style.width = esc0.style.height = `${J.ESCENA.w * k}px`;
   esc0.classList.toggle('decorando', modoDecorar);
+  if (J.aparecerCaquitas(j)) guardar();
   const nivel = J.nivelDe(j.crecimiento);
   const img = (src, x, y, w, h, extra = '') => `<img src="${src}" alt="" width="${w * k}" height="${h * k}" style="left:${x * k}px;top:${y * k}px;${extra}"`;
   const decor = J.CATALOGO.filter((o) => o.tipo === 'decor' && j.tiene[o.id] && !j.ocultos[o.id]);
@@ -576,8 +737,9 @@ function dibujarEscena() {
   esc0.innerHTML = `
     ${img(`assets/jardin/fondo-${j.fondo}.svg`, 0, 0, 96, 96)} class="escena-fondo">
     ${img(srcArbol(nivel), 16, 8, 64, 64, 'z-index:70')} class="escena-arbol" id="escena-arbol">
-    ${decor.map((o) => { const [x, y] = J.posicion(j, o.id); return `${img(`assets/jardin/${o.id}.svg`, x, y, o.w, o.h, `z-index:${colgantes.includes(o.id) ? 150 : y + o.h}`)} class="escena-decor ${['furin', 'teru', 'koinobori'].includes(o.id) ? 'meciendo' : ''}" data-id="${o.id}" draggable="false">`; }).join('')}
-    ${img('assets/caras/feliz.svg', 54, 68, 20, 16, 'z-index:84')} class="escena-kitty" id="escena-kitty">
+    ${decor.map((o) => { const [x, y] = J.posicion(j, o.id); return `${img(`assets/jardin/${o.id}.svg`, x, y, o.w, o.h, `z-index:${colgantes.includes(o.id) ? 150 : y + o.h}`)} class="escena-decor ${['furin', 'teru', 'koinobori'].includes(o.id) ? 'meciendo' : ''} ${j.fondo === 'noche' && ['farol', 'chochin'].includes(o.id) ? 'brilla-noche' : ''}" data-id="${o.id}" draggable="false">`; }).join('')}
+    ${img(`assets/caras/${j.caquitas?.length ? 'avergonzada' : 'feliz'}.svg`, 54, 68, 20, 16, 'z-index:84')} class="escena-kitty" id="escena-kitty">
+    ${(j.caquitas ?? []).map(([x, y], i) => `<button type="button" class="escena-caquita" data-caquita="${i}" aria-label="${t('caq_label')}" style="left:${(x + J.CAQUITA.w / 2) * k}px;top:${(y + J.CAQUITA.h / 2) * k}px;z-index:${y + J.CAQUITA.h}"><img src="assets/jardin/caquita.svg" alt="" width="${J.CAQUITA.w * k}" height="${J.CAQUITA.h * k}"></button>`).join('')}
     ${Array.from({ length: petalos }, (_, i) => img('assets/jardin/petalo.svg', Math.round(6 + azar(i, 1) * 80), -4, 4, 3,
       `--dur:${(7 + azar(i, 2) * 7).toFixed(1)}s;--retraso:-${(azar(i, 3) * 14).toFixed(1)}s;--vaiven:${Math.round(8 + azar(i, 4) * 16) * k}px;--caida:${100 * k}px;z-index:160`) + ' class="escena-petalo">').join('')}
     ${j.tiene.mariposas ? [0, 1].map((i) => img('assets/jardin/mariposas.svg', 20 + i * 40, 30 + i * 12, 9, 7, `--retraso:-${i * 3}s;z-index:170`) + ' class="escena-mariposa">').join('') : ''}
@@ -588,9 +750,23 @@ function dibujarEscena() {
     const a = e.currentTarget; a.classList.remove('mece'); void a.offsetWidth; a.classList.add('mece');
     sonido.toque(); estallido(e.clientX, e.clientY, { cantidad: 6 });
   });
+  // Caquitas: tocarlas limpia el jardín (+tokens y abono natural)
+  $$('[data-caquita]', esc0).forEach((b) => b.addEventListener('click', (e) => {
+    const r0 = b.getBoundingClientRect();
+    const res = J.limpiarCaquita(S, Number(b.dataset.caquita));
+    if (!res) return;
+    guardar();
+    sonido.monedas(3);
+    estallido(r0.left + r0.width / 2, r0.top + r0.height / 2, { cantidad: 10 });
+    toast(t('caq_limpia', { n: res.tokens }));
+    actualizarChips(); pulsoChip();
+    if (res.despues > res.antes) celebrarNivel(res.despues);
+    dibujarEscena();
+  }));
   let iK = 0;
   $('#escena-kitty').addEventListener('click', (e) => {
     const frases = ['jar_k1', 'jar_k2', 'jar_k3'];
+    if (S.jardin.caquitas?.length) return toast(t('caq_k'));
     toast(t(frases[iK++ % frases.length]));
     e.currentTarget.src = cara(['muy_feliz', 'guino', 'enamorada'][iK % 3]);
   });
@@ -969,6 +1145,7 @@ async function vistaEstudiar(r) {
     </section>`;
   const feed = $('#feed');
   feed.addEventListener('click', clickFeed);
+  feed.addEventListener('click', detectarDobleToque);
   activarDeslizar(feed);
   if (!S.tutorialVisto) setTimeout(iniciarTutorial, 500);
   sesion.observer = new IntersectionObserver(alVerSlide, { root: feed, threshold: 0.6 });
@@ -1098,6 +1275,7 @@ function responderSlide(slide, sabia, auto = false) {
   const id = slide.dataset.id;
   slide.dataset.r = sabia ? 'si' : 'no';
   const diaAntes = S.racha.ultimoDia;
+  const nivAntes = dificultad(store.progresoDe(S, meta)[id]);
   sesion.tokens += store.registrarRespuesta(S, meta, id, sabia);
   if (S.racha.ultimoDia !== diaAntes) celebrarRacha();
   sabia ? sesion.sabias++ : sesion.repasar++;
@@ -1113,6 +1291,10 @@ function responderSlide(slide, sabia, auto = false) {
   }
   const niv = dificultad(store.progresoDe(S, meta)[id]);
   $('.nivel', slide).outerHTML = insignia(niv);
+  if (!auto && niv === 'dominada' && nivAntes !== 'dominada') {
+    S.tokens += store.BONO_DOMINADA; sesion.tokens += store.BONO_DOMINADA;
+    setTimeout(() => mostrarDominada(id, meta), 500);
+  }
   if (!auto) flotar(slide, '+1');
 
   if (!sabia) {
@@ -1290,6 +1472,35 @@ function estallarCorazones(boton) {
   }
 }
 
+/** Pantalla «¡Dominada!» (como el match de Tinder): la palabra y su traducción chocan y Kitty celebra. */
+function mostrarDominada(id, meta) {
+  document.querySelector('.dominada-capa')?.remove();
+  const nativo = S.ajustes.nativo;
+  const palabra = banco.texto(meta, id)?.texto ?? '', trad = banco.texto(nativo, id)?.texto ?? '';
+  const total = Object.values(store.progresoDe(S, meta)).filter((e) => dificultad(e) === 'dominada').length;
+  const capa = document.createElement('div');
+  capa.className = 'dominada-capa'; capa.setAttribute('role', 'dialog'); capa.setAttribute('aria-modal', 'true'); capa.setAttribute('aria-labelledby', 'dom-titulo');
+  capa.innerHTML = `<div class="dominada">
+      <h2 id="dom-titulo" class="dominada-titulo">${t('dom_titulo')}</h2>
+      <div class="dominada-par" aria-hidden="true">
+        <span class="dominada-burbuja izq" lang="${meta}">${esc(palabra)}</span>
+        <img class="dominada-kitty" src="${cara('orgullosa')}" alt="" width="100" height="80">
+        <span class="dominada-burbuja der" lang="${nativo}">${esc(trad)}</span>
+      </div>
+      <p>${t('dom_texto', { palabra: esc(palabra) })}</p>
+      <p class="dominada-bono"><img src="assets/moneda.svg" alt="" width="24" height="24">${t('dom_bono', { n: store.BONO_DOMINADA })}</p>
+      <small>${t('dom_total', { n: total })}</small>
+      <button class="btn primario grande" type="button" id="dom-seguir">${t('dom_seguir')}</button>
+    </div>`;
+  document.body.append(capa);
+  sonido.like();
+  lluvia({ cantidad: 30, monedas: 0.4 });
+  const cerrar = () => { capa.remove(); actualizarChips(); };
+  $('#dom-seguir').addEventListener('click', cerrar);
+  capa.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
+  $('#dom-seguir').focus();
+}
+
 /** Ventana de premio estilo tragamonedas: 3 rodillos que se detienen en monedas y lluvia de monedas. */
 const SIMBOLOS = [['moneda', 48, 48], ['sakura', 46, 46], ['estrella', 42, 42], ['cerezas', 36, 34], ['corazon', 39, 36]];
 function mostrarPremio(p) {
@@ -1401,17 +1612,53 @@ function clickFeed(e) {
   else if (e.target.closest('.btn-audio')) {
     if (!hablar(banco.texto(sesion.meta, id).texto, sesion.meta)) toast(t('sin_voz'));
   } else if (e.target.closest('.kitty-ayuda')) kittyAbrir();
-  else if (e.target.closest('.btn-fav')) {
-    const on = store.alternarFavorito(S, sesion.meta, id);
-    guardar();
-    if (on) { sonido.like(); estallarCorazones(e.target.closest('.btn-fav')); } else sonido.quitar();
-    $$(`#feed .slide[data-id="${id}"] .btn-fav`).forEach((b) => {
-      b.setAttribute('aria-pressed', String(on));
-      b.setAttribute('aria-label', t(on ? 'quitar_favorito' : 'favorito'));
-      b.innerHTML = on ? ICON.corazonLleno : ICON.corazon;
-      b.classList.toggle('pop', on);
-    });
+  else if (e.target.closest('.btn-fav')) alternarFav(slide, id, e.target.closest('.btn-fav'));
+}
+
+/** Marca o quita favorito y actualiza el corazón de la tarjeta. forzar=true solo marca (doble toque). */
+function alternarFav(slide, id, origen, forzar = false) {
+  if (forzar && store.esFavorito(S, sesion.meta, id)) return true;
+  const on = store.alternarFavorito(S, sesion.meta, id);
+  guardar();
+  if (on) { sonido.like(); estallarCorazones(origen ?? $('.btn-fav', slide)); } else sonido.quitar();
+  $$(`#feed .slide[data-id="${id}"] .btn-fav`).forEach((b) => {
+    b.setAttribute('aria-pressed', String(on));
+    b.setAttribute('aria-label', t(on ? 'quitar_favorito' : 'favorito'));
+    b.innerHTML = on ? ICON.corazonLleno : ICON.corazon;
+    b.classList.toggle('pop', on);
+  });
+  return on;
+}
+
+let ultimoToque = null;
+/** Dos toques seguidos (< 320 ms, cerca) en la misma tarjeta; funciona igual con dedo y mouse. */
+function detectarDobleToque(e) {
+  if (ignorarClick) return;
+  const ahora = performance.now();
+  const u = ultimoToque;
+  ultimoToque = { t: ahora, x: e.clientX, y: e.clientY, tarj: e.target.closest('.tarjeta') };
+  if (u && u.tarj && u.tarj === ultimoToque.tarj && ahora - u.t < 320 && Math.hypot(e.clientX - u.x, e.clientY - u.y) < 40) {
+    ultimoToque = null;
+    dobleToqueFeed(e);
   }
+}
+
+/** Doble toque en la tarjeta = favorito, con un corazón grande que salta donde tocaste (como Instagram). */
+function dobleToqueFeed(e) {
+  const tarj = e.target.closest('.tarjeta');
+  if (!tarj || e.target.closest('button:not(.revelar), a, .riel, .tarjeta-acciones')) return;
+  const slide = tarj.closest('.slide');
+  if (!slide || slide.classList.contains('fin')) return;
+  e.preventDefault();
+  window.getSelection?.()?.removeAllRanges();
+  alternarFav(slide, slide.dataset.id, null, true);
+  if (sinMovimiento()) return;
+  const r = tarj.getBoundingClientRect();
+  const h = document.createElement('span');
+  h.className = 'corazon-grande'; h.setAttribute('aria-hidden', 'true'); h.innerHTML = ICON.corazonLleno;
+  h.style.left = `${e.clientX - r.left}px`; h.style.top = `${e.clientY - r.top}px`;
+  tarj.append(h);
+  setTimeout(() => h.remove(), 900);
 }
 
 document.addEventListener('keydown', (e) => {
@@ -1470,6 +1717,24 @@ async function vistaFavoritos(r) {
 
 // ---------- Ranking ----------
 let campoRanking = 'racha';
+const IMG_LIGA = ['flor-0', 'flor-1', 'flor-3', 'sakura'];
+/** Tarjeta de la liga semanal: insignia, XP de la semana, cuánto falta para subir y cuándo cierra. */
+function cabeceraLiga() {
+  store.actualizarLiga(S);
+  const l = S.liga, max = l.nivel === store.LIGAS.length - 1;
+  const dias = store.diasParaCierre();
+  const pct = Math.min(100, (l.xp / store.SUBE_LIGA) * 100);
+  const peldanos = store.LIGAS.map((n, i) => `<li class="${i === l.nivel ? 'actual' : i < l.nivel ? 'pasada' : ''}"><img src="assets/${IMG_LIGA[i]}.svg" alt="" width="46" height="46"><span>${t('liga_' + n)}</span></li>`).join('');
+  return `<div class="card liga-card">
+      <ol class="liga-peldanos" aria-label="${t('rank_xp')}">${peldanos}</ol>
+      <h2>${t('liga_' + store.LIGAS[l.nivel])}</h2>
+      <p class="liga-xp"><strong>${t('liga_xp', { n: l.xp })}</strong> · ${dias === 1 ? t('liga_dias_1') : t('liga_dias_n', { n: dias })}</p>
+      <span class="progreso" role="progressbar" aria-valuemin="0" aria-valuemax="${store.SUBE_LIGA}" aria-valuenow="${Math.min(l.xp, store.SUBE_LIGA)}" aria-label="${t('liga_xp', { n: l.xp })}"><i style="width:${pct}%"></i></span>
+      <small>${max ? t('liga_max', { n: store.BAJA_LIGA }) : t('liga_meta', { n: store.SUBE_LIGA })}</small>
+      <p class="suave pequeno">${t("liga_como")}</p>
+    </div>`;
+}
+
 async function vistaRanking() {
   const campo = campoRanking;
   const yo = filaRanking();
@@ -1477,18 +1742,21 @@ async function vistaRanking() {
   const ayer = store.diaLocal(Date.now() - 864e5);
   // La racha guardada se «vence» si esa persona no estudió ni hoy ni ayer
   const valor = (f) => (campo === 'racha' ? (f.dia && f.dia >= ayer ? f.racha : 0) : f[campo] ?? 0);
-  const icono = { racha: '<img src="assets/sakura.svg" alt="" width="23" height="23">', palabras: ICON.libro, nivel: ICON.arbol }[campo];
+  const icono = { racha: '<img src="assets/sakura.svg" alt="" width="23" height="23">', palabras: ICON.libro, nivel: ICON.arbol, xp: ICON.estrella }[campo];
+  const sem = store.semanaISO();
+  const deMiLiga = (f) => campo !== 'xp' || (f.semana === sem && (f.liga ?? 0) === S.liga.nivel);
   const fila = (f, puesto) => `
     <li class="${f.uid && f.uid === uid ? 'yo' : ''}"><span class="puesto">${puesto}</span>
       <span class="avatar">${esc((f.nombre || '?').charAt(0).toUpperCase())}</span>
       <strong>${esc(f.nombre || '?')}${f.uid === uid ? ` <small>(${t('rank_tu')})</small>` : ''}</strong>
-      <span class="chip">${icono}<span>${campo === 'nivel' ? t('jar_nivel', { n: valor(f) }) : valor(f)}</span></span></li>`;
+      <span class="chip">${icono}<span>${campo === 'nivel' ? t('jar_nivel', { n: valor(f) }) : campo === 'xp' ? `${valor(f)} XP` : valor(f)}</span></span></li>`;
   const tabs = nube.CAMPOS_RANKING.map((c) => `<button role="tab" type="button" data-campo="${c}" aria-selected="${c === campo}">${t(c === 'racha' ? 'rank_t_racha' : 'rank_' + c)}</button>`).join('');
   const marco = (contenido) => {
     vista.innerHTML = `
       <section class="pagina angosta">
         <h1 class="display">${t('rank_titulo')}</h1>
         <div class="seg ranking-tabs" role="tablist">${tabs}</div>
+        ${campo === 'xp' ? cabeceraLiga() : ''}
         ${contenido}
       </section>`;
     $$('[data-campo]').forEach((b) => b.addEventListener('click', () => { campoRanking = b.dataset.campo; vistaRanking(); }));
@@ -1503,14 +1771,14 @@ async function vistaRanking() {
   marco('<div class="cargando" aria-busy="true"><img src="assets/corazon.svg" alt="" width="52" height="48"></div>');
   try {
     if (S.ajustes.ranking !== false) await nube.publicarRanking(uid, yo);
-    let filas = await nube.leerRanking(campo);
+    let filas = (await nube.leerRanking(campo)).filter(deMiLiga);
     if (campoRanking !== campo) return; // cambió de pestaña mientras cargaba
     if (S.ajustes.ranking !== false && !filas.some((f) => f.uid === uid)) filas.push({ ...yo, uid });
     filas = filas.map((f) => (f.uid === uid ? { ...f, ...yo, uid } : f)).sort((x, y) => valor(y) - valor(x));
     const mio = filas.findIndex((f) => f.uid === uid);
     marco(`
       <ol class="ranking">${filas.map((f, i) => fila(f, i + 1)).join('')}</ol>
-      ${filas.length <= 1 ? `<p class="aviso">${t('rank_vacio')}</p>` : ''}
+      ${filas.length <= 1 ? `<p class="aviso">${t(campo === 'xp' ? 'liga_solo' : 'rank_vacio')}</p>` : ''}
       ${S.ajustes.ranking === false ? `<p class="aviso">${t('rank_oculto')}</p>` : mio >= 0 ? `<p class="suave centro">${t('rank_puesto', { n: mio + 1 })}</p>` : ''}`);
   } catch {
     marco(`<ol class="ranking">${fila({ ...yo, uid }, 1)}</ol><p class="aviso">${t('rank_error')}</p>`);
@@ -1593,6 +1861,14 @@ function vistaAjustes() {
       </div>
 
       <div class="card">
+        <h2>${t('rec_titulo')}</h2>
+        <label class="interruptor"><input type="checkbox" id="aj-recordatorio" ${a.recordatorio ? 'checked' : ''}><span>${t('rec_activar')}</span></label>
+        <label class="campo"><span>${t('rec_hora')}</span><input type="time" id="aj-hora" value="${esc(a.horaRecordatorio)}" step="900"></label>
+        <button class="btn ancho" type="button" id="aj-calendario">${ICON.calendario}<span>${t('rec_calendario')}</span></button>
+        <p class="suave pequeno">${t('rec_cal_nota')}</p>
+      </div>
+
+      <div class="card">
         <h2>${t('aj_app')}</h2>
         <div class="fila-app">${iconoApp()}<p class="suave">${instalada() ? t('inst_ya') : t('inst_texto')}</p></div>
         ${botonInstalar('btn ancho')}
@@ -1656,6 +1932,16 @@ function vistaAjustes() {
   $('#aj-escala').addEventListener('input', (e) => { a.escala = Number(e.target.value); $('#o-escala').textContent = `${Math.round(a.escala * 100)}%`; aplicarAjustes(); guardar(); });
   $('#aj-brillo').addEventListener('input', (e) => { a.brillo = Number(e.target.value); $('#o-brillo').textContent = `${Math.round(a.brillo * 100)}%`; aplicarAjustes(); guardar(); });
   $('#aj-ipa').addEventListener('change', (e) => { a.ipa = e.target.checked; guardar(); });
+  $('#aj-recordatorio').addEventListener('change', async (e) => {
+    if (!e.target.checked) { a.recordatorio = false; guardar(); rec.desactivarAvisos().catch(() => {}); rec.publicarEstado({ activo: false }).catch(() => {}); return; }
+    const r = await rec.activarAvisos().catch(() => 'no-soporta');
+    a.recordatorio = r === 'ok';
+    e.target.checked = a.recordatorio;
+    guardar();
+    toast(r === 'ok' ? t('rec_ok', { h: a.horaRecordatorio }) : t(r === 'sin-permiso' ? 'rec_sin_permiso' : 'rec_no_soporta'));
+  });
+  $('#aj-hora').addEventListener('change', (e) => { if (e.target.value) { a.horaRecordatorio = e.target.value; guardar(); } });
+  $('#aj-calendario').addEventListener('click', descargarCalendario);
   $('#aj-sonido').addEventListener('change', (e) => { a.sonido = e.target.checked; activarSonido(a.sonido); guardar(); if (a.sonido) sonido.moneda(); });
   $('#aj-nativo').addEventListener('change', (e) => cambiarNativo(e.target.value));
   $('#f-sug').addEventListener('submit', (e) => {
@@ -1780,6 +2066,7 @@ $('#kitty-form').addEventListener('submit', (e) => {
 S.ajustes.nativo ??= nativoInicial();
 aplicarAjustes();
 if (store.usarProtectores(S)) { store.guardar(S); setTimeout(() => toast(t('protector_usado')), 1500); }
+{ const c = store.actualizarLiga(S); if (c === 'sube' || c === 'baja') { store.guardar(S); setTimeout(() => toast(t(c === 'sube' ? 'liga_sube' : 'liga_baja', { liga: t('liga_' + store.LIGAS[S.liga.nivel]) })), 2200); } }
 matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', aplicarAjustes);
 router();
 sincronizarAlAbrir();
