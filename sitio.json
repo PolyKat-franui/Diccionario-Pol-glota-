@@ -1,4 +1,4 @@
 {
   "_ayuda": "pausado: true publica solo la pantalla «Volvemos pronto» (web y app). Para reactivar todo, cambia a false y une el cambio a main.",
-  "pausado": true
+  "pausado": false
 }
