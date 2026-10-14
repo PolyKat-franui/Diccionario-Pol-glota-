@@ -1,4 +1,5 @@
 // Franui — interfaz. Rutas con # (funciona en cualquier hosting estático, p. ej. GitHub Pages).
+import { traspasado } from './traspaso.js'; // primero: puede traer el avance desde la dirección antigua
 import { t, tn, setIdiomaUI, tMega, tTipo, nombreIdioma, IDIOMAS_UI, MEGA_TEMAS } from './i18n.js';
 import * as store from './store.js';
 import { PALETAS } from './store.js';
@@ -2302,6 +2303,7 @@ $('#kitty-form').addEventListener('submit', (e) => {
 S.ajustes.nativo ??= nativoInicial();
 aplicarAjustes();
 if (store.usarProtectores(S)) { store.guardar(S); setTimeout(() => toast(t('protector_usado')), 1500); }
+if (traspasado) setTimeout(() => toast(t('traspaso_ok')), 1200);
 setTimeout(() => enviarSugerenciasPendientes(), 3000);
 { const c = store.actualizarLiga(S); if (c === 'sube' || c === 'baja') { store.guardar(S); setTimeout(() => toast(t(c === 'sube' ? 'liga_sube' : 'liga_baja', { liga: t('liga_' + store.LIGAS[S.liga.nivel]) })), 2200); } }
 matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', aplicarAjustes);
