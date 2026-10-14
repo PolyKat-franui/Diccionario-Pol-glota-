@@ -70,8 +70,15 @@ try {
 
   const { ctx, page } = await pagina({ width: 1440, height: 900 });
   await page.goto(URL_WEB);
-  assert.equal(await page.locator('.nav-links a').count(), 7);
+  assert.equal(await page.locator('.nav-links a').count(), 8);
   await recorrer(page);
+
+  await page.locator('#jardin-regar').click();
+  await page.locator('#jardin-regar').click();
+  assert.match(await page.locator('#jardin-arbol').getAttribute('src'), /arbol-2\.svg$/);
+  assert.equal(await page.locator('#jardin-etapa').innerText(), '3');
+  assert.ok(await page.locator('#jardin-arbol').evaluate((i) => i.complete && i.naturalWidth > 0));
+  paso('Jardín de la web: «Regar» hace crecer el sakura');
 
   assert.equal(await page.locator('#lista-idiomas .idioma').count(), 12);
   assert.match(await page.locator('#lista-idiomas .idioma.nuevo').innerText(), /Alemán[\s\S]*Nuevo/);

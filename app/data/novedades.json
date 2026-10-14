@@ -2,6 +2,16 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.9.3",
+      "fecha": "2026-10-14",
+      "titulo": "¡Volvimos!",
+      "cambios": [
+        "La app y la página web están activas otra vez.",
+        "Nuevos textos de privacidad, términos y cookies (en Ajustes → Aviso legal y al pie de la web).",
+        "La página web ahora muestra el Jardín de Sakura: toca «Regar» y mira cómo crece."
+      ]
+    },
+    {
       "version": "0.9.2",
       "fecha": "2026-10-13",
       "titulo": "Ranking real",

@@ -435,3 +435,15 @@ dialog::backdrop { background: color-mix(in srgb, var(--sombra-color) 40%, trans
 .cta-botones { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .cta-final .btn-descargar { background: transparent; color: var(--blanco); border-color: color-mix(in srgb, var(--blanco) 60%, transparent); }
 .cta-nota { font-size: 14px; letter-spacing: .08em; opacity: .9; }
+
+/* Jardín de Sakura (demo: se riega con un toque) */
+.jardin-seccion { display: grid; gap: 32px; align-items: center; }
+.jardin-demo { display: grid; justify-items: center; gap: 16px; }
+.jardin-escena { position: relative; width: 288px; height: 288px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px color-mix(in srgb, var(--sombra-color) 18%, transparent); }
+.jardin-escena img { position: absolute; image-rendering: pixelated; }
+.jardin-fondo { inset: 0; }
+.jardin-arbol { left: 48px; top: 24px; transform-origin: 50% 96%; }
+.jardin-arbol.crece { animation: arbolCrece .6s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes arbolCrece { from { transform: scale(.85); } to { transform: scale(1); } }
+@media (min-width: 900px) { .jardin-seccion { grid-template-columns: 1fr auto; } }
+@media (prefers-reduced-motion: reduce) { .jardin-arbol.crece { animation: none; } }
