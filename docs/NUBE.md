@@ -1,7 +1,7 @@
 # Cuenta de Google y guardado en la nube (Firebase)
 
 **Activa desde el 2026-10-13:** proyecto `franui-polykat`, configuración en `app/js/nube-config.js`.
-Verificado: dominio `franciscasanhueza.github.io` autorizado, Google habilitado y reglas de Firestore
+Verificado: dominio `polykat-franui.github.io` autorizado, Google habilitado y reglas de Firestore
 que niegan leer sin sesión. Falta probar el login real en un celular.
 
 ## Cómo funciona
@@ -21,7 +21,7 @@ que niegan leer sin sesión. Falta probar el login real en un celular.
    (nombre: `franui-polykat`; Google Analytics no es necesario).
 2. **Authentication** → Comenzar → pestaña *Sign-in method* → **Google** → Habilitar → Guardar.
 3. **Authentication → Configuración → Dominios autorizados** → Agregar dominio:
-   `franciscasanhueza.github.io`
+   `polykat-franui.github.io`
 4. **Firestore Database** → Crear base de datos → modo **producción** → región `southamerica-east1`
    (o la más cercana).
 5. Firestore → pestaña **Reglas** → borra todo, pega el contenido de **`firestore.rules`** (en la raíz del
