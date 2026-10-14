@@ -251,3 +251,6 @@ export const historiaVista = (estado, ahora = Date.now()) => estado.historia?.di
 export function marcarHistoriaVista(estado, ahora = Date.now()) {
   estado.historia = { dia: diaLocal(ahora) };
 }
+
+/** Premio por dominar una palabra (pantalla «¡Dominada!»). */
+export const BONO_DOMINADA = 5;

@@ -937,3 +937,21 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .historia-zona { position: absolute; top: 80px; bottom: 0; width: 35%; border: 0; background: transparent; cursor: pointer; z-index: 2; }
 .historia-zona.izq { left: 0; } .historia-zona.der { right: 0; }
 @media (prefers-reduced-motion: reduce) { .menu-historia .historia-anillo, .menu-historia .historia-anillo img { animation: none; } .historia-barras i.llenando::after { animation-duration: 6s; } }
+
+/* «¡Dominada!» (estilo match de Tinder) */
+.dominada-capa { position: fixed; inset: 0; z-index: 210; display: grid; place-items: center; padding: 16px; background: linear-gradient(160deg, var(--carmesi), var(--carmesi-luz)); color: var(--blanco-fijo); animation: aparecer .3s var(--ease); }
+.dominada { display: grid; justify-items: center; gap: 14px; text-align: center; max-width: 420px; }
+.dominada p { margin: 0; font-size: 18px; }
+.dominada-titulo { margin: 0; font-family: var(--font-logo); font-style: italic; font-size: clamp(44px, 13vw, 68px); letter-spacing: .02em; animation: domTitulo .7s cubic-bezier(.3, 1.6, .5, 1) both; }
+.dominada-par { display: flex; align-items: center; justify-content: center; gap: 4px; margin: 8px 0; }
+.dominada-burbuja { min-width: 92px; max-width: 34vw; padding: 14px 12px; border-radius: 22px; background: var(--blanco-fijo); color: var(--carmesi); font-weight: 700; font-size: 17px; overflow-wrap: anywhere; box-shadow: 0 10px 24px color-mix(in srgb, var(--sombra-color) 35%, transparent); }
+.dominada-burbuja.izq { transform: rotate(-6deg); animation: domIzq .6s cubic-bezier(.3, 1.4, .5, 1) both; }
+.dominada-burbuja.der { transform: rotate(6deg); animation: domDer .6s cubic-bezier(.3, 1.4, .5, 1) both; }
+.dominada-kitty { width: 100px; height: 80px; image-rendering: pixelated; z-index: 1; animation: domKitty .8s .3s cubic-bezier(.3, 1.6, .5, 1) both; }
+.dominada-bono { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: color-mix(in srgb, var(--blanco-fijo) 18%, transparent); font-weight: 700; }
+.dominada .btn.primario { background: var(--blanco-fijo); color: var(--carmesi); }
+@keyframes domIzq { from { transform: translateX(-60vw) rotate(-30deg); } }
+@keyframes domDer { from { transform: translateX(60vw) rotate(30deg); } }
+@keyframes domKitty { from { transform: scale(0); } }
+@keyframes domTitulo { from { transform: scale(.3); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .dominada-capa, .dominada-titulo, .dominada-burbuja, .dominada-kitty { animation: none; } }

@@ -381,6 +381,28 @@ try {
   await imagenesCargadas(page, 'jardín');
   paso('Jardín de Sakura: estudiar lo riega, la tienda vende abono y adornos, y se decora arrastrando');
 
+  // «¡Dominada!»: todas las palabras vistas quedan a un paso del máximo y vencidas → la primera que sepa se domina
+  await page.goto('about:blank');
+  const ed2 = await ctx.newPage();
+  await ed2.goto(URL_APP.replace('/app/', '/'));
+  await ed2.evaluate(() => {
+    const s = JSON.parse(localStorage.getItem('franui:v1'));
+    for (const prog of Object.values(s.progreso)) for (const e of Object.values(prog)) { e.c = 4; e.d = 0; }
+    localStorage.setItem('franui:v1', JSON.stringify(s));
+  });
+  await ed2.close();
+  await page.goto(`${URL_APP}#/estudiar?dif=todas&libre=1`);
+  await page.locator('#feed .slide .palabra').first().waitFor();
+  for (let i = 0; i < 12 && !(await page.locator('.dominada-capa').count()); i++) { await page.waitForTimeout(700); await page.keyboard.press('ArrowRight'); }
+  await page.locator('.dominada-capa').waitFor({ timeout: 3000 });
+  assert.match(await page.locator('.dominada').innerText(), /¡Dominada!/);
+  assert.match(await page.locator('.dominada').innerText(), /\+5 Kitty tokens/);
+  await page.waitForTimeout(900);
+  await foto(page, '13f-celular-dominada');
+  await page.locator('#dom-seguir').click();
+  assert.equal(await page.locator('.dominada-capa').count(), 0);
+  paso('Al llegar al nivel máximo, pantalla «¡Dominada!» con +5 tokens');
+
   await page.goto(`${URL_APP}#/ajustes`);
   await page.locator('#btn-nativo').click();
   await page.locator('#capa-idiomas .arana').waitFor();

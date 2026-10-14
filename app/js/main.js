@@ -1159,6 +1159,7 @@ function responderSlide(slide, sabia, auto = false) {
   const id = slide.dataset.id;
   slide.dataset.r = sabia ? 'si' : 'no';
   const diaAntes = S.racha.ultimoDia;
+  const nivAntes = dificultad(store.progresoDe(S, meta)[id]);
   sesion.tokens += store.registrarRespuesta(S, meta, id, sabia);
   if (S.racha.ultimoDia !== diaAntes) celebrarRacha();
   sabia ? sesion.sabias++ : sesion.repasar++;
@@ -1174,6 +1175,10 @@ function responderSlide(slide, sabia, auto = false) {
   }
   const niv = dificultad(store.progresoDe(S, meta)[id]);
   $('.nivel', slide).outerHTML = insignia(niv);
+  if (!auto && niv === 'dominada' && nivAntes !== 'dominada') {
+    S.tokens += store.BONO_DOMINADA; sesion.tokens += store.BONO_DOMINADA;
+    setTimeout(() => mostrarDominada(id, meta), 500);
+  }
   if (!auto) flotar(slide, '+1');
 
   if (!sabia) {
@@ -1349,6 +1354,35 @@ function estallarCorazones(boton) {
     boton.append(h);
     setTimeout(() => h.remove(), 700);
   }
+}
+
+/** Pantalla «¡Dominada!» (como el match de Tinder): la palabra y su traducción chocan y Kitty celebra. */
+function mostrarDominada(id, meta) {
+  document.querySelector('.dominada-capa')?.remove();
+  const nativo = S.ajustes.nativo;
+  const palabra = banco.texto(meta, id)?.texto ?? '', trad = banco.texto(nativo, id)?.texto ?? '';
+  const total = Object.values(store.progresoDe(S, meta)).filter((e) => dificultad(e) === 'dominada').length;
+  const capa = document.createElement('div');
+  capa.className = 'dominada-capa'; capa.setAttribute('role', 'dialog'); capa.setAttribute('aria-modal', 'true'); capa.setAttribute('aria-labelledby', 'dom-titulo');
+  capa.innerHTML = `<div class="dominada">
+      <h2 id="dom-titulo" class="dominada-titulo">${t('dom_titulo')}</h2>
+      <div class="dominada-par" aria-hidden="true">
+        <span class="dominada-burbuja izq" lang="${meta}">${esc(palabra)}</span>
+        <img class="dominada-kitty" src="${cara('orgullosa')}" alt="" width="100" height="80">
+        <span class="dominada-burbuja der" lang="${nativo}">${esc(trad)}</span>
+      </div>
+      <p>${t('dom_texto', { palabra: esc(palabra) })}</p>
+      <p class="dominada-bono"><img src="assets/moneda.svg" alt="" width="24" height="24">${t('dom_bono', { n: store.BONO_DOMINADA })}</p>
+      <small>${t('dom_total', { n: total })}</small>
+      <button class="btn primario grande" type="button" id="dom-seguir">${t('dom_seguir')}</button>
+    </div>`;
+  document.body.append(capa);
+  sonido.like();
+  lluvia({ cantidad: 30, monedas: 0.4 });
+  const cerrar = () => { capa.remove(); actualizarChips(); };
+  $('#dom-seguir').addEventListener('click', cerrar);
+  capa.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
+  $('#dom-seguir').focus();
 }
 
 /** Ventana de premio estilo tragamonedas: 3 rodillos que se detienen en monedas y lluvia de monedas. */
