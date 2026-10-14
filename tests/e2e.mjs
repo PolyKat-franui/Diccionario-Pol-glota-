@@ -414,6 +414,33 @@ try {
   assert.equal(await page.locator('.dominada-capa').count(), 0);
   paso('Al llegar al nivel máximo, pantalla «¡Dominada!» con +5 tokens');
 
+  // Mundo de sakuras: con el sakura en nivel 4 se abren estanque y faroles; el mirador sigue bloqueado
+  await page.goto('about:blank');
+  const ed3 = await ctx.newPage();
+  await ed3.goto(URL_APP.replace('/app/', '/'));
+  await ed3.evaluate(() => { const s = JSON.parse(localStorage.getItem('franui:v1')); s.jardin.crecimiento = 130; s.jardin.fondo = 'dia'; localStorage.setItem('franui:v1', JSON.stringify(s)); });
+  await ed3.close();
+  await page.goto(`${URL_APP}#/jardin?t=mundo`);
+  await page.locator('#mundo-tira').waitFor();
+  assert.equal(await page.locator('.mundo-espacio').count(), 4);
+  assert.equal(await page.locator('.mundo-espacio.bloqueado').count(), 1);
+  assert.match(await page.locator('[data-espacio=mirador]').innerText(), /nivel 6/);
+  await imagenesCargadas(page, 'mundo');
+  await page.locator('#mundo-sig').click();
+  await page.waitForFunction(() => document.querySelector('.mundo-puntos button[data-ir="1"]').getAttribute('aria-current') === 'true');
+  await page.locator('[data-koi]').first().dispatchEvent('click'); // el koi nada: se toca con un evento directo
+  assert.ok(await page.locator('[data-koi]').first().evaluate((b) => b.classList.contains('salta')), 'el koi salta');
+  await page.waitForTimeout(400);
+  await foto(page, '13g-celular-mundo-estanque');
+  await page.locator('.mundo-puntos button[data-ir="2"]').click();
+  await page.waitForFunction(() => document.querySelector('.mundo-puntos button[data-ir="2"]').getAttribute('aria-current') === 'true');
+  for (const f of await page.locator('[data-farol]').all()) await f.click();
+  assert.ok(await page.locator('[data-espacio=faroles]').evaluate((e) => e.classList.contains('brilla')), 'todos los faroles encendidos');
+  await page.locator('#toast', { hasText: 'brilla' }).waitFor();
+  await foto(page, '13h-celular-mundo-faroles');
+  await sinScrollHorizontal(page, 'mundo');
+  paso('Mundo de sakuras: espacios que se recorren, koi que saltan, faroles que se encienden y el mirador bloqueado hasta nivel 6');
+
   await page.goto(`${URL_APP}#/ajustes`);
   await page.locator('#btn-nativo').click();
   await page.locator('#capa-idiomas .arana').waitFor();

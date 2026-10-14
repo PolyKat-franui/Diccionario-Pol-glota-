@@ -550,7 +550,12 @@ const nombreObjeto = (id) => t(`it_${id.replace(/-/g, '_')}`);
 /** Estudiar riega el sakura; si sube de nivel durante la sesión, solo un aviso (sin interrumpir). */
 function regarJardin(n) {
   const { antes, despues } = J.crecer(S, n);
-  if (despues > antes) setTimeout(() => toast(t('jar_sube_toast', { n: despues })), 1200);
+  if (despues > antes) setTimeout(() => toast(espacioNuevo(antes, despues) ?? t('jar_sube_toast', { n: despues })), 1200);
+}
+/** Si subir de nivel abrió un espacio del mundo, el texto del aviso. */
+function espacioNuevo(antes, despues) {
+  const e = J.MUNDO.find((m) => m.nivel > antes && m.nivel <= despues);
+  return e ? t('mundo_nuevo', { nombre: t('mundo_' + e.id) }) : null;
 }
 function celebrarNivel(nivel) {
   document.querySelector('.premio-capa')?.remove();
@@ -564,6 +569,7 @@ function celebrarNivel(nivel) {
       <p class="premio-titulo" id="sube-titulo">${t('jar_sube_titulo')}</p>
       <img class="sube-arbol" src="${srcArbol(nivel)}" alt="" width="192" height="192">
       <p class="premio-texto">${t('jar_sube_texto', { n: nivel, nombre: nombreEtapa(nivel), p: J.produccionPorHora(S.jardin) })}</p>
+      ${J.MUNDO.some((m) => m.nivel === nivel) ? `<p class="premio-texto"><strong>${espacioNuevo(nivel - 1, nivel)}</strong></p><a class="btn grande" href="#/jardin?t=mundo&e=${J.MUNDO.find((m) => m.nivel === nivel).id}" id="sube-mundo">${ICON.mapa}<span>${t('jar_tab_mundo')}</span></a>` : ''}
       <button class="btn primario grande" type="button" id="sube-ok">${t('premio_ok')}</button>
     </div>`;
   document.body.append(capa);
@@ -571,6 +577,7 @@ function celebrarNivel(nivel) {
   lluvia({ cantidad: 30, monedas: 0.15 });
   const cerrar = () => { capa.classList.add('saliendo'); setTimeout(() => capa.remove(), 300); };
   $('#sube-ok', capa).addEventListener('click', cerrar);
+  $('#sube-mundo', capa)?.addEventListener('click', cerrar);
   capa.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
   $('#sube-ok', capa).focus({ preventScroll: true });
 }
@@ -579,7 +586,7 @@ let modoDecorar = false;
 function vistaJardin(r) {
   J.iniciar(S);
   guardar();
-  const tab = r.q.get('t') === 'tienda' ? 'tienda' : 'jardin';
+  const tab = ['tienda', 'mundo'].includes(r.q.get('t')) ? r.q.get('t') : 'jardin';
   const j = S.jardin;
   const nivel = J.nivelDe(j.crecimiento);
   const desde = J.umbral(nivel), hasta = J.umbral(nivel + 1);
@@ -593,8 +600,9 @@ function vistaJardin(r) {
       <div class="seg jardin-tabs" role="tablist">
         <a role="tab" href="#/jardin" aria-selected="${tab === 'jardin'}">${ICON.arbol}<span>${t('jar_tab_jardin')}</span></a>
         <a role="tab" href="#/jardin?t=tienda" aria-selected="${tab === 'tienda'}">${ICON.tienda}<span>${t('jar_tab_tienda')}</span></a>
+        <a role="tab" href="#/jardin?t=mundo" aria-selected="${tab === 'mundo'}" id="tab-mundo">${ICON.mapa}<span>${t('jar_tab_mundo')}</span></a>
       </div>
-      ${tab === 'tienda' ? htmlTienda() : `
+      ${tab === 'tienda' ? htmlTienda() : tab === 'mundo' ? '<div class="mundo" id="mundo"></div>' : `
         <div class="escena-marco" id="escena-marco"><div class="escena" id="escena"></div></div>
         <div class="jardin-crece">
           <span>${t('jar_crece', { n: j.crecimiento - desde, m: hasta - desde })}</span>
@@ -608,6 +616,7 @@ function vistaJardin(r) {
         <p class="suave pequeno jardin-como">${t('jar_como')}</p>`}
     </section>`;
   if (tab === 'tienda') return activarTienda();
+  if (tab === 'mundo') return dibujarMundo(r.q.get('e'));
   dibujarEscena();
   pintarRecoger();
   pintarPanelDecorar();
@@ -634,6 +643,76 @@ function pintarRecoger() {
   b.innerHTML = n ? `<img src="assets/moneda.svg" alt="" width="24" height="24"><span>${t('jar_recoger', { n })}</span>` : `<span>${t('jar_nada')}</span>`;
   b.classList.toggle('lleno', !!lleno && n > 0);
   b.title = lleno ? t('jar_lleno') : '';
+}
+
+/** Mundo de sakuras: espacios de 96×96 a escala entera que se recorren deslizando de lado. */
+function dibujarMundo(inicial) {
+  const caja = $('#mundo');
+  if (!caja) return;
+  const j = S.jardin;
+  const nivel = J.nivelDe(j.crecimiento);
+  const abiertos = J.espaciosAbiertos(j);
+  const k = Math.max(2, Math.min(5, Math.floor(Math.min(caja.clientWidth, 480) / 96)));
+  const cielo = j.fondo;
+  const im = (src, x, y, w, h, extra = '', clase = '') => `<img src="${src}" alt="" width="${w * k}" height="${h * k}" class="${clase}" style="left:${x * k}px;top:${y * k}px;${extra}" draggable="false">`;
+  const contenido = (e) => {
+    if (e.id === 'te') return im(`assets/jardin/fondo-${cielo}.svg`, 0, 0, 96, 96) + im(srcArbol(nivel), 16, 8, 64, 64);
+    let h = im(`assets/jardin/${e.id}-${cielo}.svg`, 0, 0, 96, 96);
+    if (e.id === 'estanque') h += [[24, 80, 1, 0], [50, 86, 2, 1.8]].map(([x, y, n, r]) => `<button type="button" class="mundo-koi" data-koi style="left:${x * k}px;top:${y * k}px;--r:-${r}s" aria-label="Koi"><img src="assets/jardin/koi-${n}.svg" alt="" width="${12 * k}" height="${6 * k}"></button>`).join('');
+    if (e.id === 'faroles') h += J.FAROLES_CALLE.map((f, i) => `<button type="button" class="mundo-farol ${cielo === 'noche' ? 'on' : ''}" data-farol="${i}" aria-pressed="${cielo === 'noche'}" aria-label="${t('mundo_faroles')} ${i + 1}" style="left:${f.x * k}px;top:${f.y * k}px"><img src="assets/jardin/farol-calle${cielo === 'noche' ? '-on' : ''}.svg" alt="" width="${8 * f.e * k}" height="${14 * f.e * k}"></button>`).join('');
+    return h;
+  };
+  caja.style.setProperty('--k', k);
+  caja.innerHTML = `
+    <div class="mundo-tira" id="mundo-tira" tabindex="0">
+      ${J.MUNDO.map((e) => {
+        const ok = abiertos.includes(e.id);
+        return `<figure class="mundo-espacio ${ok ? '' : 'bloqueado'}" data-espacio="${e.id}" aria-label="${t('mundo_' + e.id)}">
+          <div class="mundo-escena escena" style="width:${96 * k}px;height:${96 * k}px">${contenido(e)}
+            ${ok ? (e.id === 'estanque' ? im('assets/caras/feliz.svg', 38, 53, 20, 16, '', 'mundo-kitty quieta') : im('assets/caras/feliz.svg', 4, 78, 20, 16, '', 'mundo-kitty')) : `<div class="mundo-candado">${ICON.candado}<span>${t('mundo_bloq', { n: e.nivel })}</span></div>`}
+          </div>
+          <figcaption><strong>${t('mundo_' + e.id)}</strong><span>${ok ? t('mundo_' + e.id + '_t') : t('mundo_bloq', { n: e.nivel })}</span></figcaption>
+        </figure>`;
+      }).join('')}
+    </div>
+    <div class="mundo-nav">
+      <button class="icon-btn" type="button" id="mundo-ant" aria-label="${t('mundo_ant')}">${ICON.atras}</button>
+      <div class="mundo-puntos">${J.MUNDO.map((e, i) => `<button type="button" data-ir="${i}" aria-label="${t('mundo_ir', { nombre: t('mundo_' + e.id) })}"><i></i></button>`).join('')}</div>
+      <button class="icon-btn" type="button" id="mundo-sig" aria-label="${t('mundo_sig')}">${ICON.flecha}</button>
+    </div>`;
+  const tira = $('#mundo-tira');
+  const espacios = $$('.mundo-espacio', tira);
+  const actual = () => Math.round(tira.scrollLeft / tira.clientWidth);
+  const ir = (i, suave = true) => { i = Math.max(0, Math.min(espacios.length - 1, i)); tira.scrollTo({ left: i * tira.clientWidth, behavior: suave && !sinMovimiento() ? 'smooth' : 'auto' }); };
+  const marcar = () => {
+    const i = actual();
+    $$('.mundo-puntos button').forEach((b, k2) => b.setAttribute('aria-current', String(k2 === i)));
+    $('#mundo-ant').disabled = i === 0; $('#mundo-sig').disabled = i === espacios.length - 1;
+  };
+  tira.addEventListener('scroll', () => { clearTimeout(dibujarMundo.t); dibujarMundo.t = setTimeout(marcar, 80); }, { passive: true });
+  tira.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') { e.preventDefault(); ir(actual() + 1); } if (e.key === 'ArrowLeft') { e.preventDefault(); ir(actual() - 1); } });
+  $('#mundo-ant').addEventListener('click', () => ir(actual() - 1));
+  $('#mundo-sig').addEventListener('click', () => ir(actual() + 1));
+  $$('.mundo-puntos button').forEach((b) => b.addEventListener('click', () => ir(Number(b.dataset.ir))));
+  // Koi: saltan al tocarlos
+  $$('[data-koi]', tira).forEach((b) => b.addEventListener('click', () => {
+    b.classList.remove('salta'); void b.offsetWidth; b.classList.add('salta');
+    sonido.moneda(0, 6);
+  }));
+  // Faroles: se encienden al tocarlos; con todos encendidos, la calle brilla
+  $$('[data-farol]', tira).forEach((b) => b.addEventListener('click', () => {
+    const on = !b.classList.contains('on');
+    b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on));
+    $('img', b).src = `assets/jardin/farol-calle${on ? '-on' : ''}.svg`;
+    if (on) sonido.toque();
+    const todos = $$('[data-farol]', tira).every((x) => x.classList.contains('on'));
+    $('[data-espacio="faroles"]', tira).classList.toggle('brilla', todos);
+    if (todos && on) toast(t('mundo_luz'));
+  }));
+  // Mirador: tocar el paisaje suelta pétalos
+  $('[data-espacio="mirador"]:not(.bloqueado) .mundo-escena', tira)?.addEventListener('click', () => { lluvia({ cantidad: 22, monedas: 0 }); sonido.like(); });
+  const i0 = Math.max(0, J.MUNDO.findIndex((e) => e.id === inicial));
+  requestAnimationFrame(() => { ir(i0, false); marcar(); });
 }
 
 /** Escena a escala entera: 96×96 pixeles lógicos × k (3 en celular, 4 en computador). */

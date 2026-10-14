@@ -22,6 +22,7 @@ export const ICON = {
   descargar: s('<path d="M12 4v11"/><path d="m7 10.5 5 5 5-5"/><path d="M5 19.5h14"/>'),
   arbol: s('<path d="M12 21v-7"/><path d="M12 14l-3-2.5M12 15.5l3.2-2.7"/><path d="M7.5 14.5a4.5 4.5 0 0 1-1-8.4 5 5 0 0 1 9.8-1A4.3 4.3 0 0 1 17 14c-1 .6-2.2.7-3.2.4"/><path d="M8 21h8"/>'),
   tienda: s('<path d="M4 9.5h16l-1.2-4.2a1.5 1.5 0 0 0-1.4-1.1H6.6a1.5 1.5 0 0 0-1.4 1.1Z"/><path d="M5 9.5V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M10 20v-5h4v5"/>'),
+  mapa: s('<path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6Z"/><path d="M9 4v14M15 6v14"/>'),
   libro: s('<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5"/>'),
   trofeo: s('<path d="M8 4h8v5a4 4 0 0 1-8 0V4Z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4"/>'),
   calendario: s('<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M12 13.5v3M10.5 15h3"/>'),

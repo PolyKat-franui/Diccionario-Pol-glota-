@@ -809,8 +809,8 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .jardin-cabeza .display { font-family: var(--font-logo); font-weight: 600; letter-spacing: .02em; }
 .jardin-datos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; color: var(--ink-soft); font-weight: 700; margin: 0; }
 .jardin-datos .tag { background: var(--primary); color: var(--on-primary); }
-.jardin-tabs { justify-self: center; }
-.jardin-tabs a { display: inline-flex; align-items: center; gap: 8px; min-height: var(--tap); padding: 0 16px; border-radius: var(--r-pill); text-decoration: none; color: inherit; font-weight: 600; }
+.jardin-tabs { justify-self: stretch; display: grid; grid-template-columns: repeat(3, 1fr); max-width: 480px; width: 100%; margin-inline: auto; }
+.jardin-tabs a { display: inline-flex; align-items: center; gap: 8px; min-height: var(--tap); padding: 0 8px; justify-content: center; font-size: 15px; border-radius: var(--r-pill); text-decoration: none; color: inherit; font-weight: 600; }
 .jardin-tabs a svg { width: 20px; height: 20px; }
 .escena-marco { width: 100%; max-width: 480px; justify-self: center; display: grid; justify-items: center; }
 .escena { position: relative; overflow: hidden; border-radius: 18px; box-shadow: 0 16px 40px color-mix(in srgb, var(--sombra-color) 22%, transparent), 0 0 0 3px var(--surface); touch-action: manipulation; }
@@ -968,3 +968,38 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 .liga-peldanos li.actual { color: var(--ink); font-weight: 700; }
 .liga-peldanos li.actual img { background: var(--accent-soft); outline: 3px solid var(--primary); }
 .liga-xp { margin: 0; }
+
+/* Mundo de sakuras: espacios que se recorren deslizando */
+.mundo { display: grid; gap: 12px; }
+.mundo-tira { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; border-radius: 18px; }
+.mundo-tira::-webkit-scrollbar { display: none; }
+.mundo-tira:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+.mundo-espacio { scroll-snap-align: center; margin: 0; display: grid; justify-items: center; gap: 10px; padding: 4px 0; }
+.mundo-espacio figcaption { display: grid; gap: 2px; text-align: center; max-width: 320px; }
+.mundo-espacio figcaption span { color: var(--ink-soft); font-size: 15px; }
+.mundo-escena { position: relative; }
+.mundo-escena button { position: absolute; padding: 0; border: 0; background: none; cursor: pointer; min-width: 44px; min-height: 44px; display: grid; place-items: center; }
+.mundo-escena button img { position: static; }
+.mundo-koi { animation: koiNada 9s ease-in-out infinite; animation-delay: var(--r); }
+.mundo-koi.salta img { animation: koiSalta .7s cubic-bezier(.3, 1.4, .5, 1); }
+@keyframes koiNada { 0%, 100% { transform: translateX(0) scaleX(1); } 45% { transform: translateX(calc(var(--k) * 30px)) scaleX(1); } 50% { transform: translateX(calc(var(--k) * 30px)) scaleX(-1); } 95% { transform: translateX(0) scaleX(-1); } }
+@keyframes koiSalta { 40% { transform: translateY(calc(var(--k) * -10px)) rotate(-25deg); } }
+.mundo-farol { align-items: end; }
+.mundo-farol.on img { filter: drop-shadow(0 0 calc(var(--k) * 3px) #FFD27A); }
+.mundo-espacio.brilla .mundo-escena { box-shadow: 0 0 0 3px var(--surface), 0 0 40px 6px color-mix(in srgb, var(--gold) 45%, transparent); }
+.mundo-kitty { z-index: 5; animation: kittyPasea 14s linear infinite; }
+@keyframes kittyPasea { 0% { transform: translateX(0) scaleX(-1); } 48% { transform: translateX(calc(var(--k) * 68px)) scaleX(-1); } 50% { transform: translateX(calc(var(--k) * 68px)) scaleX(1); } 98% { transform: translateX(0) scaleX(1); } 100% { transform: translateX(0) scaleX(-1); } }
+.mundo-espacio.bloqueado .mundo-escena > img { filter: grayscale(1) brightness(.7) blur(1px); }
+.mundo-candado { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 8px; padding: 24px; text-align: center; color: var(--blanco-fijo); font-weight: 700; background: color-mix(in srgb, var(--ink) 45%, transparent); }
+.mundo-candado svg { width: 40px; height: 40px; }
+.mundo-nav { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.mundo-nav .icon-btn:disabled { opacity: .35; }
+.mundo-puntos { display: flex; gap: 2px; }
+.mundo-puntos button { width: 44px; height: 44px; border: 0; background: none; display: grid; place-items: center; cursor: pointer; }
+.mundo-puntos i { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--ink-soft); }
+.mundo-puntos button[aria-current="true"] i { background: var(--primary); border-color: var(--primary); width: 22px; border-radius: 6px; }
+@media (prefers-reduced-motion: reduce) { .mundo-koi, .mundo-kitty, .mundo-koi.salta img { animation: none; } }
+@media (max-width: 420px) { .jardin-tabs a { flex-direction: column; gap: 2px; padding: 6px 4px; font-size: 13px; line-height: 1.15; text-align: center; } }
+.mundo-kitty.quieta { animation: kittyRespira 3s ease-in-out infinite; transform-origin: 50% 100%; }
+@keyframes kittyRespira { 50% { transform: scaleY(.94); } }
+@keyframes koiNada { 0%, 100% { transform: translateX(0) scaleX(1); } 45% { transform: translateX(calc(var(--k) * 18px)) scaleX(1); } 50% { transform: translateX(calc(var(--k) * 18px)) scaleX(-1); } 95% { transform: translateX(0) scaleX(-1); } }

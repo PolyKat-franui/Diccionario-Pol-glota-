@@ -146,3 +146,17 @@ export function mover(j, id, x, y) {
   j.pos[id] = [Math.max(0, Math.min(ESCENA.w - o.w, Math.round(x))), Math.max(0, Math.min(ESCENA.h - o.h, Math.round(y)))];
   return j.pos[id];
 }
+
+/** Mundo de sakuras: espacios para recorrer, que se desbloquean con el nivel del árbol. */
+export const MUNDO = [
+  { id: 'te', nivel: 0 },
+  { id: 'estanque', nivel: 2 },
+  { id: 'faroles', nivel: 4 },
+  { id: 'mirador', nivel: 6 },
+];
+export const espaciosAbiertos = (j) => MUNDO.filter((e) => nivelDe(j.crecimiento) >= e.nivel).map((e) => e.id);
+/** Faroles de la calle: posición (pixeles lógicos) y tamaño a escala de perspectiva (más lejos = ×1, cerca = ×2). */
+export const FAROLES_CALLE = [
+  { x: 14, y: 64, e: 2 }, { x: 66, y: 64, e: 2 },
+  { x: 34, y: 50, e: 1 }, { x: 54, y: 50, e: 1 },
+]
