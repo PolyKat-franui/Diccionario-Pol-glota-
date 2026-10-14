@@ -190,12 +190,42 @@ try {
   assert.equal(finTokens, respondidas + 5, 'tokens = 1 por tarjeta + 5 por la sesión');
   await page.waitForTimeout(800);
   await foto(page, '07-celular-fin-sesion');
+  // Prueba de Kitty (opcional): escribir qué significa la palabra
+  await page.locator('#btn-prueba').click();
+  await page.locator('#prueba-resp').waitFor();
+  const correcta = await page.evaluate(async () => {
+    const b = await import('./js/banco.js');
+    const pal = document.querySelector('.prueba-palabra').textContent;
+    const id = b.disponibles('en', 'es').find((c) => b.texto('en', c.id).texto === pal).id;
+    return b.texto('es', id).texto.split(/[\/,]/)[0].trim();
+  });
+  const antesPrueba = await tokens(page);
+  await page.locator('#prueba-resp').fill(correcta.toUpperCase());
+  await page.locator('#prueba-ok').click();
+  await page.locator('.prueba-feedback.bien').waitFor();
+  assert.match(await page.locator('.prueba-feedback').innerText(), /Yes!/, 'Kitty responde en el idioma que se aprende');
+  await page.waitForFunction((n) => document.querySelector('#chip-tokens span:last-child').textContent === String(n), antesPrueba + 3);
+  await foto(page, '07a-celular-prueba-bien');
+  await page.locator('#prueba-sig').click();
+  await page.locator('#prueba-resp').fill('zzzz');
+  await page.locator('#prueba-ok').click();
+  await page.locator('.prueba-feedback.mal').waitFor();
+  assert.match(await page.locator('.prueba-feedback').innerText(), /Nope…[\s\S]*Era:/, 'si falla, muestra la respuesta');
+  await page.locator('#prueba-sig').click();
+  await page.locator('#prueba-resp').fill('zzzz');
+  await page.locator('#prueba-ok').click();
+  await page.locator('#prueba-sig').click();
+  await page.locator('.prueba-final').waitFor();
+  assert.match(await page.locator('.prueba-final').innerText(), /1 de 3 correctas/);
+  await page.keyboard.press('Escape');
+  const tokensTrasPrueba = await tokens(page);
+  paso('Prueba de Kitty: escribe el significado, Kitty dice «Yes!» o «Nope…» y muestra la respuesta');
   assert.match(await page.locator('#slide-fin .cara-grande').getAttribute('src'), /caras\/(celebrando|muy_feliz)\.svg/);
   await imagenesCargadas(page, 'fin de sesión');
   paso(`Fin de sesión: ${respondidas} tarjetas, ${finTokens} Kitty tokens, Kitty celebra`);
 
   await page.reload();
-  await page.waitForFunction((n) => document.querySelector('#chip-tokens span:last-child')?.textContent === String(n), finTokens);
+  await page.waitForFunction((n) => document.querySelector('#chip-tokens span:last-child')?.textContent === String(n), tokensTrasPrueba);
   assert.ok(!page.url().includes('#/inicio'), 'la cuenta solo se pide la primera vez');
   await page.goto(URL_APP);
   await page.waitForURL(/#\/menu/);

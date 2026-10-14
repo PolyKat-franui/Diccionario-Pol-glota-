@@ -1,5 +1,6 @@
 // Franui — interfaz. Rutas con # (funciona en cualquier hosting estático, p. ej. GitHub Pages).
 import { traspasado } from './traspaso.js'; // primero: puede traer el avance desde la dirección antigua
+import * as prueba from './prueba.js';
 import { t, tn, setIdiomaUI, tMega, tTipo, nombreIdioma, IDIOMAS_UI, MEGA_TEMAS } from './i18n.js';
 import * as store from './store.js';
 import { PALETAS } from './store.js';
@@ -1375,6 +1376,7 @@ function responderSlide(slide, sabia, auto = false) {
   const { meta } = sesion;
   const id = slide.dataset.id;
   slide.dataset.r = sabia ? 'si' : 'no';
+  if (!auto) (sesion.respondidas ??= []).push({ id, sabia });
   const diaAntes = S.racha.ultimoDia;
   const nivAntes = dificultad(store.progresoDe(S, meta)[id]);
   sesion.tokens += (sesion.libre ? store.registrarPractica : store.registrarRespuesta)(S, meta, id, sabia);
@@ -1461,11 +1463,71 @@ function terminar() {
       </dl>
       <p class="racha-fin"><img src="assets/sakura.svg" alt="" width="46" height="46">${tn('racha_n', racha)}</p>
       <div class="acciones">
-        <button class="btn primario" type="button" id="btn-otra">${t('otra_sesion')}</button>
+        ${puedePrueba() ? `<button class="btn primario" type="button" id="btn-prueba">🧠 ${t('prueba_empezar')}</button>` : ''}
+        <button class="btn ${puedePrueba() ? '' : 'primario'}" type="button" id="btn-otra">${t('otra_sesion')}</button>
         <a class="btn" href="${sesion.volverA}">${t('cambiar_tema')}</a>
       </div>
     </div>`;
   $('#btn-otra').addEventListener('click', () => router());
+  $('#btn-prueba')?.addEventListener('click', abrirPrueba);
+}
+
+// ---------- Prueba de Kitty: escribir qué significa (recuerdo activo, opcional) ----------
+const puedePrueba = () => (sesion?.respondidas?.length ?? 0) >= 3;
+function abrirPrueba() {
+  const { meta, nativo } = sesion;
+  const ids = prueba.elegir(sesion.respondidas, 3);
+  let i = 0, aciertos = 0, monedas = 0;
+  const caraK = (c) => `<img class="prueba-kitty" src="${cara(c)}" alt="" width="60" height="48">`;
+  const pintar = () => {
+    const id = ids[i];
+    const ej = banco.ejemplo(meta, id);
+    $('#modal-cuerpo').innerHTML = `
+      <form class="prueba" id="prueba-form" autocomplete="off">
+        <p class="suave prueba-paso">${t('prueba_paso', { i: i + 1, n: ids.length })}</p>
+        <p class="prueba-palabra" lang="${meta}">${esc(banco.texto(meta, id).texto)}</p>
+        ${ej ? `<p class="prueba-ejemplo" lang="${meta}">${marcar(ej.ejemplo)}</p>` : ''}
+        <label class="campo"><span>${t('prueba_pregunta', { idioma: nombreIdioma(nativo) })}</span>
+          <input id="prueba-resp" name="r" lang="${nativo}" autocapitalize="off" spellcheck="false" required></label>
+        <div class="prueba-feedback" id="prueba-fb" aria-live="polite"></div>
+        <div class="acciones">
+          <button class="btn primario" type="submit" id="prueba-ok">${t('prueba_comprobar')}</button>
+          <button class="btn fantasma" type="button" id="prueba-saltar">${t('prueba_saltar')}</button>
+        </div>
+      </form>`;
+    $('#prueba-resp').focus();
+    $('#prueba-saltar').addEventListener('click', () => $('#modal').close());
+    $('#prueba-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const correcta = banco.texto(nativo, id).texto;
+      const bien = prueba.esCorrecta($('#prueba-resp').value, correcta);
+      monedas += store.resultadoPrueba(S, meta, id, bien);
+      if (bien) { aciertos++; sonido.premio(); } else sonido.quitar();
+      guardar(); actualizarChips();
+      $('#prueba-resp').readOnly = true;
+      $('#prueba-fb').className = `prueba-feedback ${bien ? 'bien' : 'mal'}`;
+      $('#prueba-fb').innerHTML = `${caraK(bien ? 'celebrando' : 'confundida')}
+        <p><strong lang="${meta}">${esc(prueba.KITTY_DICE[bien ? 'si' : 'no'][meta] ?? '')}</strong>
+        ${bien ? `<span>+${store.TOKENS_POR_PRUEBA} 🪙</span>` : `<span>${t('prueba_era')} <b lang="${nativo}">${esc(correcta)}</b></span>`}</p>`;
+      const ultimo = i === ids.length - 1;
+      $('.prueba .acciones').innerHTML = `<button class="btn primario" type="button" id="prueba-sig">${t(ultimo ? 'prueba_ver' : 'prueba_siguiente')}</button>`;
+      $('#prueba-sig').focus();
+      $('#prueba-sig').addEventListener('click', () => { if (ultimo) final(); else { i++; pintar(); } });
+    });
+  };
+  const final = () => {
+    const todo = aciertos === ids.length;
+    $('#modal-cuerpo').innerHTML = `
+      <div class="prueba prueba-final">
+        ${caraK(todo ? 'enamorada' : aciertos ? 'feliz' : 'guino')}
+        <p class="prueba-palabra">${t('prueba_resultado', { a: aciertos, n: ids.length })}</p>
+        <p class="suave">${t(todo ? 'prueba_todo' : aciertos ? 'prueba_algo' : 'prueba_nada')}</p>
+        ${monedas ? `<p>+${monedas} 🪙</p>` : ''}
+      </div>`;
+    if (todo) lluvia({ cantidad: 18 });
+  };
+  modal(t('prueba_titulo'), '');
+  pintar();
 }
 
 function flotar(slide, texto) {
