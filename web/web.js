@@ -384,3 +384,18 @@ $('#caras-galeria').addEventListener('click', (e) => {
   sonido.toque();
   if (!matchMedia('(min-width: 720px)').matches) img.scrollIntoView({ behavior: quieto ? 'auto' : 'smooth', block: 'center' });
 });
+
+// Jardín: cada toque riega el sakura y avanza una etapa (0–7, vuelve a empezar)
+(() => {
+  const btn = document.getElementById('jardin-regar');
+  const arbol = document.getElementById('jardin-arbol');
+  if (!btn || !arbol) return;
+  let etapa = 0;
+  btn.addEventListener('click', () => {
+    etapa = (etapa + 1) % 8;
+    arbol.src = `app/assets/jardin/arbol-${etapa}.svg`;
+    arbol.alt = `Sakura, etapa ${etapa + 1} de 8`;
+    document.getElementById('jardin-etapa').textContent = etapa + 1;
+    arbol.classList.remove('crece'); void arbol.offsetWidth; arbol.classList.add('crece');
+  });
+})();
