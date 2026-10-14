@@ -11,13 +11,16 @@ service cloud.firestore {
       allow read: if request.auth != null;
       allow delete: if request.auth != null && request.auth.uid == uid;
       allow create, update: if request.auth != null && request.auth.uid == uid
-        && request.resource.data.keys().hasOnly(['nombre', 'racha', 'dia', 'palabras', 'nivel', 'actualizado'])
+        && request.resource.data.keys().hasOnly(['nombre', 'racha', 'dia', 'palabras', 'nivel', 'actualizado', 'liga', 'semana', 'xp'])
         && request.resource.data.nombre is string && request.resource.data.nombre.size() <= 30
         && request.resource.data.racha is int && request.resource.data.racha >= 0 && request.resource.data.racha < 100000
         && request.resource.data.dia is string && request.resource.data.dia.size() <= 10
         && request.resource.data.palabras is int && request.resource.data.palabras >= 0 && request.resource.data.palabras < 1000000
         && request.resource.data.nivel is int && request.resource.data.nivel >= 0 && request.resource.data.nivel < 1000
-        && request.resource.data.actualizado is int;
+        && request.resource.data.actualizado is int
+        && (!('liga' in request.resource.data) || (request.resource.data.liga is int && request.resource.data.liga >= 0 && request.resource.data.liga < 4))
+        && (!('semana' in request.resource.data) || (request.resource.data.semana is string && request.resource.data.semana.size() <= 8))
+        && (!('xp' in request.resource.data) || (request.resource.data.xp is int && request.resource.data.xp >= 0 && request.resource.data.xp < 100000));
     }
   }
 }

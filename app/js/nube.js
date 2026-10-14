@@ -65,7 +65,7 @@ export async function guardarAvance(uid, estado) {
 
 // ---------- Ranking ----------
 // Colección pública (solo para quien inició sesión) ranking/{uid}: nombre + números, nunca el correo.
-export const CAMPOS_RANKING = ['racha', 'palabras', 'nivel'];
+export const CAMPOS_RANKING = ['racha', 'palabras', 'nivel', 'xp'];
 
 /** Publica (o actualiza) la fila de esta persona en el ranking. */
 export async function publicarRanking(uid, fila) {

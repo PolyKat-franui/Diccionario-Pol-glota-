@@ -955,3 +955,16 @@ body[data-ruta="estudiar"] .adornos { display: none; }
 @keyframes domKitty { from { transform: scale(0); } }
 @keyframes domTitulo { from { transform: scale(.3); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .dominada-capa, .dominada-titulo, .dominada-burbuja, .dominada-kitty { animation: none; } }
+
+/* Ligas semanales de flores */
+.liga-card { display: grid; gap: 10px; text-align: center; margin-bottom: 16px; }
+.liga-card h2 { margin: 0; }
+.liga-peldanos { display: flex; justify-content: center; gap: 8px; padding: 0; margin: 0; list-style: none; }
+.liga-peldanos li { display: grid; justify-items: center; gap: 4px; width: 72px; font-size: 12px; color: var(--ink-soft); }
+.liga-peldanos li img { opacity: .5; }
+.liga-peldanos li.actual img, .liga-peldanos li.pasada img { opacity: 1; }
+.liga-peldanos li img { width: 46px; height: 46px; image-rendering: pixelated; padding: 6px; border-radius: 50%; background: var(--surface-2); box-sizing: content-box; }
+
+.liga-peldanos li.actual { color: var(--ink); font-weight: 700; }
+.liga-peldanos li.actual img { background: var(--accent-soft); outline: 3px solid var(--primary); }
+.liga-xp { margin: 0; }

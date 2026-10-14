@@ -103,6 +103,26 @@ await page.waitForFunction(() => document.querySelector('.ranking li strong')?.t
 await page.locator('[data-campo=nivel]').click();
 await page.waitForFunction(() => document.querySelector('.ranking li strong')?.textContent === 'Ana');
 console.log('✓ Ranking real: racha, palabras y jardín, con otras personas y sin el correo');
+// Liga semanal: solo personas de mi liga y de esta semana, ordenadas por XP
+await page.evaluate(async () => {
+  const { semanaISO } = await import('./js/store.js');
+  const d = JSON.parse(localStorage.getItem('__sim_docs'));
+  const base = { racha: 0, dia: '', palabras: 0, nivel: 0, actualizado: 1 };
+  d['ranking/carla'] = { ...base, nombre: 'Carla', liga: 0, semana: semanaISO(), xp: 500 };
+  d['ranking/dani'] = { ...base, nombre: 'Dani', liga: 2, semana: semanaISO(), xp: 999 }; // otra liga
+  d['ranking/eli'] = { ...base, nombre: 'Eli', liga: 0, semana: '2020-W01', xp: 800 }; // otra semana
+  localStorage.setItem('__sim_docs', JSON.stringify(d));
+});
+await page.locator('[data-campo=xp]').click();
+await page.locator('.liga-card').waitFor();
+await page.waitForFunction(() => document.querySelector('.ranking li strong')?.textContent === 'Carla');
+const enLiga = await page.locator('.ranking li strong').allInnerTexts();
+assert.equal(enLiga.length, 2, `solo mi liga y semana (${enLiga})`);
+assert.match(await page.locator('.liga-card').innerText(), /Liga Brote[\s\S]*XP esta semana/);
+const miXP = await page.evaluate(() => JSON.parse(localStorage.getItem('__sim_docs'))['ranking/u1']);
+assert.ok(Number.isInteger(miXP.xp) && miXP.liga === 0 && /^\d{4}-W\d{2}$/.test(miXP.semana), 'mi fila publica liga, semana y XP');
+await page.waitForTimeout(300); await page.screenshot({ path: 'capturas-e2e/nube-liga.png' });
+console.log('✓ Liga semanal: solo mi liga y esta semana, por XP');
 await page.goto(`${U}#/ajustes`);
 await page.locator('#aj-ranking').uncheck();
 await page.waitForFunction(() => !JSON.parse(localStorage.getItem('__sim_docs'))['ranking/u1']);
