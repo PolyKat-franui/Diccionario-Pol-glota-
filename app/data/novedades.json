@@ -2,6 +2,18 @@
   "_ayuda": "Lo más nuevo arriba. La app y la página web leen este mismo archivo.",
   "novedades": [
     {
+      "version": "0.10.0",
+      "fecha": "2026-10-14",
+      "titulo": "Historias de Kitty, ¡Dominada! y ligas semanales",
+      "cambios": [
+        "Toca dos veces una tarjeta para guardarla en favoritos: salta un corazón grande.",
+        "Historia del día: en el menú, Kitty te trae una frase nueva cada día.",
+        "Cuando dominas una palabra aparece la pantalla «¡Dominada!» y ganas 5 Kitty tokens.",
+        "Recordatorio diario: agrégalo a tu calendario o activa el aviso de Kitty (en Ajustes).",
+        "Ligas semanales de flores: Brote, Capullo, Sakura y Jardín. Suma XP y sube de liga cada semana."
+      ]
+    },
+    {
       "version": "0.9.3",
       "fecha": "2026-10-14",
       "titulo": "¡Volvimos!",
