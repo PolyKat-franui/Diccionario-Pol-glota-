@@ -118,6 +118,14 @@ try {
   await primera.locator('.btn-fav').click();
   assert.equal(await primera.locator('.btn-fav').getAttribute('aria-pressed'), 'true');
   await foto(page, '06-celular-tarjeta-revelada');
+  assert.ok((await primera.locator('.chip-tema').innerText()).trim().length > 2, 'la tarjeta muestra su tema');
+  if (await primera.locator('.ejemplo').count()) {
+    await primera.locator('.ejemplo').waitFor();
+    assert.equal(await primera.locator('.ejemplo mark').count() >= 1, true, 'el ejemplo marca la palabra');
+    const box = await primera.locator('.ej-audio').boundingBox();
+    assert.ok(box.width >= 44 && box.height >= 44, 'botón de audio del ejemplo ≥ 44 px');
+  } else throw new Error('la primera tarjeta (palabra frecuente) debería tener ejemplo');
+  paso('Tarjeta: tema visible y oración de ejemplo al revelar');
   paso('Tocar revela la traducción; corazón guarda en favoritos');
 
   await primera.locator('.btn-fav').click();
@@ -290,6 +298,13 @@ try {
   await page.locator('[data-tema=oscuro]').click();
   await sinScrollHorizontal(page, 'ajustes con 5 paletas');
   paso('Paletas Tamarindo y Medianoche (claro y oscuro) en Ajustes');
+
+  await page.locator('label:has(#aj-musica)').click();
+  await page.waitForTimeout(600);
+  assert.ok(await page.evaluate(async () => (await import('./js/musica.js')).musicaActiva()), 'la música de fondo se enciende');
+  await page.locator('label:has(#aj-musica)').click();
+  assert.ok(!(await page.evaluate(async () => (await import('./js/musica.js')).musicaActiva())), 'y se apaga');
+  paso('Música de fondo lo-fi se enciende y apaga en Ajustes');
 
   assert.ok(await page.locator('.tabbar a[href="#/novedades"]').evaluate((a) => a.classList.contains('con-aviso')), 'aviso de novedad sin ver');
   await page.locator('.tabbar a[href="#/novedades"]').click();

@@ -21,8 +21,25 @@ export function cargarIdioma(lang) {
   return pendientes[lang];
 }
 
+const ejPendientes = {};
+const ejListos = {};
+/** Oraciones de ejemplo de un idioma (si aún no hay, queda vacío y la tarjeta no las muestra). */
+export function cargarEjemplos(lang) {
+  ejPendientes[lang] ??= fetch(`data/banco/ej-${lang}.json`)
+    .then((r) => (r.ok ? r.json() : {}))
+    .catch(() => ({}))
+    .then((data) => { ejListos[lang] = data; return data; });
+  return ejPendientes[lang];
+}
+
 export async function prepararPar(meta, nativo) {
-  await Promise.all([cargarConceptos(), cargarIdioma(meta), cargarIdioma(nativo)]);
+  await Promise.all([cargarConceptos(), cargarIdioma(meta), cargarIdioma(nativo), cargarEjemplos(meta), cargarEjemplos(nativo)]);
+}
+
+/** { ejemplo, nota, borrador } o null. El ejemplo marca la palabra con *asteriscos*. */
+export function ejemplo(lang, id) {
+  const v = ejListos[lang]?.[id];
+  return v ? { ejemplo: v[0], nota: v[1] || '', borrador: !!v[2] } : null;
 }
 
 export const concepto = (id) => porId.get(id);

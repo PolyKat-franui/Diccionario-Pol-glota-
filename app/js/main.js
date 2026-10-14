@@ -8,6 +8,7 @@ import * as banco from './banco.js';
 import { hablar } from './voz.js';
 import { ICON } from './iconos.js';
 import { sonido, activarSonido } from './sonido.js';
+import { musica } from './musica.js';
 import { sembrarAdornos, sembrarVisitantes, estallido, lluvia } from './adornos.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
 import * as nube from './nube.js';
@@ -342,6 +343,8 @@ function marcarAvisoNovedades() {
 }
 fetch('data/novedades.json').then((r) => r.json()).then((d) => { ultimaVersion = d.novedades[0]?.version ?? null; marcarAvisoNovedades(); }).catch(() => {});
 // Clic suave en botones y enlaces (los sonidos especiales se suman encima)
+// La música (si está encendida) parte con el primer toque: los navegadores no dejan sonar antes.
+document.addEventListener('pointerdown', () => { if (S.ajustes.musica) musica(true); }, { once: true, passive: true });
 document.addEventListener('pointerdown', (e) => { if (e.target.closest('button, a, [role="radio"], input[type="checkbox"], select')) sonido.toque(); }, { passive: true });
 
 /** Navega; si ya estamos en esa dirección, vuelve a dibujar la vista. */
@@ -1173,6 +1176,29 @@ async function vistaEstudiar(r) {
   pintarFlor();
 }
 
+const EMOJI_MEGA = {
+  'Conversación y vida social': '💬', 'Lenguaje, números y tiempo': '🔢', 'Personas y relaciones': '👪',
+  'Cuerpo, salud y emociones': '💗', 'Comida y bebida': '🍙', 'Hogar y vida diaria': '🏠', 'Ropa y compras': '👘',
+  'Lugares y viajes': '🗺️', 'Naturaleza y animales': '🌿', 'Trabajo, estudios y sociedad': '💼',
+  'Ocio, arte y tecnología': '🎨', 'Descripción y formas': '🔷', 'Acciones y mente': '🧠',
+};
+
+/** *palabra* → <mark>palabra</mark> (el resto escapado). */
+const marcar = (s) => esc(s).replace(/\*([^*]+)\*/, '<mark>$1</mark>');
+
+/** Oración de ejemplo: aparece discreta al revelar; la nota de Kitty se abre solo si la persona curiosea. */
+function htmlEjemplo(id, meta, nativo) {
+  const a = banco.ejemplo(meta, id), b = banco.ejemplo(nativo, id);
+  if (!a) return '';
+  const nota = meta === 'en' ? b?.nota : '';
+  return `
+          <div class="ejemplo" aria-hidden="true">
+            <p class="ej-meta" lang="${meta}">${marcar(a.ejemplo)}<button class="ej-audio" type="button" aria-label="${t('ej_escuchar')}">${ICON.audio}</button></p>
+            ${b ? `<p class="ej-nativo" lang="${nativo}">${marcar(b.ejemplo)}</p>` : ''}
+            ${nota ? `<details class="ej-nota"><summary>💡 ${t('ej_ojo')}</summary><p>${marcar(nota)}</p></details>` : ''}
+          </div>`;
+}
+
 function htmlSlide(id, primera = false) {
   const { meta, nativo } = sesion;
   const c = banco.concepto(id);
@@ -1185,6 +1211,7 @@ function htmlSlide(id, primera = false) {
       <div class="tarjeta">
         <div class="tarjeta-top">
           ${insignia(niv)}
+          <span class="chip-tema"><span aria-hidden="true">${EMOJI_MEGA[c.megas[0]] ?? '🌸'}</span>${esc(tMega(c.megas[0]))}</span>
           <span class="tipo">${c.tipos.map((x) => esc(tTipo(x))).join(' · ')}</span>
         </div>
         <div class="tarjeta-centro">
@@ -1194,6 +1221,7 @@ function htmlSlide(id, primera = false) {
             <span class="traduccion" lang="${nativo}" aria-hidden="true">${esc(b.texto)}</span>
             <span class="revelar-hint">${t('toca_ver')}</span>
           </button>
+          ${htmlEjemplo(id, meta, nativo)}
           ${a.borrador || b.borrador ? `<span class="borrador">${t('borrador')}</span>` : ''}
         </div>
         <div class="riel">
@@ -1679,12 +1707,16 @@ function clickFeed(e) {
     const b = e.target.closest('.revelar');
     b.setAttribute('aria-expanded', 'true');
     $('.traduccion', b).removeAttribute('aria-hidden');
+    $('.ejemplo', slide)?.removeAttribute('aria-hidden');
     if (!slide.classList.contains('revelada')) sonido.voltear();
     slide.classList.add('revelada');
     tutorialAlRevelar?.();
   } else if (e.target.closest('.btn-sabe')) lanzarTarjeta(slide, true);
   else if (e.target.closest('.btn-repasar')) lanzarTarjeta(slide, false);
-  else if (e.target.closest('.btn-audio')) {
+  else if (e.target.closest('.ej-audio')) {
+    const ej = banco.ejemplo(sesion.meta, id);
+    if (ej && !hablar(ej.ejemplo.replace(/\*/g, ''), sesion.meta)) toast(t('sin_voz'));
+  } else if (e.target.closest('.btn-audio')) {
     if (!hablar(banco.texto(sesion.meta, id).texto, sesion.meta)) toast(t('sin_voz'));
   } else if (e.target.closest('.kitty-ayuda')) kittyAbrir();
   else if (e.target.closest('.btn-fav')) alternarFav(slide, id, e.target.closest('.btn-fav'));
@@ -1721,7 +1753,7 @@ function detectarDobleToque(e) {
 /** Doble toque en la tarjeta = favorito, con un corazón grande que salta donde tocaste (como Instagram). */
 function dobleToqueFeed(e) {
   const tarj = e.target.closest('.tarjeta');
-  if (!tarj || e.target.closest('button:not(.revelar), a, .riel, .tarjeta-acciones')) return;
+  if (!tarj || e.target.closest('button:not(.revelar), a, details, .riel, .tarjeta-acciones')) return;
   const slide = tarj.closest('.slide');
   if (!slide || slide.classList.contains('fin')) return;
   e.preventDefault();
@@ -2061,6 +2093,7 @@ function vistaAjustes() {
           <input type="range" id="aj-brillo" min="0.5" max="1" step="0.05" value="${a.brillo}"></label>
         <label class="interruptor"><input type="checkbox" id="aj-ipa" ${a.ipa ? 'checked' : ''}><span>${t('aj_ipa')}</span></label>
         <label class="interruptor"><input type="checkbox" id="aj-sonido" ${a.sonido ? 'checked' : ''}><span>${t('aj_sonido')}</span></label>
+        <label class="interruptor"><input type="checkbox" id="aj-musica" ${a.musica ? 'checked' : ''}><span>${t('aj_musica')}</span></label>
       </div>
 
       <div class="card">
@@ -2142,6 +2175,7 @@ function vistaAjustes() {
   });
   $('#aj-hora').addEventListener('change', (e) => { if (e.target.value) { a.horaRecordatorio = e.target.value; guardar(); } });
   $('#aj-calendario').addEventListener('click', descargarCalendario);
+  $('#aj-musica').addEventListener('change', (e) => { a.musica = e.target.checked; musica(a.musica); guardar(); });
   $('#aj-sonido').addEventListener('change', (e) => { a.sonido = e.target.checked; activarSonido(a.sonido); guardar(); if (a.sonido) sonido.moneda(); });
   $('#aj-nativo').addEventListener('change', (e) => cambiarNativo(e.target.value));
   $('#f-sug').addEventListener('submit', (e) => {
