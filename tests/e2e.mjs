@@ -291,6 +291,13 @@ try {
   await sinScrollHorizontal(page, 'ajustes con 5 paletas');
   paso('Paletas Tamarindo y Medianoche (claro y oscuro) en Ajustes');
 
+  await page.locator('label:has(#aj-musica)').click();
+  await page.waitForTimeout(600);
+  assert.ok(await page.evaluate(async () => (await import('./js/musica.js')).musicaActiva()), 'la música de fondo se enciende');
+  await page.locator('label:has(#aj-musica)').click();
+  assert.ok(!(await page.evaluate(async () => (await import('./js/musica.js')).musicaActiva())), 'y se apaga');
+  paso('Música de fondo lo-fi se enciende y apaga en Ajustes');
+
   assert.ok(await page.locator('.tabbar a[href="#/novedades"]').evaluate((a) => a.classList.contains('con-aviso')), 'aviso de novedad sin ver');
   await page.locator('.tabbar a[href="#/novedades"]').click();
   await page.locator('.nov-hero').waitFor();

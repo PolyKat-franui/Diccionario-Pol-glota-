@@ -8,6 +8,7 @@ import * as banco from './banco.js';
 import { hablar } from './voz.js';
 import { ICON } from './iconos.js';
 import { sonido, activarSonido } from './sonido.js';
+import { musica } from './musica.js';
 import { sembrarAdornos, sembrarVisitantes, estallido, lluvia } from './adornos.js';
 import { buscar, fraseConocida, normalizar } from './kitty.js';
 import * as nube from './nube.js';
@@ -342,6 +343,8 @@ function marcarAvisoNovedades() {
 }
 fetch('data/novedades.json').then((r) => r.json()).then((d) => { ultimaVersion = d.novedades[0]?.version ?? null; marcarAvisoNovedades(); }).catch(() => {});
 // Clic suave en botones y enlaces (los sonidos especiales se suman encima)
+// La música (si está encendida) parte con el primer toque: los navegadores no dejan sonar antes.
+document.addEventListener('pointerdown', () => { if (S.ajustes.musica) musica(true); }, { once: true, passive: true });
 document.addEventListener('pointerdown', (e) => { if (e.target.closest('button, a, [role="radio"], input[type="checkbox"], select')) sonido.toque(); }, { passive: true });
 
 /** Navega; si ya estamos en esa dirección, vuelve a dibujar la vista. */
@@ -2090,6 +2093,7 @@ function vistaAjustes() {
           <input type="range" id="aj-brillo" min="0.5" max="1" step="0.05" value="${a.brillo}"></label>
         <label class="interruptor"><input type="checkbox" id="aj-ipa" ${a.ipa ? 'checked' : ''}><span>${t('aj_ipa')}</span></label>
         <label class="interruptor"><input type="checkbox" id="aj-sonido" ${a.sonido ? 'checked' : ''}><span>${t('aj_sonido')}</span></label>
+        <label class="interruptor"><input type="checkbox" id="aj-musica" ${a.musica ? 'checked' : ''}><span>${t('aj_musica')}</span></label>
       </div>
 
       <div class="card">
@@ -2171,6 +2175,7 @@ function vistaAjustes() {
   });
   $('#aj-hora').addEventListener('change', (e) => { if (e.target.value) { a.horaRecordatorio = e.target.value; guardar(); } });
   $('#aj-calendario').addEventListener('click', descargarCalendario);
+  $('#aj-musica').addEventListener('change', (e) => { a.musica = e.target.checked; musica(a.musica); guardar(); });
   $('#aj-sonido').addEventListener('change', (e) => { a.sonido = e.target.checked; activarSonido(a.sonido); guardar(); if (a.sonido) sonido.moneda(); });
   $('#aj-nativo').addEventListener('change', (e) => cambiarNativo(e.target.value));
   $('#f-sug').addEventListener('submit', (e) => {
