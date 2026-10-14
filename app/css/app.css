@@ -247,6 +247,19 @@ body[data-ruta="estudiar"] { overflow: hidden; }
 .revelada .revelar { border-style: solid; border-color: transparent; background: color-mix(in srgb, var(--surface-2) 55%, transparent); cursor: default; }
 .revelada .traduccion { filter: none; user-select: text; }
 .revelada .revelar-hint { opacity: 0; pointer-events: none; }
+/* Tema de la tarjeta y oración de ejemplo (discreta: solo aparece al revelar) */
+.chip-tema { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-xs); color: var(--ink-soft); background: color-mix(in srgb, var(--surface-2) 70%, transparent); border-radius: var(--r-pill); padding: 3px 10px; max-width: 60%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ejemplo { display: none; gap: 4px; max-width: 380px; text-align: center; }
+.revelada .ejemplo { display: grid; animation: aparecer .5s var(--ease) .15s both; }
+.ej-meta { font-size: var(--fs-md); color: var(--ink); line-height: 1.35; display: inline; }
+.ej-nativo { font-size: var(--fs-sm); color: var(--ink-soft); font-style: italic; line-height: 1.35; }
+.ejemplo mark { background: none; color: var(--enfasis); font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.ej-audio { display: inline-grid; place-items: center; vertical-align: middle; min-width: var(--tap); min-height: var(--tap); margin: -10px -6px -10px 0; border: 0; background: none; color: var(--ink-soft); cursor: pointer; }
+.ej-audio svg { width: 18px; height: 18px; }
+.ej-nota { font-size: var(--fs-sm); color: var(--ink-soft); }
+.ej-nota summary { min-height: var(--tap); display: inline-flex; align-items: center; cursor: pointer; list-style: none; text-decoration: underline dotted; }
+.ej-nota summary::-webkit-details-marker { display: none; }
+.ej-nota p { margin-top: 2px; color: var(--ink); }
 .borrador { font-size: var(--fs-xs); color: var(--ink-soft); border: 1px solid color-mix(in srgb, var(--line) 70%, transparent); border-radius: var(--r-pill); padding: 2px 10px; }
 .borrador::before { content: '✎ '; }
 .riel { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: grid; gap: 12px; }

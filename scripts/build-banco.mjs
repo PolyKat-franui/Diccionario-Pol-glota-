@@ -1,9 +1,10 @@
 // Convierte el banco (TSV) en los JSON que usa la app.
 //   banco/conceptos.tsv              -> app/data/banco/conceptos.json
 //   banco/traducciones/<idioma>.tsv  -> app/data/banco/<idioma>.json
+//   banco/ejemplos/<idioma>.tsv      -> app/data/banco/ej-<idioma>.json
 // Valida: ids únicos, traducciones con concepto existente, estado válido.
 // Uso: node scripts/build-banco.mjs [--check]   (--check valida sin escribir)
-import { readdirSync, mkdirSync, writeFileSync } from 'node:fs';
+import { readdirSync, mkdirSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readTsv, splitMulti } from './tsv.mjs';
@@ -53,6 +54,29 @@ for (const file of readdirSync(join(BANCO, 'traducciones')).filter((f) => f.ends
   reporte.push(`${lang}: ${total}/${conceptos.length} traducidas, ${revisadas} revisadas, ${total - revisadas} borrador`);
 }
 
+// Ejemplos: banco/ejemplos/<idioma>.tsv (id, ejemplo, nota, estado, fuente)
+// -> app/data/banco/ej-<idioma>.json  { id: [ejemplo, nota, 1 si es borrador] }
+// La palabra de la tarjeta va marcada con *asteriscos* una sola vez.
+const ejemplos = {};
+const dirEj = join(BANCO, 'ejemplos');
+if (existsSync(dirEj)) {
+  for (const file of readdirSync(dirEj).filter((f) => f.endsWith('.tsv')).sort()) {
+    const lang = file.replace('.tsv', '');
+    const out = {};
+    for (const r of readTsv(join(dirEj, file))) {
+      const where = `ejemplos/${file}:${r._line}`;
+      if (!ids.has(r.id)) errors.push(`${where} id ${r.id} no existe en conceptos.tsv`);
+      if (out[r.id]) errors.push(`${where} id repetido ${r.id}`);
+      if (!ESTADOS.has(r.estado)) errors.push(`${where} estado "${r.estado}" (usa borrador o revisada)`);
+      if (!r.ejemplo) continue;
+      if ((r.ejemplo.match(/\*/g) || []).length !== 2) errors.push(`${where} el ejemplo debe marcar la palabra con *…* una vez`);
+      out[r.id] = r.estado === 'revisada' ? [r.ejemplo, r.nota || ''] : [r.ejemplo, r.nota || '', 1];
+    }
+    ejemplos[lang] = out;
+    reporte.push(`${lang}: ${Object.keys(out).length} ejemplos`);
+  }
+}
+
 if (errors.length) {
   console.error(`✗ ${errors.length} error(es) en el banco:\n  ` + errors.slice(0, 50).join('\n  '));
   process.exit(1);
@@ -63,5 +87,6 @@ if (!checkOnly) {
   mkdirSync(OUT, { recursive: true });
   writeFileSync(join(OUT, 'conceptos.json'), JSON.stringify(conceptosJson));
   for (const [lang, data] of Object.entries(idiomas)) writeFileSync(join(OUT, `${lang}.json`), JSON.stringify(data));
+  for (const [lang, data] of Object.entries(ejemplos)) writeFileSync(join(OUT, `ej-${lang}.json`), JSON.stringify(data));
   console.log(`  → escrito en app/data/banco/`);
 }
